@@ -96,6 +96,8 @@ import {
   type HistoryEntry,
 } from "@/lib/history";
 import { applyMealTheme, MEAL_THEMES } from "@/lib/mealTheme";
+import { CompanionPanel } from "@/components/CompanionPanel";
+import type { CompanionContext } from "@/lib/companionRecommend";
 
 // === 小工具组件 ===
 function Chip({
@@ -524,6 +526,20 @@ export default function Home() {
     calorieScenario && !recommendCtx.targetMealCalories;
 
   const meal = MEAL_THEMES[currentSlot];
+
+  const companionCtx: CompanionContext = useMemo(
+    () => ({
+      scenarioId,
+      servings: prefs.servings,
+      slot: currentSlot,
+      sex: profile?.body?.sex,
+      age: profile?.body?.age,
+      hasKids: scenarioId === "kid-friendly",
+      elderHeavy: scenarioId === "elder-light",
+      maxTimeMinutes: prefs.maxTimeMinutes,
+    }),
+    [scenarioId, prefs.servings, currentSlot, profile?.body?.sex, profile?.body?.age, prefs.maxTimeMinutes],
+  );
 
   return (
     <div className="min-h-screen pb-24">
@@ -1223,6 +1239,9 @@ export default function Home() {
             )}
           </section>
         )}
+
+        {/* 饭桌陪伴 */}
+        <CompanionPanel ctx={companionCtx} />
 
         {/* 历史 / 收藏 */}
         {(history.length > 0 || favorites.size > 0) && (
