@@ -2,7 +2,9 @@
 // 评分构成：
 //   随机扰动 + 偏好命中（口味/菜系/难度） + 用户档案口味（liked/disliked）
 //   + 环境上下文（天气/季节/地区/餐次/能量标签）
-//   + 餐次目标热量匹配（与人均热量越近分越高）
+//   + 餐次目标热量匹配（与人均热量越近分越高，按 caloriePriority 加权）
+//   + 场景调权（preferTastes / energyHints / 难度提示）
+//   + 收藏加分（favorites）/ 历史降权（recentIds）
 // 硬性约束：忌口（素食 / 无肉 / 无辣 等）始终遵守。
 
 import type {
@@ -23,6 +25,7 @@ import { RECIPES } from "@/data/recipes";
 import { perPersonCaloriesOf } from "./calories";
 import type { FlavorPreference } from "./profile";
 import type { ResolvedEnv } from "./environment";
+import type { ScenarioPreset } from "./scenarios";
 
 export interface Preferences {
   servings: number; // 1..8
@@ -60,6 +63,14 @@ export interface RecommendContext {
   targetMealCalories?: number;
   /** 当前餐次（早/午/晚） */
   slot?: MealSlotTag;
+  /** 当前场景预设（影响调权） */
+  scenario?: ScenarioPreset;
+  /** 收藏菜品 id 集合，加分 */
+  favorites?: Set<string>;
+  /** 近期已吃过的菜品 id 集合，降权（开启「不吃重复」时） */
+  recentIds?: Set<string>;
+  /** 是否启用「不吃重复」软规则 */
+  noRepeat?: boolean;
 }
 
 // === 硬性约束（无论如何都必须满足）===
@@ -159,7 +170,6 @@ export function scoreRecipe(
     if (ctx.env.region !== "未指定" && recipe.regions && recipe.regions.includes(ctx.env.region as RegionTag)) {
       s += 0.4;
     }
-    // 周末偏复杂菜，工作日偏快手
     if (ctx.env.dayKind === "weekend" && recipe.difficulty === "进阶") s += 0.25;
     if (ctx.env.dayKind === "weekday" && recipe.energy?.includes("快手")) s += 0.3;
   }
@@ -169,17 +179,47 @@ export function scoreRecipe(
     if (recipe.slots.includes(ctx.slot)) s += 0.3;
   }
 
-  // 5) 餐次目标热量匹配（人均）
+  // 5) 餐次目标热量匹配（人均）— 按场景的 caloriePriority 加权
   if (ctx.targetMealCalories && ctx.targetMealCalories > 0) {
     const perPerson = perPersonCaloriesOf(recipe);
     if (perPerson > 0) {
-      // 主菜约占 50%、汤 15%、素 15%，这里用 0.45 作为单菜目标比例软参照
-      const target = ctx.targetMealCalories * 0.5;
+      // 餐次构成软参照：主菜 ~50%，汤 ~15%，素 ~15%
+      const courseShare =
+        recipe.course === "main" ? 0.5
+        : recipe.course === "soup" ? 0.18
+        : recipe.course === "veggie" ? 0.18
+        : 0.3;
+      const target = ctx.targetMealCalories * courseShare;
       const diff = Math.abs(perPerson - target) / Math.max(target, 1);
-      // 越接近加分越多，最多 +0.8
-      s += Math.max(0, 0.8 - diff * 0.8);
+      const priority = ctx.scenario?.caloriePriority ?? 1;
+      // 越接近加分越多，最大 +1.6 * priority
+      s += Math.max(0, 1.6 - diff * 1.6) * priority;
     }
   }
+
+  // 6) 场景调权
+  if (ctx.scenario) {
+    if (ctx.scenario.preferTastes.length > 0) {
+      const overlap = recipe.tastes.filter((t) => ctx.scenario!.preferTastes.includes(t)).length;
+      s += overlap * 0.5;
+    }
+    if (ctx.scenario.energyHints.length > 0 && recipe.energy?.length) {
+      const overlap = recipe.energy.filter((e) =>
+        ctx.scenario!.energyHints.includes(e as any),
+      ).length;
+      s += overlap * 0.6;
+    }
+    if (
+      ctx.scenario.defaultDifficulties.length > 0 &&
+      ctx.scenario.defaultDifficulties.includes(recipe.difficulty)
+    ) {
+      s += 0.25;
+    }
+  }
+
+  // 7) 收藏加分 / 历史降权
+  if (ctx.favorites && ctx.favorites.has(recipe.id)) s += 1.2;
+  if (ctx.noRepeat && ctx.recentIds && ctx.recentIds.has(recipe.id)) s -= 1.5;
 
   return s;
 }
@@ -315,6 +355,43 @@ export function countByCourseUnderHardOnly(prefs: Preferences): Record<Course, n
     counts[r.course] += 1;
   }
   return counts;
+}
+
+// === 餐次热量汇总：把当前 plan 的人均总热量与目标对比 ===
+export interface CalorieSummary {
+  /** 当前 plan 全部菜的人均热量之和 */
+  perPersonTotal: number;
+  /** 目标餐次热量 */
+  targetMealCalories: number;
+  /** 差距（plan - target） */
+  gap: number;
+  /** 偏差比例 */
+  ratio: number;
+  /** 偏轻 / 刚好 / 偏高 */
+  verdict: "low" | "ok" | "high";
+}
+
+export function calorieSummary(
+  plan: MealPlan,
+  targetMealCalories: number,
+): CalorieSummary | null {
+  if (!targetMealCalories || targetMealCalories <= 0) return null;
+  const recipes = planToList(plan);
+  if (recipes.length === 0) return null;
+  let perPersonTotal = 0;
+  for (const r of recipes) perPersonTotal += perPersonCaloriesOf(r);
+  const gap = perPersonTotal - targetMealCalories;
+  const ratio = gap / Math.max(targetMealCalories, 1);
+  let verdict: "low" | "ok" | "high" = "ok";
+  if (ratio <= -0.18) verdict = "low";
+  else if (ratio >= 0.18) verdict = "high";
+  return {
+    perPersonTotal: Math.round(perPersonTotal),
+    targetMealCalories: Math.round(targetMealCalories),
+    gap: Math.round(gap),
+    ratio,
+    verdict,
+  };
 }
 
 // === 买菜清单聚合 ===

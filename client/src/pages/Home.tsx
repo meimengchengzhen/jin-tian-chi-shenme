@@ -22,9 +22,15 @@ import {
   UserCircle2,
   Cloud,
   CalendarDays,
+  Heart,
+  History as HistoryIcon,
+  CheckCircle2,
+  Repeat,
 } from "lucide-react";
 import { DishDetail } from "@/components/DishDetail";
 import { ProfileDialog } from "@/components/ProfileDialog";
+import { Onboarding } from "@/components/Onboarding";
+import { DishImage } from "@/components/DishImage";
 import { dishVisual } from "@/lib/dishVisual";
 import { Wordmark, Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
@@ -50,6 +56,7 @@ import {
   shoppingListToText,
   planToList,
   countByCourseUnderHardOnly,
+  calorieSummary,
   type MealPlan,
   type Preferences,
   type RecommendContext,
@@ -64,11 +71,31 @@ import {
 } from "@/lib/profile";
 import {
   loadEnv,
-  saveEnv,
+  saveEnv as persistEnv,
   resolveEnv,
   type EnvContext,
-  DEFAULT_ENV,
 } from "@/lib/environment";
+import {
+  SCENARIOS,
+  applyScenarioToPrefs,
+  loadScenario,
+  saveScenario,
+  hasOnboarded,
+  markOnboarded,
+  getScenario,
+  type ScenarioId,
+} from "@/lib/scenarios";
+import {
+  loadFavorites,
+  loadHistory,
+  loadNoRepeat,
+  recentRecipeIds,
+  saveHistoryEntry,
+  saveNoRepeat,
+  toggleFavorite,
+  type HistoryEntry,
+} from "@/lib/history";
+import { applyMealTheme, MEAL_THEMES } from "@/lib/mealTheme";
 
 // === 小工具组件 ===
 function Chip({
@@ -150,16 +177,20 @@ function DifficultyDots({ d }: { d: "简单" | "中等" | "进阶" }) {
 function DishCard({
   recipe,
   locked,
+  favorite,
   onToggleLock,
   onSwap,
   onOpenDetail,
+  onToggleFavorite,
   targetMealCal,
 }: {
   recipe: Recipe;
   locked: boolean;
+  favorite: boolean;
   onToggleLock: () => void;
   onSwap: () => void;
   onOpenDetail: () => void;
+  onToggleFavorite: () => void;
   /** 当前餐次目标人均热量，启用饮食计划时显示对比 */
   targetMealCal?: number;
 }) {
@@ -174,20 +205,9 @@ function DishCard({
             onClick={onOpenDetail}
             data-testid={`thumb-recipe-${recipe.id}`}
             aria-label={`查看 ${recipe.name} 详情`}
-            className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl text-3xl shadow-sm transition-transform hover:scale-[1.04] active:scale-[0.98]"
-            style={{
-              background: `linear-gradient(135deg, ${visual.gradient[0]}, ${visual.gradient[1]})`,
-            }}
+            className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl shadow-sm transition-transform hover:scale-[1.04] active:scale-[0.98]"
           >
-            <span aria-hidden className="drop-shadow-sm">{visual.emoji}</span>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-xl"
-              style={{
-                background:
-                  "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.45), transparent 55%)",
-              }}
-            />
+            <DishImage visual={visual} alt={`${recipe.name} 示意图`} className="h-full w-full" />
           </button>
           <div>
             <div className="flex items-center gap-2">
@@ -211,6 +231,19 @@ function DishCard({
           </div>
         </div>
         <div className="flex items-center gap-1">
+          <Button
+            type="button"
+            size="icon"
+            variant="ghost"
+            onClick={onToggleFavorite}
+            data-testid={`button-fav-${recipe.id}`}
+            aria-label={favorite ? "取消收藏" : "收藏这道菜"}
+            className="h-8 w-8"
+          >
+            <Heart
+              className={`h-4 w-4 ${favorite ? "fill-rose-500 text-rose-500" : ""}`}
+            />
+          </Button>
           <Button
             type="button"
             size="icon"
@@ -281,7 +314,7 @@ function DishCard({
       >
         <span className="inline-flex items-center gap-1.5">
           <Info className="h-3.5 w-3.5" />
-          查看详情 · 食材热量 / 价格 / 视频
+          查看详情 · 食材 / 视频 / 抖音 / 百度
         </span>
         <ChevronRight className="h-4 w-4" />
       </Button>
@@ -304,17 +337,50 @@ export default function Home() {
   const [env, setEnv] = useState<EnvContext>(() => loadEnv());
   const [profileOpen, setProfileOpen] = useState(false);
 
+  // 场景 / 引导
+  const [scenarioId, setScenarioId] = useState<ScenarioId>(() => loadScenario());
+  const [onboardingOpen, setOnboardingOpen] = useState<boolean>(() => !hasOnboarded());
+
+  // 收藏 / 历史 / 不吃重复
+  const [favorites, setFavorites] = useState<Set<string>>(() => loadFavorites());
+  const [history, setHistory] = useState<HistoryEntry[]>(() => loadHistory());
+  const [noRepeat, setNoRepeat] = useState<boolean>(() => loadNoRepeat());
+
+  // 应用场景预设到 prefs（Onboarding 选完 / 用户切 Tab 时）
+  function applyScenario(id: ScenarioId, opts?: { silent?: boolean }) {
+    setScenarioId(id);
+    saveScenario(id);
+    setPrefs((p) => applyScenarioToPrefs(p, id));
+    if (!opts?.silent) {
+      toast({
+        title: `已切换到「${getScenario(id).label}」`,
+        description: "默认人数 / 餐次 / 难度已按场景调整。",
+      });
+    }
+  }
+
+  // 餐次主题：跟随 profile.slot
+  const currentSlot: MealSlot = profile?.slot ?? getScenario(scenarioId).defaultSlot;
+  useEffect(() => {
+    applyMealTheme(currentSlot);
+  }, [currentSlot]);
+
   // 用户档案的忌口自动并入 prefs.restrictions（不影响 prefs 的其它字段）
   useEffect(() => {
     if (profile?.flavor.restrictions && profile.flavor.restrictions.length > 0) {
       setPrefs((p) => {
         const merged = Array.from(new Set([...p.restrictions, ...profile.flavor.restrictions]));
-        // 仅在差异时更新，避免循环
         if (merged.length === p.restrictions.length) return p;
         return { ...p, restrictions: merged };
       });
     }
   }, [profile]);
+
+  // 进入页面应用一次场景预设（首次 / 旧用户）
+  useEffect(() => {
+    setPrefs((p) => applyScenarioToPrefs(p, scenarioId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function refreshProfile() {
     setProfile(getActiveProfile());
@@ -322,25 +388,30 @@ export default function Home() {
 
   function applyEnv(next: EnvContext) {
     setEnv(next);
-    saveEnv(next);
+    persistEnv(next);
   }
 
-  // 推荐上下文：把 profile + env + 餐次目标热量打包
+  // 推荐上下文
   const recommendCtx: RecommendContext = useMemo(() => {
     const ctx: RecommendContext = {};
     if (profile) {
       ctx.flavor = profile.flavor;
       ctx.slot = profile.slot;
       if (profile.planEnabled && profile.body) {
-        const plan = computePlan(profile.body, profile.slot);
-        ctx.targetMealCalories = plan.mealCalories;
+        const planResult = computePlan(profile.body, profile.slot);
+        ctx.targetMealCalories = planResult.mealCalories;
       }
     }
     ctx.env = resolveEnv(env);
+    ctx.scenario = getScenario(scenarioId);
+    if (!ctx.slot) ctx.slot = ctx.scenario.defaultSlot;
+    ctx.favorites = favorites;
+    ctx.recentIds = recentRecipeIds(7);
+    ctx.noRepeat = noRepeat;
     return ctx;
-  }, [profile, env]);
+  }, [profile, env, scenarioId, favorites, history, noRepeat]);
 
-  // 当前锁定菜品（从 plan 中筛出）
+  // 当前锁定菜品
   const lockedRecipes = useMemo(() => {
     if (!plan) return [];
     return planToList(plan).filter((r) => lockedIds.has(r.id));
@@ -379,6 +450,39 @@ export default function Home() {
     setLockedIds(ns);
   }
 
+  function onToggleFavorite(id: string) {
+    toggleFavorite(id);
+    setFavorites(loadFavorites());
+  }
+
+  function refreshFavorites() {
+    setFavorites(loadFavorites());
+  }
+
+  function onSelectThis() {
+    if (!plan) return;
+    const list = planToList(plan);
+    if (list.length === 0) return;
+    const entry: HistoryEntry = {
+      ts: Date.now(),
+      recipeIds: list.map((r) => r.id),
+      names: list.map((r) => r.name),
+      slot: SLOT_LABELS[currentSlot],
+      scenario: getScenario(scenarioId).label,
+    };
+    saveHistoryEntry(entry);
+    setHistory(loadHistory());
+    toast({
+      title: "已记下今天就吃这些 ✓",
+      description: list.map((r) => r.name).join(" · "),
+    });
+  }
+
+  function onToggleNoRepeat(v: boolean) {
+    setNoRepeat(v);
+    saveNoRepeat(v);
+  }
+
   async function copyShoppingList() {
     if (!plan) return;
     try {
@@ -410,6 +514,12 @@ export default function Home() {
       shoppingList["调味/主食"].length
     : 0;
 
+  const calSummary = plan && recommendCtx.targetMealCalories
+    ? calorieSummary(plan, recommendCtx.targetMealCalories)
+    : null;
+
+  const meal = MEAL_THEMES[currentSlot];
+
   return (
     <div className="min-h-screen pb-24">
       {/* Header */}
@@ -417,6 +527,13 @@ export default function Home() {
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
           <Wordmark />
           <div className="flex items-center gap-2">
+            <span
+              className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-[11px] text-muted-foreground sm:inline-flex"
+              data-testid="badge-meal-theme"
+              title={meal.description}
+            >
+              {meal.emoji} {meal.label}
+            </span>
             <button
               type="button"
               onClick={() => setProfileOpen(true)}
@@ -443,10 +560,10 @@ export default function Home() {
         {/* Hero */}
         <section className="pt-8 sm:pt-12">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary/80">
-            <span className="h-px w-8 bg-primary/40" /> 家常菜随机器 · MVP
+            <span className="h-px w-8 bg-primary/40" /> {meal.label} · {meal.toneHint}
           </div>
           <h1 className="mt-4 font-display text-[2.1rem] leading-[1.08] tracking-tight sm:text-[2.6rem]">
-            晚饭就吃这些。
+            {meal.label}就吃这些。
             <br />
             <span className="text-primary">不用再想了。</span>
           </h1>
@@ -457,8 +574,37 @@ export default function Home() {
           </p>
         </section>
 
+        {/* 场景 Tabs */}
+        <section className="mt-7">
+          <div className="mb-2 flex items-baseline justify-between">
+            <h2 className="font-display text-[1.05rem] tracking-tight">今天的场景</h2>
+            <span className="text-[11px] text-muted-foreground">点一下切换默认设置</span>
+          </div>
+          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+            {SCENARIOS.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => applyScenario(s.id)}
+                data-testid={`scenario-tab-${s.id}`}
+                className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] transition-colors hover-elevate active-elevate-2 ${
+                  scenarioId === s.id
+                    ? "border-primary/50 bg-primary text-primary-foreground"
+                    : "border-border bg-card/60 text-foreground/80"
+                }`}
+              >
+                <span aria-hidden>{s.emoji}</span>
+                <span>{s.label}</span>
+              </button>
+            ))}
+          </div>
+          <p className="mt-1.5 text-[11.5px] text-muted-foreground" data-testid="text-scenario-desc">
+            {getScenario(scenarioId).description}
+          </p>
+        </section>
+
         {/* 上下文条：登录 / 环境 / 饮食计划 */}
-        <section className="mt-6">
+        <section className="mt-5">
           <Card className="grain border-card-border/60 bg-card/70 px-4 py-3 sm:px-5">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px]">
               <button
@@ -477,9 +623,12 @@ export default function Home() {
                 className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-foreground/80 hover-elevate active-elevate-2"
               >
                 <Cloud className="h-3.5 w-3.5" />
-                {env.region === "未指定" ? "地区未设" : env.region}
+                {env.city || env.province || (env.region === "未指定" ? "地区未设" : env.region)}
                 <span className="text-muted-foreground">·</span>
                 {env.weather === "未指定" ? "天气未设" : env.weather}
+                {env.temperatureC !== undefined && (
+                  <span className="num text-muted-foreground">{env.temperatureC}°C</span>
+                )}
                 <span className="text-muted-foreground">·</span>
                 <CalendarDays className="h-3 w-3" />
                 {recommendCtx.env?.season} / {recommendCtx.env?.dayKind === "weekend" ? "周末" : "工作日"}
@@ -497,12 +646,21 @@ export default function Home() {
                   kcal
                 </span>
               )}
+              <label className="ml-auto inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 hover-elevate">
+                <Repeat className="h-3.5 w-3.5 text-primary" />
+                <span>不吃重复的</span>
+                <Switch
+                  checked={noRepeat}
+                  onCheckedChange={onToggleNoRepeat}
+                  data-testid="switch-no-repeat"
+                />
+              </label>
             </div>
           </Card>
         </section>
 
         {/* 偏好表单 */}
-        <section className="mt-8">
+        <section className="mt-7">
           <Card className="grain border-card-border/60 bg-card/70 p-5 sm:p-6">
             {/* 人数 */}
             <div className="mb-5">
@@ -548,7 +706,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 配置主菜 + 汤 + 素菜：窄屏可自由换行，避免「配素菜 / 配汤」被挤出视区 */}
             <div className="mb-5 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-lg border border-border/60 bg-background/50 p-3">
               <div className="flex items-center gap-3">
                 <Label className="text-sm font-medium">主菜数量</Label>
@@ -666,7 +823,7 @@ export default function Home() {
               <span className={`inline-flex ${shaking ? "animate-wiggle" : ""}`}>
                 <Sparkles className="h-5 w-5" />
               </span>
-              {plan ? "换一组试试" : "今天吃什么 →"}
+              {plan ? "换一组试试" : `${meal.label}吃什么 →`}
             </Button>
             {plan && (
               <Button
@@ -694,7 +851,7 @@ export default function Home() {
         {plan && (
           <section className="mt-10">
             <div className="mb-4 flex items-baseline justify-between">
-              <h2 className="font-display text-[1.4rem] tracking-tight">今晚就吃这些</h2>
+              <h2 className="font-display text-[1.4rem] tracking-tight">{meal.label}就吃这些</h2>
               <span className="text-xs text-muted-foreground">
                 共 {planToList(plan).length} 道 · {prefs.servings} 人份
               </span>
@@ -755,15 +912,63 @@ export default function Home() {
               </div>
             )}
 
+            {/* 餐次热量汇总 */}
+            {calSummary && (
+              <Card
+                className={`mb-3 border-primary/40 bg-primary/5 p-3 text-[13px] ${
+                  calSummary.verdict === "ok"
+                    ? ""
+                    : calSummary.verdict === "low"
+                      ? "border-amber-500/40 bg-amber-500/5"
+                      : "border-amber-500/40 bg-amber-500/5"
+                }`}
+                data-testid="panel-calorie-summary"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <span className="font-display text-[15px] text-primary">
+                    <Flame className="mr-1 inline h-4 w-4" /> 餐次热量评估
+                  </span>
+                  <span className="num">
+                    人均合计 <span className="font-medium text-primary">{calSummary.perPersonTotal}</span> kcal
+                  </span>
+                  <span className="num text-muted-foreground">
+                    目标 {calSummary.targetMealCalories} kcal
+                  </span>
+                  <span className="num text-muted-foreground">
+                    差距 {calSummary.gap > 0 ? "+" : ""}{calSummary.gap} kcal
+                  </span>
+                  <Badge
+                    variant="outline"
+                    className={`ml-auto rounded-full px-2 py-0 text-[11.5px] ${
+                      calSummary.verdict === "ok"
+                        ? "border-primary/50 text-primary"
+                        : "border-amber-500/60 text-amber-700"
+                    }`}
+                  >
+                    {calSummary.verdict === "ok"
+                      ? "刚好"
+                      : calSummary.verdict === "low"
+                        ? "偏轻"
+                        : "偏高"}
+                  </Badge>
+                </div>
+                <p className="mt-1 text-[11.5px] text-muted-foreground">
+                  按你设定的身体数据推算。忌口仍然严格遵守，热量只是在符合忌口的菜里做软匹配。
+                </p>
+              </Card>
+            )}
+
             <div className="grid gap-3">
               {plan.mains.map((r) => (
                 <DishCard
                   key={r.id}
                   recipe={r}
                   locked={lockedIds.has(r.id)}
+                  favorite={favorites.has(r.id)}
                   onToggleLock={() => toggleLock(r.id)}
                   onSwap={() => swapOne(r)}
                   onOpenDetail={() => setDetailRecipe(r)}
+                  onToggleFavorite={() => onToggleFavorite(r.id)}
                   targetMealCal={recommendCtx.targetMealCalories}
                 />
               ))}
@@ -771,9 +976,11 @@ export default function Home() {
                 <DishCard
                   recipe={plan.veggie}
                   locked={lockedIds.has(plan.veggie.id)}
+                  favorite={favorites.has(plan.veggie.id)}
                   onToggleLock={() => toggleLock(plan.veggie!.id)}
                   onSwap={() => swapOne(plan.veggie!)}
                   onOpenDetail={() => setDetailRecipe(plan.veggie!)}
+                  onToggleFavorite={() => onToggleFavorite(plan.veggie!.id)}
                   targetMealCal={recommendCtx.targetMealCalories}
                 />
               )}
@@ -781,13 +988,29 @@ export default function Home() {
                 <DishCard
                   recipe={plan.soup}
                   locked={lockedIds.has(plan.soup.id)}
+                  favorite={favorites.has(plan.soup.id)}
                   onToggleLock={() => toggleLock(plan.soup!.id)}
                   onSwap={() => swapOne(plan.soup!)}
                   onOpenDetail={() => setDetailRecipe(plan.soup!)}
+                  onToggleFavorite={() => onToggleFavorite(plan.soup!.id)}
                   targetMealCal={recommendCtx.targetMealCalories}
                 />
               )}
             </div>
+
+            {/* 「就吃这个了」按钮 */}
+            {planToList(plan).length > 0 && (
+              <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
+                <Button
+                  variant="default"
+                  className="h-12 flex-1 gap-2 rounded-full"
+                  onClick={onSelectThis}
+                  data-testid="button-pick-this"
+                >
+                  <CheckCircle2 className="h-4 w-4" /> 就吃这个了 · 记到本地历史
+                </Button>
+              </div>
+            )}
 
             {/* 买菜清单 */}
             {shoppingList && planToList(plan).length > 0 && (
@@ -873,6 +1096,74 @@ export default function Home() {
           </section>
         )}
 
+        {/* 历史 / 收藏 */}
+        {(history.length > 0 || favorites.size > 0) && (
+          <section className="mt-10 grid gap-3 sm:grid-cols-2">
+            {history.length > 0 && (
+              <Card className="border-card-border/60 bg-card/60 p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <HistoryIcon className="h-4 w-4 text-primary" />
+                  <h3 className="font-display text-[1.05rem] tracking-tight">最近就吃了</h3>
+                  <span className="ml-auto text-[11px] text-muted-foreground num">
+                    {history.length} 条
+                  </span>
+                </div>
+                <ul className="space-y-2" data-testid="list-history">
+                  {history.slice(0, 5).map((e) => (
+                    <li
+                      key={e.ts}
+                      className="rounded-lg border border-border/60 bg-background/40 px-3 py-2 text-[12.5px]"
+                      data-testid={`history-${e.ts}`}
+                    >
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="text-muted-foreground num">
+                          {new Date(e.ts).toLocaleDateString("zh-CN")} ·{" "}
+                          {e.scenario ?? ""} {e.slot ?? ""}
+                        </span>
+                      </div>
+                      <div className="mt-0.5 truncate">{e.names.join(" · ")}</div>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-2 text-[11px] text-muted-foreground">
+                  打开「不吃重复的」开关，未来推荐会避开这些菜。
+                </p>
+              </Card>
+            )}
+            {favorites.size > 0 && (
+              <Card className="border-card-border/60 bg-card/60 p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <Heart className="h-4 w-4 fill-rose-500 text-rose-500" />
+                  <h3 className="font-display text-[1.05rem] tracking-tight">我收藏的菜</h3>
+                  <span className="ml-auto text-[11px] text-muted-foreground num">
+                    {favorites.size} 道
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5" data-testid="list-favorites">
+                  {Array.from(favorites)
+                    .map((id) => RECIPES.find((r) => r.id === id))
+                    .filter((r): r is Recipe => !!r)
+                    .slice(0, 12)
+                    .map((r) => (
+                      <button
+                        key={r.id}
+                        type="button"
+                        onClick={() => setDetailRecipe(r)}
+                        className="rounded-full border border-rose-300/60 bg-rose-50/80 px-2.5 py-1 text-[12px] hover-elevate"
+                        data-testid={`fav-chip-${r.id}`}
+                      >
+                        {r.name}
+                      </button>
+                    ))}
+                </div>
+                <p className="mt-2 text-[11px] text-muted-foreground">
+                  收藏过的菜在未来推荐中会有更高几率出现。
+                </p>
+              </Card>
+            )}
+          </section>
+        )}
+
         {/* GitHub / 开源 路线 */}
         <section className="mt-16 border-t border-border/60 pt-10">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -939,6 +1230,7 @@ export default function Home() {
         recipe={detailRecipe}
         servings={prefs.servings}
         onClose={() => setDetailRecipe(null)}
+        onFavoriteChange={refreshFavorites}
       />
 
       <ProfileDialog
@@ -947,6 +1239,19 @@ export default function Home() {
         onChange={refreshProfile}
         env={env}
         onEnvChange={applyEnv}
+      />
+
+      <Onboarding
+        open={onboardingOpen}
+        onPick={(id) => {
+          applyScenario(id, { silent: true });
+          markOnboarded();
+          setOnboardingOpen(false);
+        }}
+        onSkip={() => {
+          markOnboarded();
+          setOnboardingOpen(false);
+        }}
       />
     </div>
   );
@@ -976,7 +1281,6 @@ function buildEmptyHint(prefs: Preferences): string {
       )}」类菜都筛掉了，建议减少忌口或关闭对应开关。`,
     );
   } else {
-    // 软性条件已经全部放宽，仍然 0 道，说明忌口组合本身就极严格
     reasons.push(
       `你的忌口组合在 ${RECIPES.length} 道示例菜里没有完全匹配的菜。可以尝试关闭「配素菜 / 配汤」或减少忌口标签。`,
     );

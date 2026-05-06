@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,15 +19,23 @@ import {
   Users,
   Coins,
   Sparkles,
+  Heart,
+  Search,
+  Video,
+  ExternalLink,
 } from "lucide-react";
 import type { Recipe } from "@/data/recipes";
 import { estimateIngredient } from "@/data/ingredients";
-import { dishVisual, videoSearchUrl } from "@/lib/dishVisual";
+import { dishVisual, buildSearchEntries } from "@/lib/dishVisual";
+import { DishImage } from "@/components/DishImage";
+import { isFavorite, toggleFavorite } from "@/lib/history";
 
 interface DishDetailProps {
   recipe: Recipe | null;
   servings: number;
   onClose: () => void;
+  /** 收藏状态变化时回调，让上层重算推荐权重 */
+  onFavoriteChange?: () => void;
 }
 
 function DifficultyDots({ d }: { d: "简单" | "中等" | "进阶" }) {
@@ -46,11 +54,22 @@ function DifficultyDots({ d }: { d: "简单" | "中等" | "进阶" }) {
   );
 }
 
-export function DishDetail({ recipe, servings, onClose }: DishDetailProps) {
+const SEARCH_ICON: Record<string, typeof Video> = {
+  bilibili: Video,
+  douyin: PlayCircle,
+  baidu: Search,
+};
+
+export function DishDetail({ recipe, servings, onClose, onFavoriteChange }: DishDetailProps) {
   const visual = useMemo(
     () => (recipe ? dishVisual(recipe.name, recipe.course, recipe.cuisine) : null),
     [recipe],
   );
+
+  const [fav, setFav] = useState(false);
+  useEffect(() => {
+    if (recipe) setFav(isFavorite(recipe.id));
+  }, [recipe]);
 
   const estimates = useMemo(() => {
     if (!recipe) return [];
@@ -81,7 +100,14 @@ export function DishDetail({ recipe, servings, onClose }: DishDetailProps) {
 
   const perPersonCalories = Math.round(totals.calories / Math.max(servings, 1));
   const perPersonPrice = Math.round((totals.price / Math.max(servings, 1)) * 10) / 10;
-  const videoUrl = videoSearchUrl(recipe.name, recipe.videoQuery);
+  const searchEntries = buildSearchEntries(recipe.name, recipe.videoQuery);
+
+  function onToggleFav() {
+    if (!recipe) return;
+    const next = toggleFavorite(recipe.id);
+    setFav(next);
+    onFavoriteChange?.();
+  }
 
   return (
     <Dialog open={!!recipe} onOpenChange={(o) => { if (!o) onClose(); }}>
@@ -89,80 +115,97 @@ export function DishDetail({ recipe, servings, onClose }: DishDetailProps) {
         className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-2xl"
         data-testid="dialog-detail"
       >
-        {/* 视觉头部 */}
-        <div
-          className="relative overflow-hidden rounded-t-md px-6 pb-5 pt-6 sm:px-7 sm:pt-7"
-          style={{
-            background: `linear-gradient(135deg, ${visual.gradient[0]}, ${visual.gradient[1]})`,
-          }}
-        >
-          {/* 装饰圆 */}
+        {/* 视觉头部：真实图片 + 渐变叠层 */}
+        <div className="relative overflow-hidden rounded-t-md">
+          <DishImage
+            visual={visual}
+            alt={`${recipe.name} 示意图`}
+            className="h-44 w-full sm:h-52"
+            large
+          />
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full opacity-30"
-            style={{ background: "radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%)" }}
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%)",
+            }}
           />
-          <div className="relative flex items-start gap-4">
-            <div
-              className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-white/30 text-5xl shadow-inner backdrop-blur-sm sm:h-24 sm:w-24 sm:text-6xl"
-              aria-hidden
+          {/* 收藏 / 示意图标识 */}
+          <div className="absolute right-3 top-3 flex items-center gap-2">
+            <span
+              className="rounded-full bg-black/35 px-2 py-0.5 text-[10.5px] text-white backdrop-blur-sm"
+              data-testid="badge-illustrative"
             >
-              {visual.emoji}
+              示意图
+            </span>
+            <button
+              type="button"
+              onClick={onToggleFav}
+              data-testid={`button-fav-detail-${recipe.id}`}
+              aria-label={fav ? "取消收藏" : "收藏这道菜"}
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors ${
+                fav
+                  ? "bg-rose-500/90 text-white"
+                  : "bg-white/30 text-white hover:bg-white/45"
+              }`}
+            >
+              <Heart className={`h-4 w-4 ${fav ? "fill-current" : ""}`} />
+            </button>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 px-6 pb-4 pt-5 text-white sm:px-7">
+            <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85">
+              <span>{recipe.cuisine}</span>
+              <span aria-hidden>•</span>
+              <span>
+                {recipe.course === "main"
+                  ? "主菜"
+                  : recipe.course === "veggie"
+                    ? "素菜"
+                    : recipe.course === "soup"
+                      ? "汤"
+                      : "主食"}
+              </span>
+              <span aria-hidden>{visual.badge}</span>
             </div>
-            <div className="min-w-0 flex-1 text-white">
-              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85">
-                <span>{recipe.cuisine}</span>
-                <span aria-hidden>•</span>
-                <span>
-                  {recipe.course === "main"
-                    ? "主菜"
-                    : recipe.course === "veggie"
-                      ? "素菜"
-                      : recipe.course === "soup"
-                        ? "汤"
-                        : "主食"}
-                </span>
-                <span aria-hidden>{visual.badge}</span>
-              </div>
-              <DialogHeader className="mt-1 text-left">
-                <DialogTitle
-                  className="font-display text-[1.6rem] leading-tight tracking-tight text-white sm:text-[1.9rem]"
-                  data-testid={`detail-name-${recipe.id}`}
+            <DialogHeader className="mt-1 text-left">
+              <DialogTitle
+                className="font-display text-[1.6rem] leading-tight tracking-tight text-white sm:text-[1.9rem]"
+                data-testid={`detail-name-${recipe.id}`}
+              >
+                {recipe.name}
+              </DialogTitle>
+              <DialogDescription className="mt-1 text-[13px] leading-relaxed text-white/90 sm:text-[14px]">
+                <Sparkles className="mr-1 inline h-3.5 w-3.5" />
+                {recipe.reason}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-white/95">
+              <span className="inline-flex items-center gap-1">
+                <Clock className="h-3.5 w-3.5" /> 约 {recipe.timeMinutes} 分钟
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <ChefHat className="h-3.5 w-3.5" /> {recipe.difficulty}
+                <DifficultyDots d={recipe.difficulty} />
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Users className="h-3.5 w-3.5" /> {recipe.serves} 人起
+              </span>
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {recipe.tastes.map((t) => (
+                <Badge
+                  key={t}
+                  variant="secondary"
+                  className="rounded-full border-0 bg-white/25 px-2 py-0 text-[11px] text-white"
                 >
-                  {recipe.name}
-                </DialogTitle>
-                <DialogDescription className="mt-1 text-[13px] leading-relaxed text-white/90 sm:text-[14px]">
-                  <Sparkles className="mr-1 inline h-3.5 w-3.5" />
-                  {recipe.reason}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-white/95">
-                <span className="inline-flex items-center gap-1">
-                  <Clock className="h-3.5 w-3.5" /> 约 {recipe.timeMinutes} 分钟
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <ChefHat className="h-3.5 w-3.5" /> {recipe.difficulty}
-                  <DifficultyDots d={recipe.difficulty} />
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <Users className="h-3.5 w-3.5" /> {recipe.serves} 人起
-                </span>
-              </div>
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {recipe.tastes.map((t) => (
-                  <Badge
-                    key={t}
-                    variant="secondary"
-                    className="rounded-full bg-white/25 px-2 py-0 text-[11px] text-white border-0"
-                  >
-                    {(t === "麻辣" || t === "重辣" || t === "微辣") && (
-                      <Flame className="mr-0.5 h-2.5 w-2.5" />
-                    )}
-                    {t === "清淡" && <Leaf className="mr-0.5 h-2.5 w-2.5" />}
-                    {t}
-                  </Badge>
-                ))}
-              </div>
+                  {(t === "麻辣" || t === "重辣" || t === "微辣") && (
+                    <Flame className="mr-0.5 h-2.5 w-2.5" />
+                  )}
+                  {t === "清淡" && <Leaf className="mr-0.5 h-2.5 w-2.5" />}
+                  {t}
+                </Badge>
+              ))}
             </div>
           </div>
         </div>
@@ -303,35 +346,51 @@ export function DishDetail({ recipe, servings, onClose }: DishDetailProps) {
             </ol>
           </section>
 
-          {/* 视频链接 */}
+          {/* 多平台搜索入口 */}
           <section>
-            <h3 className="mb-2 font-display text-[1rem] tracking-tight">看视频学做法</h3>
-            <a
-              href={videoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid={`detail-video-${recipe.id}`}
-              className="group flex items-center gap-3 rounded-lg border border-primary/30 bg-primary/5 p-3 transition-colors hover:border-primary/50 hover:bg-primary/10"
-            >
-              <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                <PlayCircle className="h-6 w-6" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="text-[14px] font-medium">
-                  在 Bilibili 搜索「{recipe.videoQuery || `${recipe.name} 做法`}」
-                </div>
-                <div className="text-[11.5px] text-muted-foreground">
-                  外部链接 · 在新窗口打开
-                </div>
-              </div>
-              <span className="text-[11.5px] text-primary group-hover:underline">
-                打开 →
-              </span>
-            </a>
+            <h3 className="mb-2 font-display text-[1rem] tracking-tight">看看别人怎么做</h3>
+            <p className="mb-2 text-[11.5px] text-muted-foreground">
+              三个入口都会在新窗口打开，搜索关键词「{recipe.videoQuery || `${recipe.name} 家常做法`}」。
+            </p>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {searchEntries.map((e) => {
+                const Icon = SEARCH_ICON[e.id] ?? ExternalLink;
+                return (
+                  <a
+                    key={e.id}
+                    href={e.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`detail-search-${e.id}-${recipe.id}`}
+                    className="group flex items-center gap-3 rounded-lg border border-primary/30 bg-primary/5 p-3 transition-colors hover:border-primary/50 hover:bg-primary/10"
+                  >
+                    <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[13.5px] font-medium leading-tight">
+                        {e.label}
+                      </div>
+                      <div className="text-[11px] text-muted-foreground">{e.hint}</div>
+                    </div>
+                    <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                  </a>
+                );
+              })}
+            </div>
           </section>
         </div>
 
         <DialogFooter className="border-t border-border/60 bg-card/40 px-6 py-3 sm:px-7">
+          <Button
+            variant="outline"
+            onClick={onToggleFav}
+            data-testid={`button-toggle-fav-${recipe.id}`}
+            className="w-full sm:w-auto"
+          >
+            <Heart className={`mr-1 h-4 w-4 ${fav ? "fill-rose-500 text-rose-500" : ""}`} />
+            {fav ? "取消收藏" : "收藏这道菜"}
+          </Button>
           <Button
             variant="outline"
             onClick={onClose}

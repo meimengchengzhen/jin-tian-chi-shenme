@@ -46,16 +46,16 @@ import {
 } from "@/lib/profile";
 import { isStoragePersistent } from "@/lib/storage";
 import {
-  ALL_REGIONS,
   ALL_SEASONS,
   ALL_WEATHERS,
   type EnvContext,
   inferDayKind,
   inferSeason,
-  type Region,
   type Weather,
   type Season,
 } from "@/lib/environment";
+import { PROVINCES, findProvinceByName } from "@/lib/regions";
+import { autoLocate } from "@/lib/geoWeather";
 import {
   ALL_TASTES,
   ALL_RESTRICTIONS,
@@ -76,6 +76,8 @@ import {
   Cloud,
   CalendarDays,
   Heart,
+  MapPin,
+  Loader2,
 } from "lucide-react";
 
 interface ProfileDialogProps {
@@ -210,6 +212,55 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
   }
 
   const plan = body && planEnabled ? computePlan(body, slot) : null;
+
+  // 当前省份对应的城市列表
+  const currentProvince = useMemo(
+    () => findProvinceByName(envDraft.province),
+    [envDraft.province],
+  );
+
+  const [locating, setLocating] = useState(false);
+  const [locateMsg, setLocateMsg] = useState<string | null>(null);
+
+  async function onUseMyLocation() {
+    setLocating(true);
+    setLocateMsg(null);
+    try {
+      const r = await autoLocate();
+      if (r.error) {
+        const text =
+          r.error === "denied"
+            ? "你拒绝了定位授权。可以在浏览器地址栏左侧的图标里手动恢复授权。"
+            : r.error === "unsupported"
+              ? "你的浏览器不支持定位 API。"
+              : r.error === "timeout"
+                ? "定位超时了，可以稍后再试或手动选择。"
+                : "无法获取位置，请手动选择省市。";
+        setLocateMsg(text);
+        toast({ title: "定位未成功", description: text, variant: "destructive" });
+        return;
+      }
+      const next: EnvContext = { ...envDraft, autoFilled: true };
+      if (r.location?.province) next.province = r.location.province;
+      if (r.location?.city) next.city = r.location.city;
+      if (r.weatherTag) next.weather = r.weatherTag;
+      if (r.weather?.temperatureC !== undefined) next.temperatureC = r.weather.temperatureC;
+      setEnvDraft(next);
+      const parts: string[] = [];
+      if (r.location?.city) parts.push(r.location.city);
+      if (r.weatherTag && r.weatherTag !== "未指定") parts.push(`天气 ${r.weatherTag}`);
+      if (r.weather?.temperatureC !== undefined) parts.push(`${r.weather.temperatureC}°C`);
+      const ok = parts.length > 0 ? parts.join(" · ") : "已尝试自动填充";
+      setLocateMsg(`已自动填充：${ok}（仍需点击「应用环境」生效）`);
+      toast({ title: "已自动填充", description: ok });
+    } catch (e: any) {
+      const msg = e?.message ?? "未知错误";
+      setLocateMsg(`定位失败：${msg}`);
+      toast({ title: "定位失败", description: msg, variant: "destructive" });
+    } finally {
+      setLocating(false);
+    }
+  }
 
   function toggleFlavorList<K extends "liked" | "disliked" | "restrictions" | "cuisines">(
     key: K,
@@ -622,23 +673,95 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
 
           {/* === 环境 === */}
           <TabsContent value="env" className="mt-4 space-y-5">
+            <div className="rounded-lg border border-primary/30 bg-primary/5 p-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 text-[13px] font-medium text-primary">
+                    <MapPin className="h-3.5 w-3.5" /> 使用当前位置自动填充
+                  </div>
+                  <p className="mt-1 text-[11.5px] text-muted-foreground">
+                    通过浏览器定位 + Open-Meteo 公开天气 API（无需 key）。
+                    <span className="font-medium text-foreground">必须先授权</span>，拒绝/失败时回退到下方手动选择。
+                  </p>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onUseMyLocation}
+                  disabled={locating}
+                  data-testid="button-locate"
+                  className="shrink-0 rounded-full"
+                >
+                  {locating ? (
+                    <>
+                      <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> 定位中...
+                    </>
+                  ) : (
+                    <>
+                      <MapPin className="mr-1 h-3.5 w-3.5" /> 定位
+                    </>
+                  )}
+                </Button>
+              </div>
+              {locateMsg && (
+                <p className="mt-2 text-[11.5px] text-muted-foreground" data-testid="text-locate-msg">
+                  {locateMsg}
+                </p>
+              )}
+            </div>
+
             <p className="text-[12.5px] text-muted-foreground">
               这些选项会把今天的天气/季节/地区加入推荐评分（不强制过滤）。
-              真实天气 API 需要后端代理，原型这里全部由你手动选；后续可扩展接入和风天气等。
             </p>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <Label>地区</Label>
+                <Label>省份 / 直辖市</Label>
                 <Select
-                  value={envDraft.region}
-                  onValueChange={(v) => setEnvDraft({ ...envDraft, region: v as Region })}
+                  value={envDraft.province ?? "__none__"}
+                  onValueChange={(v) => {
+                    const province = v === "__none__" ? undefined : v;
+                    const def = findProvinceByName(province);
+                    setEnvDraft({
+                      ...envDraft,
+                      province,
+                      city: def && !def.cities.includes(envDraft.city ?? "")
+                        ? def.cities[0]
+                        : envDraft.city,
+                      autoFilled: false,
+                    });
+                  }}
                 >
-                  <SelectTrigger data-testid="select-region">
-                    <SelectValue />
+                  <SelectTrigger data-testid="select-province">
+                    <SelectValue placeholder="未指定" />
                   </SelectTrigger>
                   <SelectContent>
-                    {ALL_REGIONS.map((r) => (
-                      <SelectItem key={r} value={r}>{r}</SelectItem>
+                    <SelectItem value="__none__">未指定</SelectItem>
+                    {PROVINCES.map((p) => (
+                      <SelectItem key={p.province} value={p.province}>{p.province}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>城市</Label>
+                <Select
+                  value={envDraft.city ?? "__none__"}
+                  onValueChange={(v) =>
+                    setEnvDraft({
+                      ...envDraft,
+                      city: v === "__none__" ? undefined : v,
+                      autoFilled: false,
+                    })
+                  }
+                  disabled={!currentProvince}
+                >
+                  <SelectTrigger data-testid="select-city">
+                    <SelectValue placeholder={currentProvince ? "选择城市" : "先选省份"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__none__">未指定</SelectItem>
+                    {currentProvince?.cities.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -647,7 +770,7 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
                 <Label>天气</Label>
                 <Select
                   value={envDraft.weather}
-                  onValueChange={(v) => setEnvDraft({ ...envDraft, weather: v as Weather })}
+                  onValueChange={(v) => setEnvDraft({ ...envDraft, weather: v as Weather, autoFilled: false })}
                 >
                   <SelectTrigger data-testid="select-weather">
                     <SelectValue />
@@ -681,7 +804,7 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
                   </SelectContent>
                 </Select>
               </div>
-              <div>
+              <div className="col-span-2">
                 <Label>日期类型</Label>
                 <Select
                   value={envDraft.dayKindOverride ?? "auto"}
@@ -707,13 +830,16 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
             <div className="rounded-lg border border-border/60 bg-card/40 p-3 text-[12.5px] text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <CalendarDays className="h-3.5 w-3.5" /> 今天 {new Date().toLocaleDateString("zh-CN")}
+                {envDraft.temperatureC !== undefined && (
+                  <span className="ml-2 num text-foreground">{envDraft.temperatureC}°C</span>
+                )}
               </div>
               <div className="mt-1">
                 推荐会偏向：
                 {envDraft.weather === "热" && <Badge variant="secondary" className="ml-1">凉爽 / 解暑</Badge>}
                 {envDraft.weather === "冷" && <Badge variant="secondary" className="ml-1">暖胃 / 慢炖</Badge>}
                 {envDraft.weather === "雨" && <Badge variant="secondary" className="ml-1">暖胃 / 汤</Badge>}
-                {envDraft.region !== "未指定" && <Badge variant="secondary" className="ml-1">本地菜系</Badge>}
+                {envDraft.province && <Badge variant="secondary" className="ml-1">{envDraft.province} 本地菜系</Badge>}
               </div>
             </div>
           </TabsContent>

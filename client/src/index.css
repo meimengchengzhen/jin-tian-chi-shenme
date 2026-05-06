@@ -109,6 +109,44 @@
   );
 }
 
+/* === 餐次主题：通过 data-meal=breakfast/lunch/dinner 覆盖 primary + 背景渐变。 === */
+:root[data-meal="breakfast"] {
+  --primary: 36 75% 56%;
+  --ring: 36 75% 56%;
+  --accent: 198 55% 88%;
+  --accent-foreground: 200 50% 28%;
+  --background: 42 65% 96%;
+}
+:root[data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(45 80% 88% / 0.65), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(195 50% 86% / 0.55), transparent 42%);
+}
+:root[data-meal="lunch"] {
+  --primary: 22 80% 52%;
+  --ring: 22 80% 52%;
+  --accent: 60 30% 86%;
+  --accent-foreground: 26 50% 26%;
+  --background: 36 55% 95%;
+}
+:root[data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(36 80% 86% / 0.6), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(20 65% 84% / 0.55), transparent 42%);
+}
+:root[data-meal="dinner"] {
+  --primary: 14 60% 42%;
+  --ring: 14 60% 42%;
+  --accent: 18 25% 84%;
+  --accent-foreground: 18 50% 22%;
+  --background: 24 30% 92%;
+}
+:root[data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(28 50% 82% / 0.6), transparent 38%),
+    radial-gradient(circle at 88% 110%, hsl(14 45% 80% / 0.55), transparent 42%);
+}
+
 .dark {
   --button-outline: rgba(255, 255, 255, 0.10);
   --badge-outline: rgba(255, 255, 255, 0.05);
