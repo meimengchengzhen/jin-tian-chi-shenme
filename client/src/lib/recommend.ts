@@ -6,7 +6,6 @@ import type {
   Restriction,
   Difficulty,
   Course,
-  Ingredient,
   IngredientCategory,
 } from "@/data/recipes";
 import { RECIPES } from "@/data/recipes";
@@ -39,30 +38,45 @@ export const DEFAULT_PREFS: Preferences = {
   mainCount: 1,
 };
 
-// 限制 -> 应排除的菜品判定函数
-function isRecipeAllowed(recipe: Recipe, prefs: Preferences): boolean {
-  // 限制：菜里包含的 contains 与 prefs.restrictions 有交集 -> 排除
+// === 硬性约束（无论如何都必须满足）===
+// 忌口（素食 / 无海鲜 / 无猪肉 / 无牛肉 / 无蛋 / 无奶 / 无花生 / 无辣）：
+// 这些是健康/伦理/过敏边界，不能被「兜底」违反。
+function violatesHardRestrictions(recipe: Recipe, prefs: Preferences): boolean {
   for (const r of prefs.restrictions) {
-    if (recipe.contains.includes(r)) return false;
+    if (recipe.contains.includes(r)) return true;
   }
-  // 素食 = 排除所有含肉蛋海鲜的（简化：检查食材分类含「肉蛋豆制品」中是否有非豆制品关键字）
+  // 素食：排除任何含肉/蛋/海鲜的菜（基于食材名启发式校验）
   if (prefs.restrictions.includes("素食")) {
     const meaty = recipe.ingredients.some((i) => {
       if (i.category !== "肉蛋豆制品") return false;
       return /鸡|猪|牛|羊|鱼|虾|肉|排骨|皮蛋|鸡蛋|蛋/.test(i.name) && !/豆腐|腐竹|豆干/.test(i.name);
     });
-    if (meaty) return false;
+    if (meaty) return true;
   }
   if (prefs.restrictions.includes("无辣")) {
-    if (recipe.tastes.some((t) => t === "微辣" || t === "重辣" || t === "麻辣")) return false;
+    if (recipe.tastes.some((t) => t === "微辣" || t === "重辣" || t === "麻辣")) return true;
   }
-  // 时间限制
-  if (recipe.timeMinutes > prefs.maxTimeMinutes) return false;
-  // 菜系
-  if (prefs.cuisines.length > 0 && !prefs.cuisines.includes(recipe.cuisine)) return false;
-  // 难度
-  if (prefs.difficulties.length > 0 && !prefs.difficulties.includes(recipe.difficulty)) return false;
+  return false;
+}
+
+// === 软性约束（兜底时可逐级放宽）===
+// level: 0=全部生效；1=放宽难度；2=放宽菜系；3=放宽用时上限。
+// 口味偏好本来只用于打分（不参与过滤），所以无需放宽。
+function passesSoftConstraints(
+  recipe: Recipe,
+  prefs: Preferences,
+  level: number,
+): boolean {
+  if (level < 3 && recipe.timeMinutes > prefs.maxTimeMinutes) return false;
+  if (level < 2 && prefs.cuisines.length > 0 && !prefs.cuisines.includes(recipe.cuisine)) return false;
+  if (level < 1 && prefs.difficulties.length > 0 && !prefs.difficulties.includes(recipe.difficulty)) return false;
   return true;
+}
+
+function buildPool(prefs: Preferences, level: number): Recipe[] {
+  return RECIPES.filter(
+    (r) => !violatesHardRestrictions(r, prefs) && passesSoftConstraints(r, prefs, level),
+  );
 }
 
 function score(recipe: Recipe, prefs: Preferences): number {
@@ -105,40 +119,96 @@ export interface MealPlan {
   mains: Recipe[];
   veggie?: Recipe;
   soup?: Recipe;
+  /** 兜底时被放宽的软性条件（人话），用于 UI 提示。空 / undefined 表示完美匹配。 */
+  relaxedNotes?: string[];
+  /** 即使全部放宽也仍然没有候选的 course（一般是硬性忌口太严格） */
+  unmetCourses?: Course[];
+}
+
+const RELAX_LABELS: Record<number, string> = {
+  1: "难度",
+  2: "菜系",
+  3: "总用时上限",
+};
+
+interface CourseRequirement {
+  course: Course;
+  count: number;
+}
+
+function pickWithFallback(
+  req: CourseRequirement,
+  prefs: Preferences,
+  excludeIds: Set<string>,
+): { picked: Recipe[]; usedLevel: number } {
+  // level 0..3：依次放宽难度、菜系、用时
+  let lastPicked: Recipe[] = [];
+  for (let level = 0; level <= 3; level++) {
+    const pool = buildPool(prefs, level);
+    const picked = pickFromCourse(req.course, req.count, pool, prefs, excludeIds);
+    if (picked.length >= req.count) {
+      return { picked, usedLevel: level };
+    }
+    if (picked.length > lastPicked.length) lastPicked = picked;
+  }
+  // 全部软性条件放宽后仍不够；返回最大努力得到的结果（可能为空，仅当硬性忌口已经把整个 course 清空）
+  return { picked: lastPicked, usedLevel: 3 };
 }
 
 export function recommend(
   prefs: Preferences,
   locked: Recipe[] = [],
 ): MealPlan {
-  const pool = RECIPES.filter((r) => isRecipeAllowed(r, prefs));
   const lockedIds = new Set(locked.map((r) => r.id));
-
   const lockedByCourse = (c: Course) => locked.filter((r) => r.course === c);
 
-  // 主菜
+  const requirements: CourseRequirement[] = [];
   const lockedMains = lockedByCourse("main");
   const needMains = Math.max(0, prefs.mainCount - lockedMains.length);
-  const newMains = pickFromCourse("main", needMains, pool, prefs, lockedIds);
-  const mains = [...lockedMains, ...newMains];
-
-  // 素菜
-  let veggie: Recipe | undefined;
+  if (needMains > 0) {
+    requirements.push({ course: "main", count: needMains });
+  }
+  let lockedVeg: Recipe | undefined;
   if (prefs.withVeggie) {
-    const lockedVeg = lockedByCourse("veggie")[0];
-    if (lockedVeg) veggie = lockedVeg;
-    else veggie = pickFromCourse("veggie", 1, pool, prefs, lockedIds)[0];
+    lockedVeg = lockedByCourse("veggie")[0];
+    if (!lockedVeg) requirements.push({ course: "veggie", count: 1 });
   }
-
-  // 汤
-  let soup: Recipe | undefined;
+  let lockedSoup: Recipe | undefined;
   if (prefs.withSoup) {
-    const lockedSoup = lockedByCourse("soup")[0];
-    if (lockedSoup) soup = lockedSoup;
-    else soup = pickFromCourse("soup", 1, pool, prefs, lockedIds)[0];
+    lockedSoup = lockedByCourse("soup")[0];
+    if (!lockedSoup) requirements.push({ course: "soup", count: 1 });
   }
 
-  return { mains, veggie, soup };
+  let maxLevel = 0;
+  const unmetCourses: Course[] = [];
+  const courseResults = new Map<Course, Recipe[]>();
+  for (const req of requirements) {
+    const { picked, usedLevel } = pickWithFallback(req, prefs, lockedIds);
+    courseResults.set(req.course, picked);
+    if (usedLevel > maxLevel) maxLevel = usedLevel;
+    if (picked.length < req.count) unmetCourses.push(req.course);
+    // 把已选项加入 excludeIds，避免不同 course 之间重复（一般 course 不重叠，但 mainCount>1 时同 course 内部 pickFromCourse 已经处理）
+    picked.forEach((r) => lockedIds.add(r.id));
+  }
+
+  const newMains = courseResults.get("main") ?? [];
+  const mains = [...lockedMains, ...newMains];
+  const veggie = lockedVeg ?? courseResults.get("veggie")?.[0];
+  const soup = lockedSoup ?? courseResults.get("soup")?.[0];
+
+  const relaxedNotes: string[] = [];
+  for (let lvl = 1; lvl <= maxLevel; lvl++) {
+    const label = RELAX_LABELS[lvl];
+    if (label) relaxedNotes.push(label);
+  }
+
+  return {
+    mains,
+    veggie,
+    soup,
+    relaxedNotes: relaxedNotes.length > 0 ? relaxedNotes : undefined,
+    unmetCourses: unmetCourses.length > 0 ? unmetCourses : undefined,
+  };
 }
 
 export function planToList(plan: MealPlan): Recipe[] {
@@ -146,6 +216,17 @@ export function planToList(plan: MealPlan): Recipe[] {
   if (plan.veggie) out.push(plan.veggie);
   if (plan.soup) out.push(plan.soup);
   return out;
+}
+
+/** 统计仅满足硬性忌口（不考虑菜系/难度/用时）的前提下，每个 course 还剩多少候选。
+ *  用于在 UI 中诊断「忌口本身就把整个 course 清空了」的情形。 */
+export function countByCourseUnderHardOnly(prefs: Preferences): Record<Course, number> {
+  const counts: Record<Course, number> = { main: 0, veggie: 0, soup: 0, staple: 0 };
+  for (const r of RECIPES) {
+    if (violatesHardRestrictions(r, prefs)) continue;
+    counts[r.course] += 1;
+  }
+  return counts;
 }
 
 // === 买菜清单聚合 ===

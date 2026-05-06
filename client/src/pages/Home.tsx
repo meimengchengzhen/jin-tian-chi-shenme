@@ -16,6 +16,8 @@ import {
   Github,
   Flame,
   Leaf,
+  Info,
+  AlertTriangle,
 } from "lucide-react";
 import { Wordmark, Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
@@ -39,6 +41,7 @@ import {
   buildShoppingList,
   shoppingListToText,
   planToList,
+  countByCourseUnderHardOnly,
   type MealPlan,
   type Preferences,
 } from "@/lib/recommend";
@@ -562,6 +565,62 @@ export default function Home() {
                 共 {planToList(plan).length} 道 · {prefs.servings} 人份
               </span>
             </div>
+
+            {/* 兜底：放宽提示 */}
+            {plan.relaxedNotes && plan.relaxedNotes.length > 0 && planToList(plan).length > 0 && (
+              <div
+                className="mb-3 flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-[12.5px] text-foreground/80"
+                data-testid="banner-relaxed"
+              >
+                <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-primary" />
+                <span>
+                  当前筛选有点严格，已自动放宽：
+                  <span className="font-medium text-primary">
+                    {plan.relaxedNotes.join(" · ")}
+                  </span>
+                  。忌口和饮食禁忌仍然完全遵守。
+                </span>
+              </div>
+            )}
+
+            {/* 兜底：仍无结果 */}
+            {planToList(plan).length === 0 && (
+              <div
+                className="mb-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-3 text-[13px] text-foreground/85"
+                data-testid="banner-no-result"
+              >
+                <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
+                <div>
+                  <div className="font-medium">没有匹配到任何菜</div>
+                  <div className="mt-1 text-[12px] text-muted-foreground">
+                    {(() => {
+                      const hint = buildEmptyHint(prefs);
+                      return hint;
+                    })()}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 兜底：未填满的 course */}
+            {plan.unmetCourses && plan.unmetCourses.length > 0 && planToList(plan).length > 0 && (
+              <div
+                className="mb-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-[12.5px] text-foreground/80"
+                data-testid="banner-partial"
+              >
+                <AlertTriangle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-amber-500" />
+                <span>
+                  以下分类暂无符合忌口的菜：
+                  <span className="font-medium">
+                    {plan.unmetCourses
+                      .map((c) => COURSE_LABEL[c] ?? c)
+                      .join(" · ")}
+                  </span>
+                  。可以试试关闭对应开关或减少忌口。
+                </span>
+              </div>
+            )}
+
             <div className="grid gap-3">
               {plan.mains.map((r) => (
                 <DishCard
@@ -591,7 +650,7 @@ export default function Home() {
             </div>
 
             {/* 买菜清单 */}
-            {shoppingList && (
+            {shoppingList && planToList(plan).length > 0 && (
               <div className="mt-8">
                 <Card className="grain border-card-border/60 bg-card/80 p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-3">
@@ -743,4 +802,32 @@ function planLengthLabel() {
   // 从 RECIPES 长度生成；这里硬编码避开循环依赖（运行时看不出影响）
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   return "36";
+}
+
+// 当推荐结果为空时，给用户讲清楚是「忌口太严格」还是「软性条件太严格」。
+function buildEmptyHint(prefs: Preferences): string {
+  const hardCounts = countByCourseUnderHardOnly(prefs);
+  const reasons: string[] = [];
+  const want: { key: "main" | "veggie" | "soup"; label: string; need: boolean }[] = [
+    { key: "main", label: "主菜", need: prefs.mainCount > 0 },
+    { key: "veggie", label: "素菜", need: prefs.withVeggie },
+    { key: "soup", label: "汤", need: prefs.withSoup },
+  ];
+  const blockedByRestrictions = want
+    .filter((w) => w.need && hardCounts[w.key] === 0)
+    .map((w) => w.label);
+
+  if (blockedByRestrictions.length > 0) {
+    reasons.push(
+      `当前忌口（${prefs.restrictions.join(" · ")}）已经把所有「${blockedByRestrictions.join(
+        " · ",
+      )}」类菜都筛掉了，建议减少忌口或关闭对应开关。`,
+    );
+  } else {
+    // 软性条件已经全部放宽，仍然 0 道，说明忌口组合本身就极严格
+    reasons.push(
+      "你的忌口组合在 36 道示例菜里没有完全匹配的菜。可以尝试关闭「配素菜 / 配汤」或减少忌口标签。",
+    );
+  }
+  return reasons.join(" ");
 }
