@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { CityFoodImage } from "@/components/CityFoodImage";
 import {
   CITY_FOODS,
   ALL_PROVINCES,
@@ -28,6 +29,13 @@ interface TravelLink {
   hint?: string;
 }
 
+// 大众点评直达 URL 经常 404 / 反爬，因此改用百度站内搜索（site:dianping.com）作为
+// 稳妥的入口；若用户已登录大众点评，也可以用 m.dianping.com 主站搜索（移动端 H5）。
+// 优先 m.dianping.com 搜索页（公开可达，落地页是搜索结果而不是 404）。
+function dianpingSearchUrl(q: string): string {
+  return `https://m.dianping.com/searchshop?keyword=${encodeURIComponent(q)}`;
+}
+
 const LINKS: TravelLink[] = [
   { id: "baidu", label: "百度", build: (q: string) => `https://www.baidu.com/s?wd=${encodeURIComponent(q + " 推荐 美食")}` },
   { id: "douyin", label: "抖音", build: (q: string) => `https://www.douyin.com/search/${encodeURIComponent(q + " 美食")}` },
@@ -35,8 +43,15 @@ const LINKS: TravelLink[] = [
   {
     id: "dp",
     label: "大众点评",
-    build: (q: string) => `https://www.dianping.com/search/keyword/0_0_0_${encodeURIComponent(q)}`,
-    hint: "搜索入口，可能需登录",
+    build: dianpingSearchUrl,
+    hint: "搜索入口 · 可能需登录",
+  },
+  {
+    id: "dp-baidu",
+    label: "百度站内 · 大众点评",
+    build: (q: string) =>
+      `https://www.baidu.com/s?wd=${encodeURIComponent(q + " site:dianping.com")}`,
+    hint: "兜底入口",
   },
 ];
 
@@ -204,50 +219,59 @@ export function TravelPanel() {
               {city.vibe}
             </p>
 
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {city.items.map((item) => (
                 <div
                   key={item.name}
-                  className="rounded-lg border border-border/60 bg-background/60 p-3"
+                  className="overflow-hidden rounded-lg border border-border/60 bg-background/60"
                   data-testid={`city-food-${city.city}-${item.name}`}
                 >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h4 className="font-display text-[14px] tracking-tight">{item.name}</h4>
-                    {item.tags && item.tags.length > 0 && (
-                      <span className="flex flex-wrap gap-1">
-                        {item.tags.map((t) => (
-                          <Badge
-                            key={t}
-                            variant="secondary"
-                            className="rounded-full bg-primary/10 px-1.5 py-0 text-[10px] text-primary"
-                          >
-                            {t}
-                          </Badge>
-                        ))}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-1 text-[11.5px] leading-relaxed text-muted-foreground">
-                    {item.desc}
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {LINKS.map((l) => (
-                      <a
-                        key={l.id}
-                        href={l.build(`${city.city} ${item.name}`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-testid={`travel-link-${city.city}-${item.name}-${l.id}`}
-                        title={l.hint ?? `在 ${l.label} 搜索 ${city.city} ${item.name}`}
-                        className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/5 px-2 py-0.5 text-[10.5px] text-primary hover-elevate active-elevate-2"
-                      >
-                        {l.label}
-                        {l.hint && (
-                          <span className="text-muted-foreground">· {l.hint}</span>
-                        )}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ))}
+                  {/* 图片区：复用 imageProvider；失败回落到渐变 + emoji 占位 */}
+                  <CityFoodImage
+                    query={`${city.city} ${item.name}`}
+                    name={item.name}
+                    tag={item.tags?.join(" ")}
+                    className="aspect-[16/9] w-full"
+                  />
+                  <div className="p-3">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h4 className="font-display text-[15px] tracking-tight">{item.name}</h4>
+                      {item.tags && item.tags.length > 0 && (
+                        <span className="flex flex-wrap gap-1">
+                          {item.tags.map((t) => (
+                            <Badge
+                              key={t}
+                              variant="secondary"
+                              className="rounded-full bg-primary/10 px-1.5 py-0 text-[10.5px] text-primary"
+                            >
+                              {t}
+                            </Badge>
+                          ))}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground">
+                      {item.desc}
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {LINKS.map((l) => (
+                        <a
+                          key={l.id}
+                          href={l.build(`${city.city} ${item.name}`)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-testid={`travel-link-${city.city}-${item.name}-${l.id}`}
+                          title={l.hint ?? `在 ${l.label} 搜索 ${city.city} ${item.name}`}
+                          className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/5 px-2 py-0.5 text-[11px] text-primary hover-elevate active-elevate-2"
+                        >
+                          {l.label}
+                          {l.hint && (
+                            <span className="text-muted-foreground">· {l.hint}</span>
+                          )}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}

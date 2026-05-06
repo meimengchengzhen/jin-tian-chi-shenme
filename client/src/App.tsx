@@ -7,7 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 
-// 所有 Tab hash（#/home, #/health, #/search, #/travel, #/companion, #/hotboard）
+// 所有 Tab hash（#/home, #/health, #/search, #/travel, #/takeout, #/companion, #/hotboard）
 // 都由 Home 内部根据 hash 渲染对应分区，因此 App 级路由把它们一并落到 Home，
 // 避免 wouter 把 `/home` 等当作未注册路径而走到 NotFound。
 function AppRouter() {
@@ -18,6 +18,7 @@ function AppRouter() {
       <Route path="/health" component={Home} />
       <Route path="/search" component={Home} />
       <Route path="/travel" component={Home} />
+      <Route path="/takeout" component={Home} />
       <Route path="/companion" component={Home} />
       <Route path="/hotboard" component={Home} />
       <Route component={NotFound} />

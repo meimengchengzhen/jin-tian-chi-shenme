@@ -107,8 +107,17 @@ import { CompanionPanel } from "@/components/CompanionPanel";
 import type { CompanionContext } from "@/lib/companionRecommend";
 import { HotBoard } from "@/components/HotBoard";
 import { CategoryBrowser } from "@/components/CategoryBrowser";
+import { TakeoutPanel } from "@/components/TakeoutPanel";
 import { CloudSyncDialog } from "@/components/CloudSyncDialog";
 import { isConfigured as isCloudConfigured } from "@/lib/cloudSync";
+import {
+  PAGE_SIZES,
+  applyPageSize,
+  loadPageSize,
+  savePageSize,
+  type PageSizeId,
+} from "@/lib/pageSize";
+import { Type as TypeIcon } from "lucide-react";
 
 // === 小工具组件 ===
 function Chip({
@@ -606,6 +615,16 @@ export default function Home() {
   // Tab 导航
   const [tab, setTab] = useState<MainTabId>(() => loadTabFromHash());
 
+  // 餐次会话覆盖（早 / 午 / 晚切换按钮）— 不写到 profile，只保留会话视觉与推荐 ctx。
+  const [slotOverride, setSlotOverride] = useState<MealSlot | null>(null);
+
+  // 页面大小 / 字号
+  const [pageSize, setPageSize] = useState<PageSizeId>(() => loadPageSize());
+  useEffect(() => {
+    applyPageSize(pageSize);
+    savePageSize(pageSize);
+  }, [pageSize]);
+
   // 食材偏好（想吃什么）
   const [ingredientWish, setIngredientWish] = useState<IngredientWishId[]>([]);
 
@@ -662,8 +681,10 @@ export default function Home() {
     }
   }
 
-  // 餐次主题：跟随 profile.slot
-  const currentSlot: MealSlot = profile?.slot ?? getScenario(scenarioId).defaultSlot;
+  // 餐次主题：用户在主页直接点「早/午/晚」切换的优先级最高，
+  // 然后是 profile.slot，最后是 scenario default。
+  const currentSlot: MealSlot =
+    slotOverride ?? profile?.slot ?? getScenario(scenarioId).defaultSlot;
   useEffect(() => {
     applyMealTheme(currentSlot);
   }, [currentSlot]);
@@ -701,10 +722,12 @@ export default function Home() {
       ctx.flavor = profile.flavor;
       ctx.slot = profile.slot;
       if (profile.planEnabled && profile.body) {
-        const planResult = computePlan(profile.body, profile.slot);
+        const planResult = computePlan(profile.body, slotOverride ?? profile.slot);
         ctx.targetMealCalories = planResult.mealCalories;
       }
     }
+    // slotOverride 优先；否则保留 profile.slot；否则用 scenario default
+    if (slotOverride) ctx.slot = slotOverride;
     ctx.env = resolveEnv(env);
     ctx.scenario = getScenario(scenarioId);
     if (!ctx.slot) ctx.slot = ctx.scenario.defaultSlot;
@@ -715,7 +738,7 @@ export default function Home() {
     if (ingredientWish.length > 0) ctx.ingredientWish = ingredientWish;
     if (healthFlags.length > 0) ctx.healthFilter = healthFlags;
     return ctx;
-  }, [profile, env, scenarioId, favorites, history, noRepeat, ingredientWish, healthFlags]);
+  }, [profile, env, scenarioId, favorites, history, noRepeat, ingredientWish, healthFlags, slotOverride]);
 
   // 当前锁定菜品
   const lockedRecipes = useMemo(() => {
@@ -898,6 +921,27 @@ export default function Home() {
               <span className="hidden sm:inline">云端同步</span>
               <span className="rounded-full bg-primary/10 px-1.5 text-[9.5px] text-primary num">Beta</span>
             </button>
+            {/* 页面大小切换：4 档循环；初始为 default（比中字大一点） */}
+            <button
+              type="button"
+              onClick={() => {
+                const idx = PAGE_SIZES.findIndex((p) => p.id === pageSize);
+                const next = PAGE_SIZES[(idx + 1) % PAGE_SIZES.length];
+                setPageSize(next.id);
+                toast({
+                  title: `字号已切到「${next.label}」`,
+                  description: next.hint,
+                });
+              }}
+              data-testid="button-page-size"
+              title={`当前字号：${PAGE_SIZES.find((p) => p.id === pageSize)?.label} · 点击切换`}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-[12.5px] text-foreground/85 hover-elevate active-elevate-2"
+            >
+              <TypeIcon className="h-3.5 w-3.5 text-primary" />
+              <span data-testid="text-page-size-label">
+                {PAGE_SIZES.find((p) => p.id === pageSize)?.label ?? "默认"}
+              </span>
+            </button>
             <a
               href="https://github.com/meimengchengzhen/jin-tian-chi-shenme"
               target="_blank"
@@ -930,6 +974,7 @@ export default function Home() {
               />
             )}
             {tab === "travel" && <TravelPanel />}
+            {tab === "takeout" && <TakeoutPanel />}
             {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
             {tab === "hotboard" && <HotBoard />}
             <div className="mt-6 flex justify-end">
@@ -964,14 +1009,14 @@ export default function Home() {
               <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary/80">
                 <span className="h-px w-8 bg-primary/40" /> {meal.label} · {meal.toneHint}
               </div>
-              <h1 className="mt-4 font-display text-[2.2rem] leading-[1.05] tracking-tight sm:text-[2.9rem]">
+              <h1 className="mt-4 font-display text-[2.4rem] leading-[1.05] tracking-tight sm:text-[3.1rem]">
                 {meal.label}就吃这些。
                 <br />
                 <span className="bg-gradient-to-r from-primary to-amber-600 bg-clip-text text-transparent">
                   不用再想了。
                 </span>
               </h1>
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-muted-foreground sm:text-[16.5px]">
                 告诉我们今天几个人吃、有多少时间、忌口偏好，
                 我们帮你随机搭一桌家常菜，并按蔬菜 / 肉蛋 / 调味分类生成买菜清单。
                 可以创建本地档案保存喜好与饮食目标，所有数据都只保存在你的浏览器里。
@@ -1046,6 +1091,42 @@ export default function Home() {
               }}
               onJumpCategories={() => scrollToSection("category-browser-section")}
             />
+          </div>
+        </section>
+
+        {/* 早 / 午 / 晚切换 — 主页显眼大按钮，移动端也能一眼看到。
+            点击后 currentSlot 即刻切换，主题变色 + 推荐上下文随之更新。 */}
+        <section className="mt-6">
+          <div className="mb-2 flex items-baseline justify-between gap-2">
+            <h2 className="font-display text-[1.1rem] tracking-tight">想吃哪一餐</h2>
+            <span className="text-[12px] text-muted-foreground">
+              点一下立刻切换 · 当前 {meal.label}
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3" data-testid="meal-slot-switcher">
+            {(["breakfast", "lunch", "dinner"] as MealSlot[]).map((s) => {
+              const t = MEAL_THEMES[s];
+              const active = currentSlot === s;
+              return (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setSlotOverride(s)}
+                  data-testid={`button-slot-${s}`}
+                  aria-pressed={active}
+                  className={`flex h-16 items-center justify-center gap-2 rounded-2xl border-2 px-3 text-[15px] font-semibold transition-all hover-elevate active-elevate-2 sm:h-20 sm:text-[17px] ${
+                    active
+                      ? "border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-[1.03]"
+                      : "border-border bg-card/70 text-foreground/85"
+                  }`}
+                >
+                  <span aria-hidden className="text-2xl sm:text-3xl">
+                    {t.emoji}
+                  </span>
+                  <span>{t.label}</span>
+                </button>
+              );
+            })}
           </div>
         </section>
 

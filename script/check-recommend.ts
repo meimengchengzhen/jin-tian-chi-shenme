@@ -299,6 +299,84 @@ console.log("== 健康规则覆盖率 ==");
   check(`优质蛋白数 >= 30 (实际 ${protein})`, protein >= 30);
 }
 
+console.log("== 旅行美食 大众点评链接（不再生成 404 keyword 硬路径）==");
+{
+  // 历史上 dianping.com/search/keyword/0_0_0_<q> 路径常 404；这次改为 m.dianping.com 搜索
+  // + 百度站内搜索兜底。这里用结构化检查：travel-panel 的 LINKS 至少包含 m.dianping.com / baidu。
+  const fs = await import("node:fs");
+  const src = fs.readFileSync("client/src/components/TravelPanel.tsx", "utf-8");
+  check(
+    "TravelPanel 大众点评走 m.dianping.com 搜索",
+    src.includes("m.dianping.com/searchshop"),
+    "未在 TravelPanel.tsx 找到 m.dianping.com/searchshop 入口",
+  );
+  check(
+    "TravelPanel 不再生成 dianping.com/search/keyword/0_0_0_ 形式 URL",
+    !src.includes("dianping.com/search/keyword/0_0_0_"),
+    "TravelPanel 仍在生成已知 404 的旧形式 dianping URL",
+  );
+  check(
+    "TravelPanel 提供大众点评的百度站内搜索兜底",
+    src.includes("site:dianping.com"),
+    "未提供 baidu site:dianping.com 兜底入口",
+  );
+}
+
+console.log("== 门类浏览：每个 category 至少有若干道菜（避免 UI 只看到甜品）==");
+{
+  // 不变量：8 个门类中至少 6 个有 >= 5 道菜，避免「点开门类只看到甜品」的体感
+  const { ALL_CATEGORIES } = await import("../client/src/data/recipes");
+  const counts: Record<string, number> = {};
+  for (const c of ALL_CATEGORIES) counts[c] = 0;
+  for (const r of RECIPES) {
+    if (r.category) counts[r.category] = (counts[r.category] ?? 0) + 1;
+  }
+  const enough = ALL_CATEGORIES.filter((c) => counts[c] >= 5);
+  check(
+    `门类>=5 道的类别数 >= 6（实际 ${enough.length}/${ALL_CATEGORIES.length}）`,
+    enough.length >= 6,
+    `分布：${ALL_CATEGORIES.map((c) => `${c}=${counts[c]}`).join(", ")}`,
+  );
+  for (const c of ALL_CATEGORIES) {
+    check(`门类「${c}」至少 1 道（避免 UI 显示空类）`, counts[c] >= 1, `count=${counts[c]}`);
+  }
+}
+
+console.log("== 外卖模块预算档位完整 ==");
+{
+  // 每档预算必须包含 picks/coupon/risks 三组提示
+  const { BUDGETS, PLATFORMS } = await import("../client/src/data/takeout");
+  check(`外卖预算档位数 >= 5（实际 ${BUDGETS.length}）`, BUDGETS.length >= 5);
+  for (const t of BUDGETS) {
+    check(
+      `外卖档位「${t.label}」: picks/coupon/risks 都至少 1 条`,
+      t.picks.length >= 1 && t.coupon.length >= 1 && t.risks.length >= 1,
+      `picks=${t.picks.length} coupon=${t.coupon.length} risks=${t.risks.length}`,
+    );
+  }
+  check(`外卖平台数 >= 3（实际 ${PLATFORMS.length}）`, PLATFORMS.length >= 3);
+  for (const p of PLATFORMS) {
+    const url = p.buildSearch("test");
+    check(
+      `平台「${p.label}」搜索 URL 是 https://`,
+      url.startsWith("https://"),
+      `url=${url}`,
+    );
+  }
+}
+
+console.log("== 旅行美食图片入口可用 ==");
+{
+  // CityFoodImage 必须存在且复用 useDishPhoto / fetchDishImage（公开图源）
+  const fs = await import("node:fs");
+  const src = fs.readFileSync("client/src/components/CityFoodImage.tsx", "utf-8");
+  check("CityFoodImage 复用 useDishPhoto", src.includes("useDishPhoto"));
+  check(
+    "CityFoodImage 在加载失败时仍渲染占位（emoji 或渐变）",
+    src.includes("from-") && src.includes("emoji"),
+  );
+}
+
 console.log("== 食材偏好（想吃什么）软筛选生效 ==");
 {
   // 选「牛肉」+ 默认其它，30 次结果中至少有一些含牛肉的菜出现

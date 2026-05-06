@@ -232,6 +232,14 @@
       radial-gradient(circle at 12% 8%, hsl(38 60% 88% / 0.55), transparent 38%),
       radial-gradient(circle at 92% 110%, hsl(18 55% 86% / 0.45), transparent 42%);
     background-attachment: fixed;
+    /* 页面大小（pageSize.ts）— 默认 1.1（比经典版略大）。CSS zoom 比 transform
+       更省事：会触发布局重排，sticky/fixed 与触摸事件依然工作正常。 */
+    zoom: var(--page-zoom, 1.1);
+  }
+  /* 移动端字号兜底：基础文字提升到 16px（高于浏览器默认 14-15px），
+     避免「看不清楚」；桌面端继续按 zoom 缩放。 */
+  @media (max-width: 640px) {
+    html { font-size: 17px; }
   }
   ::selection {
     background-color: hsl(var(--primary) / 0.22);
