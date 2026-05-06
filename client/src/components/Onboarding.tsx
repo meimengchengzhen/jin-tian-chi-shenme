@@ -35,7 +35,7 @@ export function Onboarding({ open, onPick, onSkip }: OnboardingProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className="mt-3 grid grid-cols-2 gap-2">
           {SCENARIOS.map((s) => (
             <button
               key={s.id}

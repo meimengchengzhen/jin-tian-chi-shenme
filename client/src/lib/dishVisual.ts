@@ -167,7 +167,7 @@ export function buildSearchEntries(name: string, customQuery?: string): SearchEn
     {
       id: "douyin",
       label: "抖音短视频",
-      hint: "看快手教程",
+      hint: "看抖音做法",
       url: douyinSearchUrl(name, customQuery),
     },
     {

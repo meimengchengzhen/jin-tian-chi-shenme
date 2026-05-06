@@ -199,7 +199,22 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
 
   function saveCurrent() {
     if (!active) return;
-    const updated: Profile = { ...active, flavor, body, planEnabled, slot };
+    // 启用饮食计划但用户没改过身体输入框时，UI 显示的 fallback（165/60/28 等）
+    // 并不会写入 body，导致 profile.body 仍是 undefined、推荐时拿不到热量目标。
+    // 这里在保存时把当前 UI 默认值落到 body，保证「直接勾选启用 → 保存」也能跑通。
+    let nextBody = body;
+    if (planEnabled && !nextBody) {
+      nextBody = {
+        sex: "female",
+        age: 28,
+        heightCm: 165,
+        weightKg: 60,
+        activity: "light",
+        goal: "maintain",
+      };
+      setBody(nextBody);
+    }
+    const updated: Profile = { ...active, flavor, body: nextBody, planEnabled, slot };
     saveProfile(updated);
     setActive(updated);
     refreshProfiles();
@@ -643,7 +658,20 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
                 id="plan-enable"
                 type="checkbox"
                 checked={planEnabled}
-                onChange={(e) => setPlanEnabled(e.target.checked)}
+                onChange={(e) => {
+                  const enabled = e.target.checked;
+                  setPlanEnabled(enabled);
+                  if (enabled && !body) {
+                    setBody({
+                      sex: "female",
+                      age: 28,
+                      heightCm: 165,
+                      weightKg: 60,
+                      activity: "light",
+                      goal: "maintain",
+                    });
+                  }
+                }}
                 data-testid="checkbox-plan-enable"
                 className="h-5 w-5 accent-primary"
               />
