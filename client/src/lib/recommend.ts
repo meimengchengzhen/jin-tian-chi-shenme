@@ -1,4 +1,10 @@
-// 推荐算法 — 模块化、可替换；后续可接入用户口味学习或后端 API。
+// 推荐算法 — 模块化、可替换。
+// 评分构成：
+//   随机扰动 + 偏好命中（口味/菜系/难度） + 用户档案口味（liked/disliked）
+//   + 环境上下文（天气/季节/地区/餐次/能量标签）
+//   + 餐次目标热量匹配（与人均热量越近分越高）
+// 硬性约束：忌口（素食 / 无肉 / 无辣 等）始终遵守。
+
 import type {
   Recipe,
   Cuisine,
@@ -7,8 +13,16 @@ import type {
   Difficulty,
   Course,
   IngredientCategory,
+  EnergyTag,
+  WeatherTag,
+  Season,
+  RegionTag,
+  MealSlotTag,
 } from "@/data/recipes";
 import { RECIPES } from "@/data/recipes";
+import { perPersonCaloriesOf } from "./calories";
+import type { FlavorPreference } from "./profile";
+import type { ResolvedEnv } from "./environment";
 
 export interface Preferences {
   servings: number; // 1..8
@@ -38,18 +52,25 @@ export const DEFAULT_PREFS: Preferences = {
   mainCount: 1,
 };
 
+/** 推荐上下文（可选）。无登录时也能完整工作。 */
+export interface RecommendContext {
+  flavor?: FlavorPreference;
+  env?: ResolvedEnv;
+  /** 目标人均热量，用于软匹配（kcal） */
+  targetMealCalories?: number;
+  /** 当前餐次（早/午/晚） */
+  slot?: MealSlotTag;
+}
+
 // === 硬性约束（无论如何都必须满足）===
-// 忌口（素食 / 无海鲜 / 无猪肉 / 无牛肉 / 无蛋 / 无奶 / 无花生 / 无辣）：
-// 这些是健康/伦理/过敏边界，不能被「兜底」违反。
 function violatesHardRestrictions(recipe: Recipe, prefs: Preferences): boolean {
   for (const r of prefs.restrictions) {
     if (recipe.contains.includes(r)) return true;
   }
-  // 素食：排除任何含肉/蛋/海鲜的菜（基于食材名启发式校验）
   if (prefs.restrictions.includes("素食")) {
     const meaty = recipe.ingredients.some((i) => {
       if (i.category !== "肉蛋豆制品") return false;
-      return /鸡|猪|牛|羊|鱼|虾|肉|排骨|皮蛋|鸡蛋|蛋/.test(i.name) && !/豆腐|腐竹|豆干/.test(i.name);
+      return /鸡|猪|牛|羊|鱼|虾|肉|排骨|皮蛋|鸡蛋|蛋|火腿|腊肠|卤/.test(i.name) && !/豆腐|腐竹|豆干|黄豆/.test(i.name);
     });
     if (meaty) return true;
   }
@@ -61,12 +82,7 @@ function violatesHardRestrictions(recipe: Recipe, prefs: Preferences): boolean {
 
 // === 软性约束（兜底时可逐级放宽）===
 // level: 0=全部生效；1=放宽难度；2=放宽菜系；3=放宽用时上限。
-// 口味偏好本来只用于打分（不参与过滤），所以无需放宽。
-function passesSoftConstraints(
-  recipe: Recipe,
-  prefs: Preferences,
-  level: number,
-): boolean {
+function passesSoftConstraints(recipe: Recipe, prefs: Preferences, level: number): boolean {
   if (level < 3 && recipe.timeMinutes > prefs.maxTimeMinutes) return false;
   if (level < 2 && prefs.cuisines.length > 0 && !prefs.cuisines.includes(recipe.cuisine)) return false;
   if (level < 1 && prefs.difficulties.length > 0 && !prefs.difficulties.includes(recipe.difficulty)) return false;
@@ -79,16 +95,92 @@ function buildPool(prefs: Preferences, level: number): Recipe[] {
   );
 }
 
-function score(recipe: Recipe, prefs: Preferences): number {
-  let s = Math.random() * 0.6; // 随机扰动，保证「换一组」有变化
+// === 评分 ===
+function envEnergyForWeather(weather: WeatherTag | undefined): EnergyTag[] {
+  if (!weather || weather === ("未指定" as WeatherTag)) return [];
+  switch (weather) {
+    case "热":
+      return ["解暑", "清爽", "适合热"];
+    case "冷":
+      return ["驱寒", "暖胃", "适合冷"];
+    case "雨":
+      return ["暖胃", "适合雨天"];
+    case "晴":
+      return ["清爽"];
+    case "潮湿":
+      return ["暖胃"];
+    case "干燥":
+      return ["清爽"];
+    default:
+      return [];
+  }
+}
+
+export function scoreRecipe(
+  recipe: Recipe,
+  prefs: Preferences,
+  ctx: RecommendContext = {},
+): number {
+  let s = Math.random() * 0.6; // 随机扰动
+
+  // 1) 当前 prefs 的口味命中
   if (prefs.tastes.length > 0) {
     const overlap = recipe.tastes.filter((t) => prefs.tastes.includes(t)).length;
     s += overlap * 1.4;
   }
   if (prefs.cuisines.length > 0 && prefs.cuisines.includes(recipe.cuisine)) s += 0.6;
   if (prefs.difficulties.length > 0 && prefs.difficulties.includes(recipe.difficulty)) s += 0.4;
-  // 时间越短越加分（轻微）
   s += Math.max(0, (prefs.maxTimeMinutes - recipe.timeMinutes) / 120);
+
+  // 2) 用户档案口味偏好
+  if (ctx.flavor) {
+    if (ctx.flavor.liked.length > 0) {
+      const liked = recipe.tastes.filter((t) => ctx.flavor!.liked.includes(t)).length;
+      s += liked * 0.9;
+    }
+    if (ctx.flavor.disliked.length > 0) {
+      const disliked = recipe.tastes.filter((t) => ctx.flavor!.disliked.includes(t)).length;
+      s -= disliked * 1.2;
+    }
+    if (ctx.flavor.cuisines.length > 0 && ctx.flavor.cuisines.includes(recipe.cuisine)) {
+      s += 0.4;
+    }
+  }
+
+  // 3) 环境（季节/天气/地区/餐次）
+  if (ctx.env) {
+    const w = ctx.env.weather === "未指定" ? undefined : (ctx.env.weather as WeatherTag);
+    const energyTags = envEnergyForWeather(w);
+    if (energyTags.length > 0 && recipe.energy && recipe.energy.length > 0) {
+      const overlap = recipe.energy.filter((t) => energyTags.includes(t)).length;
+      s += overlap * 0.7;
+    }
+    if (recipe.seasons && recipe.seasons.includes(ctx.env.season)) s += 0.5;
+    if (ctx.env.region !== "未指定" && recipe.regions && recipe.regions.includes(ctx.env.region as RegionTag)) {
+      s += 0.4;
+    }
+    // 周末偏复杂菜，工作日偏快手
+    if (ctx.env.dayKind === "weekend" && recipe.difficulty === "进阶") s += 0.25;
+    if (ctx.env.dayKind === "weekday" && recipe.energy?.includes("快手")) s += 0.3;
+  }
+
+  // 4) 餐次匹配
+  if (ctx.slot && recipe.slots && recipe.slots.length > 0) {
+    if (recipe.slots.includes(ctx.slot)) s += 0.3;
+  }
+
+  // 5) 餐次目标热量匹配（人均）
+  if (ctx.targetMealCalories && ctx.targetMealCalories > 0) {
+    const perPerson = perPersonCaloriesOf(recipe);
+    if (perPerson > 0) {
+      // 主菜约占 50%、汤 15%、素 15%，这里用 0.45 作为单菜目标比例软参照
+      const target = ctx.targetMealCalories * 0.5;
+      const diff = Math.abs(perPerson - target) / Math.max(target, 1);
+      // 越接近加分越多，最多 +0.8
+      s += Math.max(0, 0.8 - diff * 0.8);
+    }
+  }
+
   return s;
 }
 
@@ -97,15 +189,15 @@ function pickFromCourse(
   count: number,
   pool: Recipe[],
   prefs: Preferences,
+  ctx: RecommendContext,
   excludeIds: Set<string>,
 ): Recipe[] {
   const candidates = pool.filter((r) => r.course === course && !excludeIds.has(r.id));
   if (candidates.length === 0) return [];
   const ranked = candidates
-    .map((r) => ({ r, s: score(r, prefs) }))
+    .map((r) => ({ r, s: scoreRecipe(r, prefs, ctx) }))
     .sort((a, b) => b.s - a.s);
-  // 取前 N=max(count*3, 5) 中随机选 count 个
-  const top = ranked.slice(0, Math.max(count * 3, 5));
+  const top = ranked.slice(0, Math.max(count * 3, 6));
   const picked: Recipe[] = [];
   while (picked.length < count && top.length > 0) {
     const idx = Math.floor(Math.random() * top.length);
@@ -139,25 +231,25 @@ interface CourseRequirement {
 function pickWithFallback(
   req: CourseRequirement,
   prefs: Preferences,
+  ctx: RecommendContext,
   excludeIds: Set<string>,
 ): { picked: Recipe[]; usedLevel: number } {
-  // level 0..3：依次放宽难度、菜系、用时
   let lastPicked: Recipe[] = [];
   for (let level = 0; level <= 3; level++) {
     const pool = buildPool(prefs, level);
-    const picked = pickFromCourse(req.course, req.count, pool, prefs, excludeIds);
+    const picked = pickFromCourse(req.course, req.count, pool, prefs, ctx, excludeIds);
     if (picked.length >= req.count) {
       return { picked, usedLevel: level };
     }
     if (picked.length > lastPicked.length) lastPicked = picked;
   }
-  // 全部软性条件放宽后仍不够；返回最大努力得到的结果（可能为空，仅当硬性忌口已经把整个 course 清空）
   return { picked: lastPicked, usedLevel: 3 };
 }
 
 export function recommend(
   prefs: Preferences,
   locked: Recipe[] = [],
+  ctx: RecommendContext = {},
 ): MealPlan {
   const lockedIds = new Set(locked.map((r) => r.id));
   const lockedByCourse = (c: Course) => locked.filter((r) => r.course === c);
@@ -165,9 +257,7 @@ export function recommend(
   const requirements: CourseRequirement[] = [];
   const lockedMains = lockedByCourse("main");
   const needMains = Math.max(0, prefs.mainCount - lockedMains.length);
-  if (needMains > 0) {
-    requirements.push({ course: "main", count: needMains });
-  }
+  if (needMains > 0) requirements.push({ course: "main", count: needMains });
   let lockedVeg: Recipe | undefined;
   if (prefs.withVeggie) {
     lockedVeg = lockedByCourse("veggie")[0];
@@ -183,11 +273,10 @@ export function recommend(
   const unmetCourses: Course[] = [];
   const courseResults = new Map<Course, Recipe[]>();
   for (const req of requirements) {
-    const { picked, usedLevel } = pickWithFallback(req, prefs, lockedIds);
+    const { picked, usedLevel } = pickWithFallback(req, prefs, ctx, lockedIds);
     courseResults.set(req.course, picked);
     if (usedLevel > maxLevel) maxLevel = usedLevel;
     if (picked.length < req.count) unmetCourses.push(req.course);
-    // 把已选项加入 excludeIds，避免不同 course 之间重复（一般 course 不重叠，但 mainCount>1 时同 course 内部 pickFromCourse 已经处理）
     picked.forEach((r) => lockedIds.add(r.id));
   }
 
@@ -218,8 +307,7 @@ export function planToList(plan: MealPlan): Recipe[] {
   return out;
 }
 
-/** 统计仅满足硬性忌口（不考虑菜系/难度/用时）的前提下，每个 course 还剩多少候选。
- *  用于在 UI 中诊断「忌口本身就把整个 course 清空了」的情形。 */
+/** 统计仅满足硬性忌口（不考虑菜系/难度/用时）的前提下，每个 course 还剩多少候选。 */
 export function countByCourseUnderHardOnly(prefs: Preferences): Record<Course, number> {
   const counts: Record<Course, number> = { main: 0, veggie: 0, soup: 0, staple: 0 };
   for (const r of RECIPES) {

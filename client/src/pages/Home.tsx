@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Sparkles,
   Clock,
@@ -19,8 +19,12 @@ import {
   Info,
   AlertTriangle,
   ChevronRight,
+  UserCircle2,
+  Cloud,
+  CalendarDays,
 } from "lucide-react";
 import { DishDetail } from "@/components/DishDetail";
+import { ProfileDialog } from "@/components/ProfileDialog";
 import { dishVisual } from "@/lib/dishVisual";
 import { Wordmark, Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
@@ -48,7 +52,23 @@ import {
   countByCourseUnderHardOnly,
   type MealPlan,
   type Preferences,
+  type RecommendContext,
 } from "@/lib/recommend";
+import { perPersonCaloriesOf } from "@/lib/calories";
+import {
+  getActiveProfile,
+  computePlan,
+  SLOT_LABELS,
+  type Profile,
+  type MealSlot,
+} from "@/lib/profile";
+import {
+  loadEnv,
+  saveEnv,
+  resolveEnv,
+  type EnvContext,
+  DEFAULT_ENV,
+} from "@/lib/environment";
 
 // === 小工具组件 ===
 function Chip({
@@ -133,14 +153,18 @@ function DishCard({
   onToggleLock,
   onSwap,
   onOpenDetail,
+  targetMealCal,
 }: {
   recipe: Recipe;
   locked: boolean;
   onToggleLock: () => void;
   onSwap: () => void;
   onOpenDetail: () => void;
+  /** 当前餐次目标人均热量，启用饮食计划时显示对比 */
+  targetMealCal?: number;
 }) {
   const visual = dishVisual(recipe.name, recipe.course, recipe.cuisine);
+  const perPerson = targetMealCal ? perPersonCaloriesOf(recipe) : 0;
   return (
     <Card className="grain animate-rise relative overflow-hidden border-card-border/60 bg-card/80 p-4">
       <div className="flex items-start justify-between gap-3">
@@ -237,6 +261,16 @@ function DishCard({
         ))}
       </div>
 
+      {targetMealCal && perPerson > 0 && (
+        <div
+          className="mt-2 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 text-[11.5px] text-primary num"
+          data-testid={`chip-calorie-${recipe.id}`}
+        >
+          <Flame className="h-3 w-3" />
+          人均 {perPerson} kcal · 餐次目标 {targetMealCal} kcal
+        </div>
+      )}
+
       <Button
         type="button"
         variant="outline"
@@ -265,6 +299,47 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [detailRecipe, setDetailRecipe] = useState<Recipe | null>(null);
 
+  // 档案与环境
+  const [profile, setProfile] = useState<Profile | null>(() => getActiveProfile());
+  const [env, setEnv] = useState<EnvContext>(() => loadEnv());
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  // 用户档案的忌口自动并入 prefs.restrictions（不影响 prefs 的其它字段）
+  useEffect(() => {
+    if (profile?.flavor.restrictions && profile.flavor.restrictions.length > 0) {
+      setPrefs((p) => {
+        const merged = Array.from(new Set([...p.restrictions, ...profile.flavor.restrictions]));
+        // 仅在差异时更新，避免循环
+        if (merged.length === p.restrictions.length) return p;
+        return { ...p, restrictions: merged };
+      });
+    }
+  }, [profile]);
+
+  function refreshProfile() {
+    setProfile(getActiveProfile());
+  }
+
+  function applyEnv(next: EnvContext) {
+    setEnv(next);
+    saveEnv(next);
+  }
+
+  // 推荐上下文：把 profile + env + 餐次目标热量打包
+  const recommendCtx: RecommendContext = useMemo(() => {
+    const ctx: RecommendContext = {};
+    if (profile) {
+      ctx.flavor = profile.flavor;
+      ctx.slot = profile.slot;
+      if (profile.planEnabled && profile.body) {
+        const plan = computePlan(profile.body, profile.slot);
+        ctx.targetMealCalories = plan.mealCalories;
+      }
+    }
+    ctx.env = resolveEnv(env);
+    return ctx;
+  }, [profile, env]);
+
   // 当前锁定菜品（从 plan 中筛出）
   const lockedRecipes = useMemo(() => {
     if (!plan) return [];
@@ -274,25 +349,22 @@ export default function Home() {
   function rollAll() {
     setShaking(true);
     setTimeout(() => {
-      setPlan(recommend(prefs, lockedRecipes));
+      setPlan(recommend(prefs, lockedRecipes, recommendCtx));
       setShaking(false);
     }, 280);
   }
 
   function swapOne(recipe: Recipe) {
     if (!plan) return;
-    // 从锁定列表中临时移除该菜，然后重新推荐：之前所有锁定（包括其它菜）继续保持
     const keepLocked = lockedRecipes.filter((r) => r.id !== recipe.id);
-    // 临时排除当前的菜避免再次出现
     const tempPrefs: Preferences = { ...prefs };
     let attempts = 0;
-    let next: MealPlan = recommend(tempPrefs, keepLocked);
+    let next: MealPlan = recommend(tempPrefs, keepLocked, recommendCtx);
     while (planToList(next).some((r) => r.id === recipe.id) && attempts < 6) {
-      next = recommend(tempPrefs, keepLocked);
+      next = recommend(tempPrefs, keepLocked, recommendCtx);
       attempts++;
     }
     setPlan(next);
-    // 锁定 ID 中如果含被换掉那道，移除
     if (lockedIds.has(recipe.id)) {
       const ns = new Set(lockedIds);
       ns.delete(recipe.id);
@@ -342,17 +414,28 @@ export default function Home() {
     <div className="min-h-screen pb-24">
       {/* Header */}
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-3 sm:px-6">
           <Wordmark />
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-muted-foreground hover-elevate active-elevate-2"
-            data-testid="link-github"
-          >
-            <Github className="h-3.5 w-3.5" /> GitHub
-          </a>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setProfileOpen(true)}
+              data-testid="button-open-profile"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-foreground/85 hover-elevate active-elevate-2"
+            >
+              <UserCircle2 className="h-3.5 w-3.5 text-primary" />
+              {profile ? <span className="max-w-[7em] truncate">{profile.nickname}</span> : "登录 / 档案"}
+            </button>
+            <a
+              href="https://github.com/meimengchengzhen/jin-tian-chi-shenme"
+              target="_blank"
+              rel="noreferrer"
+              className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-muted-foreground hover-elevate active-elevate-2 sm:inline-flex"
+              data-testid="link-github"
+            >
+              <Github className="h-3.5 w-3.5" /> GitHub
+            </a>
+          </div>
         </div>
       </header>
 
@@ -370,8 +453,52 @@ export default function Home() {
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
             告诉我们今天几个人吃、有多少时间、忌口偏好，
             我们帮你随机搭一桌家常菜，并按蔬菜 / 肉蛋 / 调味分类生成买菜清单。
-            不用登录，刷新即换。
+            可以创建本地档案保存喜好与饮食目标，所有数据都只保存在你的浏览器里。
           </p>
+        </section>
+
+        {/* 上下文条：登录 / 环境 / 饮食计划 */}
+        <section className="mt-6">
+          <Card className="grain border-card-border/60 bg-card/70 px-4 py-3 sm:px-5">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px]">
+              <button
+                type="button"
+                onClick={() => setProfileOpen(true)}
+                data-testid="chip-profile-summary"
+                className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-primary hover-elevate active-elevate-2"
+              >
+                <UserCircle2 className="h-3.5 w-3.5" />
+                {profile ? `Hi, ${profile.nickname}` : "未登录 — 通用推荐"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setProfileOpen(true)}
+                data-testid="chip-env-summary"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-foreground/80 hover-elevate active-elevate-2"
+              >
+                <Cloud className="h-3.5 w-3.5" />
+                {env.region === "未指定" ? "地区未设" : env.region}
+                <span className="text-muted-foreground">·</span>
+                {env.weather === "未指定" ? "天气未设" : env.weather}
+                <span className="text-muted-foreground">·</span>
+                <CalendarDays className="h-3 w-3" />
+                {recommendCtx.env?.season} / {recommendCtx.env?.dayKind === "weekend" ? "周末" : "工作日"}
+              </button>
+              {profile?.planEnabled && profile.body && (
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-medium text-primary"
+                  data-testid="chip-plan-summary"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {SLOT_LABELS[profile.slot]} 目标 ≈
+                  <span className="num">
+                    {computePlan(profile.body, profile.slot).mealCalories}
+                  </span>
+                  kcal
+                </span>
+              )}
+            </div>
+          </Card>
         </section>
 
         {/* 偏好表单 */}
@@ -637,6 +764,7 @@ export default function Home() {
                   onToggleLock={() => toggleLock(r.id)}
                   onSwap={() => swapOne(r)}
                   onOpenDetail={() => setDetailRecipe(r)}
+                  targetMealCal={recommendCtx.targetMealCalories}
                 />
               ))}
               {plan.veggie && (
@@ -646,6 +774,7 @@ export default function Home() {
                   onToggleLock={() => toggleLock(plan.veggie!.id)}
                   onSwap={() => swapOne(plan.veggie!)}
                   onOpenDetail={() => setDetailRecipe(plan.veggie!)}
+                  targetMealCal={recommendCtx.targetMealCalories}
                 />
               )}
               {plan.soup && (
@@ -655,6 +784,7 @@ export default function Home() {
                   onToggleLock={() => toggleLock(plan.soup!.id)}
                   onSwap={() => swapOne(plan.soup!)}
                   onOpenDetail={() => setDetailRecipe(plan.soup!)}
+                  targetMealCal={recommendCtx.targetMealCalories}
                 />
               )}
             </div>
@@ -809,6 +939,14 @@ export default function Home() {
         recipe={detailRecipe}
         servings={prefs.servings}
         onClose={() => setDetailRecipe(null)}
+      />
+
+      <ProfileDialog
+        open={profileOpen}
+        onClose={() => setProfileOpen(false)}
+        onChange={refreshProfile}
+        env={env}
+        onEnvChange={applyEnv}
       />
     </div>
   );

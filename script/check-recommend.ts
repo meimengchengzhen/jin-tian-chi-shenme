@@ -161,6 +161,47 @@ console.log("== 多次随机也总有结果 ==");
   check("严格条件下 30 次重抽都至少返回 1 道", minSize >= 1, `min=${minSize}`);
 }
 
+console.log("== 数据库规模 ==");
+{
+  check(`RECIPES 总数 >= 300（实际 ${RECIPES.length}）`, RECIPES.length >= 300);
+  // 至少覆盖每个 course
+  const byCourse: Record<string, number> = { main: 0, veggie: 0, soup: 0, staple: 0 };
+  for (const r of RECIPES) byCourse[r.course] += 1;
+  check(`main >= 100 (实际 ${byCourse.main})`, byCourse.main >= 100);
+  check(`veggie >= 30 (实际 ${byCourse.veggie})`, byCourse.veggie >= 30);
+  check(`soup >= 15 (实际 ${byCourse.soup})`, byCourse.soup >= 15);
+  check(`staple >= 10 (实际 ${byCourse.staple})`, byCourse.staple >= 10);
+}
+
+console.log("== 上下文加分（天气/季节）不破坏忌口 ==");
+{
+  const prefs: Preferences = {
+    ...DEFAULT_PREFS,
+    restrictions: ["素食"],
+  };
+  // 模拟「冷天 + 冬」 — 推荐应仍然只返回素食
+  const ctx = {
+    env: {
+      region: "未指定" as const,
+      weather: "冷" as const,
+      season: "冬" as const,
+      dayKind: "weekday" as const,
+      date: new Date(),
+    },
+  };
+  const plan = recommend(prefs, [], ctx);
+  const list = planToList(plan);
+  const meaty = list.filter((d) =>
+    d.ingredients.some(
+      (i) =>
+        i.category === "肉蛋豆制品" &&
+        /鸡|猪|牛|羊|鱼|虾|肉|排骨|皮蛋|鸡蛋|蛋|火腿|腊肠|卤/.test(i.name) &&
+        !/豆腐|腐竹|豆干|黄豆/.test(i.name),
+    ),
+  );
+  check("素食 + 冷天上下文：返回结果不含肉蛋海鲜", meaty.length === 0, meaty.map((d) => d.name).join(", "));
+}
+
 console.log("");
 if (failed === 0) {
   console.log(`✅ 全部检查通过 (RECIPES=${RECIPES.length} 道)`);

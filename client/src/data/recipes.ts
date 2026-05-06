@@ -7,6 +7,24 @@ export type Difficulty = "简单" | "中等" | "进阶";
 export type Taste = "清淡" | "咸鲜" | "酸甜" | "微辣" | "重辣" | "麻辣";
 export type Restriction = "素食" | "无猪肉" | "无牛肉" | "无海鲜" | "无辣" | "无蛋" | "无奶" | "无花生";
 
+// === 环境/餐次相关可选标签 ===
+export type Season = "春" | "夏" | "秋" | "冬";
+export type WeatherTag = "热" | "冷" | "雨" | "晴" | "潮湿" | "干燥";
+export type RegionTag = "华北" | "华东" | "华南" | "华中" | "西南" | "西北" | "东北";
+export type MealSlotTag = "breakfast" | "lunch" | "dinner";
+/** 烹饪能量/状态标签，用于天气/餐次匹配（汤、炖、清爽、暖胃 等） */
+export type EnergyTag =
+  | "暖胃"
+  | "清爽"
+  | "解暑"
+  | "驱寒"
+  | "下饭"
+  | "快手"
+  | "慢炖"
+  | "适合冷"
+  | "适合热"
+  | "适合雨天";
+
 export type IngredientCategory = "蔬菜" | "肉蛋豆制品" | "调味/主食";
 
 export interface Ingredient {
@@ -36,10 +54,21 @@ export interface Recipe {
   ingredients: Ingredient[];
   /** 视频搜索关键词（可选）；不填会用 `name + " 做法"` 自动生成 Bilibili 搜索 URL */
   videoQuery?: string;
+  /** 适合的季节（可选，用于推荐加分） */
+  seasons?: Season[];
+  /** 适合的天气（可选） */
+  weathers?: WeatherTag[];
+  /** 适合的地区（可选；空表示通吃） */
+  regions?: RegionTag[];
+  /** 适合的餐次（可选） */
+  slots?: MealSlotTag[];
+  /** 烹饪能量标签 */
+  energy?: EnergyTag[];
 }
 
-// 56 道家常菜 —— 主菜 / 汤 / 素菜 / 主食
-export const RECIPES: Recipe[] = [
+// 手写核心菜谱（覆盖经典款）。
+// 数据库总条目 = CORE_RECIPES + GENERATED_RECIPES（脚本扩展）。运行 `npm run gen:recipes` 重新生成。
+const CORE_RECIPES: Recipe[] = [
   // ===== 主菜 =====
   {
     id: "tomato-egg",
@@ -1377,6 +1406,24 @@ export const RECIPES: Recipe[] = [
     ],
   },
 ];
+
+import { GENERATED_RECIPES } from "./recipes.generated";
+
+// 合并并按 id 去重（手写优先）。
+function mergeUniqueById(...lists: Recipe[][]): Recipe[] {
+  const seen = new Set<string>();
+  const out: Recipe[] = [];
+  for (const list of lists) {
+    for (const r of list) {
+      if (seen.has(r.id)) continue;
+      seen.add(r.id);
+      out.push(r);
+    }
+  }
+  return out;
+}
+
+export const RECIPES: Recipe[] = mergeUniqueById(CORE_RECIPES, GENERATED_RECIPES);
 
 export const ALL_CUISINES: Cuisine[] = ["家常", "川菜", "粤菜", "江浙", "鲁菜", "西北", "东北"];
 export const ALL_TASTES: Taste[] = ["清淡", "咸鲜", "酸甜", "微辣", "重辣", "麻辣"];

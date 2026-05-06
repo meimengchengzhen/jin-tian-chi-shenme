@@ -9,6 +9,7 @@
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
     "check:recommend": "tsx script/check-recommend.ts",
+    "gen:recipes": "tsx script/generate-recipes.ts",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {

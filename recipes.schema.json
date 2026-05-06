@@ -120,6 +120,43 @@
       "description": "可选：用于生成 Bilibili 视频搜索 URL 的关键词。留空会用 `name + \" 做法\"` 自动生成。",
       "minLength": 2,
       "maxLength": 60
+    },
+    "seasons": {
+      "type": "array",
+      "description": "可选：适合的季节标签。推荐时在对应季节会加分（不强过滤）。",
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["春", "夏", "秋", "冬"] }
+    },
+    "weathers": {
+      "type": "array",
+      "description": "可选：适合的天气标签。",
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["热", "冷", "雨", "晴", "潮湿", "干燥"] }
+    },
+    "regions": {
+      "type": "array",
+      "description": "可选：地区贴近度标签（七大区）。",
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["华北", "华东", "华南", "华中", "西南", "西北", "东北"] }
+    },
+    "slots": {
+      "type": "array",
+      "description": "可选：适合的餐次。",
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["breakfast", "lunch", "dinner"] }
+    },
+    "energy": {
+      "type": "array",
+      "description": "可选：烹饪能量/状态标签，用于天气推荐加分。",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "暖胃", "清爽", "解暑", "驱寒",
+          "下饭", "快手", "慢炖",
+          "适合冷", "适合热", "适合雨天"
+        ]
+      }
     }
   },
   "$defs": {
