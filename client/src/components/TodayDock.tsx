@@ -2,17 +2,14 @@
 // 显示：已选项目 / 估算价格 / 估算热量；可清空、可一键生成今日汇总文案。
 // 使用 selectedToday 提供的本地态，无网络请求。
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { Trash2, Sparkles, X, Wallet, Flame, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
-  listSelected,
   removeSelected,
   clearSelected,
-  totalsSelected,
-  subscribeSelected,
-  type SelectedItem,
+  useSelectedToday,
   type SelectedKind,
 } from "@/lib/selectedToday";
 
@@ -37,16 +34,18 @@ const KIND_EMOJI: Record<SelectedKind, string> = {
 };
 
 export function TodayDock() {
-  const [items, setItems] = useState<SelectedItem[]>(() => listSelected());
+  const items = useSelectedToday();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const off = subscribeSelected(() => setItems(listSelected()));
-    return off;
-  }, []);
-
-  const totals = totalsSelected();
+  const totals = useMemo(() => {
+    let price = 0, calories = 0;
+    for (const x of items) {
+      if (x.price) price += x.price;
+      if (x.calories) calories += x.calories;
+    }
+    return { price, calories, count: items.length };
+  }, [items]);
 
   function summary(): string {
     if (items.length === 0) return "今日还没选东西";

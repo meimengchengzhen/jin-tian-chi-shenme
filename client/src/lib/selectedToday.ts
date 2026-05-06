@@ -1,6 +1,7 @@
 // v2: 「今日已选」状态 — 一个全局轻量发布订阅，记录用户今日决定的菜 / 外卖 / 零食 / 水果 / 饮料。
 // 使用 localStorage 持久化（safe），刷新后保留；并提供事件订阅给浮窗。
 
+import { useSyncExternalStore } from "react";
 import { readJSON, writeJSON } from "./storage";
 
 export type SelectedKind = "dish" | "takeout" | "snack" | "fruit" | "drink" | "watch" | "topic";
@@ -22,22 +23,31 @@ export interface SelectedItem {
 const KEY = "chishenme.selectedToday.v1";
 
 let cache: SelectedItem[] | null = null;
+/** 稳定快照引用：只有数据变化时才换新数组，给 useSyncExternalStore 用。 */
+let snapshot: SelectedItem[] = [];
 const listeners = new Set<() => void>();
 
 function load(): SelectedItem[] {
   if (cache) return cache;
   cache = readJSON<SelectedItem[]>(KEY, []);
+  snapshot = cache.slice();
   return cache;
+}
+
+function bumpSnapshot(): void {
+  snapshot = (cache ?? []).slice();
 }
 
 function persist(): void {
   if (!cache) return;
   writeJSON(KEY, cache);
+  bumpSnapshot();
   listeners.forEach((l) => l());
 }
 
 export function listSelected(): SelectedItem[] {
-  return load().slice();
+  load();
+  return snapshot;
 }
 
 export function addSelected(item: Omit<SelectedItem, "ts">): void {
@@ -77,11 +87,12 @@ export function totalsSelected(): { price: number; calories: number; count: numb
 
 export function subscribeSelected(fn: () => void): () => void {
   listeners.add(fn);
-  return () => listeners.delete(fn);
+  return () => {
+    listeners.delete(fn);
+  };
 }
 
-/** 用 React 18 useSyncExternalStore 风格的小 hook */
+/** React 18 useSyncExternalStore：浮窗徽标 / 总价 / 总热量都从这里读，加入后立即刷新。 */
 export function useSelectedToday(): SelectedItem[] {
-  // 简单实现：让调用方包 useState + useEffect。这里只暴露原始 API。
-  return listSelected();
+  return useSyncExternalStore(subscribeSelected, listSelected, listSelected);
 }

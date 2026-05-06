@@ -33,6 +33,7 @@ import { LazyWizardDialog, type WizardAnswers } from "@/components/LazyWizardDia
 import { DecisionPoster } from "@/components/DecisionPoster";
 import { WeeklyPlanPanel } from "@/components/WeeklyPlanPanel";
 import { addSelected } from "@/lib/selectedToday";
+import { buildLazyItems, totalsOfLazyItems } from "@/lib/lazyEstimates";
 
 type Mood = "开心" | "压力大" | "疲惫" | "沮丧" | "想奖励自己" | "平淡";
 type Weather = "晴" | "雨" | "冷" | "热" | "舒适" | "未知";
@@ -81,6 +82,8 @@ interface LazyResult {
   caloriesEst: number;
   /** 是否超预算 */
   overBudget: boolean;
+  /** 海报与浮窗共享的 SelectedItem-like estimate 列表 */
+  items: ReturnType<typeof buildLazyItems>;
 }
 
 export function LazyDecisionPanel() {
@@ -182,14 +185,24 @@ export function LazyDecisionPanel() {
 
     const summary = `${recipe?.name ?? "家常一道菜"} + 外卖去 ${takeout.special.name} + 零食 ${snack.name} + 水果 ${fruit.name} + 喝点 ${drink}`;
 
-    // 估价 / 估热量：粗略合并外卖人均 + 零食 + 水果（自己算饭菜很难，所以排除自炊菜）
-    const takeoutMid = (takeout.special.budgetMin + takeout.special.budgetMax) / 2;
-    const snackPriceNum = parseSnackPrice(snack.price);
-    const fruitPriceNum = 12; // 水果一份估算 12 元，简化
-    const drinkPriceNum = 18;
-    const priceEst = Math.round(takeoutMid + snackPriceNum + fruitPriceNum + drinkPriceNum);
+    // 估价 / 估热量：从共享 helper 派生 — 与一键加入「今日已选」后浮窗看到的总计完全一致。
     const fruitCal = (fruit as any).calories ?? 60;
-    const caloriesEst = Math.round(700 + snack.calories + fruitCal + 200);
+    const lazyItems = buildLazyItems({
+      recipe: recipe ? { name: recipe.name, cuisine: recipe.cuisine } : null,
+      takeoutBrand: {
+        id: takeout.special.id,
+        name: takeout.special.name,
+        intro: takeout.special.intro,
+        budgetMin: takeout.special.budgetMin,
+        budgetMax: takeout.special.budgetMax,
+      },
+      snack: { id: snack.id, name: snack.name, price: snack.price, calories: snack.calories },
+      fruit: { id: fruit.id, name: fruit.name, calories: fruitCal },
+      drink,
+    });
+    const totals = totalsOfLazyItems(lazyItems);
+    const priceEst = totals.price;
+    const caloriesEst = totals.calories;
     const overBudget = priceEst > budget * 1.05;
 
     return {
@@ -219,14 +232,10 @@ export function LazyDecisionPanel() {
       priceEst,
       caloriesEst,
       overBudget,
+      items: lazyItems,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mood, weather, people, budget, tastes, interest, nonce]);
-
-  function parseSnackPrice(s: string): number {
-    const m = s.match(/\d+(\.\d+)?/);
-    return m ? Number(m[0]) : 5;
-  }
 
   // v2: 接受 wizard 输出，把答案投影到本面板状态
   function applyWizard(a: WizardAnswers): void {
@@ -527,20 +536,7 @@ export function LazyDecisionPanel() {
             className="ml-auto h-8 rounded-full text-[12px]"
             data-testid="lazy-add-all"
             onClick={() => {
-              if (result.recipe) {
-                addSelected({ id: `lazy-recipe-${result.recipe.name}`, kind: "dish", name: result.recipe.name, calories: 600, price: 0, note: result.recipe.cuisine });
-              }
-              addSelected({
-                id: result.takeoutBrand.id,
-                kind: "takeout",
-                name: result.takeoutBrand.name,
-                price: Math.round((result.takeoutBrand.budgetMin + result.takeoutBrand.budgetMax) / 2),
-                calories: 700,
-                note: result.takeoutBrand.intro.slice(0, 12),
-              });
-              addSelected({ id: result.snack.id, kind: "snack", name: result.snack.name, price: parseSnackPrice(result.snack.price), calories: result.snack.calories });
-              addSelected({ id: result.fruit.id, kind: "fruit", name: result.fruit.name, price: 12, calories: result.fruit.calories });
-              addSelected({ id: `drink-${result.drink.slice(0, 10)}`, kind: "drink", name: result.drink, price: 18, calories: 150 });
+              for (const item of result.items) addSelected(item);
             }}
           >
             <Plus className="mr-1 h-3.5 w-3.5" /> 全部加入「今日已选」

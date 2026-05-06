@@ -600,7 +600,76 @@ console.log("== v2: 顶部 Tab 滚动支持 ==");
   const src = fs.readFileSync("client/src/components/MainTabs.tsx", "utf-8");
   check("MainTabs 启用了 pointer 拖拽", src.includes("pointerdown") && src.includes("pointermove"));
   check("MainTabs 启用了滚轮横向滚动", src.includes("onWheel") || src.includes('addEventListener("wheel"'));
-  check("MainTabs 提供左右渐变提示", src.includes("from-background/95"));
+  check("MainTabs 提供左右渐变提示", src.includes("from-background"));
+  // v3: 顶部箭头按钮 hit target 至少 40x40，移动端也可见
+  check(
+    "MainTabs 左右箭头按钮 hit target 至少 h-10 w-10",
+    src.includes("h-10 w-10") &&
+      src.includes("main-tabs-nudge-left") &&
+      src.includes("main-tabs-nudge-right"),
+  );
+  check(
+    "MainTabs 左右箭头按钮在移动端也可见（无 hidden sm:inline-flex）",
+    !/hidden\s+-translate-y-1\/2[^\"]*sm:inline-flex/.test(src),
+  );
+}
+
+console.log("== v3: 懒人决定海报 / 浮窗 估算口径一致 ==");
+{
+  // 用 helper 算一次结果，海报 priceEst/caloriesEst 应等于浮窗在「全部加入今日已选」后的总价 / 总热量。
+  const { buildLazyItems, totalsOfLazyItems } = await import("../client/src/lib/lazyEstimates");
+  const sample = buildLazyItems({
+    recipe: { name: "清蒸鲈鱼", cuisine: "粤菜" },
+    takeoutBrand: { id: "huazhong-zhoupu", name: "华中粥铺", intro: "清淡养胃首选", budgetMin: 18, budgetMax: 28 },
+    snack: { id: "snack-mochi", name: "麻薯/大福", price: "¥7", calories: 180 },
+    fruit: { id: "fruit-feizixiao", name: "妃子笑荔枝", calories: 60 },
+    drink: "瑞幸生椰拿铁",
+  });
+  // 浮窗求和（总价 / 总热量）
+  const totals = totalsOfLazyItems(sample);
+  // 海报本来就是从同一份 helper 算出的；这里反过来再走一遍逐项相加，确保两端口径一致。
+  const sumPrice = sample.reduce((acc, x) => acc + (x.price ?? 0), 0);
+  const sumCal = sample.reduce((acc, x) => acc + (x.calories ?? 0), 0);
+  check(
+    "buildLazyItems 求和 == totalsOfLazyItems",
+    Math.round(sumPrice) === totals.price && Math.round(sumCal) === totals.calories,
+    `sumPrice=${sumPrice} totalsPrice=${totals.price} sumCal=${sumCal} totalsCal=${totals.calories}`,
+  );
+  // 至少含菜 / 外卖 / 零食 / 水果 / 饮料 5 个 kind
+  const kinds = new Set(sample.map((x) => x.kind));
+  check(
+    "buildLazyItems 包含 dish/takeout/snack/fruit/drink 5 类",
+    ["dish", "takeout", "snack", "fruit", "drink"].every((k) => kinds.has(k as any)),
+    Array.from(kinds).join(","),
+  );
+  // 总价 > 0、总热量 > 0
+  check("总价 > 0", totals.price > 0, String(totals.price));
+  check("总热量 > 0", totals.calories > 0, String(totals.calories));
+  // 加入后的 count 与海报展示相符（5 项当 recipe 存在；4 项无 recipe）
+  check("含 recipe 时项目数 = 5", sample.length === 5, String(sample.length));
+  const noRecipe = buildLazyItems({
+    recipe: null,
+    takeoutBrand: { id: "x", name: "测试", intro: "测", budgetMin: 10, budgetMax: 30 },
+    snack: { id: "s", name: "测", price: "¥5", calories: 100 },
+    fruit: { id: "f", name: "测", calories: 60 },
+    drink: "测",
+  });
+  check("无 recipe 时项目数 = 4", noRecipe.length === 4, String(noRecipe.length));
+}
+
+console.log("== v3: TodayDock 通过 useSyncExternalStore 订阅，加入后立即刷新 ==");
+{
+  const fs = await import("node:fs");
+  const dockSrc = fs.readFileSync("client/src/components/TodayDock.tsx", "utf-8");
+  check(
+    "TodayDock 使用 useSelectedToday hook（不再 useEffect+listSelected 拉取）",
+    dockSrc.includes("useSelectedToday"),
+  );
+  const storeSrc = fs.readFileSync("client/src/lib/selectedToday.ts", "utf-8");
+  check(
+    "selectedToday 暴露 useSyncExternalStore",
+    storeSrc.includes("useSyncExternalStore"),
+  );
 }
 
 console.log("== v2: 海报 / 浮窗 / 一周计划 / 快速问答 文件存在 ==");

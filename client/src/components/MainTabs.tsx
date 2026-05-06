@@ -14,6 +14,8 @@ import {
   Wand2,
   Cookie,
   Apple,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 export type MainTabId =
@@ -207,44 +209,47 @@ export function MainTabsNav({ active, onChange }: Props) {
       className="sticky top-[58px] z-20 -mx-4 mt-1 border-y border-border/50 bg-background/90 backdrop-blur-md sm:-mx-6 sm:top-[62px]"
     >
       <div className="relative">
-        {/* 左侧渐变 + 按钮（出现仅当可向左滚） */}
+        {/* 左侧渐变（视觉淡出） */}
         <div
           aria-hidden
-          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-10 bg-gradient-to-r from-background/95 to-transparent transition-opacity ${
+          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-background to-transparent transition-opacity sm:w-14 ${
             canScrollLeft ? "opacity-100" : "opacity-0"
           }`}
         />
+        {/* 左箭头：40x40 hit target，移动端也可见，圆形大按钮 */}
         {canScrollLeft && (
           <button
             type="button"
-            aria-label="向左"
+            aria-label="向左滚动 Tab"
             onClick={() => nudge(-1)}
-            className="absolute left-1 top-1/2 z-20 hidden -translate-y-1/2 rounded-full border border-border/70 bg-card/85 p-1 text-foreground/80 shadow-sm hover-elevate active-elevate-2 sm:inline-flex"
+            className="absolute left-1 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/80 bg-card text-foreground/85 shadow-md hover-elevate active-elevate-2 sm:left-2"
             data-testid="main-tabs-nudge-left"
           >
-            <span className="text-[12px] leading-none">‹</span>
+            <ChevronLeft className="h-5 w-5" />
           </button>
         )}
+        {/* 右侧渐变 */}
         <div
           aria-hidden
-          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-background/95 to-transparent transition-opacity ${
+          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-background to-transparent transition-opacity sm:w-14 ${
             canScrollRight ? "opacity-100" : "opacity-0"
           }`}
         />
+        {/* 右箭头 */}
         {canScrollRight && (
           <button
             type="button"
-            aria-label="向右"
+            aria-label="向右滚动 Tab"
             onClick={() => nudge(1)}
-            className="absolute right-1 top-1/2 z-20 hidden -translate-y-1/2 rounded-full border border-border/70 bg-card/85 p-1 text-foreground/80 shadow-sm hover-elevate active-elevate-2 sm:inline-flex"
+            className="absolute right-1 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/80 bg-card text-foreground/85 shadow-md hover-elevate active-elevate-2 sm:right-2"
             data-testid="main-tabs-nudge-right"
           >
-            <span className="text-[12px] leading-none">›</span>
+            <ChevronRight className="h-5 w-5" />
           </button>
         )}
         <div
           ref={scrollerRef}
-          className="no-scrollbar mx-auto flex items-center gap-1.5 overflow-x-auto px-3 py-2.5 sm:gap-2 sm:px-5 lg:px-6"
+          className="no-scrollbar mx-auto flex items-center gap-1.5 overflow-x-auto px-12 py-2.5 sm:gap-2 sm:px-14 lg:px-14"
           style={{ cursor: "grab", touchAction: "pan-x", scrollSnapType: "x proximity", overscrollBehaviorX: "contain", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
         >
           {MAIN_TABS.map((t) => {
