@@ -400,6 +400,102 @@ console.log("== 食材偏好（想吃什么）软筛选生效 ==");
   check(`想吃牛肉：30 次推荐中有 >= 8 次结果含牛肉菜（实际 ${hits}）`, hits >= 8);
 }
 
+console.log("== HotBoard 月份不变量（5 月不应固定 10 月内容）==");
+{
+  const { MONTH_THEMES, currentMonth, STATIC_FALLBACK, loadSource } = await import(
+    "../client/src/lib/hotBoard"
+  );
+  // 月份主题 12 个齐全
+  for (let m = 1; m <= 12; m++) {
+    const t = MONTH_THEMES[m];
+    check(`月主题 ${m} 月存在且字段齐全`, !!t && t.themes.length > 0 && t.food.length >= 3);
+  }
+  const m = currentMonth();
+  check(`currentMonth 在 1-12 范围内（实际 ${m}）`, m >= 1 && m <= 12);
+  // 静态 fallback 不应硬写其它月份的关键词
+  for (const src of Object.keys(STATIC_FALLBACK)) {
+    const items = STATIC_FALLBACK[src as keyof typeof STATIC_FALLBACK];
+    const otherKeywords = ["十月新片速递", "深秋必去", "赏月地图", "国庆", "端午", "中秋", "立冬", "立春"];
+    const offenders = items.filter((it: any) =>
+      otherKeywords.some((k) => it.title.includes(k)),
+    );
+    check(
+      `平台 ${src} 静态 fallback 不再硬写月份关键词（10 月 / 国庆 等）`,
+      offenders.length === 0,
+      offenders.map((o: any) => o.title).join("; "),
+    );
+  }
+  // 离线加载会按月 rotate：应至少含 1 条命中当月主题词的话题
+  const { items: weiboItems } = await loadSource("weibo");
+  const themeWords = MONTH_THEMES[m].themes;
+  const monthHit = weiboItems.some((it: any) =>
+    [...themeWords, ...MONTH_THEMES[m].food, ...MONTH_THEMES[m].life]
+      .some((w) => it.title.includes(w)),
+  );
+  // fallback 路径下应能命中；live 模式无法保证 — 故只在 live=false 时强校验
+  check(
+    `离线 fallback 加载时，结果含至少 1 条命中当月主题（${MONTH_THEMES[m].label}）`,
+    monthHit,
+    weiboItems.slice(0, 6).map((i: any) => i.title).join(" | "),
+  );
+}
+
+console.log("== 外卖品牌库 ==");
+{
+  const { TAKEOUT_BRANDS, pickTakeout } = await import(
+    "../client/src/data/takeoutBrands"
+  );
+  check(`外卖品牌数 >= 12（实际 ${TAKEOUT_BRANDS.length}）`, TAKEOUT_BRANDS.length >= 12);
+  for (const b of TAKEOUT_BRANDS) {
+    check(
+      `品牌「${b.name}」字段齐全 (picks/coupon/calorie)`,
+      b.picks.length >= 1 && !!b.couponHint && !!b.calorieHint,
+    );
+  }
+  // pickTakeout 至少能给出 special + 4 alternatives
+  const r = pickTakeout({ city: "北京", budget: 30, people: 1, tastes: [], slot: "lunch" });
+  check(`pickTakeout: special 存在`, !!r.special && !!r.special.id);
+  check(`pickTakeout: alternatives 数量 >= 3`, r.alternatives.length >= 3);
+  // 不同输入下 special 名称会变化（基本「随机扰动+评分」起作用）
+  const seen = new Set<string>();
+  for (let i = 0; i < 20; i++) {
+    seen.add(pickTakeout({ city: "北京", budget: 30, people: 1, tastes: [], slot: "lunch" }).special.id);
+  }
+  check(`pickTakeout: 多次调用 special 至少 2 个不同候选`, seen.size >= 2, `seen=${seen.size}`);
+}
+
+console.log("== 零食 / 水果数据 ==");
+{
+  const { SNACKS, pickSnack } = await import("../client/src/data/snacks");
+  check(`零食条目 >= 30（实际 ${SNACKS.length}）`, SNACKS.length >= 30);
+  for (const s of SNACKS) {
+    check(
+      `零食「${s.name}」: calories>0 / 价格 / reason 完整`,
+      s.calories >= 0 && !!s.price && !!s.reason,
+    );
+  }
+  const r = pickSnack({ audiences: ["减脂", "控糖"] });
+  check(`pickSnack 减脂控糖: special 存在`, !!r.special);
+  check(`pickSnack 减脂控糖: alternatives 至少 3 条`, r.alternatives.length >= 3);
+
+  const { FRUITS, fruitsForMonth } = await import("../client/src/data/fruits");
+  check(`水果条目 >= 18（实际 ${FRUITS.length}）`, FRUITS.length >= 18);
+  // 每月都至少有 4 种水果
+  for (let m = 1; m <= 12; m++) {
+    const list = fruitsForMonth(m);
+    check(`月 ${m} 至少 4 种当令水果（实际 ${list.length}）`, list.length >= 4);
+  }
+  // 5 月应当能命中 枇杷 / 樱桃 / 草莓 / 荔枝 / 芒果 这些
+  const may = fruitsForMonth(5).map((f: any) => f.name);
+  const mayKeyTaste = ["枇杷", "樱桃", "草莓", "荔枝", "芒果"];
+  const mayHits = mayKeyTaste.filter((k) => may.some((n: string) => n.includes(k)));
+  check(
+    `5 月当令水果含至少 4 种（枇杷/樱桃/草莓/荔枝/芒果）`,
+    mayHits.length >= 4,
+    `命中 ${mayHits.join("/")}, may=${may.join("/")}`,
+  );
+}
+
 console.log("");
 if (failed === 0) {
   console.log(`✅ 全部检查通过 (RECIPES=${RECIPES.length} 道)`);

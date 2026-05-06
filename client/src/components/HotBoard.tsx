@@ -15,6 +15,8 @@ import {
   applySensitiveFilter,
   baiduUrlFor,
   searchUrlFor,
+  currentMonth,
+  MONTH_THEMES,
   type HotItem,
   type HotSource,
 } from "@/lib/hotBoard";
@@ -93,6 +95,9 @@ export function HotBoard() {
           </h2>
           <p className="mt-0.5 text-[12px] text-muted-foreground">
             实时聚合 6 个平台的热点 · 一键屏蔽争议 / 沉重话题 · 找谈资就够了
+          </p>
+          <p className="mt-0.5 text-[11px] text-primary/80" data-testid="hotboard-month-hint">
+            离线时按当前月份推荐话题（{MONTH_THEMES[currentMonth()].label}）— 不是实时热搜
           </p>
         </div>
         <Button

@@ -11,14 +11,20 @@ import {
   Coffee,
   Flame,
   Bike,
+  Wand2,
+  Cookie,
+  Apple,
 } from "lucide-react";
 
 export type MainTabId =
   | "home"
+  | "lazy"
   | "health"
   | "search"
   | "travel"
   | "takeout"
+  | "snacks"
+  | "fruit"
   | "companion"
   | "hotboard";
 
@@ -27,17 +33,22 @@ export interface MainTabDef {
   label: string;
   hint: string;
   icon: typeof Sparkles;
+  /** 视觉分组（用于横向滚动时呈现轻分组背景） */
+  group?: "core" | "lazy" | "extra";
 }
 
-// 7 个 Tab：在 1366px 桌面下用 7 列 grid 全部可见；在更窄屏用横向滚动。
+// 10 个 Tab：横向滚动 + 大按钮，移动端不挤爆。新增「懒人决定 / 零食 / 水果」。
 export const MAIN_TABS: MainTabDef[] = [
-  { id: "home", label: "今日推荐", hint: "一桌", icon: Sparkles },
-  { id: "health", label: "健康饮食", hint: "低糖低盐", icon: HeartPulse },
-  { id: "search", label: "菜谱搜索", hint: "按菜名", icon: Search },
-  { id: "travel", label: "旅行美食", hint: "城市", icon: Plane },
-  { id: "takeout", label: "外卖优惠", hint: "红包券", icon: Bike },
-  { id: "companion", label: "饭桌陪伴", hint: "看听聊", icon: Coffee },
-  { id: "hotboard", label: "饭桌热榜", hint: "6 平台", icon: Flame },
+  { id: "home", label: "今日推荐", hint: "一桌", icon: Sparkles, group: "core" },
+  { id: "lazy", label: "懒人决定", hint: "替你选", icon: Wand2, group: "lazy" },
+  { id: "takeout", label: "外卖", hint: "品牌·凑券", icon: Bike, group: "core" },
+  { id: "snacks", label: "零食", hint: "替你决定", icon: Cookie, group: "core" },
+  { id: "fruit", label: "水果", hint: "应季", icon: Apple, group: "core" },
+  { id: "health", label: "健康饮食", hint: "低糖低盐", icon: HeartPulse, group: "extra" },
+  { id: "search", label: "菜谱搜索", hint: "按菜名", icon: Search, group: "extra" },
+  { id: "travel", label: "旅行美食", hint: "城市", icon: Plane, group: "extra" },
+  { id: "companion", label: "饭桌陪伴", hint: "看听聊", icon: Coffee, group: "extra" },
+  { id: "hotboard", label: "饭桌热榜", hint: "本月", icon: Flame, group: "extra" },
 ];
 
 const HASH_PREFIX = "#/";
@@ -129,7 +140,7 @@ export function MainTabsNav({ active, onChange }: Props) {
         />
         <div
           ref={scrollerRef}
-          className="no-scrollbar mx-auto flex items-center gap-1.5 overflow-x-auto px-3 py-2.5 sm:gap-2 sm:px-5 lg:grid lg:max-w-6xl lg:grid-cols-7 lg:gap-2 lg:overflow-visible lg:px-6"
+          className="no-scrollbar mx-auto flex items-center gap-1.5 overflow-x-auto px-3 py-2.5 sm:gap-2 sm:px-5 lg:px-6"
         >
           {MAIN_TABS.map((t) => {
             const ActiveIcon = t.icon;
@@ -141,7 +152,7 @@ export function MainTabsNav({ active, onChange }: Props) {
                 onClick={() => handleClick(t.id)}
                 data-testid={`tab-${t.id}`}
                 aria-current={isActive ? "page" : undefined}
-                className={`group inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full border px-3.5 text-[14px] font-semibold tracking-tight transition-all hover-elevate active-elevate-2 lg:w-full lg:shrink lg:px-2 ${
+                className={`group inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full border px-3.5 text-[14px] font-semibold tracking-tight transition-all hover-elevate active-elevate-2 ${
                   isActive
                     ? "border-primary/60 bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
                     : "border-border/70 bg-card/70 text-foreground/90"

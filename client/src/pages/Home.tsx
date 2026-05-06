@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import {
   Sparkles,
   Clock,
@@ -34,9 +34,17 @@ import { DishImage } from "@/components/DishImage";
 import { DishPhoto } from "@/components/DishPhoto";
 import { dishVisual } from "@/lib/dishVisual";
 import { MainTabsNav, loadTabFromHash, type MainTabId } from "@/components/MainTabs";
-import { HealthPanel } from "@/components/HealthPanel";
-import { SearchPanel } from "@/components/SearchPanel";
-import { TravelPanel } from "@/components/TravelPanel";
+
+// 重型 / 偶尔进入的 Tab 改为 lazy import，减小首屏 bundle，不卡死
+const HealthPanel = lazy(() => import("@/components/HealthPanel").then((m) => ({ default: m.HealthPanel })));
+const SearchPanel = lazy(() => import("@/components/SearchPanel").then((m) => ({ default: m.SearchPanel })));
+const TravelPanel = lazy(() => import("@/components/TravelPanel").then((m) => ({ default: m.TravelPanel })));
+const TakeoutPanel = lazy(() => import("@/components/TakeoutPanel").then((m) => ({ default: m.TakeoutPanel })));
+const CompanionPanel = lazy(() => import("@/components/CompanionPanel").then((m) => ({ default: m.CompanionPanel })));
+const HotBoard = lazy(() => import("@/components/HotBoard").then((m) => ({ default: m.HotBoard })));
+const SnacksPanel = lazy(() => import("@/components/SnacksPanel").then((m) => ({ default: m.SnacksPanel })));
+const FruitPanel = lazy(() => import("@/components/FruitPanel").then((m) => ({ default: m.FruitPanel })));
+const LazyDecisionPanel = lazy(() => import("@/components/LazyDecisionPanel").then((m) => ({ default: m.LazyDecisionPanel })));
 import { pushRecent, recentPoolSet, banInSession } from "@/lib/recentPool";
 import { healthFilterLabel, type HealthFilterId, type IngredientWishId } from "@/lib/recommend";
 import { Wordmark, Logo } from "@/components/Logo";
@@ -103,11 +111,8 @@ import {
   type HistoryEntry,
 } from "@/lib/history";
 import { applyMealTheme, MEAL_THEMES } from "@/lib/mealTheme";
-import { CompanionPanel } from "@/components/CompanionPanel";
 import type { CompanionContext } from "@/lib/companionRecommend";
-import { HotBoard } from "@/components/HotBoard";
 import { CategoryBrowser } from "@/components/CategoryBrowser";
-import { TakeoutPanel } from "@/components/TakeoutPanel";
 import { CloudSyncDialog } from "@/components/CloudSyncDialog";
 import { isConfigured as isCloudConfigured } from "@/lib/cloudSync";
 import {
@@ -999,22 +1004,33 @@ export default function Home() {
 
         {tab !== "home" && (
           <div className="pt-6">
-            {tab === "health" && (
-              <HealthPanel
-                onPickRecipe={(r) => setDetailRecipe(r)}
-                realImagesEnabled={realImagesEnabled}
-              />
-            )}
-            {tab === "search" && (
-              <SearchPanel
-                onPickRecipe={(r) => setDetailRecipe(r)}
-                realImagesEnabled={realImagesEnabled}
-              />
-            )}
-            {tab === "travel" && <TravelPanel />}
-            {tab === "takeout" && <TakeoutPanel />}
-            {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
-            {tab === "hotboard" && <HotBoard />}
+            <Suspense
+              fallback={
+                <div className="py-10 text-center text-[13px] text-muted-foreground">
+                  正在加载…
+                </div>
+              }
+            >
+              {tab === "health" && (
+                <HealthPanel
+                  onPickRecipe={(r) => setDetailRecipe(r)}
+                  realImagesEnabled={realImagesEnabled}
+                />
+              )}
+              {tab === "search" && (
+                <SearchPanel
+                  onPickRecipe={(r) => setDetailRecipe(r)}
+                  realImagesEnabled={realImagesEnabled}
+                />
+              )}
+              {tab === "travel" && <TravelPanel />}
+              {tab === "takeout" && <TakeoutPanel />}
+              {tab === "snacks" && <SnacksPanel />}
+              {tab === "fruit" && <FruitPanel />}
+              {tab === "lazy" && <LazyDecisionPanel />}
+              {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
+              {tab === "hotboard" && <HotBoard />}
+            </Suspense>
             <div className="mt-6 flex justify-end">
               <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-[11.5px] hover-elevate">
                 <span>真实图片（公开图库）</span>
