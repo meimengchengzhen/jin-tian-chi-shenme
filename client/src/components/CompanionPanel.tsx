@@ -121,25 +121,65 @@ interface Props {
   ctx: CompanionContext;
 }
 
+type SceneChip = NonNullable<CompanionContext["sceneOverride"]>;
+type MoodChip = NonNullable<CompanionContext["moodOverride"]>;
+type SlotChip = NonNullable<CompanionContext["slotOverride"]>;
+
+const SCENE_CHIPS: { id: SceneChip; label: string; emoji: string }[] = [
+  { id: "single", label: "单人", emoji: "🧍" },
+  { id: "couple", label: "双人", emoji: "👫" },
+  { id: "family", label: "家庭", emoji: "👨‍👩‍👧" },
+  { id: "friends", label: "朋友", emoji: "🍻" },
+  { id: "elder", label: "长辈", emoji: "👴" },
+];
+
+const MOOD_CHIPS: { id: MoodChip; label: string; emoji: string }[] = [
+  { id: "relax", label: "放松", emoji: "🌿" },
+  { id: "laugh", label: "想笑", emoji: "😄" },
+  { id: "down", label: "低落", emoji: "🌧️" },
+  { id: "learn", label: "想学习", emoji: "📚" },
+  { id: "lively", label: "热闹", emoji: "🎉" },
+];
+
+const SLOT_CHIPS: { id: SlotChip; label: string; emoji: string }[] = [
+  { id: "breakfast", label: "早餐", emoji: "🌅" },
+  { id: "lunch", label: "午餐", emoji: "🌞" },
+  { id: "dinner", label: "晚餐", emoji: "🌙" },
+  { id: "midnight", label: "夜宵", emoji: "🌃" },
+];
+
 export function CompanionPanel({ ctx }: Props) {
   const [tab, setTab] = useState<TabKey>("watch");
   const [nonce, setNonce] = useState(0);
+  const [scene, setScene] = useState<SceneChip | null>(null);
+  const [mood, setMood] = useState<MoodChip | null>(null);
+  const [slot, setSlot] = useState<SlotChip | null>(null);
+
+  const effectiveCtx: CompanionContext = useMemo(
+    () => ({
+      ...ctx,
+      sceneOverride: scene ?? undefined,
+      moodOverride: mood ?? undefined,
+      slotOverride: slot ?? undefined,
+    }),
+    [ctx, scene, mood, slot],
+  );
 
   // ctx 中关键字段变化时,自动重抽,避免参数变了但卡片没刷新
-  const ctxKey = `${ctx.scenarioId}|${ctx.servings}|${ctx.slot}|${ctx.maxTimeMinutes ?? ""}|${ctx.age ?? ""}|${ctx.hasKids ? 1 : 0}|${ctx.elderHeavy ? 1 : 0}`;
+  const ctxKey = `${effectiveCtx.scenarioId}|${effectiveCtx.servings}|${effectiveCtx.slot}|${effectiveCtx.maxTimeMinutes ?? ""}|${effectiveCtx.age ?? ""}|${effectiveCtx.hasKids ? 1 : 0}|${effectiveCtx.elderHeavy ? 1 : 0}|${scene ?? ""}|${mood ?? ""}|${slot ?? ""}`;
 
   const watch = useMemo<RecommendedWatch[]>(
-    () => recommendWatch(ctx, 4),
+    () => recommendWatch(effectiveCtx, 4),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [ctxKey, nonce, tab === "watch"],
   );
   const topics = useMemo<RecommendedTopic[]>(
-    () => recommendTopics(ctx, 5),
+    () => recommendTopics(effectiveCtx, 5),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [ctxKey, nonce, tab === "topic"],
   );
   const audio = useMemo<RecommendedAudio[]>(
-    () => recommendAudio(ctx, 4),
+    () => recommendAudio(effectiveCtx, 4),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [ctxKey, nonce, tab === "audio"],
   );
@@ -150,7 +190,7 @@ export function CompanionPanel({ ctx }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
-  const audiences = deriveCompanionAudiences(ctx);
+  const audiences = deriveCompanionAudiences(effectiveCtx);
   const audienceLabel = audiences.slice(0, 3).join(" / ");
 
   return (
@@ -187,6 +227,31 @@ export function CompanionPanel({ ctx }: Props) {
           </Button>
         </div>
 
+        {/* 场景 / 心情 / 时段 chips:点击切换,再点取消 */}
+        <div className="mt-3 space-y-2" data-testid="companion-chips">
+          <ChipRow
+            label="场景"
+            testId="companion-chip-scene"
+            chips={SCENE_CHIPS}
+            active={scene}
+            onPick={(v) => setScene((p) => (p === v ? null : v))}
+          />
+          <ChipRow
+            label="心情"
+            testId="companion-chip-mood"
+            chips={MOOD_CHIPS}
+            active={mood}
+            onPick={(v) => setMood((p) => (p === v ? null : v))}
+          />
+          <ChipRow
+            label="时段"
+            testId="companion-chip-slot"
+            chips={SLOT_CHIPS}
+            active={slot}
+            onPick={(v) => setSlot((p) => (p === v ? null : v))}
+          />
+        </div>
+
         <div className="mt-3">
           {tab === "watch" && <WatchList items={watch} />}
           {tab === "topic" && <TopicList items={topics} />}
@@ -198,6 +263,58 @@ export function CompanionPanel({ ctx }: Props) {
         </p>
       </Card>
     </section>
+  );
+}
+
+function ChipRow<T extends string>({
+  label,
+  testId,
+  chips,
+  active,
+  onPick,
+}: {
+  label: string;
+  testId: string;
+  chips: { id: T; label: string; emoji: string }[];
+  active: T | null;
+  onPick: (v: T) => void;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-1.5" data-testid={testId}>
+      <span className="mr-0.5 shrink-0 text-[11.5px] text-muted-foreground">{label}</span>
+      {chips.map((c) => {
+        const on = active === c.id;
+        return (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => onPick(c.id)}
+            aria-pressed={on}
+            data-testid={`${testId}-${c.id}`}
+            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11.5px] transition-colors hover-elevate active-elevate-2 ${
+              on
+                ? "border-primary/60 bg-primary text-primary-foreground"
+                : "border-border bg-card/60 text-foreground/80"
+            }`}
+          >
+            <span aria-hidden>{c.emoji}</span>
+            {c.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function SpecialPickRibbon({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="mb-1 inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10.5px] font-medium text-primary-foreground"
+      data-testid="companion-special-ribbon"
+    >
+      <Sparkles className="h-3 w-3" />
+      {children}
+    </div>
   );
 }
 
@@ -251,14 +368,20 @@ function WatchList({ items }: { items: RecommendedWatch[] }) {
   }
   return (
     <ul className="grid gap-2 sm:grid-cols-2" data-testid="list-companion-watch">
-      {items.map((it) => {
+      {items.map((it, idx) => {
         const links = buildSearchLinks(it.title, "video");
+        const isSpecial = idx === 0;
         return (
           <li
             key={it.id}
-            className="rounded-xl border border-border/60 bg-background/40 p-3"
-            data-testid={`watch-${it.id}`}
+            className={`rounded-xl border p-3 ${
+              isSpecial
+                ? "border-primary/50 bg-primary/5 sm:col-span-2"
+                : "border-border/60 bg-background/40"
+            }`}
+            data-testid={`watch-${it.id}${isSpecial ? "-special" : ""}`}
           >
+            {isSpecial && <SpecialPickRibbon>今天就选这个</SpecialPickRibbon>}
             <div className="flex items-start gap-3">
               <CompanionVisual title={it.title} kind="watch" typeHint={it.type} />
               <div className="min-w-0 flex-1">
@@ -304,12 +427,17 @@ function TopicList({ items }: { items: RecommendedTopic[] }) {
   }
   return (
     <ul className="grid gap-2" data-testid="list-companion-topic">
-      {items.map((it, idx) => (
+      {items.map((it, idx) => {
+        const isSpecial = idx === 0;
+        return (
         <li
           key={it.id}
-          className="rounded-xl border border-border/60 bg-background/40 px-3 py-2.5"
-          data-testid={`topic-${it.id}`}
+          className={`rounded-xl border px-3 py-2.5 ${
+            isSpecial ? "border-primary/50 bg-primary/5" : "border-border/60 bg-background/40"
+          }`}
+          data-testid={`topic-${it.id}${isSpecial ? "-special" : ""}`}
         >
+          {isSpecial && <SpecialPickRibbon>今天就聊这个</SpecialPickRibbon>}
           <div className="flex items-baseline gap-2">
             <span className="font-display text-[12px] text-primary num">{String(idx + 1).padStart(2, "0")}</span>
             <p className="text-[14px] leading-relaxed text-foreground">{it.text}</p>
@@ -323,7 +451,8 @@ function TopicList({ items }: { items: RecommendedTopic[] }) {
             <span className="text-[11px] text-muted-foreground">· {it.reason}</span>
           </div>
         </li>
-      ))}
+        );
+      })}
     </ul>
   );
 }
@@ -334,14 +463,18 @@ function AudioList({ items }: { items: RecommendedAudio[] }) {
   }
   return (
     <ul className="grid gap-2 sm:grid-cols-2" data-testid="list-companion-audio">
-      {items.map((it) => {
+      {items.map((it, idx) => {
         const links = buildSearchLinks(it.title, "audio");
+        const isSpecial = idx === 0;
         return (
           <li
             key={it.id}
-            className="rounded-xl border border-border/60 bg-background/40 p-3"
-            data-testid={`audio-${it.id}`}
+            className={`rounded-xl border p-3 ${
+              isSpecial ? "border-primary/50 bg-primary/5 sm:col-span-2" : "border-border/60 bg-background/40"
+            }`}
+            data-testid={`audio-${it.id}${isSpecial ? "-special" : ""}`}
           >
+            {isSpecial && <SpecialPickRibbon>今天就听这个</SpecialPickRibbon>}
             <div className="flex items-start gap-3">
               <CompanionVisual title={it.title} kind="audio" typeHint={it.type} />
               <div className="min-w-0 flex-1">

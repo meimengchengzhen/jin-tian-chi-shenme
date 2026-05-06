@@ -494,6 +494,40 @@ console.log("== 零食 / 水果数据 ==");
     mayHits.length >= 4,
     `命中 ${mayHits.join("/")}, may=${may.join("/")}`,
   );
+
+  // 5 月默认首屏（special + alternatives + highlights）必须稳定命中 4-5 个
+  const { pickFruit, highlightsForMonth } = await import("../client/src/data/fruits");
+  const mayHighlights = highlightsForMonth(5).map((f: any) => f.name);
+  const mayHighlightHits = mayKeyTaste.filter((k) =>
+    mayHighlights.some((n: string) => n.includes(k)),
+  );
+  check(
+    `5 月 highlights 至少含 4 种关键水果`,
+    mayHighlightHits.length >= 4,
+    `命中 ${mayHighlightHits.join("/")}, highlights=${mayHighlights.join("/")}`,
+  );
+  check(
+    `5 月 highlights 包含全部 5 种关键水果`,
+    mayHighlightHits.length === 5,
+    `命中 ${mayHighlightHits.join("/")}`,
+  );
+
+  let minFirstScreenHits = 5;
+  for (let i = 0; i < 30; i++) {
+    const r: any = pickFruit({ month: 5, audiences: [], seasonalOnly: true });
+    const firstScreen = [
+      r.special.name,
+      ...r.alternatives.map((f: any) => f.name),
+      ...r.highlights.map((f: any) => f.name),
+    ];
+    const hits = mayKeyTaste.filter((k) => firstScreen.some((n: string) => n.includes(k))).length;
+    minFirstScreenHits = Math.min(minFirstScreenHits, hits);
+  }
+  check(
+    `5 月默认首屏 30 次重抽都至少命中 4 种关键水果`,
+    minFirstScreenHits >= 4,
+    `min=${minFirstScreenHits}`,
+  );
 }
 
 console.log("");

@@ -36,9 +36,35 @@ export interface CompanionContext {
   elderHeavy?: boolean;
   /** 总用时上限(分钟),用于推荐音频长度 */
   maxTimeMinutes?: number;
+  /** 用户在 CompanionPanel 内手动选择的「场景」覆盖,会覆写 scenarioId/servings 推断的受众 */
+  sceneOverride?: "single" | "couple" | "family" | "friends" | "elder";
+  /** 用户在 CompanionPanel 内手动选择的「心情」 */
+  moodOverride?: "relax" | "laugh" | "down" | "learn" | "lively";
+  /** 用户在 CompanionPanel 内手动选择的「时段」,会覆写 slot */
+  slotOverride?: MealSlot | "midnight";
+}
+
+/** 场景覆盖映射到 audiences */
+function audiencesFromSceneOverride(s: NonNullable<CompanionContext["sceneOverride"]>): AudienceTag[] {
+  switch (s) {
+    case "single":
+      return ["单人"];
+    case "couple":
+      return ["双人", "情侣"];
+    case "family":
+      return ["全家", "儿童友好"];
+    case "friends":
+      return ["朋友"];
+    case "elder":
+      return ["全家", "长辈友好"];
+  }
 }
 
 export function deriveCompanionAudiences(ctx: CompanionContext): AudienceTag[] {
+  // 用户在 CompanionPanel 显式选了场景就直接采用,忽略原 ctx 推断,避免冲突
+  if (ctx.sceneOverride) {
+    return audiencesFromSceneOverride(ctx.sceneOverride);
+  }
   const list: AudienceTag[] = [];
   const isFamily =
     ctx.scenarioId === "family-dinner" ||
@@ -57,6 +83,64 @@ export function deriveCompanionAudiences(ctx: CompanionContext): AudienceTag[] {
   if (ctx.servings >= 3 && ctx.servings <= 4 && !isFamily) list.push("朋友");
   if (list.length === 0) list.push("单人");
   return list;
+}
+
+/** 心情→影视/综艺的 mood 标签集合 */
+function moodToWatchMoods(mood: CompanionContext["moodOverride"]): string[] {
+  switch (mood) {
+    case "relax":
+      return ["轻松", "温馨", "下饭"];
+    case "laugh":
+      return ["搞笑"];
+    case "down":
+      return ["温馨", "怀旧", "下饭"];
+    case "learn":
+      return ["知识"];
+    case "lively":
+      return ["热血", "搞笑", "下饭"];
+    default:
+      return [];
+  }
+}
+
+/** 心情→话题 tag 偏好 */
+function moodToTopicTags(mood: CompanionContext["moodOverride"]): string[] {
+  switch (mood) {
+    case "relax":
+      return ["轻松开场", "适合全家"];
+    case "laugh":
+      return ["轻松开场", "兴趣"];
+    case "down":
+      return ["回忆", "深聊一点"];
+    case "learn":
+      return ["兴趣", "工作"];
+    case "lively":
+      return ["轻松开场", "美食"];
+    default:
+      return [];
+  }
+}
+
+/** 心情→音频 tag 偏好 */
+function moodToAudioTags(mood: CompanionContext["moodOverride"]): string[] {
+  switch (mood) {
+    case "relax":
+      return ["助眠", "做饭背景"];
+    case "laugh":
+      return ["搞笑"];
+    case "down":
+      return ["情感", "故事"];
+    case "learn":
+      return ["轻知识", "历史", "人文"];
+    case "lively":
+      return ["搞笑", "悬疑", "故事"];
+    default:
+      return [];
+  }
+}
+
+function effectiveSlot(ctx: CompanionContext): MealSlot | "midnight" {
+  return ctx.slotOverride ?? ctx.slot;
 }
 
 // === 共用打分 / 抽样工具 ===
@@ -86,10 +170,23 @@ export function recommendWatch(ctx: CompanionContext, count = 4): RecommendedWat
   const isFamily = audiences.includes("全家");
   const isKidScene = audiences.includes("儿童友好");
   const isElderScene = audiences.includes("长辈友好");
+  const wantedMoods = moodToWatchMoods(ctx.moodOverride);
+  const slot = effectiveSlot(ctx);
 
   const scored = WATCH_ITEMS.map((it) => {
     let s = rand() * 0.6; // 随机扰动,保证可换一批
     let reasonHints: string[] = [];
+
+    // 心情命中(优先级高,体现筛选效果)
+    if (wantedMoods.length > 0) {
+      const moodHits = it.moods.filter((m) => wantedMoods.includes(m as string)).length;
+      if (moodHits > 0) {
+        s += moodHits * 1.5;
+        reasonHints.push(`配「${wantedMoods[0]}」心情`);
+      } else {
+        s -= 0.5;
+      }
+    }
 
     // 受众命中
     const hit = it.audiences.filter((a) => audiences.includes(a)).length;
@@ -133,9 +230,10 @@ export function recommendWatch(ctx: CompanionContext, count = 4): RecommendedWat
       if (it.moods.includes("搞笑") || it.moods.includes("热血")) s += 0.5;
     }
 
-    // 餐次:午餐 / 晚餐倾向「下饭」「美食」;早餐倾向「轻松」「温馨」
-    if (ctx.slot === "dinner" && (it.moods.includes("下饭") || it.moods.includes("美食"))) s += 0.3;
-    if (ctx.slot === "breakfast" && (it.moods.includes("轻松") || it.moods.includes("温馨"))) s += 0.2;
+    // 餐次:午餐 / 晚餐倾向「下饭」「美食」;早餐倾向「轻松」「温馨」;夜宵倾向短 + 搞笑
+    if (slot === "dinner" && (it.moods.includes("下饭") || it.moods.includes("美食"))) s += 0.3;
+    if (slot === "breakfast" && (it.moods.includes("轻松") || it.moods.includes("温馨"))) s += 0.2;
+    if (slot === "midnight" && (it.moods.includes("搞笑") || it.moods.includes("下饭"))) s += 0.3;
 
     // 年龄软偏好(不硬过滤,只对符合的内容加分)
     if (typeof ctx.age === "number") {
@@ -174,10 +272,21 @@ export function recommendTopics(ctx: CompanionContext, count = 5): RecommendedTo
   const isFamily = audiences.includes("全家");
   const isKidScene = audiences.includes("儿童友好");
   const isElderScene = audiences.includes("长辈友好");
+  const wantedTopicTags = moodToTopicTags(ctx.moodOverride);
+  const slot = effectiveSlot(ctx);
 
   const scored = TOPIC_ITEMS.map((it) => {
     let s = rand() * 0.6;
     const reasonHints: string[] = [];
+
+    // 心情命中
+    if (wantedTopicTags.length > 0) {
+      const moodHits = it.tags.filter((t) => wantedTopicTags.includes(t as string)).length;
+      if (moodHits > 0) {
+        s += moodHits * 1.4;
+        reasonHints.push(`配心情`);
+      }
+    }
 
     // 受众命中
     const hit = it.audiences.filter((a) => audiences.includes(a)).length;
@@ -218,9 +327,10 @@ export function recommendTopics(ctx: CompanionContext, count = 5): RecommendedTo
       }
     }
 
-    // 餐次:晚餐多温馨回忆;午餐多轻松开场
-    if (ctx.slot === "dinner" && (it.tags.includes("回忆") || it.tags.includes("适合全家"))) s += 0.2;
-    if (ctx.slot === "lunch" && it.tags.includes("轻松开场")) s += 0.2;
+    // 餐次:晚餐多温馨回忆;午餐多轻松开场;早餐 / 夜宵偏轻松
+    if (slot === "dinner" && (it.tags.includes("回忆") || it.tags.includes("适合全家"))) s += 0.2;
+    if (slot === "lunch" && it.tags.includes("轻松开场")) s += 0.2;
+    if ((slot === "breakfast" || slot === "midnight") && it.tags.includes("轻松开场")) s += 0.2;
 
     // 兜底 reason
     if (reasonHints.length === 0) {
@@ -249,6 +359,8 @@ export function recommendAudio(ctx: CompanionContext, count = 4): RecommendedAud
   const isFamily = audiences.includes("全家");
   const isKidScene = audiences.includes("儿童友好");
   const isElderScene = audiences.includes("长辈友好");
+  const wantedAudioTags = moodToAudioTags(ctx.moodOverride);
+  const slot = effectiveSlot(ctx);
 
   // 根据用时推荐长度:短(<25)、中(25~60)、长(>60)
   const t = ctx.maxTimeMinutes ?? 45;
@@ -258,6 +370,15 @@ export function recommendAudio(ctx: CompanionContext, count = 4): RecommendedAud
   const scored = AUDIO_ITEMS.map((it) => {
     let s = rand() * 0.5;
     const reasonHints: string[] = [];
+
+    // 心情命中
+    if (wantedAudioTags.length > 0) {
+      const moodHits = it.tags.filter((t) => wantedAudioTags.includes(t as string)).length;
+      if (moodHits > 0) {
+        s += moodHits * 1.4;
+        reasonHints.push(`配心情`);
+      }
+    }
 
     if (desiredLengths.includes(it.length)) {
       s += 1.2;
@@ -294,9 +415,10 @@ export function recommendAudio(ctx: CompanionContext, count = 4): RecommendedAud
       }
     }
 
-    // 餐次:早餐倾向短音频;晚餐 / 周末倾向中长篇
-    if (ctx.slot === "breakfast" && it.length === "短") s += 0.3;
-    if (ctx.slot === "dinner" && (it.length === "中" || it.length === "长")) s += 0.2;
+    // 餐次:早餐倾向短音频;晚餐 / 周末倾向中长篇;夜宵倾向短 + 助眠
+    if (slot === "breakfast" && it.length === "短") s += 0.3;
+    if (slot === "dinner" && (it.length === "中" || it.length === "长")) s += 0.2;
+    if (slot === "midnight" && (it.length === "短" || it.tags.includes("助眠"))) s += 0.3;
 
     if (reasonHints.length === 0) reasonHints.push(it.why);
 

@@ -143,16 +143,49 @@ export interface FruitPickResult {
   alternatives: Fruit[];
   decisionLine: string;
   monthLabel: string;
+  /** 当月「必吃 / 重点推荐」清单（已按编辑筛选并保证应季） */
+  highlights: Fruit[];
+}
+
+/**
+ * 各月「必吃」清单：编辑精选,会被推荐与首屏排序优先级最高
+ * 选取标准:大众熟知的当月时令 / 早季 / 尾季关键词,5 月必含枇杷、樱桃、草莓尾季、荔枝早季、芒果。
+ */
+export const MONTH_HIGHLIGHTS: Record<number, string[]> = {
+  1: ["sugar-orange", "kiwifruit", "guava-w", "apple"],
+  2: ["sugar-orange", "tangelo", "kiwifruit", "apple"],
+  3: ["strawberry", "tangelo", "pineapple", "kiwifruit"],
+  4: ["loquat", "strawberry", "pineapple", "mango-early"],
+  5: ["loquat", "cherry-cn", "strawberry-late", "lychee-early", "mango-early"],
+  6: ["lychee-early", "watermelon", "peach", "yangmei", "loquat"],
+  7: ["watermelon", "peach", "blueberry", "lychee-early", "grape"],
+  8: ["watermelon", "grape", "longan", "peach", "fig"],
+  9: ["grape", "pomegranate", "persimmon", "fig", "hami-melon"],
+  10: ["persimmon", "apple", "pomegranate", "kiwifruit", "pomelo"],
+  11: ["sugar-orange", "pomelo", "persimmon", "apple", "guava-s"],
+  12: ["sugar-orange", "kiwifruit", "guava-w", "strawberry"],
+};
+
+export function highlightsForMonth(month: number): Fruit[] {
+  const ids = MONTH_HIGHLIGHTS[month] ?? [];
+  const map = new Map(FRUITS.map((f) => [f.id, f]));
+  return ids.map((id) => map.get(id)).filter((f): f is Fruit => !!f);
 }
 
 export function pickFruit(input: FruitPickInput): FruitPickResult {
   const m = input.month ?? new Date().getMonth() + 1;
   const seasonal = FRUITS.filter((f) => f.months.includes(m));
   const pool = input.seasonalOnly ? seasonal : FRUITS;
+  const highlightIds = new Set(MONTH_HIGHLIGHTS[m] ?? []);
+  const noUserPrefs = input.audiences.length === 0;
 
   const scored = pool.map((f) => {
     let score = 0;
     if (f.months.includes(m)) score += 16;
+    if (highlightIds.has(f.id)) {
+      // 编辑精选优先,无用户偏好时尤其要保证它们排在前面
+      score += noUserPrefs ? 14 : 8;
+    }
     const aHits = input.audiences.filter((a) => f.audiences.includes(a)).length;
     score += aHits * 10;
     if (input.audiences.includes("控糖") && f.sugar > 12) score -= 8;
@@ -163,11 +196,12 @@ export function pickFruit(input: FruitPickInput): FruitPickResult {
 
   const special = scored[0].fruit;
   const alternatives = scored.slice(1, 6).map((s) => s.fruit);
+  const highlights = highlightsForMonth(m).filter((f) => f.months.includes(m));
   const decisionLine = (() => {
     const tags = input.audiences.length > 0 ? input.audiences.join("·") : "应季当令";
     return `${m} 月替你决定：${special.name} — 适合「${tags}」`;
   })();
-  return { special, alternatives, decisionLine, monthLabel: `${m} 月` };
+  return { special, alternatives, decisionLine, monthLabel: `${m} 月`, highlights };
 }
 
 export function fruitsForMonth(month: number): Fruit[] {

@@ -240,6 +240,33 @@ export function FruitPanel() {
         <FruitCard fruit={result.special} special />
       </div>
 
+      {result.highlights.length > 0 && (
+        <div data-testid="fruit-highlights">
+          <h3 className="mb-2 font-display text-[1.05rem] tracking-tight">
+            <Sparkles className="mb-0.5 mr-1 inline h-4 w-4 text-primary" />
+            {month} 月必吃
+            <span className="ml-2 text-[11.5px] text-muted-foreground">
+              · 编辑精选时令清单
+            </span>
+          </h3>
+          <div
+            className="-mx-1 flex snap-x snap-mandatory gap-1.5 overflow-x-auto px-1 pb-1"
+            data-testid="fruit-highlights-row"
+          >
+            {result.highlights.map((f) => (
+              <span
+                key={f.id}
+                className="inline-flex shrink-0 snap-start items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[12px] text-foreground/85"
+                data-testid={`fruit-highlight-${f.id}`}
+              >
+                <span aria-hidden>{f.emoji}</span>
+                {f.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div>
         <h3 className="mb-2 font-display text-[1.05rem] tracking-tight">备选 / 应季其它选择</h3>
         <div className="grid gap-2 sm:grid-cols-2">
