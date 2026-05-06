@@ -3,6 +3,18 @@
 
 export type Cuisine = "川菜" | "粤菜" | "江浙" | "鲁菜" | "西北" | "东北" | "家常";
 export type Course = "main" | "soup" | "veggie" | "staple";
+/** 子门类标签 — 与 Course 正交，用于「甜品 / 饮品 / 小吃」等浏览。
+ *  null/undefined 表示常规家常菜；甜品/烘焙等通常 course="staple"，但可通过 category 单独过滤。
+ */
+export type Category =
+  | "甜品"
+  | "饮品"
+  | "小吃"
+  | "早餐"
+  | "夜宵"
+  | "烘焙"
+  | "轻食"
+  | "下午茶";
 export type Difficulty = "简单" | "中等" | "进阶";
 export type Taste = "清淡" | "咸鲜" | "酸甜" | "微辣" | "重辣" | "麻辣";
 export type Restriction = "素食" | "无猪肉" | "无牛肉" | "无海鲜" | "无辣" | "无蛋" | "无奶" | "无花生";
@@ -64,6 +76,9 @@ export interface Recipe {
   slots?: MealSlotTag[];
   /** 烹饪能量标签 */
   energy?: EnergyTag[];
+  /** 子门类（与 course 正交）：甜品 / 饮品 / 小吃 / 早餐 / 夜宵 / 烘焙 / 轻食 / 下午茶。
+   *  常规家常菜留空。 */
+  category?: Category;
 }
 
 // 手写核心菜谱（覆盖经典款）。
@@ -1539,3 +1554,4 @@ export const ALL_CUISINES: Cuisine[] = ["家常", "川菜", "粤菜", "江浙", 
 export const ALL_TASTES: Taste[] = ["清淡", "咸鲜", "酸甜", "微辣", "重辣", "麻辣"];
 export const ALL_RESTRICTIONS: Restriction[] = ["素食", "无猪肉", "无牛肉", "无海鲜", "无辣", "无蛋", "无奶", "无花生"];
 export const ALL_DIFFICULTIES: Difficulty[] = ["简单", "中等", "进阶"];
+export const ALL_CATEGORIES: Category[] = ["甜品", "饮品", "小吃", "早餐", "夜宵", "烘焙", "轻食", "下午茶"];

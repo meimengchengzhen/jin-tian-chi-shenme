@@ -98,6 +98,10 @@ import {
 import { applyMealTheme, MEAL_THEMES } from "@/lib/mealTheme";
 import { CompanionPanel } from "@/components/CompanionPanel";
 import type { CompanionContext } from "@/lib/companionRecommend";
+import { HotBoard } from "@/components/HotBoard";
+import { CategoryBrowser } from "@/components/CategoryBrowser";
+import { CloudSyncDialog } from "@/components/CloudSyncDialog";
+import { isConfigured as isCloudConfigured } from "@/lib/cloudSync";
 
 // === 小工具组件 ===
 function Chip({
@@ -338,6 +342,8 @@ export default function Home() {
   const [profile, setProfile] = useState<Profile | null>(() => getActiveProfile());
   const [env, setEnv] = useState<EnvContext>(() => loadEnv());
   const [profileOpen, setProfileOpen] = useState(false);
+  const [cloudOpen, setCloudOpen] = useState(false);
+  const cloudConfigured = isCloudConfigured();
 
   // 场景 / 引导
   const [scenarioId, setScenarioId] = useState<ScenarioId>(() => loadScenario());
@@ -564,6 +570,17 @@ export default function Home() {
               <UserCircle2 className="h-3.5 w-3.5 text-primary" />
               {profile ? <span className="max-w-[7em] truncate">{profile.nickname}</span> : "登录 / 档案"}
             </button>
+            <button
+              type="button"
+              onClick={() => setCloudOpen(true)}
+              data-testid="button-open-cloud"
+              title={cloudConfigured ? "已配置云端同步" : "未配置云端，仅本地模式"}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-foreground/85 hover-elevate active-elevate-2"
+            >
+              <Cloud className={`h-3.5 w-3.5 ${cloudConfigured ? "text-primary" : "text-muted-foreground"}`} />
+              <span className="hidden sm:inline">云端同步</span>
+              <span className="rounded-full bg-primary/10 px-1.5 text-[9.5px] text-primary num">Beta</span>
+            </button>
             <a
               href="https://github.com/meimengchengzhen/jin-tian-chi-shenme"
               target="_blank"
@@ -578,21 +595,49 @@ export default function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl px-4 sm:px-6">
-        {/* Hero */}
-        <section className="pt-8 sm:pt-12">
+        {/* Hero — 升级版：渐变光晕 + 数据徽章 + 高级感 */}
+        <section className="relative pt-10 sm:pt-14">
+          {/* 装饰背景 */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-12 -right-12 top-0 -z-10 h-[420px] opacity-[0.55]"
+            style={{
+              background:
+                "radial-gradient(60% 80% at 30% 20%, rgba(244,160,69,0.18), transparent 60%)," +
+                " radial-gradient(50% 60% at 80% 30%, rgba(99,140,77,0.14), transparent 70%)",
+            }}
+          />
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary/80">
             <span className="h-px w-8 bg-primary/40" /> {meal.label} · {meal.toneHint}
           </div>
-          <h1 className="mt-4 font-display text-[2.1rem] leading-[1.08] tracking-tight sm:text-[2.6rem]">
+          <h1 className="mt-4 font-display text-[2.2rem] leading-[1.05] tracking-tight sm:text-[2.9rem]">
             {meal.label}就吃这些。
             <br />
-            <span className="text-primary">不用再想了。</span>
+            <span className="bg-gradient-to-r from-primary to-amber-600 bg-clip-text text-transparent">
+              不用再想了。
+            </span>
           </h1>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
             告诉我们今天几个人吃、有多少时间、忌口偏好，
             我们帮你随机搭一桌家常菜，并按蔬菜 / 肉蛋 / 调味分类生成买菜清单。
             可以创建本地档案保存喜好与饮食目标，所有数据都只保存在你的浏览器里。
           </p>
+          {/* 数据徽章 */}
+          <div className="mt-5 flex flex-wrap gap-2 text-[11.5px]">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85" data-testid="hero-stat-recipes">
+              <ChefHat className="h-3 w-3 text-primary" />
+              <span className="num font-medium text-primary">{RECIPES.length}</span>
+              <span className="text-muted-foreground">道菜</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85">
+              <Sparkles className="h-3 w-3 text-primary" />
+              <span className="text-muted-foreground">8 大门类 · 含甜品 / 饮品 / 烘焙</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85">
+              <Flame className="h-3 w-3 text-primary" />
+              <span className="text-muted-foreground">实时饭桌热榜</span>
+            </span>
+          </div>
         </section>
 
         {/* 场景 Tabs：移动端 2 列网格（一眼可见），桌面端水平 wrap */}
@@ -1243,6 +1288,12 @@ export default function Home() {
         {/* 饭桌陪伴 */}
         <CompanionPanel ctx={companionCtx} />
 
+        {/* 饭桌热榜：饭桌陪伴附近 */}
+        <HotBoard />
+
+        {/* 门类浏览：甜品 / 饮品 / 小吃 / 烘焙 等 */}
+        <CategoryBrowser onPickRecipe={(r) => setDetailRecipe(r)} />
+
         {/* 历史 / 收藏 */}
         {(history.length > 0 || favorites.size > 0) && (
           <section
@@ -1352,6 +1403,8 @@ export default function Home() {
           setOnboardingOpen(false);
         }}
       />
+
+      <CloudSyncDialog open={cloudOpen} onClose={() => setCloudOpen(false)} />
     </div>
   );
 }

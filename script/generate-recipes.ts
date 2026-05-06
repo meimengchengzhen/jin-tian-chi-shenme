@@ -13,6 +13,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type {
+  Category,
   Course,
   Cuisine,
   Difficulty,
@@ -50,6 +51,7 @@ interface GenRecipe {
   regions?: RegionTag[];
   slots?: MealSlotTag[];
   energy?: EnergyTag[];
+  category?: Category;
 }
 
 // === 主料库（按 course 分） ===
@@ -1712,6 +1714,458 @@ const VEGGIES: VegTpl[] = [
   },
 ];
 
+// === 子门类模板（甜品 / 饮品 / 小吃 / 早餐 / 夜宵 / 烘焙 / 轻食 / 下午茶） ===
+// 这些模板的 course 多为 staple；通过 category 标签暴露在「门类浏览」中。
+type CatTpl = {
+  id: string;
+  name: string;
+  cuisine: Cuisine;
+  course: Course;
+  category: Category;
+  difficulty: Difficulty;
+  timeMinutes: number;
+  tastes: Taste[];
+  contains: Restriction[];
+  reason: string;
+  steps: string[];
+  ingredients: GenIngredient[];
+  serves?: number;
+  seasons?: Season[];
+  weathers?: WeatherTag[];
+  regions?: RegionTag[];
+  slots?: MealSlotTag[];
+  energy?: EnergyTag[];
+};
+
+// 甜品（中式 + 网红 + 简单家庭甜品）
+const DESSERTS: CatTpl[] = [
+  { id: "dessert-mango-pomelo-sago", name: "杨枝甘露", cuisine: "粤菜", course: "staple", category: "甜品", difficulty: "简单", timeMinutes: 25, tastes: ["酸甜", "清淡"], contains: ["无奶"], reason: "港式糖水扛把子，芒果果汁裹西米，一勺到底。", steps: ["西米煮 15 分钟过凉至透明", "芒果切丁榨汁", "椰汁+淡奶油+糖调底", "拌入西米芒果丁柚子粒"], ingredients: [{name:"芒果",qty:"2 个",category:"蔬菜"},{name:"椰浆",qty:"200ml",category:"调味/主食"},{name:"淡奶油",qty:"100ml",category:"调味/主食"},{name:"西米",qty:"60g",category:"调味/主食"},{name:"糖",qty:"30g",category:"调味/主食"}], seasons:["夏"], weathers:["热"], slots:["lunch","dinner"], energy:["解暑","清爽"] },
+  { id: "dessert-double-skin-milk", name: "双皮奶", cuisine: "粤菜", course: "staple", category: "甜品", difficulty: "中等", timeMinutes: 40, tastes: ["清淡", "酸甜"], contains: ["无奶","无蛋"], reason: "顺德经典，第一层奶皮+第二层蛋奶羹。", steps: ["牛奶煮沸放凉结奶皮", "倒出牛奶留奶皮在碗底", "蛋清+糖+牛奶搅匀过筛", "回倒进碗封保鲜膜中火蒸 12 分钟"], ingredients:[{name:"牛奶",qty:"500ml",category:"调味/主食"},{name:"鸡蛋",qty:"3 个 (取蛋清)",category:"肉蛋豆制品"},{name:"糖",qty:"40g",category:"调味/主食"}], regions:["华南"], slots:["dinner"], energy:["清爽"] },
+  { id: "dessert-tangyuan", name: "黑芝麻汤圆", cuisine: "江浙", course: "staple", category: "甜品", difficulty: "简单", timeMinutes: 20, tastes: ["酸甜"], contains: [], reason: "圆滚滚甜蜜蜜，元宵冬至必备。", steps: ["糯米粉+温水揉光", "包入黑芝麻馅", "水开下锅煮至浮起再煮 2 分钟"], ingredients:[{name:"糯米粉",qty:"200g",category:"调味/主食"},{name:"黑芝麻馅",qty:"150g",category:"调味/主食"}], seasons:["冬"], slots:["breakfast","dinner"], energy:["暖胃"] },
+  { id: "dessert-red-bean-soup", name: "红豆沙糖水", cuisine: "粤菜", course: "soup", category: "甜品", difficulty: "简单", timeMinutes: 90, tastes: ["酸甜"], contains: [], reason: "暖暖一碗，养胃又润。", steps: ["红豆泡 4 小时", "高压锅压 30 分钟至软", "加糖再煮 10 分钟收浓"], ingredients:[{name:"红豆",qty:"200g",category:"调味/主食"},{name:"陈皮",qty:"1 片",category:"调味/主食"},{name:"冰糖",qty:"60g",category:"调味/主食"}], seasons:["秋","冬"], regions:["华南"], slots:["dinner"], energy:["暖胃","慢炖"] },
+  { id: "dessert-mung-bean-soup", name: "绿豆汤", cuisine: "家常", course: "soup", category: "甜品", difficulty: "简单", timeMinutes: 50, tastes: ["清淡"], contains: [], reason: "夏日消暑神器，冰镇尤佳。", steps: ["绿豆洗净", "冷水下锅煮 40 分钟", "加冰糖煮溶", "放凉冰镇"], ingredients:[{name:"绿豆",qty:"200g",category:"调味/主食"},{name:"冰糖",qty:"60g",category:"调味/主食"}], seasons:["夏"], weathers:["热"], slots:["lunch","dinner"], energy:["解暑","清爽","适合热"] },
+  { id: "dessert-osmanthus-jelly", name: "桂花糕", cuisine: "江浙", course: "staple", category: "甜品", difficulty: "简单", timeMinutes: 30, tastes: ["酸甜"], contains: [], reason: "晶莹剔透，桂花香气袭人。", steps: ["糯米粉+水+糖搅匀", "倒入模具中火蒸 25 分钟", "撒桂花蜜冷藏切块"], ingredients:[{name:"糯米粉",qty:"150g",category:"调味/主食"},{name:"桂花",qty:"5g",category:"调味/主食"},{name:"糖",qty:"40g",category:"调味/主食"}], seasons:["秋"], regions:["华东"], energy:["清爽"] },
+  { id: "dessert-egg-tart", name: "葡式蛋挞", cuisine: "粤菜", course: "staple", category: "烘焙", difficulty: "中等", timeMinutes: 50, tastes: ["酸甜"], contains: ["无奶","无蛋"], reason: "外酥里嫩，烤箱新手挑战款。", steps: ["蛋黄+糖+牛奶+淡奶油拌匀过筛", "倒入挞皮 8 分满", "200℃ 烤 25 分钟出焦斑"], ingredients:[{name:"蛋挞皮",qty:"10 个",category:"调味/主食"},{name:"鸡蛋",qty:"2 个 (取蛋黄)",category:"肉蛋豆制品"},{name:"淡奶油",qty:"100ml",category:"调味/主食"},{name:"牛奶",qty:"80ml",category:"调味/主食"},{name:"糖",qty:"30g",category:"调味/主食"}], slots:["lunch","dinner"], energy:["清爽"] },
+  { id: "dessert-bobing", name: "驴打滚", cuisine: "鲁菜", course: "staple", category: "甜品", difficulty: "中等", timeMinutes: 50, tastes: ["酸甜"], contains: [], reason: "豆面香浓糯米弹牙，老北京小吃。", steps: ["糯米粉+水蒸 25 分钟", "炒熟黄豆面铺底", "糯米团擀薄抹豆沙卷起"], ingredients:[{name:"糯米粉",qty:"200g",category:"调味/主食"},{name:"黄豆粉",qty:"50g",category:"调味/主食"},{name:"红豆沙",qty:"150g",category:"调味/主食"}], regions:["华北"], energy:["清爽"] },
+  { id: "dessert-jiaobing", name: "焦糖布丁", cuisine: "家常", course: "staple", category: "甜品", difficulty: "中等", timeMinutes: 40, tastes: ["酸甜"], contains: ["无奶","无蛋"], reason: "焦糖+蛋奶香，舀一勺幸福满满。", steps: ["糖小火熬焦糖倒入碗底", "鸡蛋+牛奶+糖搅匀过筛", "倒入碗中盖锡纸蒸 25 分钟", "冷藏脱模"], ingredients:[{name:"鸡蛋",qty:"3 个",category:"肉蛋豆制品"},{name:"牛奶",qty:"300ml",category:"调味/主食"},{name:"糖",qty:"60g",category:"调味/主食"}], energy:["清爽"] },
+  { id: "dessert-tofu-pudding", name: "红糖豆腐花", cuisine: "粤菜", course: "staple", category: "甜品", difficulty: "中等", timeMinutes: 25, tastes: ["酸甜"], contains: [], reason: "嫩豆花配红糖姜汁，秋冬温补。", steps: ["内酯倒入碗", "热豆浆冲入静置 15 分钟", "红糖加水熬化", "淋糖姜汁"], ingredients:[{name:"豆浆",qty:"500ml",category:"调味/主食"},{name:"内酯",qty:"3g",category:"调味/主食"},{name:"红糖",qty:"30g",category:"调味/主食"},{name:"姜",qty:"1 块",category:"蔬菜"}], seasons:["秋","冬"], regions:["华南"], energy:["暖胃"] },
+  { id: "dessert-purple-rice", name: "紫米露", cuisine: "粤菜", course: "soup", category: "甜品", difficulty: "简单", timeMinutes: 60, tastes: ["酸甜"], contains: [], reason: "紫米+椰浆，糯而不腻。", steps: ["紫米泡 4 小时", "煮 40 分钟至软", "加椰浆冰糖煮 5 分钟"], ingredients:[{name:"紫米",qty:"100g",category:"调味/主食"},{name:"椰浆",qty:"200ml",category:"调味/主食"},{name:"冰糖",qty:"40g",category:"调味/主食"}], regions:["华南"], slots:["dinner"], energy:["暖胃"] },
+  { id: "dessert-sticky-rice-cake", name: "南瓜糯米饼", cuisine: "家常", course: "staple", category: "甜品", difficulty: "简单", timeMinutes: 25, tastes: ["酸甜"], contains: [], reason: "金黄可爱，外脆内软，连小朋友都抢。", steps: ["南瓜蒸熟压泥", "+糯米粉+糖揉光", "搓圆压扁", "平底锅小火煎至两面金黄"], ingredients:[{name:"南瓜",qty:"300g",category:"蔬菜"},{name:"糯米粉",qty:"200g",category:"调味/主食"},{name:"糖",qty:"30g",category:"调味/主食"}], seasons:["秋"], slots:["breakfast","lunch"], energy:["暖胃"] },
+  { id: "dessert-snowflake-crisp", name: "雪花酥", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "中等", timeMinutes: 40, tastes: ["酸甜"], contains: ["无奶","无花生"], reason: "棉花糖+饼干+果仁，年货新宠。", steps: ["黄油棉花糖小火融化", "加奶粉拌匀离火", "拌入饼干蔓越莓花生", "压平冷却切块"], ingredients:[{name:"棉花糖",qty:"150g",category:"调味/主食"},{name:"饼干",qty:"200g",category:"调味/主食"},{name:"奶粉",qty:"80g",category:"调味/主食"},{name:"花生米",qty:"60g",category:"调味/主食"},{name:"黄油",qty:"30g",category:"调味/主食"}], seasons:["冬"], energy:["清爽"] },
+  { id: "dessert-icejelly", name: "冰粉", cuisine: "川菜", course: "staple", category: "甜品", difficulty: "简单", timeMinutes: 15, tastes: ["酸甜"], contains: [], reason: "夏日街边王者，红糖花生芝麻碎拌进 Q 弹冰粉。", steps: ["冰粉粉+冷水搅匀冷藏 30 分钟", "切块装碗", "淋红糖水", "撒花生碎芝麻葡萄干"], ingredients:[{name:"冰粉粉",qty:"30g",category:"调味/主食"},{name:"红糖",qty:"40g",category:"调味/主食"},{name:"花生米",qty:"30g",category:"调味/主食"},{name:"芝麻",qty:"10g",category:"调味/主食"}], seasons:["夏"], weathers:["热"], regions:["西南"], energy:["解暑","清爽","适合热"] },
+  { id: "dessert-honey-bean-tofu", name: "蜜豆豆腐花", cuisine: "江浙", course: "staple", category: "甜品", difficulty: "简单", timeMinutes: 15, tastes: ["酸甜"], contains: [], reason: "嫩豆花+蜜豆+焦糖，下午茶最爱。", steps: ["内酯豆腐切块", "淋蜜豆", "撒焦糖珍珠"], ingredients:[{name:"嫩豆腐",qty:"1 盒",category:"肉蛋豆制品"},{name:"蜜豆",qty:"60g",category:"调味/主食"},{name:"红糖",qty:"20g",category:"调味/主食"}], regions:["华东"], energy:["清爽"] },
+  { id: "dessert-fruit-yogurt-bowl", name: "酸奶水果碗", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 8, tastes: ["酸甜"], contains: ["无奶"], reason: "希腊酸奶+蓝莓+燕麦+蜂蜜，5 分钟健康早餐。", steps: ["酸奶倒入碗", "拌入燕麦坚果", "铺时令水果", "淋蜂蜜"], ingredients:[{name:"酸奶",qty:"200g",category:"调味/主食"},{name:"燕麦片",qty:"30g",category:"调味/主食"},{name:"蓝莓",qty:"50g",category:"蔬菜"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], slots:["breakfast"], energy:["快手","清爽"] },
+  { id: "dessert-cocoa-banana", name: "可可蕉燕麦碗", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 10, tastes: ["酸甜"], contains: ["无奶"], reason: "牛奶煮燕麦+可可粉+香蕉片，健康也满足。", steps: ["燕麦+牛奶煮 5 分钟", "撒可可粉", "铺香蕉片淋蜂蜜"], ingredients:[{name:"燕麦片",qty:"50g",category:"调味/主食"},{name:"牛奶",qty:"250ml",category:"调味/主食"},{name:"香蕉",qty:"1 根",category:"蔬菜"},{name:"可可粉",qty:"1 小勺",category:"调味/主食"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], slots:["breakfast"], energy:["快手","暖胃"] },
+  { id: "dessert-rice-pudding", name: "椰浆芒果糯米饭", cuisine: "粤菜", course: "staple", category: "甜品", difficulty: "中等", timeMinutes: 60, tastes: ["酸甜"], contains: [], reason: "泰式经典街头甜品，糯米吸饱椰香配芒果。", steps: ["糯米泡 4 小时蒸熟", "椰浆+糖+盐煮开", "拌入糯米饭", "切芒果摆盘"], ingredients:[{name:"糯米",qty:"200g",category:"调味/主食"},{name:"椰浆",qty:"200ml",category:"调味/主食"},{name:"芒果",qty:"1 个",category:"蔬菜"},{name:"糖",qty:"30g",category:"调味/主食"}], seasons:["夏"], energy:["清爽"] },
+  { id: "dessert-bayberry-syrup", name: "杨梅冰沙", cuisine: "江浙", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 15, tastes: ["酸甜"], contains: [], reason: "酸甜冰凉，夏天的浙江限定。", steps: ["杨梅+糖煮 5 分钟", "冷冻 4 小时", "破壁机打成沙"], ingredients:[{name:"杨梅",qty:"300g",category:"蔬菜"},{name:"糖",qty:"50g",category:"调味/主食"}], seasons:["夏"], regions:["华东"], energy:["解暑","清爽","适合热"] },
+];
+
+// 饮品
+const DRINKS: CatTpl[] = [
+  { id: "drink-lemon-tea", name: "鸭屎香柠檬茶", cuisine: "粤菜", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 15, tastes: ["清淡","酸甜"], contains: [], reason: "潮汕原味手打柠檬茶，回甘清新。", steps: ["鸭屎香单丛冷泡 10 分钟", "捶打柠檬出油", "冰块+茶+柠檬汁+蜂蜜摇匀"], ingredients:[{name:"鸭屎香茶",qty:"5g",category:"调味/主食"},{name:"柠檬",qty:"1 个",category:"蔬菜"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], seasons:["夏"], regions:["华南"], energy:["解暑","清爽"] },
+  { id: "drink-osmanthus-oolong", name: "桂花乌龙冷萃", cuisine: "江浙", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 240, tastes: ["清淡"], contains: [], reason: "冷藏一夜出花香，秋天最优雅。", steps: ["乌龙茶+桂花干放冷水", "冷藏 8 小时", "过滤倒杯加冰"], ingredients:[{name:"乌龙茶",qty:"5g",category:"调味/主食"},{name:"桂花",qty:"3g",category:"调味/主食"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], seasons:["秋"], energy:["清爽"] },
+  { id: "drink-matcha-latte", name: "抹茶拿铁", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 8, tastes: ["清淡"], contains: ["无奶"], reason: "下午精神不济来一杯，绿得发亮。", steps: ["抹茶+热水搅成糊", "倒入热牛奶", "加糖搅匀"], ingredients:[{name:"抹茶粉",qty:"4g",category:"调味/主食"},{name:"牛奶",qty:"250ml",category:"调味/主食"},{name:"糖",qty:"1 大勺",category:"调味/主食"}], slots:["breakfast","lunch"], energy:["快手"] },
+  { id: "drink-soy-milk-coffee", name: "燕麦冰美式", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 10, tastes: ["清淡"], contains: [], reason: "下午两点的命脉，少糖少奶很舒服。", steps: ["手冲咖啡或意式浓缩冰镇", "加冰", "倒入少量燕麦奶"], ingredients:[{name:"咖啡豆",qty:"15g",category:"调味/主食"},{name:"燕麦奶",qty:"50ml",category:"调味/主食"}], slots:["breakfast","lunch"], energy:["快手","清爽"] },
+  { id: "drink-honey-lemon", name: "蜂蜜柚子茶", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 8, tastes: ["酸甜"], contains: [], reason: "感冒嗓子疼救星。", steps: ["柚子皮切丝煮 3 分钟去苦", "蜂蜜+柠檬+柚子皮装罐", "冷藏 1 周更香"], ingredients:[{name:"柚子",qty:"1 个",category:"蔬菜"},{name:"蜂蜜",qty:"200g",category:"调味/主食"},{name:"冰糖",qty:"50g",category:"调味/主食"}], seasons:["秋","冬"], energy:["暖胃","清爽"] },
+  { id: "drink-tao-zhi", name: "陶瓷杯桃胶羹", cuisine: "粤菜", course: "soup", category: "饮品", difficulty: "简单", timeMinutes: 60, tastes: ["清淡"], contains: [], reason: "胶质满满美容养颜。", steps: ["桃胶泡 8 小时", "雪燕皂角米泡发", "炖 40 分钟加冰糖"], ingredients:[{name:"桃胶",qty:"30g",category:"调味/主食"},{name:"雪燕",qty:"5g",category:"调味/主食"},{name:"冰糖",qty:"40g",category:"调味/主食"}], regions:["华南"], energy:["清爽"] },
+  { id: "drink-hot-chocolate", name: "热巧克力", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 8, tastes: ["酸甜"], contains: ["无奶"], reason: "冬天回家抱一杯。", steps: ["黑巧克力切碎", "牛奶煮温倒入溶化", "拌入棉花糖"], ingredients:[{name:"黑巧克力",qty:"50g",category:"调味/主食"},{name:"牛奶",qty:"250ml",category:"调味/主食"},{name:"棉花糖",qty:"3 个",category:"调味/主食"}], seasons:["冬"], weathers:["冷"], energy:["暖胃","驱寒"] },
+  { id: "drink-ginger-jujube-tea", name: "红枣姜茶", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 15, tastes: ["清淡"], contains: [], reason: "受凉来一杯，暖到指尖。", steps: ["生姜切片", "+红枣+红糖煮 10 分钟"], ingredients:[{name:"姜",qty:"1 块",category:"蔬菜"},{name:"红枣",qty:"6 颗",category:"调味/主食"},{name:"红糖",qty:"30g",category:"调味/主食"}], seasons:["秋","冬"], weathers:["冷"], energy:["驱寒","暖胃"] },
+  { id: "drink-tropical-smoothie", name: "热带水果思慕雪", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 10, tastes: ["酸甜"], contains: ["无奶"], reason: "维 C 满满，假装在度假。", steps: ["芒果菠萝香蕉切块冷冻", "+酸奶+冰块破壁机打"], ingredients:[{name:"芒果",qty:"1 个",category:"蔬菜"},{name:"菠萝",qty:"100g",category:"蔬菜"},{name:"酸奶",qty:"150ml",category:"调味/主食"}], seasons:["夏"], weathers:["热"], energy:["解暑","清爽","适合热"] },
+  { id: "drink-pearl-milk-tea", name: "奶盖珍珠奶茶", cuisine: "家常", course: "staple", category: "饮品", difficulty: "中等", timeMinutes: 30, tastes: ["酸甜"], contains: ["无奶"], reason: "现煮珍珠+红茶+鲜奶，比外卖好喝。", steps: ["黑糖珍珠煮 25 分钟泡 5 分钟", "红茶+糖煮 5 分钟", "拌入牛奶倒入珍珠"], ingredients:[{name:"珍珠",qty:"60g",category:"调味/主食"},{name:"红茶",qty:"5g",category:"调味/主食"},{name:"牛奶",qty:"300ml",category:"调味/主食"},{name:"红糖",qty:"40g",category:"调味/主食"}], slots:["lunch"], energy:["快手"] },
+  { id: "drink-watermelon-juice", name: "鲜榨西瓜汁", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 6, tastes: ["酸甜"], contains: [], reason: "热天必备，夏夜啤酒的好搭档。", steps: ["西瓜去籽切块榨汁", "加冰一小撮盐"], ingredients:[{name:"西瓜",qty:"500g",category:"蔬菜"},{name:"盐",qty:"少许",category:"调味/主食"}], seasons:["夏"], weathers:["热"], energy:["解暑","清爽","适合热","快手"] },
+  { id: "drink-coffee-pour-over", name: "手冲咖啡", cuisine: "家常", course: "staple", category: "饮品", difficulty: "中等", timeMinutes: 6, tastes: ["清淡"], contains: [], reason: "早晨一杯，世界开始旋转。", steps: ["豆磨细砂", "92℃ 水画圈冲洗", "前段闷蒸 30 秒", "三段水分注完成"], ingredients:[{name:"咖啡豆",qty:"15g",category:"调味/主食"}], slots:["breakfast"], energy:["快手","清爽"] },
+  { id: "drink-suanmei-soup", name: "酸梅汤", cuisine: "鲁菜", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 40, tastes: ["酸甜"], contains: [], reason: "老北京夏日酸梅汤，开胃解油。", steps: ["乌梅+山楂+陈皮+甘草洗净", "加水大火煮开转小火 30 分钟", "加冰糖煮 5 分钟", "放凉冰镇"], ingredients:[{name:"乌梅",qty:"50g",category:"调味/主食"},{name:"山楂",qty:"30g",category:"调味/主食"},{name:"陈皮",qty:"5g",category:"调味/主食"},{name:"冰糖",qty:"50g",category:"调味/主食"}], seasons:["夏"], weathers:["热"], regions:["华北"], energy:["解暑","清爽","适合热"] },
+  { id: "drink-rosehip", name: "玫瑰花蜜茶", cuisine: "家常", course: "staple", category: "饮品", difficulty: "简单", timeMinutes: 6, tastes: ["清淡"], contains: [], reason: "经期前后温柔养气，颜色仙气。", steps: ["玫瑰花干用沸水冲", "加蜂蜜枸杞", "加盖 5 分钟"], ingredients:[{name:"玫瑰花茶",qty:"3g",category:"调味/主食"},{name:"枸杞",qty:"10g",category:"调味/主食"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], energy:["清爽"] },
+];
+
+// 小吃 / 街头夜宵
+const SNACKS: CatTpl[] = [
+  { id: "snack-roujiamo", name: "肉夹馍", cuisine: "西北", course: "staple", category: "小吃", difficulty: "中等", timeMinutes: 80, tastes: ["咸鲜"], contains: ["无猪肉"], reason: "西安街头王者，腊汁肉+白吉馍。", steps: ["五花肉炖 60 分钟剁碎", "白吉馍中间剖开夹肉", "淋一勺肉汁"], ingredients:[{name:"五花肉",qty:"400g",category:"肉蛋豆制品"},{name:"白吉馍",qty:"4 个",category:"调味/主食"},{name:"葱姜",qty:"适量",category:"蔬菜"},{name:"八角",qty:"2 个",category:"调味/主食"}], regions:["西北"], slots:["lunch","dinner"], energy:["下饭"] },
+  { id: "snack-jianbing", name: "煎饼果子", cuisine: "鲁菜", course: "staple", category: "早餐", difficulty: "中等", timeMinutes: 20, tastes: ["咸鲜"], contains: ["无蛋"], reason: "北方早餐之神，绿豆面+鸡蛋+脆皮。", steps: ["绿豆面调糊", "平底锅摊薄饼", "打蛋液撒葱花", "翻面抹酱+脆皮卷起"], ingredients:[{name:"绿豆面",qty:"100g",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"葱花",qty:"适量",category:"蔬菜"},{name:"甜面酱",qty:"1 大勺",category:"调味/主食"}], regions:["华北"], slots:["breakfast"], energy:["快手"] },
+  { id: "snack-mala-tang", name: "麻辣烫", cuisine: "川菜", course: "soup", category: "夜宵", difficulty: "简单", timeMinutes: 20, tastes: ["麻辣"], contains: ["无辣"], reason: "深夜下班路上一碗，灵魂复活。", steps: ["底料炒香+水煮开", "下喜欢的食材烫熟", "捞出淋麻油芝麻酱"], ingredients:[{name:"火锅底料",qty:"半块",category:"调味/主食"},{name:"宽粉",qty:"100g",category:"调味/主食"},{name:"金针菇",qty:"100g",category:"蔬菜"},{name:"豆腐皮",qty:"100g",category:"肉蛋豆制品"},{name:"芝麻酱",qty:"1 大勺",category:"调味/主食"}], regions:["华北","西南"], slots:["dinner"], energy:["暖胃","下饭"] },
+  { id: "snack-grilled-skewer", name: "孜然烤串", cuisine: "西北", course: "main", category: "夜宵", difficulty: "中等", timeMinutes: 40, tastes: ["微辣","咸鲜"], contains: [], reason: "孜然烟火气直冲上头，配啤酒就对了。", steps: ["羊肉切块+洋葱腌孜然辣椒粉", "穿串刷油", "烤箱 220℃ 烤 12 分钟", "再撒孜然辣椒粉烤 3 分钟"], ingredients:[{name:"羊肉",qty:"400g",category:"肉蛋豆制品"},{name:"孜然",qty:"2 大勺",category:"调味/主食"},{name:"辣椒粉",qty:"1 大勺",category:"调味/主食"}], regions:["西北"], slots:["dinner"], energy:["下饭"] },
+  { id: "snack-xianbing", name: "韭菜盒子", cuisine: "东北", course: "staple", category: "小吃", difficulty: "中等", timeMinutes: 50, tastes: ["咸鲜"], contains: ["无蛋"], reason: "外脆内嫩，韭菜鸡蛋香气放倒邻居。", steps: ["面粉热水烫面醒 20 分钟", "韭菜+鸡蛋+虾皮+盐拌馅", "包成饼平底锅煎到两面金黄"], ingredients:[{name:"面粉",qty:"300g",category:"调味/主食"},{name:"韭菜",qty:"300g",category:"蔬菜"},{name:"鸡蛋",qty:"3 个",category:"肉蛋豆制品"},{name:"虾皮",qty:"15g",category:"肉蛋豆制品"}], regions:["东北","华北"], slots:["breakfast","lunch"], energy:["下饭"] },
+  { id: "snack-cold-skin", name: "麻酱凉皮", cuisine: "西北", course: "staple", category: "小吃", difficulty: "简单", timeMinutes: 20, tastes: ["微辣","酸甜"], contains: [], reason: "夏夜街边版本，多放麻酱。", steps: ["凉皮切条", "黄瓜豆芽焯水切丝", "调汁：麻酱+蒜泥+醋+辣油", "拌匀放面筋"], ingredients:[{name:"凉皮",qty:"300g",category:"调味/主食"},{name:"黄瓜",qty:"1 根",category:"蔬菜"},{name:"豆芽",qty:"100g",category:"蔬菜"},{name:"芝麻酱",qty:"2 大勺",category:"调味/主食"},{name:"辣油",qty:"1 大勺",category:"调味/主食"}], seasons:["夏"], regions:["西北"], energy:["解暑","清爽","适合热"] },
+  { id: "snack-shaomai", name: "糯米烧麦", cuisine: "粤菜", course: "staple", category: "小吃", difficulty: "中等", timeMinutes: 50, tastes: ["咸鲜"], contains: ["无猪肉"], reason: "皮薄馅满，茶楼一笼必点。", steps: ["糯米泡 4 小时蒸熟", "+猪肉末+香菇丁+生抽炒匀", "烧麦皮包馅", "上笼蒸 12 分钟"], ingredients:[{name:"糯米",qty:"200g",category:"调味/主食"},{name:"烧麦皮",qty:"24 张",category:"调味/主食"},{name:"猪肉末",qty:"150g",category:"肉蛋豆制品"},{name:"香菇",qty:"3 朵",category:"蔬菜"}], regions:["华南"], slots:["breakfast","lunch"], energy:["下饭"] },
+  { id: "snack-cold-jelly", name: "凉粉拌米皮", cuisine: "川菜", course: "staple", category: "小吃", difficulty: "简单", timeMinutes: 15, tastes: ["微辣","酸甜"], contains: [], reason: "夏天清凉降温首选。", steps: ["凉粉切条", "蒜末+辣椒油+生抽+醋+花椒粉调汁", "拌匀撒花生碎"], ingredients:[{name:"凉粉",qty:"400g",category:"调味/主食"},{name:"蒜末",qty:"1 大勺",category:"蔬菜"},{name:"辣油",qty:"1 大勺",category:"调味/主食"},{name:"醋",qty:"1 大勺",category:"调味/主食"},{name:"花生米",qty:"30g",category:"调味/主食"}], seasons:["夏"], regions:["西南"], energy:["解暑","清爽","适合热"] },
+  { id: "snack-fried-chicken", name: "韩式炸鸡", cuisine: "家常", course: "main", category: "夜宵", difficulty: "中等", timeMinutes: 40, tastes: ["酸甜","微辣"], contains: [], reason: "外酥里嫩+甜辣酱，看综艺神器。", steps: ["鸡块腌料酒姜片", "裹淀粉", "180℃ 炸 5 分钟+二次回锅 1 分钟", "拌入韩式甜辣酱"], ingredients:[{name:"鸡腿肉",qty:"500g",category:"肉蛋豆制品"},{name:"淀粉",qty:"100g",category:"调味/主食"},{name:"番茄酱",qty:"2 大勺",category:"调味/主食"},{name:"辣酱",qty:"2 大勺",category:"调味/主食"}], slots:["dinner"], energy:["下饭"] },
+  { id: "snack-takoyaki", name: "章鱼小丸子", cuisine: "家常", course: "staple", category: "小吃", difficulty: "中等", timeMinutes: 30, tastes: ["咸鲜"], contains: ["无海鲜","无蛋"], reason: "外焦内嫩，章鱼烧专用模具一搞就有。", steps: ["面糊：高汤+面粉+蛋", "倒入章鱼烧模具八分满", "撒章鱼丁+葱花", "翻面成圆球淋酱+撒木鱼花"], ingredients:[{name:"面粉",qty:"100g",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"章鱼",qty:"100g",category:"肉蛋豆制品"},{name:"葱花",qty:"适量",category:"蔬菜"},{name:"木鱼花",qty:"5g",category:"肉蛋豆制品"}], slots:["dinner"], energy:["快手"] },
+  { id: "snack-grilled-cold-noodles", name: "烤冷面", cuisine: "东北", course: "staple", category: "夜宵", difficulty: "简单", timeMinutes: 12, tastes: ["微辣","酸甜"], contains: ["无蛋"], reason: "东北夜市头牌，铁板冷面+蛋液+酱汁。", steps: ["铁板抹油放冷面饼", "打蛋摊匀煎熟翻面", "刷甜面酱+蒜末+辣油+醋", "撒葱花卷起切段"], ingredients:[{name:"东北冷面",qty:"2 张",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"火腿肠",qty:"1 根",category:"肉蛋豆制品"},{name:"甜面酱",qty:"1 大勺",category:"调味/主食"}], regions:["东北"], slots:["dinner"], energy:["下饭","快手"] },
+  { id: "snack-cnchao-fan", name: "黄金炒粉", cuisine: "粤菜", course: "staple", category: "夜宵", difficulty: "简单", timeMinutes: 15, tastes: ["咸鲜"], contains: ["无蛋"], reason: "深夜大排档，蛋液裹粉粒粒分明。", steps: ["米粉过水沥干", "鸡蛋打散滑炒", "下虾仁葱花炒香", "下米粉调老抽蚝油翻炒"], ingredients:[{name:"米粉",qty:"300g",category:"调味/主食"},{name:"鸡蛋",qty:"2 个",category:"肉蛋豆制品"},{name:"葱花",qty:"适量",category:"蔬菜"},{name:"老抽",qty:"1 小勺",category:"调味/主食"},{name:"蚝油",qty:"1 大勺",category:"调味/主食"}], regions:["华南"], slots:["dinner"], energy:["下饭"] },
+  { id: "snack-tofu-pudding-savory", name: "咸豆花", cuisine: "江浙", course: "staple", category: "小吃", difficulty: "简单", timeMinutes: 12, tastes: ["咸鲜"], contains: [], reason: "上海弄堂经典，咸鲜豆花配油条。", steps: ["内酯豆腐切块", "调汁：榨菜+虾皮+葱花+生抽+辣油", "淋汁拌油条粒"], ingredients:[{name:"嫩豆腐",qty:"1 盒",category:"肉蛋豆制品"},{name:"榨菜",qty:"30g",category:"蔬菜"},{name:"虾皮",qty:"10g",category:"肉蛋豆制品"},{name:"葱花",qty:"适量",category:"蔬菜"}], regions:["华东"], slots:["breakfast"], energy:["清爽"] },
+  { id: "snack-spicy-grilled-fish", name: "纸包鱼", cuisine: "川菜", course: "main", category: "夜宵", difficulty: "进阶", timeMinutes: 60, tastes: ["麻辣"], contains: ["无海鲜","无辣"], reason: "重庆江边夜宵之王，又麻又辣又鲜。", steps: ["鱼腌料酒姜片 15 分钟", "炒红油+豆瓣+花椒底料", "鱼煎一面金黄装锡纸包", "倒底料+泡菜+蒜烤箱 15 分钟"], ingredients:[{name:"草鱼",qty:"1 条 (约 1kg)",category:"肉蛋豆制品"},{name:"豆瓣酱",qty:"2 大勺",category:"调味/主食"},{name:"花椒",qty:"1 大勺",category:"调味/主食"},{name:"干辣椒",qty:"10 根",category:"调味/主食"},{name:"葱姜蒜",qty:"适量",category:"蔬菜"}], regions:["西南"], slots:["dinner"], energy:["下饭"] },
+  { id: "snack-stinky-tofu", name: "长沙臭豆腐", cuisine: "家常", course: "staple", category: "夜宵", difficulty: "中等", timeMinutes: 15, tastes: ["微辣"], contains: [], reason: "外脆里嫩，长沙夜市头牌。", steps: ["臭豆腐沥干", "热油 180℃ 炸至外壳起泡", "捞出戳孔淋蒜泥+辣椒油+葱花"], ingredients:[{name:"臭豆腐",qty:"400g",category:"肉蛋豆制品"},{name:"蒜",qty:"5 瓣",category:"蔬菜"},{name:"辣油",qty:"2 大勺",category:"调味/主食"},{name:"葱花",qty:"适量",category:"蔬菜"}], regions:["华中"], slots:["dinner"], energy:["下饭"] },
+];
+
+// 早餐 / 轻食 / 烘焙
+const BREAKFAST_LIGHT: CatTpl[] = [
+  { id: "bf-avocado-toast", name: "牛油果开放式吐司", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 8, tastes: ["清淡"], contains: ["无蛋"], reason: "5 分钟搞定，颜值担当。", steps: ["吐司烤酥", "牛油果压泥+柠檬汁+海盐", "抹吐司+水波蛋+黑胡椒"], ingredients:[{name:"吐司",qty:"2 片",category:"调味/主食"},{name:"牛油果",qty:"1 个",category:"蔬菜"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"柠檬",qty:"半个",category:"蔬菜"}], slots:["breakfast"], energy:["快手","清爽"] },
+  { id: "bf-oat-overnight", name: "隔夜燕麦", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 10, tastes: ["酸甜"], contains: ["无奶"], reason: "前一晚冰箱备着，第二天早上拎走就跑。", steps: ["燕麦+酸奶+牛奶+奇亚籽搅匀", "冷藏 4 小时", "早晨铺水果坚果"], ingredients:[{name:"燕麦片",qty:"50g",category:"调味/主食"},{name:"酸奶",qty:"100g",category:"调味/主食"},{name:"牛奶",qty:"100ml",category:"调味/主食"},{name:"奇亚籽",qty:"1 大勺",category:"调味/主食"}], slots:["breakfast"], energy:["快手"] },
+  { id: "bf-onepan-eggs", name: "西班牙烘蛋", cuisine: "家常", course: "main", category: "早餐", difficulty: "中等", timeMinutes: 25, tastes: ["咸鲜"], contains: ["无蛋"], reason: "鸡蛋土豆洋葱一锅烘出，欧式 brunch。", steps: ["土豆切薄片洋葱切丝煎软", "鸡蛋打散+盐倒入", "中小火盖盖煎 8 分钟", "翻面再 3 分钟"], ingredients:[{name:"鸡蛋",qty:"5 个",category:"肉蛋豆制品"},{name:"土豆",qty:"2 个",category:"蔬菜"},{name:"洋葱",qty:"半个",category:"蔬菜"},{name:"橄榄油",qty:"3 大勺",category:"调味/主食"}], slots:["breakfast"], energy:["快手"] },
+  { id: "bf-baozi", name: "猪肉大葱包子", cuisine: "东北", course: "staple", category: "早餐", difficulty: "中等", timeMinutes: 90, tastes: ["咸鲜"], contains: ["无猪肉"], reason: "皮宣馅多，配豆浆经典早餐。", steps: ["面粉+酵母+水揉光发酵", "猪肉末+葱末+生抽香油拌馅", "包成包子二次发酵 20 分钟", "蒸 18 分钟"], ingredients:[{name:"面粉",qty:"500g",category:"调味/主食"},{name:"猪肉末",qty:"400g",category:"肉蛋豆制品"},{name:"大葱",qty:"3 根",category:"蔬菜"},{name:"生抽",qty:"2 大勺",category:"调味/主食"}], regions:["华北","东北"], slots:["breakfast"], energy:["暖胃"] },
+  { id: "bf-rice-roll", name: "广式肠粉", cuisine: "粤菜", course: "staple", category: "早餐", difficulty: "中等", timeMinutes: 30, tastes: ["咸鲜"], contains: ["无猪肉","无海鲜","无蛋"], reason: "薄皮裹虾肉，淋豉油，岭南早茶白月光。", steps: ["米粉浆+水+少许油搅匀", "蒸盘抹油倒一勺浆", "撒虾仁肉末蛋液", "上锅蒸 3 分钟铲起折叠淋豉油"], ingredients:[{name:"粘米粉",qty:"100g",category:"调味/主食"},{name:"虾仁",qty:"50g",category:"肉蛋豆制品"},{name:"猪肉末",qty:"50g",category:"肉蛋豆制品"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"生抽",qty:"2 大勺",category:"调味/主食"}], regions:["华南"], slots:["breakfast"], energy:["清爽"] },
+  { id: "bf-millet-cake", name: "南瓜小米发糕", cuisine: "家常", course: "staple", category: "早餐", difficulty: "简单", timeMinutes: 60, tastes: ["清淡"], contains: [], reason: "金黄松软，宝宝大人都爱。", steps: ["南瓜蒸熟压泥", "+面粉+酵母+糖揉光发 40 分钟", "蒸 20 分钟"], ingredients:[{name:"南瓜",qty:"200g",category:"蔬菜"},{name:"面粉",qty:"300g",category:"调味/主食"},{name:"糖",qty:"30g",category:"调味/主食"}], slots:["breakfast"], energy:["暖胃"] },
+  { id: "bf-poached-egg-rice", name: "猫饭", cuisine: "家常", course: "staple", category: "夜宵", difficulty: "简单", timeMinutes: 10, tastes: ["咸鲜"], contains: ["无蛋"], reason: "懒人神餐，热饭+生鸡蛋+酱油+柴鱼花。", steps: ["热米饭打窝", "敲入生鸡蛋", "淋酱油拌匀", "撒柴鱼花葱花"], ingredients:[{name:"米饭",qty:"1 碗",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"酱油",qty:"1 大勺",category:"调味/主食"},{name:"木鱼花",qty:"5g",category:"肉蛋豆制品"}], slots:["dinner"], energy:["快手"] },
+  { id: "bf-shaobing", name: "牛肉烧饼", cuisine: "鲁菜", course: "staple", category: "早餐", difficulty: "中等", timeMinutes: 60, tastes: ["咸鲜"], contains: ["无牛肉"], reason: "酥脆掉渣的烧饼夹卤牛肉，济南早晨。", steps: ["油酥+面团擀薄裹起", "撒葱花椒盐烤", "卤牛肉切片夹入"], ingredients:[{name:"面粉",qty:"300g",category:"调味/主食"},{name:"卤牛肉",qty:"200g",category:"肉蛋豆制品"},{name:"葱花",qty:"适量",category:"蔬菜"},{name:"椒盐",qty:"1 小勺",category:"调味/主食"}], regions:["华北"], slots:["breakfast","lunch"], energy:["下饭"] },
+  { id: "bf-banshou-rice", name: "拌手温泉蛋盖饭", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 15, tastes: ["清淡"], contains: ["无蛋"], reason: "温泉蛋戳破滑过米饭，懒人精致餐。", steps: ["鸡蛋 65℃ 慢煮 1 小时（或买现成）", "热饭铺生菜丝鸡丝", "敲入温泉蛋淋酱油"], ingredients:[{name:"米饭",qty:"1 碗",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"鸡胸肉",qty:"100g",category:"肉蛋豆制品"},{name:"生菜",qty:"几片",category:"蔬菜"}], slots:["lunch"], energy:["清爽","快手"] },
+  { id: "bf-poke-bowl", name: "三文鱼坡奇碗", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 15, tastes: ["清淡"], contains: ["无海鲜"], reason: "夏威夷风海鲜碗，蛋白质拉满。", steps: ["三文鱼切丁拌酱油芝麻油", "藜麦煮熟铺底", "码黄瓜牛油果毛豆", "淋酱"], ingredients:[{name:"三文鱼",qty:"150g",category:"肉蛋豆制品"},{name:"藜麦",qty:"60g",category:"调味/主食"},{name:"黄瓜",qty:"半根",category:"蔬菜"},{name:"牛油果",qty:"半个",category:"蔬菜"},{name:"毛豆",qty:"50g",category:"蔬菜"}], slots:["lunch"], energy:["清爽","快手"] },
+  { id: "bf-french-toast", name: "法式吐司", cuisine: "家常", course: "staple", category: "早餐", difficulty: "简单", timeMinutes: 12, tastes: ["酸甜"], contains: ["无蛋","无奶"], reason: "周末懒早午餐之神。", steps: ["蛋液+牛奶+糖+肉桂粉", "吐司浸蛋液", "黄油煎至两面金黄", "淋枫糖+水果"], ingredients:[{name:"吐司",qty:"4 片",category:"调味/主食"},{name:"鸡蛋",qty:"2 个",category:"肉蛋豆制品"},{name:"牛奶",qty:"100ml",category:"调味/主食"},{name:"糖",qty:"1 大勺",category:"调味/主食"},{name:"黄油",qty:"15g",category:"调味/主食"}], slots:["breakfast"], energy:["快手"] },
+  { id: "bf-cold-soba", name: "凉拌荞麦面", cuisine: "家常", course: "staple", category: "轻食", difficulty: "简单", timeMinutes: 12, tastes: ["清淡"], contains: ["无蛋"], reason: "夏天日式清爽，拌酱油醋海苔。", steps: ["荞麦面煮 4 分钟过冰水", "蘸汁：日式酱油+柴鱼+味淋", "码海苔丝葱花温泉蛋"], ingredients:[{name:"荞麦面",qty:"200g",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"海苔",qty:"5g",category:"调味/主食"},{name:"葱花",qty:"适量",category:"蔬菜"}], seasons:["夏"], slots:["lunch"], energy:["解暑","清爽","适合热"] },
+  { id: "baking-mochi-bun", name: "麻薯软欧包", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "进阶", timeMinutes: 150, tastes: ["酸甜"], contains: ["无奶","无蛋"], reason: "外软内 Q，新手挑战款。", steps: ["主面团揉光发酵 1 小时", "麻薯加木薯粉揉团", "面团包麻薯整形", "二次发酵+烤箱 180℃ 25 分钟"], ingredients:[{name:"高筋面粉",qty:"300g",category:"调味/主食"},{name:"牛奶",qty:"180ml",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"木薯粉",qty:"100g",category:"调味/主食"},{name:"糖",qty:"40g",category:"调味/主食"},{name:"黄油",qty:"30g",category:"调味/主食"}], slots:["breakfast","lunch"], energy:["暖胃"] },
+  { id: "baking-chiffon-cake", name: "戚风蛋糕", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "进阶", timeMinutes: 90, tastes: ["酸甜"], contains: ["无奶","无蛋"], reason: "新手梦中情糕，松软到能听见呼吸。", steps: ["蛋黄+牛奶+油+面粉拌匀", "蛋白+糖打到硬性发泡", "拌入蛋黄糊", "150℃ 烤 50 分钟倒扣放凉"], ingredients:[{name:"鸡蛋",qty:"5 个",category:"肉蛋豆制品"},{name:"低筋面粉",qty:"60g",category:"调味/主食"},{name:"牛奶",qty:"50ml",category:"调味/主食"},{name:"糖",qty:"60g",category:"调味/主食"},{name:"植物油",qty:"50ml",category:"调味/主食"}], slots:["lunch"], energy:["清爽"] },
+  { id: "baking-cookies", name: "巧克力豆曲奇", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "中等", timeMinutes: 60, tastes: ["酸甜"], contains: ["无奶","无蛋"], reason: "下午茶经典，外酥内软挂巧克力豆。", steps: ["黄油糖打发", "+蛋液+面粉+小苏打+巧克力豆", "挤面糊冷藏 30 分钟", "180℃ 烤 14 分钟"], ingredients:[{name:"黄油",qty:"100g",category:"调味/主食"},{name:"低筋面粉",qty:"180g",category:"调味/主食"},{name:"鸡蛋",qty:"1 个",category:"肉蛋豆制品"},{name:"红糖",qty:"60g",category:"调味/主食"},{name:"巧克力豆",qty:"80g",category:"调味/主食"}], slots:["lunch"], energy:["清爽"] },
+  { id: "baking-scallion-bread", name: "肉松小贝", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "中等", timeMinutes: 80, tastes: ["咸鲜"], contains: ["无奶","无蛋"], reason: "便利店之神，自己做更丰富。", steps: ["蛋糕胚烤好放凉", "切对半挤沙拉酱", "夹起裹肉松"], ingredients:[{name:"低筋面粉",qty:"60g",category:"调味/主食"},{name:"鸡蛋",qty:"4 个",category:"肉蛋豆制品"},{name:"糖",qty:"50g",category:"调味/主食"},{name:"沙拉酱",qty:"100g",category:"调味/主食"},{name:"肉松",qty:"100g",category:"肉蛋豆制品"},{name:"牛奶",qty:"40ml",category:"调味/主食"}], slots:["lunch"], energy:["清爽"] },
+  { id: "baking-mooncake", name: "广式莲蓉月饼", cuisine: "粤菜", course: "staple", category: "烘焙", difficulty: "进阶", timeMinutes: 120, tastes: ["酸甜"], contains: ["无蛋"], reason: "中秋节非物质文化遗产难度。", steps: ["转化糖浆+碱水+花生油+面粉揉皮", "皮裹莲蓉+蛋黄", "月饼模压花纹", "烤箱 200℃ 5 分钟+刷蛋液 175℃ 15 分钟"], ingredients:[{name:"中筋面粉",qty:"200g",category:"调味/主食"},{name:"莲蓉",qty:"500g",category:"调味/主食"},{name:"咸蛋黄",qty:"15 个",category:"肉蛋豆制品"},{name:"花生油",qty:"50g",category:"调味/主食"}], seasons:["秋"], regions:["华南"], slots:["lunch"], energy:["清爽"] },
+  { id: "baking-portuguese-tart", name: "黄油蛋黄酥", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "进阶", timeMinutes: 120, tastes: ["酸甜"], contains: ["无奶","无蛋"], reason: "酥层千万要练。", steps: ["油皮+油酥分别揉光", "包酥擀薄三次三折", "包馅蛋黄+豆沙", "200℃ 烤 25 分钟"], ingredients:[{name:"中筋面粉",qty:"200g",category:"调味/主食"},{name:"猪油",qty:"80g",category:"调味/主食"},{name:"咸蛋黄",qty:"12 个",category:"肉蛋豆制品"},{name:"红豆沙",qty:"300g",category:"调味/主食"}], seasons:["秋"], slots:["lunch"], energy:["清爽"] },
+  { id: "baking-mini-pizza", name: "迷你披萨", cuisine: "家常", course: "staple", category: "烘焙", difficulty: "中等", timeMinutes: 50, tastes: ["咸鲜"], contains: ["无奶"], reason: "下班 30 分钟搞出意式。", steps: ["面团擀圆铺番茄酱", "撒马苏里拉+培根+青椒", "200℃ 烤 12 分钟"], ingredients:[{name:"高筋面粉",qty:"200g",category:"调味/主食"},{name:"番茄酱",qty:"3 大勺",category:"调味/主食"},{name:"马苏里拉",qty:"150g",category:"调味/主食"},{name:"培根",qty:"100g",category:"肉蛋豆制品"},{name:"青椒",qty:"半个",category:"蔬菜"}], slots:["dinner"], energy:["下饭"] },
+];
+
+// 把 CatTpl 转换为 GenRecipe（推断 contains/season 等）
+function catToGen(t: CatTpl): GenRecipe {
+  const containsSet = new Set<Restriction>(t.contains);
+  for (const ing of t.ingredients) {
+    const n = ing.name;
+    if (/鸡蛋|蛋黄|蛋清|蛋液|皮蛋|咸蛋黄/.test(n) && !/淀粉|蛋糕粉/.test(n)) containsSet.add("无蛋");
+    if (/牛肉|牛腩|牛里脊/.test(n)) containsSet.add("无牛肉");
+    if (/猪肉|五花|猪里脊|排骨|火腿(?!肠)|腊肠|培根|猪油/.test(n)) containsSet.add("无猪肉");
+    if (/虾(?!皮|米)|蟹|鱼(?!香)|蛤|贝|生蚝|章鱼|墨鱼|鱿鱼|三文鱼|草鱼|鲈鱼|带鱼|鲫鱼|木鱼花/.test(n)) containsSet.add("无海鲜");
+    if (/花生(?!油)/.test(n)) containsSet.add("无花生");
+    if (/牛奶|淡奶油|奶油|奶酪|马苏里拉|奶粉|黄油|炼乳|酸奶/.test(n) && !/豆奶|豆浆|燕麦奶|椰奶|椰浆/.test(n)) containsSet.add("无奶");
+  }
+  if (t.tastes.some((x) => x === "微辣" || x === "重辣" || x === "麻辣")) containsSet.add("无辣");
+  return {
+    id: t.id,
+    name: t.name,
+    course: t.course,
+    cuisine: t.cuisine,
+    difficulty: t.difficulty,
+    timeMinutes: t.timeMinutes,
+    tastes: t.tastes,
+    contains: Array.from(containsSet),
+    steps: t.steps,
+    reason: t.reason,
+    serves: t.serves ?? 2,
+    ingredients: t.ingredients,
+    seasons: t.seasons,
+    weathers: t.weathers,
+    regions: t.regions,
+    slots: t.slots ?? ["lunch", "dinner"],
+    energy: t.energy,
+    category: t.category,
+  };
+}
+
+// === 程序生成的甜品/饮品/小吃组合：把数据库扩到 600+ ===
+type FlavorBase = { key: string; name: string; emoji?: string };
+const FRUITS: FlavorBase[] = [
+  { key: "mango", name: "芒果" },
+  { key: "strawberry", name: "草莓" },
+  { key: "blueberry", name: "蓝莓" },
+  { key: "peach", name: "桃子" },
+  { key: "watermelon", name: "西瓜" },
+  { key: "grape", name: "葡萄" },
+  { key: "orange", name: "橙子" },
+  { key: "lemon", name: "柠檬" },
+  { key: "pineapple", name: "菠萝" },
+  { key: "kiwi", name: "猕猴桃" },
+  { key: "banana", name: "香蕉" },
+  { key: "apple", name: "苹果" },
+  { key: "lychee", name: "荔枝" },
+  { key: "longan", name: "桂圆" },
+  { key: "passionfruit", name: "百香果" },
+];
+
+function genDessertCombos(): GenRecipe[] {
+  const out: GenRecipe[] = [];
+  // 水果 × 甜品做法
+  const styles: { id: string; name: string; courseTaste: Taste[]; timeMin: number; reason: (f: string) => string; steps: (f: string) => string[]; ings: (fName: string) => GenIngredient[]; energy: EnergyTag[]; season?: Season[]; weather?: WeatherTag[]; cat: Category }[] = [
+    { id: "panna-cotta", name: "奶冻", courseTaste: ["酸甜"], timeMin: 60, reason: (f) => `${f}奶冻入口即化，颜值满分。`, steps: (f) => [`牛奶+糖+吉利丁加热融化`, `倒入杯中冷藏 4 小时`, `${f}打果泥淋顶层`], ings: (f) => [{name:"牛奶",qty:"300ml",category:"调味/主食"},{name:"淡奶油",qty:"100ml",category:"调味/主食"},{name:"吉利丁",qty:"5g",category:"调味/主食"},{name:f,qty:"100g",category:"蔬菜"},{name:"糖",qty:"40g",category:"调味/主食"}], energy:["清爽"], cat:"甜品" },
+    { id: "smoothie-bowl", name: "果昔碗", courseTaste: ["酸甜","清淡"], timeMin: 8, reason: (f) => `冷冻${f}打成沙，铺燕麦坚果即吃。`, steps: (f) => [`${f}冷冻 2 小时`, `+酸奶+蜂蜜破壁机打沙`, `铺燕麦+椰片+巧克力豆`], ings: (f) => [{name:f,qty:"200g",category:"蔬菜"},{name:"酸奶",qty:"150g",category:"调味/主食"},{name:"燕麦片",qty:"30g",category:"调味/主食"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], energy:["解暑","清爽","快手"], season:["夏"], weather:["热"], cat:"轻食" },
+    { id: "fruit-yogurt", name: "酸奶杯", courseTaste: ["酸甜"], timeMin: 5, reason: (f) => `酸奶+${f}+脆谷分层装杯，赏心悦目。`, steps: (f) => [`杯底铺脆谷`, `淋酸奶`, `码${f}重复一次`], ings: (f) => [{name:"酸奶",qty:"200g",category:"调味/主食"},{name:f,qty:"150g",category:"蔬菜"},{name:"燕麦脆",qty:"30g",category:"调味/主食"},{name:"蜂蜜",qty:"1 大勺",category:"调味/主食"}], energy:["快手","清爽"], cat:"轻食" },
+    { id: "ice-pop", name: "冰棒", courseTaste: ["酸甜"], timeMin: 15, reason: (f) => `自制${f}冰棒，零添加。`, steps: (f) => [`${f}打果泥+酸奶`, `加糖搅匀`, `倒模具冷冻 6 小时`], ings: (f) => [{name:f,qty:"200g",category:"蔬菜"},{name:"酸奶",qty:"100g",category:"调味/主食"},{name:"糖",qty:"30g",category:"调味/主食"}], energy:["解暑","清爽","适合热"], season:["夏"], weather:["热"], cat:"甜品" },
+    { id: "tart", name: "水果挞", courseTaste: ["酸甜"], timeMin: 50, reason: (f) => `黄油挞皮+卡仕达酱+${f}，烘焙基本功。`, steps: (f) => [`黄油糖打发+蛋液+面粉揉面`, `压模 180℃ 烤 15 分钟`, `挤卡仕达酱码${f}片`], ings: (f) => [{name:"低筋面粉",qty:"150g",category:"调味/主食"},{name:"黄油",qty:"80g",category:"调味/主食"},{name:"鸡蛋",qty:"2 个",category:"肉蛋豆制品"},{name:"牛奶",qty:"100ml",category:"调味/主食"},{name:f,qty:"100g",category:"蔬菜"},{name:"糖",qty:"40g",category:"调味/主食"}], energy:["清爽"], cat:"烘焙" },
+    { id: "jelly", name: "果冻", courseTaste: ["酸甜"], timeMin: 30, reason: (f) => `${f}果汁+琼脂，Q 弹无添加。`, steps: (f) => [`${f}打汁过滤`, `+水+糖+琼脂煮化`, `倒入容器冷藏 2 小时`], ings: (f) => [{name:f,qty:"200g",category:"蔬菜"},{name:"琼脂",qty:"5g",category:"调味/主食"},{name:"糖",qty:"30g",category:"调味/主食"}], energy:["解暑","清爽"], season:["夏"], cat:"甜品" },
+  ];
+  for (const f of FRUITS) {
+    for (const s of styles) {
+      const id = safeId(`${s.id}-${f.key}`);
+      const name = `${f.name}${s.name}`;
+      const ings = s.ings(f.name);
+      const containsSet = new Set<Restriction>();
+      for (const ing of ings) {
+        if (/鸡蛋|蛋黄|蛋清/.test(ing.name)) containsSet.add("无蛋");
+        if (/牛奶|淡奶油|酸奶|黄油|奶酪/.test(ing.name) && !/豆奶|椰奶/.test(ing.name)) containsSet.add("无奶");
+      }
+      out.push({
+        id,
+        name,
+        course: "staple",
+        cuisine: "家常",
+        difficulty: s.timeMin >= 50 ? "中等" : "简单",
+        timeMinutes: s.timeMin,
+        tastes: s.courseTaste,
+        contains: Array.from(containsSet),
+        steps: s.steps(f.name),
+        reason: s.reason(f.name),
+        serves: 2,
+        ingredients: ings,
+        seasons: s.season,
+        weathers: s.weather,
+        slots: ["lunch"],
+        energy: s.energy,
+        category: s.cat,
+      });
+    }
+  }
+  return out;
+}
+
+function genDrinkCombos(): GenRecipe[] {
+  const out: GenRecipe[] = [];
+  const teas: FlavorBase[] = [
+    { key: "jasmine", name: "茉莉花茶" },
+    { key: "oolong", name: "乌龙茶" },
+    { key: "earl-grey", name: "伯爵红茶" },
+    { key: "pu-er", name: "普洱茶" },
+    { key: "longjing", name: "龙井茶" },
+    { key: "tieguanyin", name: "铁观音" },
+    { key: "darjeeling", name: "大吉岭红茶" },
+  ];
+  const fruits: FlavorBase[] = [
+    { key: "lemon", name: "柠檬" },
+    { key: "peach", name: "桃子" },
+    { key: "grapefruit", name: "西柚" },
+    { key: "passionfruit", name: "百香果" },
+    { key: "lychee", name: "荔枝" },
+    { key: "kumquat", name: "金桔" },
+  ];
+  // 茶 × 水果 = 水果茶
+  for (const t of teas) {
+    for (const f of fruits) {
+      out.push({
+        id: safeId(`drink-${t.key}-${f.key}`),
+        name: `${f.name}${t.name}`,
+        course: "staple",
+        cuisine: "家常",
+        difficulty: "简单",
+        timeMinutes: 10,
+        tastes: ["酸甜","清淡"],
+        contains: [],
+        steps: [`${t.name}冷泡 5 分钟`, `${f.name}捣碎或榨汁`, `茶+果汁+蜂蜜+冰摇匀`],
+        reason: `${f.name}的清香配${t.name}的回甘，下午茶基本款。`,
+        serves: 1,
+        ingredients: [
+          { name: t.name, qty: "5g", category: "调味/主食" },
+          { name: f.name, qty: "1 个", category: "蔬菜" },
+          { name: "蜂蜜", qty: "1 大勺", category: "调味/主食" },
+        ],
+        seasons: ["夏","春","秋"],
+        slots: ["breakfast","lunch"],
+        energy: ["清爽","快手"],
+        category: "饮品",
+      });
+    }
+  }
+  // 奶茶/拿铁系列
+  const lattes: FlavorBase[] = [
+    { key: "matcha", name: "抹茶" },
+    { key: "taro", name: "芋泥" },
+    { key: "brownsugar", name: "黑糖" },
+    { key: "rose", name: "玫瑰" },
+    { key: "lavender", name: "薰衣草" },
+    { key: "earl", name: "伯爵" },
+    { key: "vanilla", name: "香草" },
+  ];
+  for (const l of lattes) {
+    out.push({
+      id: safeId(`drink-latte-${l.key}`),
+      name: `${l.name}拿铁`,
+      course: "staple",
+      cuisine: "家常",
+      difficulty: "简单",
+      timeMinutes: 8,
+      tastes: ["酸甜"],
+      contains: ["无奶"],
+      steps: [`${l.name}底料冲热水化开`, `加热牛奶`, `打奶泡盖顶`],
+      reason: `${l.name}+牛奶，办公室咖啡机的灵魂。`,
+      serves: 1,
+      ingredients: [
+        { name: `${l.name}粉`, qty: "5g", category: "调味/主食" },
+        { name: "牛奶", qty: "250ml", category: "调味/主食" },
+        { name: "糖", qty: "1 大勺", category: "调味/主食" },
+      ],
+      slots: ["breakfast","lunch"],
+      energy: ["快手"],
+      category: "饮品",
+    });
+  }
+  // 鸡尾酒/特调（无酒精变体）
+  const mocktails = [
+    { key: "mojito", name: "薄荷莫吉托", base: "薄荷+苏打水", taste: "清淡" as Taste, weather: "热" as WeatherTag },
+    { key: "mary", name: "番茄玛丽", base: "番茄汁+柠檬+黑胡椒", taste: "咸鲜" as Taste, weather: "晴" as WeatherTag },
+    { key: "coco", name: "椰青气泡水", base: "椰青+苏打水+柠檬", taste: "清淡" as Taste, weather: "热" as WeatherTag },
+  ];
+  for (const m of mocktails) {
+    out.push({
+      id: safeId(`drink-mock-${m.key}`),
+      name: m.name,
+      course: "staple",
+      cuisine: "家常",
+      difficulty: "简单",
+      timeMinutes: 6,
+      tastes: [m.taste],
+      contains: [],
+      steps: [`基底：${m.base}`, "+冰块+搅拌棒", "杯口装饰柠檬片"],
+      reason: `${m.name}清爽零酒精，开车也能喝。`,
+      serves: 1,
+      ingredients: [
+        { name: "苏打水", qty: "200ml", category: "调味/主食" },
+        { name: "柠檬", qty: "半个", category: "蔬菜" },
+        { name: "薄荷", qty: "5g", category: "蔬菜" },
+        { name: "蜂蜜", qty: "1 大勺", category: "调味/主食" },
+      ],
+      seasons: ["夏"],
+      weathers: [m.weather],
+      energy: ["解暑","清爽"],
+      category: "饮品",
+    });
+  }
+  return out;
+}
+
+function genSnackCombos(): GenRecipe[] {
+  const out: GenRecipe[] = [];
+  const snacks = [
+    { key: "rice-ball", name: "饭团", base: "米饭+海苔", t: "咸鲜" as Taste, course: "staple" as Course, cat: "小吃" as Category },
+    { key: "spring-roll", name: "春卷", base: "春卷皮+蔬菜", t: "咸鲜" as Taste, course: "staple" as Course, cat: "小吃" as Category },
+    { key: "jiaozi", name: "煎饺", base: "面皮+馅", t: "咸鲜" as Taste, course: "staple" as Course, cat: "小吃" as Category },
+    { key: "pancake", name: "葱花饼", base: "面粉+葱花", t: "咸鲜" as Taste, course: "staple" as Course, cat: "早餐" as Category },
+    { key: "egg-cake", name: "鸡蛋饼", base: "面糊+鸡蛋", t: "咸鲜" as Taste, course: "staple" as Course, cat: "早餐" as Category },
+    { key: "cong-you-bing", name: "葱油饼", base: "千层面胚+葱花", t: "咸鲜" as Taste, course: "staple" as Course, cat: "早餐" as Category },
+  ];
+  const fillings: FlavorBase[] = [
+    { key: "tuna", name: "金枪鱼" },
+    { key: "ham", name: "火腿" },
+    { key: "veg", name: "蔬菜" },
+    { key: "egg", name: "蛋黄" },
+    { key: "shrimp", name: "鲜虾" },
+    { key: "beef", name: "牛肉" },
+    { key: "pork", name: "猪肉" },
+    { key: "mushroom", name: "香菇" },
+  ];
+  for (const s of snacks) {
+    for (const f of fillings) {
+      // 跳过不合理组合
+      if (s.key === "egg-cake" && f.key === "egg") continue;
+      const id = safeId(`snack-${s.key}-${f.key}`);
+      const name = `${f.name}${s.name}`;
+      const containsSet = new Set<Restriction>();
+      const ings: GenIngredient[] = [];
+      if (s.key === "rice-ball") {
+        ings.push({name:"米饭",qty:"2 碗",category:"调味/主食"},{name:"海苔",qty:"4 片",category:"调味/主食"});
+      } else if (s.key === "spring-roll") {
+        ings.push({name:"春卷皮",qty:"15 张",category:"调味/主食"});
+      } else if (s.key === "jiaozi") {
+        ings.push({name:"饺子皮",qty:"30 张",category:"调味/主食"});
+      } else if (s.key === "pancake" || s.key === "cong-you-bing") {
+        ings.push({name:"面粉",qty:"200g",category:"调味/主食"},{name:"葱花",qty:"1 把",category:"蔬菜"});
+      } else if (s.key === "egg-cake") {
+        ings.push({name:"面粉",qty:"100g",category:"调味/主食"},{name:"鸡蛋",qty:"2 个",category:"肉蛋豆制品"});
+        containsSet.add("无蛋");
+      }
+      // 馅料对应食材
+      const fillIng = (() => {
+        switch (f.key) {
+          case "tuna": return {name:"金枪鱼罐头",qty:"100g",category:"肉蛋豆制品" as const};
+          case "ham": return {name:"火腿",qty:"100g",category:"肉蛋豆制品" as const};
+          case "veg": return {name:"小白菜",qty:"200g",category:"蔬菜" as const};
+          case "egg": return {name:"咸蛋黄",qty:"2 个",category:"肉蛋豆制品" as const};
+          case "shrimp": return {name:"虾仁",qty:"150g",category:"肉蛋豆制品" as const};
+          case "beef": return {name:"牛肉末",qty:"150g",category:"肉蛋豆制品" as const};
+          case "pork": return {name:"猪肉末",qty:"150g",category:"肉蛋豆制品" as const};
+          case "mushroom": return {name:"香菇",qty:"100g",category:"蔬菜" as const};
+          default: return {name:"蔬菜",qty:"200g",category:"蔬菜" as const};
+        }
+      })();
+      ings.push(fillIng);
+      ings.push({name:"生抽",qty:"1 大勺",category:"调味/主食"});
+      // 推断 contains
+      if (/鸡蛋|蛋黄/.test(fillIng.name) || ings.some(i => /鸡蛋/.test(i.name))) containsSet.add("无蛋");
+      if (/牛肉/.test(fillIng.name)) containsSet.add("无牛肉");
+      if (/猪肉|火腿/.test(fillIng.name)) containsSet.add("无猪肉");
+      if (/虾|鱼/.test(fillIng.name) && !/虾皮/.test(fillIng.name)) containsSet.add("无海鲜");
+      out.push({
+        id,
+        name,
+        course: s.course,
+        cuisine: "家常",
+        difficulty: s.key === "spring-roll" || s.key === "jiaozi" ? "中等" : "简单",
+        timeMinutes: s.key === "jiaozi" ? 50 : s.key === "spring-roll" ? 30 : 18,
+        tastes: [s.t],
+        contains: Array.from(containsSet),
+        steps: [`处理${f.name}馅料`, `${s.base}成型`, "煎/蒸/炸至熟", "装盘配蘸料"],
+        reason: `${f.name}${s.name}快手暖胃，街头风格搬回家。`,
+        serves: 2,
+        ingredients: ings,
+        slots: s.cat === "早餐" ? ["breakfast"] : ["breakfast", "lunch", "dinner"],
+        energy: ["快手"],
+        category: s.cat,
+      });
+    }
+  }
+  return out;
+}
+
+function genBakingCombos(): GenRecipe[] {
+  const out: GenRecipe[] = [];
+  // 简单烘焙基底 × 风味
+  const bakings = [
+    { key: "muffin", name: "马芬", time: 35, diff: "简单" as Difficulty },
+    { key: "pound-cake", name: "磅蛋糕", time: 70, diff: "中等" as Difficulty },
+    { key: "cookies", name: "饼干", time: 30, diff: "简单" as Difficulty },
+    { key: "scone", name: "司康", time: 30, diff: "简单" as Difficulty },
+    { key: "cupcake", name: "杯子蛋糕", time: 40, diff: "简单" as Difficulty },
+  ];
+  const flavors = [
+    { key: "matcha", name: "抹茶" },
+    { key: "choco", name: "巧克力" },
+    { key: "blueberry", name: "蓝莓" },
+    { key: "lemon", name: "柠檬" },
+    { key: "vanilla", name: "香草" },
+    { key: "earlgrey", name: "伯爵" },
+    { key: "rose", name: "玫瑰" },
+  ];
+  for (const b of bakings) {
+    for (const f of flavors) {
+      out.push({
+        id: safeId(`baking-${b.key}-${f.key}`),
+        name: `${f.name}${b.name}`,
+        course: "staple",
+        cuisine: "家常",
+        difficulty: b.diff,
+        timeMinutes: b.time,
+        tastes: ["酸甜"],
+        contains: ["无奶","无蛋"],
+        steps: ["黄油糖打发", `+蛋液+面粉+泡打粉+${f.name}风味`, "180℃ 烤"],
+        reason: `${f.name}风味${b.name}，下午茶赏心悦目。`,
+        serves: 4,
+        ingredients: [
+          { name: "低筋面粉", qty: "200g", category: "调味/主食" },
+          { name: "黄油", qty: "100g", category: "调味/主食" },
+          { name: "鸡蛋", qty: "2 个", category: "肉蛋豆制品" },
+          { name: "糖", qty: "60g", category: "调味/主食" },
+          { name: "牛奶", qty: "60ml", category: "调味/主食" },
+          { name: `${f.name}粉`, qty: "10g", category: "调味/主食" },
+        ],
+        slots: ["lunch"],
+        energy: ["清爽"],
+        category: "下午茶",
+      });
+    }
+  }
+  return out;
+}
+
 // === id sanitizer ===
 function safeId(raw: string): string {
   return raw.replace(/[^a-z0-9-]/g, "");
@@ -1998,6 +2452,17 @@ function generate(): GenRecipe[] {
       energy: t.energy,
     });
   }
+
+  // 4b) 子门类（甜品 / 饮品 / 小吃 / 早餐 / 烘焙 / 轻食 / 夜宵）
+  for (const t of [...DESSERTS, ...DRINKS, ...SNACKS, ...BREAKFAST_LIGHT]) {
+    out.push(catToGen(t));
+  }
+
+  // 4c) 程序生成的甜品/饮品/小吃组合 — 把数据库扩到 600+
+  out.push(...genDessertCombos());
+  out.push(...genDrinkCombos());
+  out.push(...genSnackCombos());
+  out.push(...genBakingCombos());
 
   // 5) 去重 id
   const seen = new Set<string>();

@@ -216,7 +216,7 @@ console.log("== 推荐结果在每个硬忌口下都不含违忌食材 ==");
 
 console.log("== 数据库规模 ==");
 {
-  check(`RECIPES 总数 >= 300（实际 ${RECIPES.length}）`, RECIPES.length >= 300);
+  check(`RECIPES 总数 >= 600（实际 ${RECIPES.length}）`, RECIPES.length >= 600);
   // 至少覆盖每个 course
   const byCourse: Record<string, number> = { main: 0, veggie: 0, soup: 0, staple: 0 };
   for (const r of RECIPES) byCourse[r.course] += 1;

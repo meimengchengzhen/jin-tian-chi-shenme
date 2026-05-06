@@ -54,8 +54,11 @@
 - **「今天吃什么」**：一键随机一组菜，附推荐理由 / 用时 / 难度 / 食材 / 步骤；启用饮食计划后每张卡片显示「人均热量 vs 餐次目标」。
 - **「换一组」/「单换一道」/「锁定」**：增量重抽，方便迭代决策；锁定的菜不会被换掉。
 - **「今日买菜清单」**：自动按 `蔬菜 / 肉蛋豆制品 / 调味·主食` 三类整理，**去重并合并相同食材**，一键复制为纯文本。
-- **337 道菜谱**：手写核心菜 + 脚本扩展模板组合（主料 × 风格 × 蔬菜搭配），覆盖主菜 / 汤 / 素菜 / 主食、多菜系、多季节/天气标签。
-- **零后端 / 零数据收集**：纯前端原型，本地账户没有密码、不上传；真实多设备登录可后续接入 Supabase Auth、Clerk 等。
+- **600+ 道菜谱**：手写核心菜 + 脚本扩展模板组合（主料 × 风格 × 蔬菜搭配 + 水果 × 甜品 × 烘焙 × 饮品 × 小吃），覆盖主菜 / 汤 / 素菜 / 主食、多菜系、多季节/天气标签。
+- **门类浏览：甜品 / 饮品 / 小吃 / 早餐 / 烘焙 / 轻食 / 下午茶 / 夜宵**：与 Course 正交的 `category` 字段，主推荐保持 main/veggie/soup/staple，门类浏览模块按子门类挑菜。
+- **饭桌热榜（Beta）**：聚合微博 / 百度 / 抖音 / B 站 / 知乎 / 今日头条 6 大平台公开热榜，多源 fallback；任何端点失败自动降级到内置静态示例。每条带「为什么适合饭桌」提示 + 平台/百度搜索链接 + 渐变视觉卡。**默认开启「屏蔽争议 / 敏感话题」开关**，覆盖政治/冲突/灾难/刑案/地域歧视等关键词，可一键关闭。
+- **云端同步 Beta（可选）**：纯前端 + localStorage 仍是默认体验。配置 `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` 后启用 Supabase 邮件 OTP 登录 + 跨设备同步档案/收藏/历史；未配置时 UI 优雅降级提示「本地数据仍可用」。详见 [docs/supabase.md](docs/supabase.md)。
+- **零后端 / 零数据收集**：纯前端原型，本地账户没有密码、不上传；启用云端同步需用户主动配置自己的 Supabase 实例。
 - **响应式 + 暗色模式**：手机一手可达，深色模式自动跟随系统。
 
 ## 截图
@@ -107,6 +110,24 @@ npm run check:recommend  # 推荐算法+忌口+数据库规模
 ```bash
 npm run gen:recipes      # 写入 client/src/data/recipes.generated.ts
 ```
+
+## 云端同步（可选 · Supabase Beta）
+
+> 默认是**纯前端**：所有档案、收藏、历史都在你的浏览器 localStorage，不上传任何服务器。
+>
+> 想跨设备同步？接入你自己的 Supabase 实例就好，详细步骤：
+
+1. 创建 Supabase 项目（免费档够用），在 SQL Editor 执行 [`supabase/migration.sql`](supabase/migration.sql) — 一次建好 `user_profiles` / `user_state` / `favorites` / `history` / `preferences` 五张表，全部启用 RLS 行级策略。
+2. 复制 `.env.example` 为 `.env`，填入：
+   ```env
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=eyJ...           # Settings → API → anon public
+   ```
+   ⚠️ 仅使用 `anon (public) key`；`service_role` 严禁出现在前端。
+3. GitHub Pages 部署时，把这两个变量加到仓库 `Settings → Variables`，并在 workflow 的 build 步骤注入（[详见教程](docs/supabase.md)）。
+4. 启用后，UI 顶部「云端同步 Beta」按钮可：邮件 OTP 登录 → 一键推送本地快照 → 一键从云端合并。
+
+**未配置时**，「云端同步 Beta」对话框会显示「未配置 Supabase，本地数据仍可用」并附上教程链接，所有功能继续 100% 可用。
 
 ## 隐私与「本地账户」说明
 
