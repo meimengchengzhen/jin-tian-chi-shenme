@@ -100,6 +100,19 @@ export type HealthFilterId =
   | "soft-easy-digest"
   | "high-quality-protein";
 
+const HEALTH_FILTER_LABEL: Record<HealthFilterId, string> = {
+  "low-sugar": "低糖",
+  "low-salt": "低盐",
+  "low-oil": "低油",
+  "low-purine": "低嘌呤",
+  "soft-easy-digest": "软烂易消化",
+  "high-quality-protein": "优质蛋白",
+};
+
+export function healthFilterLabel(id: HealthFilterId): string {
+  return HEALTH_FILTER_LABEL[id] ?? id;
+}
+
 // === 硬性约束（无论如何都必须满足）===
 function violatesHardRestrictions(recipe: Recipe, prefs: Preferences): boolean {
   for (const r of prefs.restrictions) {
@@ -247,7 +260,8 @@ export function scoreRecipe(
   // 7) 收藏加分 / 历史降权
   if (ctx.favorites && ctx.favorites.has(recipe.id)) s += 1.2;
   if (ctx.noRepeat && ctx.recentIds && ctx.recentIds.has(recipe.id)) s -= 1.5;
-  if (ctx.recentSwapIds && ctx.recentSwapIds.has(recipe.id)) s -= 1.0;
+  // 「换一批」近期池：强降权，确保即使场景+心愿+热量加分叠加也翻不过来。
+  if (ctx.recentSwapIds && ctx.recentSwapIds.has(recipe.id)) s -= 3.5;
 
   // 8) 食材偏好（想吃什么）— 软加分
   if (ctx.ingredientWish && ctx.ingredientWish.length > 0) {
@@ -343,8 +357,24 @@ function pickFromCourse(
   ctx: RecommendContext,
   excludeIds: Set<string>,
 ): Recipe[] {
-  const candidates = pool.filter((r) => r.course === course && !excludeIds.has(r.id));
-  if (candidates.length === 0) return [];
+  const baseCandidates = pool.filter((r) => r.course === course && !excludeIds.has(r.id));
+  if (baseCandidates.length === 0) return [];
+
+  // 会话级强排除：候选足够时（剩余 > count + 2）直接过滤掉最近抽过的菜，
+  // 解决「连续 4 次抽到黑椒牛肉」这类同一会话内的高频重复。
+  const ban = ctx.recentSwapIds;
+  let candidates = baseCandidates;
+  if (ban && ban.size > 0) {
+    const filtered = baseCandidates.filter((r) => !ban.has(r.id));
+    if (filtered.length >= count + 2) {
+      candidates = filtered;
+    } else if (filtered.length >= count) {
+      // 刚好够，仍优先用这个池
+      candidates = filtered;
+    }
+    // 否则（候选过少）保留全部，scoreRecipe 仍会软降权
+  }
+
   const ranked = candidates
     .map((r) => ({ r, s: scoreRecipe(r, prefs, ctx) }))
     .sort((a, b) => b.s - a.s);

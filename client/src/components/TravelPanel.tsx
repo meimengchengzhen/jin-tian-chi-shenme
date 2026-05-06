@@ -12,10 +12,22 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CITY_FOODS, searchCities, type CityFood } from "@/data/cityFoods";
 
-const LINKS = [
+interface TravelLink {
+  id: string;
+  label: string;
+  build: (q: string) => string;
+  hint?: string;
+}
+
+const LINKS: TravelLink[] = [
   { id: "baidu", label: "百度", build: (q: string) => `https://www.baidu.com/s?wd=${encodeURIComponent(q + " 推荐 美食")}` },
   { id: "xhs", label: "小红书", build: (q: string) => `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(q)}` },
-  { id: "dp", label: "大众点评", build: (q: string) => `https://www.dianping.com/search/keyword/0_0_0_${encodeURIComponent(q)}` },
+  {
+    id: "dp",
+    label: "大众点评",
+    build: (q: string) => `https://www.dianping.com/search/keyword/0_0_0_${encodeURIComponent(q)}`,
+    hint: "搜索入口，可能需登录",
+  },
 ];
 
 export function TravelPanel() {
@@ -135,9 +147,13 @@ export function TravelPanel() {
                         target="_blank"
                         rel="noopener noreferrer"
                         data-testid={`travel-link-${city.city}-${item.name}-${l.id}`}
+                        title={l.hint ?? `在 ${l.label} 搜索 ${city.city} ${item.name}`}
                         className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/5 px-2 py-0.5 text-[10.5px] text-primary hover-elevate active-elevate-2"
                       >
                         {l.label} 搜索
+                        {l.hint && (
+                          <span className="text-muted-foreground">· {l.hint}</span>
+                        )}
                         <ExternalLink className="h-3 w-3" />
                       </a>
                     ))}

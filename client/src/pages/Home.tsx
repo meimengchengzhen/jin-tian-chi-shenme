@@ -37,8 +37,8 @@ import { MainTabsNav, loadTabFromHash, type MainTabId } from "@/components/MainT
 import { HealthPanel } from "@/components/HealthPanel";
 import { SearchPanel } from "@/components/SearchPanel";
 import { TravelPanel } from "@/components/TravelPanel";
-import { pushRecent, recentPoolSet } from "@/lib/recentPool";
-import type { HealthFilterId, IngredientWishId } from "@/lib/recommend";
+import { pushRecent, recentPoolSet, banInSession } from "@/lib/recentPool";
+import { healthFilterLabel, type HealthFilterId, type IngredientWishId } from "@/lib/recommend";
 import { Wordmark, Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -622,7 +622,10 @@ export default function Home() {
           setHealthFlags(parsed.flags);
           toast({
             title: "健康规则已应用到「今日推荐」",
-            description: "推荐排序会优先匹配 " + parsed.flags.join(" / ") + "。",
+            description:
+              "推荐排序会优先匹配 " +
+              parsed.flags.map(healthFilterLabel).join(" / ") +
+              "。",
           });
         }
       } catch {}
@@ -723,9 +726,12 @@ export default function Home() {
   function rollAll() {
     setShaking(true);
     setTimeout(() => {
-      const next = recommend(prefs, lockedRecipes, recommendCtx);
+      // 每次推荐都用最新的会话 ban 池（包含上一轮的推荐结果），避免高频重复。
+      const freshBan = recentPoolSet(40);
+      const ctx = { ...recommendCtx, recentSwapIds: freshBan };
+      const next = recommend(prefs, lockedRecipes, ctx);
       setPlan(next);
-      // 把新推荐的菜 ids 写入近期池，下一次推荐会自动避开
+      // 把新推荐的菜 ids 写入近期池（持久化 + 会话级 ban），下一次推荐会自动避开
       pushRecent(planToList(next).map((r) => r.id));
       setShaking(false);
     }, 280);
@@ -735,11 +741,11 @@ export default function Home() {
     if (!plan) return;
     const keepLocked = lockedRecipes.filter((r) => r.id !== recipe.id);
     const tempPrefs: Preferences = { ...prefs };
-    // 先把被换掉的菜临时加入「最近池」，让推荐避开它（避免反复出现同一道菜）
-    pushRecent([recipe.id]);
-    const localRecent = new Set<string>(recommendCtx.recentSwapIds ?? []);
-    localRecent.add(recipe.id);
-    const ctxWithBan = { ...recommendCtx, recentSwapIds: localRecent };
+    // 先把被换掉的菜临时加入「会话 ban」，让推荐避开它（避免反复出现同一道菜）
+    banInSession([recipe.id]);
+    const freshBan = recentPoolSet(40);
+    freshBan.add(recipe.id);
+    const ctxWithBan = { ...recommendCtx, recentSwapIds: freshBan };
     let attempts = 0;
     let next: MealPlan = recommend(tempPrefs, keepLocked, ctxWithBan);
     while (planToList(next).some((r) => r.id === recipe.id) && attempts < 8) {
@@ -1009,6 +1015,20 @@ export default function Home() {
                   <span>实时饭桌热榜</span>
                   <ChevronRight className="h-3 w-3" />
                 </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTab("health");
+                    if (typeof window !== "undefined") window.location.hash = "#/health";
+                  }}
+                  data-testid="hero-stat-health"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 font-medium text-emerald-700 transition-colors hover-elevate active-elevate-2"
+                  title="跳到健康饮食 Tab：低糖 / 低盐 / 低嘌呤"
+                >
+                  <Leaf className="h-3 w-3" />
+                  <span>健康饮食 · 低糖低盐低嘌呤</span>
+                  <ChevronRight className="h-3 w-3" />
+                </button>
               </div>
             </div>
 
@@ -1200,7 +1220,8 @@ export default function Home() {
                   className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-emerald-700 hover-elevate"
                   title="点击清除"
                 >
-                  <Leaf className="h-3.5 w-3.5" /> 健康规则: {healthFlags.length}
+                  <Leaf className="h-3.5 w-3.5" />
+                  健康规则: {healthFlags.map(healthFilterLabel).join(" / ")}
                 </button>
               )}
             </div>
@@ -1811,6 +1832,8 @@ export default function Home() {
         servings={prefs.servings}
         onClose={() => setDetailRecipe(null)}
         onFavoriteChange={refreshFavorites}
+        realImagesEnabled={realImagesEnabled}
+        onToggleRealImages={setRealImagesEnabled}
       />
 
       <ProfileDialog

@@ -28,6 +28,7 @@ import type { Recipe } from "@/data/recipes";
 import { estimateIngredient } from "@/data/ingredients";
 import { dishVisual, buildSearchEntries } from "@/lib/dishVisual";
 import { DishImage } from "@/components/DishImage";
+import { DishPhoto } from "@/components/DishPhoto";
 import { isFavorite, toggleFavorite } from "@/lib/history";
 
 interface DishDetailProps {
@@ -36,6 +37,10 @@ interface DishDetailProps {
   onClose: () => void;
   /** 收藏状态变化时回调，让上层重算推荐权重 */
   onFavoriteChange?: () => void;
+  /** 是否启用真实图片（与列表页保持一致；详情头优先真实图，失败回落示意图） */
+  realImagesEnabled?: boolean;
+  /** 用户切换「使用示意图」时的回调 */
+  onToggleRealImages?: (next: boolean) => void;
 }
 
 function DifficultyDots({ d }: { d: "简单" | "中等" | "进阶" }) {
@@ -60,7 +65,14 @@ const SEARCH_ICON: Record<string, typeof Video> = {
   baidu: Search,
 };
 
-export function DishDetail({ recipe, servings, onClose, onFavoriteChange }: DishDetailProps) {
+export function DishDetail({
+  recipe,
+  servings,
+  onClose,
+  onFavoriteChange,
+  realImagesEnabled = true,
+  onToggleRealImages,
+}: DishDetailProps) {
   const visual = useMemo(
     () => (recipe ? dishVisual(recipe.name, recipe.course, recipe.cuisine) : null),
     [recipe],
@@ -115,15 +127,27 @@ export function DishDetail({ recipe, servings, onClose, onFavoriteChange }: Dish
         className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-2xl"
         data-testid="dialog-detail"
       >
-        {/* 视觉头部：本地渲染氛围图（详情页用 DialogHeader 显示菜名） */}
+        {/* 视觉头部：详情页与列表共用同一 imageProvider；真实图加载失败时由 DishPhoto 回落到本地示意图。 */}
         <div className="relative overflow-hidden rounded-t-md">
-          <DishImage
-            visual={visual}
-            alt={`${recipe.name} 菜品氛围示意图`}
-            className="h-44 w-full sm:h-52"
-            large
-            showBadge={false}
-          />
+          {realImagesEnabled ? (
+            <DishPhoto
+              name={recipe.name}
+              visual={visual}
+              alt={`${recipe.name} 菜品示意图`}
+              className="h-44 w-full sm:h-52"
+              large
+              showName={false}
+              showSourceBadge={false}
+            />
+          ) : (
+            <DishImage
+              visual={visual}
+              alt={`${recipe.name} 菜品氛围示意图`}
+              className="h-44 w-full sm:h-52"
+              large
+              showBadge={false}
+            />
+          )}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
@@ -132,14 +156,27 @@ export function DishDetail({ recipe, servings, onClose, onFavoriteChange }: Dish
                 "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%)",
             }}
           />
-          {/* 收藏 / 示意图标识 */}
+          {/* 状态标签 + 真实/示意切换 + 收藏 */}
           <div className="absolute right-3 top-3 flex items-center gap-2">
-            <span
-              className="rounded-full bg-black/35 px-2 py-0.5 text-[10.5px] text-white backdrop-blur-sm"
-              data-testid="badge-illustrative"
-            >
-              氛围示意图
-            </span>
+            {onToggleRealImages ? (
+              <button
+                type="button"
+                onClick={() => onToggleRealImages(!realImagesEnabled)}
+                data-testid="button-toggle-illustrative"
+                title={realImagesEnabled ? "切换到本地示意图" : "尝试加载公开图库真实图"}
+                className="rounded-full bg-black/40 px-2 py-0.5 text-[10.5px] text-white backdrop-blur-sm transition-colors hover:bg-black/55"
+              >
+                {realImagesEnabled ? "图库 · 示意图 · 切换" : "本地示意图 · 切换"}
+              </button>
+            ) : (
+              <span
+                className="rounded-full bg-black/35 px-2 py-0.5 text-[10.5px] text-white backdrop-blur-sm"
+                data-testid="badge-illustrative"
+                title="本图仅作示意，可能与实际成品不完全一致"
+              >
+                {realImagesEnabled ? "图库 · 示意图" : "本地示意图"}
+              </span>
+            )}
             <button
               type="button"
               onClick={onToggleFav}
