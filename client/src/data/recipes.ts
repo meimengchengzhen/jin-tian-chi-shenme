@@ -1423,7 +1423,117 @@ function mergeUniqueById(...lists: Recipe[][]): Recipe[] {
   return out;
 }
 
-export const RECIPES: Recipe[] = mergeUniqueById(CORE_RECIPES, GENERATED_RECIPES);
+// === 硬忌口关键词推断 ===
+// 历史上 contains 全靠手写/生成器维护，难免漏标。这里用食材 + 步骤里的关键词
+// 反向推断每道菜应当带的硬忌口，并在 RECIPES 暴露之前补齐。
+// 规则要保守：只在出现「明确含某禁忌成分」时打标签；模糊词（蛋黄酱用作替代名等）忽略。
+// 检测脚本（script/check-recommend.ts）会再校验一遍，避免新增菜谱再次漏标。
+type RestrictionRule = {
+  restriction: Restriction;
+  /** 出现在 ingredient name 或 steps 文本中即触发 */
+  patterns: RegExp[];
+  /** 例外：命中 patterns 但出现这些词时不打标（避免误伤） */
+  excludePatterns?: RegExp[];
+};
+
+export const RESTRICTION_KEYWORD_RULES: RestrictionRule[] = [
+  {
+    restriction: "无蛋",
+    patterns: [/鸡蛋/, /鸭蛋/, /鹌鹑蛋/, /蛋花/, /蛋液/, /蛋黄(?!酱)/, /蛋白(?!质)/, /皮蛋/, /咸蛋/, /茶叶蛋/, /荷包蛋/, /煎蛋/, /炒蛋/, /滑蛋/],
+    // 「蛋糕粉」「蛋挞皮」之类成品如果出现就保留（含蛋）；但如「西红柿打卤」并不含蛋，
+    // 这里不需要排除——既然食材里写了鸡蛋就说明真含蛋。
+  },
+  {
+    restriction: "无奶",
+    patterns: [/牛奶/, /鲜奶/, /酸奶/, /奶油/, /淡奶油/, /炼乳/, /奶酪/, /芝士/, /马苏里拉/, /黄油/, /奶粉/],
+    excludePatterns: [/椰奶/, /豆奶/, /杏仁奶/, /燕麦奶/], // 植物奶不算乳制品忌口
+  },
+  {
+    restriction: "无花生",
+    patterns: [/花生(?!油)/, /花生米/, /花生碎/, /花生酱/],
+    // 花生油在国内绝大多数过敏忌口语境下不视为致敏物（精炼油），保守起见排除。
+  },
+  {
+    restriction: "无海鲜",
+    patterns: [
+      /虾/, /鱼(?!香|肉肠|丸|饼|蛋)/, /蟹/, /贝/, /蛤/, /蛎/, /鲍/, /扇贝/,
+      /鱿鱼/, /墨鱼/, /章鱼/, /带鱼/, /鲈鱼/, /鲫鱼/, /草鱼/, /三文鱼/, /鳕鱼/, /黄鱼/,
+      /海带/, /紫菜/, /虾皮/, /虾米/, /海米/, /干贝/, /瑶柱/, /蛤蜊/, /扇贝/, /蚝/, /生蚝/, /蛏/, /鱼丸/, /鱼豆腐/, /鱼露/,
+    ],
+    // 「鱼香肉丝」叫鱼香但不含鱼 — 通过 patterns 里的 (?!香|肉肠...) 已排除。
+    excludePatterns: [/鱼香/], // 双保险
+  },
+  {
+    restriction: "无猪肉",
+    patterns: [
+      /猪肉/, /猪里脊/, /猪排/, /猪蹄/, /猪肝/, /猪心/, /猪肚/, /猪耳/, /猪头/, /猪皮/, /猪骨/,
+      /五花肉/, /里脊肉/, /梅花肉/, /排骨/, /肉末/, /肉馅/, /肉丝/, /肉片/, /肉丁/,
+      /培根/, /火腿(?!肠)/, /火腿肠/, /腊肠/, /香肠/, /叉叉/, /叉烧/, /腊肉/, /午餐肉/, /肉松/,
+    ],
+    // 「肉丝/肉末/肉片」在中文厨房默认指猪肉。如果是鸡肉/牛肉，会写「鸡丝」「牛肉丝」。
+    excludePatterns: [/牛肉|鸡肉|羊肉|鸭肉|鱼肉|虾肉|蟹肉|蛋肉|素肉|植物肉/],
+  },
+  {
+    restriction: "无牛肉",
+    patterns: [/牛肉/, /牛腩/, /牛排/, /牛筋/, /牛百叶/, /牛舌/, /牛尾/, /雪花牛/, /肥牛/, /牛肚/, /牛骨/],
+  },
+];
+
+/** 根据食材 + 步骤文字推断该菜应当带的硬忌口 contains 标签。 */
+export function inferContainsFromText(text: string): Restriction[] {
+  const out = new Set<Restriction>();
+  for (const rule of RESTRICTION_KEYWORD_RULES) {
+    const hit = rule.patterns.some((p) => p.test(text));
+    if (!hit) continue;
+    if (rule.excludePatterns && rule.excludePatterns.length > 0) {
+      // exclude 仅当全部正向命中都被 exclude 命中时才豁免；这里采取保守做法：
+      // 若文本里仅出现「鱼香」而无其他鱼相关命中，则不打无海鲜。
+      // 简化：若把所有命中位置抽出来，只要存在不被 exclude 命中的命中，就打标。
+      const matches: string[] = [];
+      for (const p of rule.patterns) {
+        const m = text.match(new RegExp(p.source, "g"));
+        if (m) matches.push(...m);
+      }
+      const realHits = matches.filter(
+        (m) => !rule.excludePatterns!.some((ex) => ex.test(m)),
+      );
+      if (realHits.length === 0) continue;
+    }
+    out.add(rule.restriction);
+  }
+  return Array.from(out);
+}
+
+/** 推断单道菜应该补齐的 contains（不会移除已存在的）。 */
+export function inferContainsForRecipe(r: Recipe): Restriction[] {
+  const blob = [
+    ...r.ingredients.map((i) => i.name),
+    ...r.steps,
+    r.name,
+  ].join(" ");
+  return inferContainsFromText(blob);
+}
+
+/** 用关键词扫描补齐 contains；返回（菜id -> 新增的限制数组）的修复报告。 */
+export function autofixContains(recipes: Recipe[]): Record<string, Restriction[]> {
+  const report: Record<string, Restriction[]> = {};
+  for (const r of recipes) {
+    const inferred = inferContainsForRecipe(r);
+    const missing = inferred.filter((x) => !r.contains.includes(x));
+    if (missing.length > 0) {
+      r.contains = [...r.contains, ...missing];
+      report[r.id] = missing;
+    }
+  }
+  return report;
+}
+
+const merged = mergeUniqueById(CORE_RECIPES, GENERATED_RECIPES);
+// 在 RECIPES 暴露之前用关键词扫描补齐 contains，确保「无蛋 / 无奶 / 无花生 /
+// 无海鲜 / 无猪肉 / 无牛肉」等硬忌口对全库始终一致。
+autofixContains(merged);
+
+export const RECIPES: Recipe[] = merged;
 
 export const ALL_CUISINES: Cuisine[] = ["家常", "川菜", "粤菜", "江浙", "鲁菜", "西北", "东北"];
 export const ALL_TASTES: Taste[] = ["清淡", "咸鲜", "酸甜", "微辣", "重辣", "麻辣"];

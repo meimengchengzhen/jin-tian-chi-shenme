@@ -29,6 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Type check
+        run: npm run check
+
+      - name: Recommend / data invariants check
+        run: npm run check:recommend
+
       - name: Build static site
         run: npm run build
 

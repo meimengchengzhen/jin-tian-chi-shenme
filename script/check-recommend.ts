@@ -16,7 +16,13 @@ import {
   countByCourseUnderHardOnly,
   type Preferences,
 } from "../client/src/lib/recommend";
-import { RECIPES, type Cuisine, type Difficulty, type Restriction } from "../client/src/data/recipes";
+import {
+  RECIPES,
+  inferContainsForRecipe,
+  type Cuisine,
+  type Difficulty,
+  type Restriction,
+} from "../client/src/data/recipes";
 
 let failed = 0;
 function check(label: string, ok: boolean, detail?: string) {
@@ -159,6 +165,53 @@ console.log("== 多次随机也总有结果 ==");
     minSize = Math.min(minSize, planToList(plan).length);
   }
   check("严格条件下 30 次重抽都至少返回 1 道", minSize >= 1, `min=${minSize}`);
+}
+
+console.log("== 数据不变量：每道菜含禁忌成分必须在 contains 标对应限制 ==");
+{
+  // 调用关键词推断；所有推断出的限制都必须已在 r.contains 中。
+  const offenders: { id: string; name: string; missing: Restriction[] }[] = [];
+  for (const r of RECIPES) {
+    const inferred = inferContainsForRecipe(r);
+    const missing = inferred.filter((x) => !r.contains.includes(x));
+    if (missing.length > 0) offenders.push({ id: r.id, name: r.name, missing });
+  }
+  check(
+    `所有 ${RECIPES.length} 道菜的 contains 与食材关键词一致`,
+    offenders.length === 0,
+    offenders
+      .slice(0, 10)
+      .map((o) => `${o.name}(${o.id})缺 ${o.missing.join("/")}`)
+      .join("; "),
+  );
+}
+
+console.log("== 推荐结果在每个硬忌口下都不含违忌食材 ==");
+{
+  // 反向验证：单一忌口下连跑 30 次，结果内任何一道菜的食材文本不得命中该忌口的关键词。
+  // 不仅信任 contains 字段，而是再用关键词扫描一次，作为兜底兜底。
+  const singleRestrictions: Restriction[] = ["无蛋", "无奶", "无花生", "无海鲜", "无猪肉", "无牛肉"];
+  for (const r of singleRestrictions) {
+    let worstViolators: { dish: string; offendingIngredient: string }[] = [];
+    for (let i = 0; i < 30; i++) {
+      const prefs: Preferences = { ...DEFAULT_PREFS, restrictions: [r] };
+      const plan = recommend(prefs);
+      const list = planToList(plan);
+      for (const d of list) {
+        const inferred = inferContainsForRecipe(d);
+        if (inferred.includes(r)) {
+          // 找到具体哪个食材命中
+          const blob = d.ingredients.map((i) => i.name).concat(d.steps).join(" ");
+          worstViolators.push({ dish: d.name, offendingIngredient: blob.slice(0, 60) });
+        }
+      }
+    }
+    check(
+      `忌口=${r}：30 次推荐结果中无任何菜的食材命中该禁忌`,
+      worstViolators.length === 0,
+      worstViolators.slice(0, 5).map((v) => `${v.dish}`).join(", "),
+    );
+  }
 }
 
 console.log("== 数据库规模 ==");

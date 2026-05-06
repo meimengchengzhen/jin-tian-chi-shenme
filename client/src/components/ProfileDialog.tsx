@@ -244,7 +244,8 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
         )}
 
         <Tabs value={tab} onValueChange={setTab} className="mt-1">
-          <TabsList className="grid w-full grid-cols-4">
+          {/* 小屏 2x2，避免「饮食计划」被截断；≥sm 恢复一行 4 列 */}
+          <TabsList className="grid h-auto w-full grid-cols-2 gap-1 sm:grid-cols-4">
             <TabsTrigger value="account" data-testid="tab-account">
               <UserCircle2 className="mr-1 h-3.5 w-3.5" /> 档案
             </TabsTrigger>

@@ -548,8 +548,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 配置主菜 + 汤 + 素菜 */}
-            <div className="mb-5 flex flex-col gap-3 rounded-lg border border-border/60 bg-background/50 p-3 sm:flex-row sm:items-center sm:justify-between">
+            {/* 配置主菜 + 汤 + 素菜：窄屏可自由换行，避免「配素菜 / 配汤」被挤出视区 */}
+            <div className="mb-5 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-lg border border-border/60 bg-background/50 p-3">
               <div className="flex items-center gap-3">
                 <Label className="text-sm font-medium">主菜数量</Label>
                 <div className="flex gap-1">
@@ -565,7 +565,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-sm">
+              <div className="ml-auto flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
                 <label className="inline-flex cursor-pointer items-center gap-2">
                   <Switch
                     checked={prefs.withVeggie}
