@@ -255,6 +255,64 @@ console.log("== 上下文加分（天气/季节）不破坏忌口 ==");
   check("素食 + 冷天上下文：返回结果不含肉蛋海鲜", meaty.length === 0, meaty.map((d) => d.name).join(", "));
 }
 
+console.log("== 旅行美食数据不变量 ==");
+{
+  const { CITY_FOODS, ALL_PROVINCES, citiesGroupedByProvince, searchCities } = await import(
+    "../client/src/data/cityFoods"
+  );
+  check(`CITY_FOODS 至少 30 个城市（实际 ${CITY_FOODS.length}）`, CITY_FOODS.length >= 30);
+  check(`ALL_PROVINCES 至少 25 省（实际 ${ALL_PROVINCES.length}）`, ALL_PROVINCES.length >= 25);
+  // 每个城市必须有 province 与至少一道菜，且 vibe 不为空
+  const broken = CITY_FOODS.filter(
+    (c: any) => !c.province || !c.vibe || !Array.isArray(c.items) || c.items.length === 0,
+  );
+  check(`每个城市必须有 province / vibe / items[]`, broken.length === 0, broken.map((c: any) => c.city).join(", "));
+  // 分组覆盖所有城市
+  const grouped = citiesGroupedByProvince();
+  const cityCount = grouped.reduce((acc: number, g: any) => acc + g.cities.length, 0);
+  check(`分组后总城市数 = CITY_FOODS.length`, cityCount === CITY_FOODS.length, `grouped=${cityCount}, all=${CITY_FOODS.length}`);
+  // searchCities 至少能搜到城市名 / 美食名
+  check(`searchCities("成都") 命中`, searchCities("成都").some((c: any) => c.city === "成都"));
+  check(`searchCities("烤鸭") 命中（按美食搜城市）`, searchCities("烤鸭").length >= 1);
+  check(`searchCities("广东") 命中（按省份搜）`, searchCities("广东").some((c: any) => c.province === "广东"));
+}
+
+console.log("== 健康规则覆盖率 ==");
+{
+  const { listHealthMatches } = await import("../client/src/lib/recommend");
+  let lowSugar = 0, lowSalt = 0, lowOil = 0, lowPurine = 0, soft = 0, protein = 0;
+  for (const r of RECIPES) {
+    const m = listHealthMatches(r);
+    if (m.includes("low-sugar")) lowSugar++;
+    if (m.includes("low-salt")) lowSalt++;
+    if (m.includes("low-oil")) lowOil++;
+    if (m.includes("low-purine")) lowPurine++;
+    if (m.includes("soft-easy-digest")) soft++;
+    if (m.includes("high-quality-protein")) protein++;
+  }
+  // 每条规则在全库中至少能命中 30 道菜，否则 UI 列表会非常稀疏
+  check(`低糖菜数 >= 30 (实际 ${lowSugar})`, lowSugar >= 30);
+  check(`低盐菜数 >= 30 (实际 ${lowSalt})`, lowSalt >= 30);
+  check(`低油菜数 >= 30 (实际 ${lowOil})`, lowOil >= 30);
+  check(`低嘌呤菜数 >= 30 (实际 ${lowPurine})`, lowPurine >= 30);
+  check(`软烂易消化数 >= 30 (实际 ${soft})`, soft >= 30);
+  check(`优质蛋白数 >= 30 (实际 ${protein})`, protein >= 30);
+}
+
+console.log("== 食材偏好（想吃什么）软筛选生效 ==");
+{
+  // 选「牛肉」+ 默认其它，30 次结果中至少有一些含牛肉的菜出现
+  const prefs: Preferences = { ...DEFAULT_PREFS };
+  const ctx = { ingredientWish: ["beef"] as any[] };
+  let hits = 0;
+  for (let i = 0; i < 30; i++) {
+    const plan = recommend(prefs, [], ctx);
+    const list = planToList(plan);
+    if (list.some((d) => /牛肉|牛腩|牛排|肥牛|雪花牛|牛筋/.test(d.name + d.ingredients.map((i) => i.name).join(" ")))) hits++;
+  }
+  check(`想吃牛肉：30 次推荐中有 >= 8 次结果含牛肉菜（实际 ${hits}）`, hits >= 8);
+}
+
 console.log("");
 if (failed === 0) {
   console.log(`✅ 全部检查通过 (RECIPES=${RECIPES.length} 道)`);

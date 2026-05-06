@@ -607,7 +607,30 @@ export const CITY_FOODS: CityFood[] = [
 
 export const ALL_CITIES = CITY_FOODS.map((c) => c.city);
 
-/** 根据城市/省份/菜系/拼音搜索城市。 */
+/** 所有省份/直辖市/特别行政区，按内置城市顺序去重。 */
+export const ALL_PROVINCES: string[] = (() => {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const c of CITY_FOODS) {
+    if (seen.has(c.province)) continue;
+    seen.add(c.province);
+    out.push(c.province);
+  }
+  return out;
+})();
+
+/** 按省份分组城市。返回顺序与 ALL_PROVINCES 一致。 */
+export function citiesGroupedByProvince(): { province: string; cities: CityFood[] }[] {
+  const map = new Map<string, CityFood[]>();
+  for (const c of CITY_FOODS) {
+    const arr = map.get(c.province) ?? [];
+    arr.push(c);
+    map.set(c.province, arr);
+  }
+  return ALL_PROVINCES.map((p) => ({ province: p, cities: map.get(p) ?? [] }));
+}
+
+/** 根据城市/省份/菜系搜索城市。 */
 export function searchCities(q: string): CityFood[] {
   const lower = q.trim().toLowerCase();
   if (!lower) return CITY_FOODS;
@@ -615,6 +638,7 @@ export function searchCities(q: string): CityFood[] {
     if (c.city.toLowerCase().includes(lower)) return true;
     if (c.province.toLowerCase().includes(lower)) return true;
     if (c.cuisine?.toLowerCase().includes(lower)) return true;
+    if (c.items.some((it) => it.name.toLowerCase().includes(lower))) return true;
     return false;
   });
 }

@@ -1,5 +1,6 @@
-// 旅行美食面板：选城市 / 搜城市 → 看当地特色食物 + 第三方搜索入口。
+// 旅行美食面板：选省份 → 城市 → 看当地特色食物 + 第三方搜索入口。
 // 不接商户 API，仅给出搜索 URL，避免反爬 / 版权风险。
+// 数据来源：编辑整理的内置 cityFoods（约 50 个城市）。
 
 import { useMemo, useState } from "react";
 import {
@@ -7,10 +8,18 @@ import {
   Search,
   ExternalLink,
   Sparkles,
+  MapPin,
+  X,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CITY_FOODS, searchCities, type CityFood } from "@/data/cityFoods";
+import {
+  CITY_FOODS,
+  ALL_PROVINCES,
+  citiesGroupedByProvince,
+  searchCities,
+  type CityFood,
+} from "@/data/cityFoods";
 
 interface TravelLink {
   id: string;
@@ -21,6 +30,7 @@ interface TravelLink {
 
 const LINKS: TravelLink[] = [
   { id: "baidu", label: "百度", build: (q: string) => `https://www.baidu.com/s?wd=${encodeURIComponent(q + " 推荐 美食")}` },
+  { id: "douyin", label: "抖音", build: (q: string) => `https://www.douyin.com/search/${encodeURIComponent(q + " 美食")}` },
   { id: "xhs", label: "小红书", build: (q: string) => `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(q)}` },
   {
     id: "dp",
@@ -32,21 +42,38 @@ const LINKS: TravelLink[] = [
 
 export function TravelPanel() {
   const [q, setQ] = useState("");
+  const [activeProvince, setActiveProvince] = useState<string | null>(null);
   const [activeCity, setActiveCity] = useState<string>(CITY_FOODS[0].city);
 
-  const filtered = useMemo(() => searchCities(q), [q]);
+  const allFiltered = useMemo(() => searchCities(q), [q]);
+  // 在搜索 + 省份筛选后的最终城市列表
+  const filtered = useMemo(() => {
+    if (!activeProvince) return allFiltered;
+    return allFiltered.filter((c) => c.province === activeProvince);
+  }, [allFiltered, activeProvince]);
+
+  const grouped = useMemo(() => citiesGroupedByProvince(), []);
+  // 当前 province 是否仍存在于搜索结果里；如果筛 0 城市，自动清空 province
+  const provinceInResults = useMemo(() => {
+    const set = new Set(allFiltered.map((c) => c.province));
+    return ALL_PROVINCES.filter((p) => set.has(p));
+  }, [allFiltered]);
+
   const city: CityFood =
     filtered.find((c) => c.city === activeCity) ?? filtered[0] ?? CITY_FOODS[0];
+
+  const totalCities = CITY_FOODS.length;
+  const totalProvinces = ALL_PROVINCES.length;
 
   return (
     <section className="space-y-4" data-testid="travel-panel">
       <header>
         <h2 className="font-display text-[1.6rem] tracking-tight">
           <Plane className="mb-1 mr-1 inline h-5 w-5 text-primary" />
-          旅行美食
+          外出旅游吃什么
         </h2>
         <p className="mt-1 text-[13px] text-muted-foreground">
-          搜索城市 / 省份，看当地特色美食 — 内置 {CITY_FOODS.length} 个城市数据。
+          按省份 / 城市浏览特色美食 — 内置 {totalProvinces} 个省级行政区、{totalCities} 个城市。
         </p>
       </header>
 
@@ -58,15 +85,74 @@ export function TravelPanel() {
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="搜索城市、省份或菜系，例如 成都、广东、川菜"
+            placeholder="搜索省份 / 城市 / 美食，例如 成都、广东、川菜、烧麦"
             data-testid="travel-search"
-            className="h-11 w-full rounded-full border border-border/70 bg-background/80 pl-9 pr-4 text-[14px] outline-none transition-shadow focus:ring-2 focus:ring-primary/30"
+            className="h-11 w-full rounded-full border border-border/70 bg-background/80 pl-9 pr-9 text-[14px] outline-none transition-shadow focus:ring-2 focus:ring-primary/30"
           />
+          {q && (
+            <button
+              type="button"
+              onClick={() => setQ("")}
+              data-testid="travel-search-clear"
+              className="absolute right-2 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
+
+        {/* 省份选择条 */}
+        <div className="mt-3">
+          <div className="mb-1.5 flex items-baseline justify-between gap-2">
+            <span className="inline-flex items-center gap-1 text-[11.5px] font-medium text-muted-foreground">
+              <MapPin className="h-3 w-3" />
+              省份 / 直辖市
+            </span>
+            <span className="num text-[11px] text-muted-foreground">
+              {filtered.length}/{totalCities} 城市
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-1.5" data-testid="province-list">
+            <button
+              type="button"
+              onClick={() => setActiveProvince(null)}
+              data-testid="province-all"
+              className={`inline-flex h-7 items-center rounded-full border px-2.5 text-[11.5px] hover-elevate active-elevate-2 ${
+                activeProvince === null
+                  ? "border-primary/55 bg-primary text-primary-foreground"
+                  : "border-border bg-card/60 text-foreground/80"
+              }`}
+            >
+              全部
+            </button>
+            {provinceInResults.map((p) => {
+              const active = p === activeProvince;
+              const count = allFiltered.filter((c) => c.province === p).length;
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setActiveProvince(active ? null : p)}
+                  data-testid={`province-${p}`}
+                  className={`inline-flex h-7 items-center gap-1 rounded-full border px-2.5 text-[11.5px] hover-elevate active-elevate-2 ${
+                    active
+                      ? "border-primary/55 bg-primary text-primary-foreground"
+                      : "border-border bg-card/60 text-foreground/80"
+                  }`}
+                >
+                  {p}
+                  <span className={`num text-[10px] ${active ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                    · {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* 城市筛选 chip */}
         <div className="mt-3 flex flex-wrap gap-1.5" data-testid="city-list">
-          {filtered.slice(0, 60).map((c) => {
+          {filtered.slice(0, 80).map((c) => {
             const active = c.city === city.city;
             return (
               <button
@@ -90,12 +176,14 @@ export function TravelPanel() {
             );
           })}
           {filtered.length === 0 && (
-            <p className="py-2 text-[12px] text-muted-foreground">没有找到城市，换个关键词试试。</p>
+            <p className="py-2 text-[12px] text-muted-foreground">
+              没有找到匹配的城市，换个关键词或清除省份筛选。
+            </p>
           )}
         </div>
 
         {/* 城市详情 */}
-        {city && (
+        {filtered.length > 0 && city && (
           <div className="mt-5 space-y-3" data-testid={`city-detail-${city.city}`}>
             <div className="flex flex-wrap items-baseline gap-2">
               <h3 className="font-display text-[1.3rem] tracking-tight">{city.city}</h3>
@@ -107,6 +195,9 @@ export function TravelPanel() {
                   {city.cuisine}
                 </Badge>
               )}
+              <span className="num ml-auto text-[10.5px] text-muted-foreground">
+                {city.items.length} 道
+              </span>
             </div>
             <p className="rounded-md border border-primary/20 bg-primary/5 p-2 text-[12.5px] leading-relaxed text-foreground/85">
               <Sparkles className="mr-1 inline h-3.5 w-3.5 text-primary" />
@@ -150,7 +241,7 @@ export function TravelPanel() {
                         title={l.hint ?? `在 ${l.label} 搜索 ${city.city} ${item.name}`}
                         className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/5 px-2 py-0.5 text-[10.5px] text-primary hover-elevate active-elevate-2"
                       >
-                        {l.label} 搜索
+                        {l.label}
                         {l.hint && (
                           <span className="text-muted-foreground">· {l.hint}</span>
                         )}
@@ -168,6 +259,55 @@ export function TravelPanel() {
           </div>
         )}
       </Card>
+
+      {/* 省份地图概览 — 没有搜索输入时显示，便于快速浏览全部地域 */}
+      {!q && (
+        <Card className="border-card-border/60 bg-card/60 p-4 sm:p-5">
+          <div className="mb-2 flex items-baseline justify-between gap-2">
+            <h3 className="font-display text-[1.05rem] tracking-tight">
+              <MapPin className="mb-0.5 mr-1 inline h-4 w-4 text-primary" />
+              全国概览
+            </h3>
+            <span className="text-[11px] text-muted-foreground num">
+              {totalProvinces} 省 / {totalCities} 城
+            </span>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3" data-testid="province-grid">
+            {grouped.map(({ province, cities }) => (
+              <div
+                key={province}
+                className="rounded-lg border border-border/60 bg-background/40 p-2.5"
+                data-testid={`province-block-${province}`}
+              >
+                <div className="mb-1 flex items-baseline justify-between gap-2">
+                  <span className="font-display text-[12.5px] tracking-tight text-foreground/85">
+                    {province}
+                  </span>
+                  <span className="num text-[10px] text-muted-foreground">
+                    {cities.length}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {cities.map((c) => (
+                    <button
+                      key={c.city}
+                      type="button"
+                      onClick={() => {
+                        setActiveProvince(province);
+                        setActiveCity(c.city);
+                      }}
+                      data-testid={`province-${province}-city-${c.city}`}
+                      className="inline-flex h-6 items-center rounded-full border border-border/60 bg-card/60 px-2 text-[10.5px] text-foreground/80 hover-elevate active-elevate-2"
+                    >
+                      {c.city}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
     </section>
   );
 }

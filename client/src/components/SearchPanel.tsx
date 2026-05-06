@@ -2,7 +2,7 @@
 // 支持「为什么匹配」高亮，命中规则可解释。
 
 import { useMemo, useState } from "react";
-import { Search, ChevronRight, X } from "lucide-react";
+import { Search, ChevronRight, X, Drumstick } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DishImage } from "@/components/DishImage";
@@ -13,10 +13,12 @@ import {
   ALL_CUISINES,
   ALL_TASTES,
   ALL_CATEGORIES,
+  ALL_RESTRICTIONS,
   type Recipe,
   type Cuisine,
   type Taste,
   type Category,
+  type Restriction,
 } from "@/data/recipes";
 
 interface MatchResult {
@@ -25,11 +27,30 @@ interface MatchResult {
   score: number;
 }
 
+// 食材偏好（与 Home 页的「想吃什么」对齐）— 用关键词做软筛选
+const WISH_OPTIONS: { id: string; label: string; emoji: string; pattern: RegExp }[] = [
+  { id: "beef", label: "牛肉", emoji: "🥩", pattern: /牛肉|牛腩|牛排|肥牛|雪花牛|牛筋|牛舌|牛尾/ },
+  { id: "pork", label: "猪肉", emoji: "🥓", pattern: /猪肉|猪里脊|五花肉|排骨|里脊|梅花|肉末|肉丝|肉片|肉丁|叉烧|腊肉|腊肠|火腿|培根/ },
+  { id: "chicken", label: "鸡肉", emoji: "🍗", pattern: /鸡肉|鸡胸|鸡腿|鸡翅|鸡丁|鸡丝|鸡块|鸡爪|三黄鸡/ },
+  { id: "seafood", label: "鱼虾", emoji: "🍤", pattern: /虾|鱼(?!香)|蟹|贝|蛤|蛎|鱿|墨鱼|带鱼|鲈|鲫|草鱼|三文|鳕|黄鱼/ },
+  { id: "tofu", label: "豆腐", emoji: "🟦", pattern: /豆腐|豆干|腐竹|豆皮|百叶/ },
+  { id: "vegetable", label: "蔬菜", emoji: "🥬", pattern: /白菜|青菜|菠菜|生菜|包菜|油菜|空心菜|西兰花|花菜|芹菜|茄子|黄瓜|番茄|西红柿|胡萝卜|土豆|莲藕|蘑菇|香菇|青椒|彩椒|尖椒|豆角|玉米|冬瓜|丝瓜|南瓜|韭菜/ },
+  { id: "noodle", label: "面食", emoji: "🍜", pattern: /面|粉条|粉丝|米线|河粉|馄饨|饺|包子|烧麦|饼|馍|年糕/ },
+  { id: "rice", label: "米饭", emoji: "🍚", pattern: /米饭|炒饭|粥|焖饭|盖饭|拌饭|饭团|寿司|烩饭/ },
+  { id: "dessert", label: "甜品", emoji: "🍰", pattern: /蛋糕|布丁|奶冻|双皮奶|果冻|月饼|糖水|甜品|糖醋|糖浆|蜂蜜|甜汤|蛋挞|奶茶|果汁/ },
+];
+
+function recipeBlob(r: Recipe): string {
+  return `${r.name} ${r.ingredients.map((i) => i.name).join(" ")} ${r.steps.join(" ")}`;
+}
+
 function searchRecipes(
   q: string,
-  cuisine?: Cuisine | null,
-  taste?: Taste | null,
-  category?: Category | null,
+  cuisine: Cuisine | null,
+  taste: Taste | null,
+  category: Category | null,
+  wishes: string[],
+  excludes: Restriction[],
 ): MatchResult[] {
   const lower = q.trim().toLowerCase();
   const out: MatchResult[] = [];
@@ -37,6 +58,20 @@ function searchRecipes(
     if (cuisine && r.cuisine !== cuisine) continue;
     if (taste && !r.tastes.includes(taste)) continue;
     if (category && r.category !== category) continue;
+    // 排除忌口：硬过滤
+    if (excludes.length > 0 && excludes.some((e) => r.contains.includes(e))) continue;
+    // 排除「无辣」要单独判断（不是 contains 字段）
+    if (excludes.includes("无辣") && r.tastes.some((t) => t === "微辣" || t === "重辣" || t === "麻辣")) continue;
+
+    // 想吃什么：要求至少命中一个食材偏好
+    if (wishes.length > 0) {
+      const blob = recipeBlob(r);
+      const hit = wishes.some((w) => {
+        const opt = WISH_OPTIONS.find((o) => o.id === w);
+        return opt ? opt.pattern.test(blob) : false;
+      });
+      if (!hit) continue;
+    }
 
     const reasons: string[] = [];
     let score = 0;
@@ -47,6 +82,7 @@ function searchRecipes(
       if (cuisine) reasons.push(`${cuisine}`);
       if (taste) reasons.push(`${taste}`);
       if (category) reasons.push(`${category}`);
+      if (wishes.length > 0) reasons.push(`含 ${wishes.map((w) => WISH_OPTIONS.find((o) => o.id === w)?.label).filter(Boolean).join("/")}`);
     } else {
       const name = r.name.toLowerCase();
       if (name.includes(lower)) {
@@ -96,13 +132,35 @@ export function SearchPanel({
   const [cuisine, setCuisine] = useState<Cuisine | null>(null);
   const [taste, setTaste] = useState<Taste | null>(null);
   const [category, setCategory] = useState<Category | null>(null);
+  const [wishes, setWishes] = useState<string[]>([]);
+  const [excludes, setExcludes] = useState<Restriction[]>([]);
 
   const results = useMemo(
-    () => searchRecipes(q, cuisine, taste, category),
-    [q, cuisine, taste, category],
+    () => searchRecipes(q, cuisine, taste, category, wishes, excludes),
+    [q, cuisine, taste, category, wishes, excludes],
   );
 
-  const hint = q.trim() === "" && !cuisine && !taste && !category;
+  const hint =
+    q.trim() === "" && !cuisine && !taste && !category && wishes.length === 0 && excludes.length === 0;
+
+  const hasAnyFilter =
+    !!cuisine || !!taste || !!category || wishes.length > 0 || excludes.length > 0;
+
+  function clearAll() {
+    setQ("");
+    setCuisine(null);
+    setTaste(null);
+    setCategory(null);
+    setWishes([]);
+    setExcludes([]);
+  }
+
+  function toggleWish(id: string) {
+    setWishes((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  }
+  function toggleExclude(r: Restriction) {
+    setExcludes((prev) => (prev.includes(r) ? prev.filter((x) => x !== r) : [...prev, r]));
+  }
 
   return (
     <section className="space-y-4" data-testid="search-panel">
@@ -112,7 +170,7 @@ export function SearchPanel({
           菜谱搜索
         </h2>
         <p className="mt-1 text-[13px] text-muted-foreground">
-          按菜名 / 食材 / 口味 / 菜系 / 类目搜索 — 共 {RECIPES.length} 道菜可查。
+          按菜名 / 食材 / 口味 / 菜系 / 类目搜索，可叠加「想吃」与「避开」筛选 — 共 {RECIPES.length} 道菜可查。
         </p>
       </header>
 
@@ -163,6 +221,67 @@ export function SearchPanel({
             onSelect={(v) => setCategory(v as Category | null)}
             testIdPrefix="filter-category"
           />
+          {/* 想吃什么（多选食材软筛选） */}
+          <div className="flex flex-wrap items-center gap-1.5" data-testid="search-wishes">
+            <span className="mr-1 inline-flex items-center gap-1 text-[11.5px] font-medium text-muted-foreground">
+              <Drumstick className="h-3 w-3" />
+              想吃
+            </span>
+            {WISH_OPTIONS.map((w) => {
+              const active = wishes.includes(w.id);
+              return (
+                <button
+                  key={w.id}
+                  type="button"
+                  onClick={() => toggleWish(w.id)}
+                  data-testid={`filter-wish-${w.id}`}
+                  className={`inline-flex h-7 items-center gap-0.5 rounded-full border px-2.5 text-[11.5px] hover-elevate active-elevate-2 ${
+                    active
+                      ? "border-primary/55 bg-primary text-primary-foreground"
+                      : "border-border bg-card/60 text-foreground/80"
+                  }`}
+                >
+                  <span aria-hidden>{w.emoji}</span>
+                  <span className="ml-0.5">{w.label}</span>
+                </button>
+              );
+            })}
+          </div>
+          {/* 避开（多选忌口硬筛选） */}
+          <div className="flex flex-wrap items-center gap-1.5" data-testid="search-excludes">
+            <span className="mr-1 inline-flex items-center text-[11.5px] font-medium text-muted-foreground">
+              避开
+            </span>
+            {ALL_RESTRICTIONS.map((r) => {
+              const active = excludes.includes(r);
+              return (
+                <button
+                  key={r}
+                  type="button"
+                  onClick={() => toggleExclude(r)}
+                  data-testid={`filter-exclude-${r}`}
+                  className={`inline-flex h-7 items-center rounded-full border px-2.5 text-[11.5px] hover-elevate active-elevate-2 ${
+                    active
+                      ? "border-amber-500/60 bg-amber-500/15 text-amber-800"
+                      : "border-border bg-card/60 text-foreground/80"
+                  }`}
+                >
+                  {r}
+                </button>
+              );
+            })}
+          </div>
+          {hasAnyFilter && (
+            <button
+              type="button"
+              onClick={clearAll}
+              data-testid="search-clear-all"
+              className="inline-flex h-7 items-center gap-1 rounded-full border border-dashed border-border/70 bg-background/60 px-2.5 text-[11px] text-muted-foreground hover-elevate"
+            >
+              <X className="h-3 w-3" />
+              清除所有筛选
+            </button>
+          )}
         </div>
 
         {/* 结果列表 */}
