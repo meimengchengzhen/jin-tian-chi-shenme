@@ -40,7 +40,7 @@ export function DishImage({
       aria-label={alt}
       className={`relative overflow-hidden ${className ?? ""}`}
       style={{
-        background: `linear-gradient(135deg, ${visual.gradient[0]}, ${visual.gradient[1]})`,
+        background: `linear-gradient(135deg, ${visual.gradient[0]} 0%, ${visual.gradient[1]} 100%)`,
       }}
       data-testid="dish-illustration"
     >
@@ -50,18 +50,37 @@ export function DishImage({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.36), transparent 58%)",
+            "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.42), transparent 58%)",
         }}
       />
-      {/* 微纹理：小图也带，避免「纯色块」感 */}
+      {/* 底部色带，给所有尺寸都加结构感（关键：避免 QA 看到「纯色块」） */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0"
+        style={{
+          height: large ? "30%" : "32%",
+          background: `linear-gradient(180deg, transparent 0%, ${visual.accent} 100%)`,
+          opacity: large ? 0.55 : 0.65,
+        }}
+      />
+      {/* 微纹理：所有尺寸都带，避免「纯色块」感 */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.2]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.85) 1px, transparent 1px)",
+          backgroundSize: large ? "10px 10px" : "6px 6px",
+        }}
+      />
+      {/* 斜向高光纹路：增加质感 */}
       {!large && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.18]"
+          className="pointer-events-none absolute inset-0 opacity-30"
           style={{
-            backgroundImage:
-              "radial-gradient(rgba(255,255,255,0.85) 1px, transparent 1px)",
-            backgroundSize: "7px 7px",
+            background:
+              "repeating-linear-gradient(135deg, rgba(255,255,255,0.0) 0px, rgba(255,255,255,0.0) 6px, rgba(255,255,255,0.18) 6px, rgba(255,255,255,0.18) 7px)",
           }}
         />
       )}
@@ -78,23 +97,39 @@ export function DishImage({
           <span
             aria-hidden
             className="relative flex h-full w-full items-center justify-center font-display text-[1.55rem] font-semibold leading-none text-white drop-shadow-md"
+            style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
           >
             {firstChar}
           </span>
           <span
             aria-hidden
-            className="absolute right-1 top-1 text-[14px] drop-shadow"
+            className="absolute right-0.5 top-0.5 text-[15px] drop-shadow"
           >
             {visual.emoji}
           </span>
+          {/* 菜系角标，左下角，和大图保持一致语言 */}
+          <span
+            aria-hidden
+            className="absolute bottom-0.5 left-0.5 text-[11px] opacity-90"
+          >
+            {visual.badge}
+          </span>
         </>
       ) : (
-        <span
-          aria-hidden
-          className="relative flex h-full w-full items-center justify-center text-[1.75rem] drop-shadow-sm"
-        >
-          {visual.emoji}
-        </span>
+        <>
+          <span
+            aria-hidden
+            className="relative flex h-full w-full items-center justify-center text-[1.75rem] drop-shadow-sm"
+          >
+            {visual.emoji}
+          </span>
+          <span
+            aria-hidden
+            className="absolute bottom-0.5 left-0.5 text-[11px] opacity-90"
+          >
+            {visual.badge}
+          </span>
+        </>
       )}
       {/* 菜系/类目角标 emoji，仅大图显示 */}
       {large && (

@@ -328,6 +328,224 @@ function DishCard({
   );
 }
 
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// === Hero 右侧智能推荐卡：本地渲染的浮动卡 + 微数据仪表 + 快捷跳转 ===
+// 不依赖远程图片，统一陶红/暖橙色调；移动端隐藏，lg+ 浮现在 Hero 右侧。
+function SmartHeroCard({
+  meal,
+  recipeCount,
+  env,
+  scenarioLabel,
+  scenarioEmoji,
+  targetMealCalories,
+  onJumpHot,
+  onJumpCategories,
+}: {
+  meal: { label: string; emoji: string; toneHint: string; description: string };
+  recipeCount: number;
+  env: EnvContext;
+  scenarioLabel: string;
+  scenarioEmoji: string;
+  targetMealCalories?: number;
+  onJumpHot: () => void;
+  onJumpCategories: () => void;
+}) {
+  const dateStr = new Date().toLocaleDateString("zh-CN", {
+    month: "long",
+    day: "numeric",
+    weekday: "short",
+  });
+  const weatherText =
+    env.weather && env.weather !== "未指定" ? env.weather : "天气未设";
+  const placeText =
+    env.city || env.province || (env.region && env.region !== "未指定" ? env.region : "—");
+  const tempText = typeof env.temperatureC === "number" ? `${env.temperatureC}°C` : "";
+
+  return (
+    <aside
+      aria-label="今日智能推荐卡"
+      data-testid="smart-hero-card"
+      className="relative hidden lg:block"
+    >
+      {/* 装饰光晕 */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] opacity-70 blur-2xl"
+        style={{
+          background:
+            "radial-gradient(50% 60% at 70% 30%, rgba(244,160,69,0.28), transparent 60%)," +
+            " radial-gradient(60% 70% at 30% 80%, rgba(193,75,42,0.20), transparent 70%)",
+        }}
+      />
+      {/* 主卡 */}
+      <div
+        className="grain relative overflow-hidden rounded-2xl border border-primary/20 bg-card/85 p-5 shadow-xl shadow-primary/10 backdrop-blur"
+      >
+        {/* 顶部色带 */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-1.5"
+          style={{
+            background:
+              "linear-gradient(90deg, #f4a045 0%, #c84e22 50%, #8b3a18 100%)",
+          }}
+        />
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-[10.5px] font-medium uppercase tracking-[0.18em] text-primary/80">
+              今日智能推荐
+            </p>
+            <p className="mt-1 num text-[12px] text-muted-foreground">{dateStr}</p>
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] text-primary">
+            <span aria-hidden className="text-base">{meal.emoji}</span>
+            {meal.label}
+          </span>
+        </div>
+
+        {/* 抽象餐盘图形 */}
+        <div className="mt-4 flex items-center gap-4">
+          <div className="relative h-24 w-24 flex-shrink-0">
+            {/* 外圈 */}
+            <div
+              aria-hidden
+              className="absolute inset-0 rounded-full"
+              style={{
+                background:
+                  "conic-gradient(from 210deg, #f4a045 0deg, #c84e22 130deg, #8b3a18 220deg, #f4a045 360deg)",
+              }}
+            />
+            {/* 内盘 */}
+            <div
+              aria-hidden
+              className="absolute inset-1.5 rounded-full bg-card shadow-inner"
+            />
+            {/* 中央 emoji（场景） */}
+            <div className="absolute inset-0 flex items-center justify-center text-[2.4rem] drop-shadow-sm">
+              <span aria-hidden>{scenarioEmoji}</span>
+            </div>
+            {/* 高光 */}
+            <div
+              aria-hidden
+              className="absolute inset-1.5 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle at 30% 22%, rgba(255,255,255,0.55), transparent 55%)",
+              }}
+            />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] text-muted-foreground">当前场景</p>
+            <p className="truncate font-display text-[1.05rem] tracking-tight text-foreground">
+              {scenarioLabel}
+            </p>
+            <p className="mt-1 text-[11.5px] leading-relaxed text-muted-foreground">
+              {meal.description}
+            </p>
+          </div>
+        </div>
+
+        {/* 数据仪表 */}
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onJumpCategories}
+            data-testid="hero-card-jump-categories"
+            className="rounded-xl border border-border/60 bg-background/60 px-3 py-2 text-left transition-colors hover-elevate active-elevate-2 hover:border-primary/40"
+            title="跳到门类浏览"
+          >
+            <p className="text-[10.5px] uppercase tracking-wider text-muted-foreground">
+              菜谱库
+            </p>
+            <p className="mt-0.5 num font-display text-[1.2rem] leading-none text-primary">
+              {recipeCount}
+            </p>
+            <p className="mt-1 text-[11px] text-muted-foreground">道 · 8 大门类</p>
+          </button>
+          <div className="rounded-xl border border-border/60 bg-background/60 px-3 py-2">
+            <p className="text-[10.5px] uppercase tracking-wider text-muted-foreground">
+              本餐目标
+            </p>
+            {targetMealCalories ? (
+              <>
+                <p className="mt-0.5 num font-display text-[1.2rem] leading-none text-primary">
+                  {targetMealCalories}
+                </p>
+                <p className="mt-1 text-[11px] text-muted-foreground">kcal · 已开启</p>
+              </>
+            ) : (
+              <>
+                <p className="mt-0.5 font-display text-[1.05rem] leading-none text-foreground/85">
+                  自由
+                </p>
+                <p className="mt-1 text-[11px] text-muted-foreground">未启用饮食计划</p>
+              </>
+            )}
+          </div>
+          <div className="col-span-2 rounded-xl border border-border/60 bg-background/60 px-3 py-2">
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="text-[10.5px] uppercase tracking-wider text-muted-foreground">
+                环境
+              </p>
+              <p className="num text-[10.5px] text-muted-foreground">
+                {tempText}
+              </p>
+            </div>
+            <p className="mt-0.5 truncate text-[12.5px] text-foreground/85">
+              <span className="text-primary">{placeText}</span>
+              <span className="mx-1 text-muted-foreground">·</span>
+              {weatherText}
+            </p>
+          </div>
+        </div>
+
+        {/* 跳到热榜的卡片入口 */}
+        <button
+          type="button"
+          onClick={onJumpHot}
+          data-testid="hero-card-jump-hot"
+          className="mt-3 flex w-full items-center justify-between gap-2 rounded-xl border border-primary/30 bg-primary/5 px-3 py-2.5 text-left transition-colors hover-elevate active-elevate-2"
+          title="跳到饭桌热榜"
+        >
+          <span className="flex items-center gap-2">
+            <span
+              aria-hidden
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary/15 text-primary"
+            >
+              <Flame className="h-3.5 w-3.5" />
+            </span>
+            <span>
+              <span className="block text-[12.5px] font-medium text-foreground">
+                实时饭桌热榜
+              </span>
+              <span className="block text-[11px] text-muted-foreground">
+                6 平台 · 一键找谈资
+              </span>
+            </span>
+          </span>
+          <ChevronRight className="h-4 w-4 text-primary" />
+        </button>
+
+        {/* 微纹理 */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(193,75,42,0.9) 1px, transparent 1px)",
+            backgroundSize: "11px 11px",
+          }}
+        />
+      </div>
+    </aside>
+  );
+}
+
 // === 主页 ===
 export default function Home() {
   const { toast } = useToast();
@@ -595,48 +813,85 @@ export default function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl px-4 sm:px-6">
-        {/* Hero — 升级版：渐变光晕 + 数据徽章 + 高级感 */}
-        <section className="relative pt-10 sm:pt-14">
+        {/* Hero — 升级版：渐变光晕 + 数据徽章 + 智能推荐卡。lg+ 用 mx-auto + 最大 5xl 让右侧卡片有空间。 */}
+        <section className="relative pt-10 sm:pt-14 lg:-mx-32 xl:-mx-48">
           {/* 装饰背景 */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-12 -right-12 top-0 -z-10 h-[420px] opacity-[0.55]"
+            className="pointer-events-none absolute -left-12 -right-12 top-0 -z-10 h-[460px] opacity-[0.55]"
             style={{
               background:
                 "radial-gradient(60% 80% at 30% 20%, rgba(244,160,69,0.18), transparent 60%)," +
                 " radial-gradient(50% 60% at 80% 30%, rgba(99,140,77,0.14), transparent 70%)",
             }}
           />
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary/80">
-            <span className="h-px w-8 bg-primary/40" /> {meal.label} · {meal.toneHint}
-          </div>
-          <h1 className="mt-4 font-display text-[2.2rem] leading-[1.05] tracking-tight sm:text-[2.9rem]">
-            {meal.label}就吃这些。
-            <br />
-            <span className="bg-gradient-to-r from-primary to-amber-600 bg-clip-text text-transparent">
-              不用再想了。
-            </span>
-          </h1>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-            告诉我们今天几个人吃、有多少时间、忌口偏好，
-            我们帮你随机搭一桌家常菜，并按蔬菜 / 肉蛋 / 调味分类生成买菜清单。
-            可以创建本地档案保存喜好与饮食目标，所有数据都只保存在你的浏览器里。
-          </p>
-          {/* 数据徽章 */}
-          <div className="mt-5 flex flex-wrap gap-2 text-[11.5px]">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85" data-testid="hero-stat-recipes">
-              <ChefHat className="h-3 w-3 text-primary" />
-              <span className="num font-medium text-primary">{RECIPES.length}</span>
-              <span className="text-muted-foreground">道菜</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85">
-              <Sparkles className="h-3 w-3 text-primary" />
-              <span className="text-muted-foreground">8 大门类 · 含甜品 / 饮品 / 烘焙</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85">
-              <Flame className="h-3 w-3 text-primary" />
-              <span className="text-muted-foreground">实时饭桌热榜</span>
-            </span>
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem]">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary/80">
+                <span className="h-px w-8 bg-primary/40" /> {meal.label} · {meal.toneHint}
+              </div>
+              <h1 className="mt-4 font-display text-[2.2rem] leading-[1.05] tracking-tight sm:text-[2.9rem]">
+                {meal.label}就吃这些。
+                <br />
+                <span className="bg-gradient-to-r from-primary to-amber-600 bg-clip-text text-transparent">
+                  不用再想了。
+                </span>
+              </h1>
+              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+                告诉我们今天几个人吃、有多少时间、忌口偏好，
+                我们帮你随机搭一桌家常菜，并按蔬菜 / 肉蛋 / 调味分类生成买菜清单。
+                可以创建本地档案保存喜好与饮食目标，所有数据都只保存在你的浏览器里。
+              </p>
+              {/* 数据徽章 — 可点击跳转 */}
+              <div className="mt-5 flex flex-wrap gap-2 text-[11.5px]">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("category-browser-section")}
+                  data-testid="hero-stat-recipes"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85 transition-colors hover-elevate active-elevate-2 hover:border-primary/40"
+                  title="跳到门类浏览"
+                >
+                  <ChefHat className="h-3 w-3 text-primary" />
+                  <span className="num font-medium text-primary">{RECIPES.length}</span>
+                  <span className="text-muted-foreground">道菜</span>
+                  <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("category-browser-section")}
+                  data-testid="hero-stat-categories"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-foreground/85 transition-colors hover-elevate active-elevate-2 hover:border-primary/40"
+                  title="跳到门类浏览"
+                >
+                  <Sparkles className="h-3 w-3 text-primary" />
+                  <span className="text-muted-foreground">8 大门类 · 含甜品 / 饮品 / 烘焙</span>
+                  <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("hotboard-section")}
+                  data-testid="hero-stat-hotboard"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-medium text-primary transition-colors hover-elevate active-elevate-2"
+                  title="跳到饭桌热榜"
+                >
+                  <Flame className="h-3 w-3" />
+                  <span>实时饭桌热榜</span>
+                  <ChevronRight className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+
+            {/* 右侧智能推荐卡 — 移动端隐藏，lg+ 浮现 */}
+            <SmartHeroCard
+              meal={meal}
+              recipeCount={RECIPES.length}
+              env={env}
+              scenarioLabel={getScenario(scenarioId).label}
+              scenarioEmoji={getScenario(scenarioId).emoji}
+              targetMealCalories={recommendCtx.targetMealCalories}
+              onJumpHot={() => scrollToSection("hotboard-section")}
+              onJumpCategories={() => scrollToSection("category-browser-section")}
+            />
           </div>
         </section>
 

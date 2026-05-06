@@ -38,7 +38,7 @@ export function CategoryBrowser({ onPickRecipe }: Props) {
   const list = grouped[selected] ?? [];
 
   return (
-    <section className="mt-10" data-testid="section-category-browser">
+    <section id="category-browser-section" className="mt-10 scroll-mt-20" data-testid="section-category-browser">
       <div className="mb-3 flex items-baseline justify-between gap-2">
         <div>
           <h2 className="font-display text-[1.4rem] tracking-tight">
@@ -101,7 +101,7 @@ export function CategoryBrowser({ onPickRecipe }: Props) {
                   className="group flex items-center gap-3 rounded-lg border border-border/60 bg-background/60 p-2 text-left transition-all hover:border-primary/40 hover:shadow-sm"
                 >
                   <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg">
-                    <DishImage visual={visual} alt={r.name} className="h-full w-full" />
+                    <DishImage visual={visual} alt={r.name} className="h-full w-full" name={r.name} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <h4 className="truncate font-display text-[14px] tracking-tight">{r.name}</h4>

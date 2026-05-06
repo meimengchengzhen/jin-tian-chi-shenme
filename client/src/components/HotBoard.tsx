@@ -84,7 +84,7 @@ export function HotBoard() {
   const sourceMeta = HOT_SOURCE_META[settings.source];
 
   return (
-    <section className="mt-10" data-testid="section-hotboard">
+    <section id="hotboard-section" className="mt-10 scroll-mt-20" data-testid="section-hotboard">
       <div className="mb-3 flex items-baseline justify-between gap-2">
         <div>
           <h2 className="font-display text-[1.4rem] tracking-tight">
