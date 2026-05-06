@@ -18,7 +18,10 @@ import {
   Leaf,
   Info,
   AlertTriangle,
+  ChevronRight,
 } from "lucide-react";
+import { DishDetail } from "@/components/DishDetail";
+import { dishVisual } from "@/lib/dishVisual";
 import { Wordmark, Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +36,7 @@ import {
   ALL_DIFFICULTIES,
   ALL_RESTRICTIONS,
   ALL_TASTES,
+  RECIPES,
   type Recipe,
 } from "@/data/recipes";
 import {
@@ -128,25 +132,46 @@ function DishCard({
   locked,
   onToggleLock,
   onSwap,
+  onOpenDetail,
 }: {
   recipe: Recipe;
   locked: boolean;
   onToggleLock: () => void;
   onSwap: () => void;
+  onOpenDetail: () => void;
 }) {
+  const visual = dishVisual(recipe.name, recipe.course, recipe.cuisine);
   return (
     <Card className="grain animate-rise relative overflow-hidden border-card-border/60 bg-card/80 p-4">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <CourseIcon course={recipe.course} className="h-4 w-4" />
-          </span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onOpenDetail}
+            data-testid={`thumb-recipe-${recipe.id}`}
+            aria-label={`查看 ${recipe.name} 详情`}
+            className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl text-3xl shadow-sm transition-transform hover:scale-[1.04] active:scale-[0.98]"
+            style={{
+              background: `linear-gradient(135deg, ${visual.gradient[0]}, ${visual.gradient[1]})`,
+            }}
+          >
+            <span aria-hidden className="drop-shadow-sm">{visual.emoji}</span>
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-xl"
+              style={{
+                background:
+                  "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.45), transparent 55%)",
+              }}
+            />
+          </button>
           <div>
             <div className="flex items-center gap-2">
               <h4 className="font-display text-[1.15rem] tracking-tight" data-testid={`text-recipe-${recipe.id}`}>
                 {recipe.name}
               </h4>
               <Badge variant="outline" className="rounded-full px-2 py-0 text-[10px]">
+                <CourseIcon course={recipe.course} className="mr-1 h-2.5 w-2.5" />
                 {COURSE_LABEL[recipe.course]}
               </Badge>
             </div>
@@ -212,39 +237,20 @@ function DishCard({
         ))}
       </div>
 
-      <details className="group/d mt-3">
-        <summary className="cursor-pointer list-none text-xs text-muted-foreground hover:text-foreground">
-          <span className="underline decoration-dotted underline-offset-4">查看做法 / 食材</span>
-        </summary>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <div>
-            <div className="mb-1 text-[11px] uppercase tracking-wider text-muted-foreground">
-              食材
-            </div>
-            <ul className="space-y-0.5 text-[12.5px]">
-              {recipe.ingredients.map((i) => (
-                <li key={i.name} className="flex justify-between gap-2">
-                  <span>{i.name}</span>
-                  <span className="text-muted-foreground num">{i.qty}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="mb-1 text-[11px] uppercase tracking-wider text-muted-foreground">
-              步骤
-            </div>
-            <ol className="space-y-1 text-[12.5px] leading-relaxed">
-              {recipe.steps.map((s, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className="num text-primary">{String(i + 1).padStart(2, "0")}</span>
-                  <span>{s}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </details>
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={onOpenDetail}
+        data-testid={`button-detail-${recipe.id}`}
+        className="mt-3 h-9 w-full justify-between rounded-full border-primary/30 bg-primary/5 text-[13px] text-primary hover:bg-primary/10"
+      >
+        <span className="inline-flex items-center gap-1.5">
+          <Info className="h-3.5 w-3.5" />
+          查看详情 · 食材热量 / 价格 / 视频
+        </span>
+        <ChevronRight className="h-4 w-4" />
+      </Button>
     </Card>
   );
 }
@@ -257,6 +263,7 @@ export default function Home() {
   const [lockedIds, setLockedIds] = useState<Set<string>>(new Set());
   const [shaking, setShaking] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [detailRecipe, setDetailRecipe] = useState<Recipe | null>(null);
 
   // 当前锁定菜品（从 plan 中筛出）
   const lockedRecipes = useMemo(() => {
@@ -629,6 +636,7 @@ export default function Home() {
                   locked={lockedIds.has(r.id)}
                   onToggleLock={() => toggleLock(r.id)}
                   onSwap={() => swapOne(r)}
+                  onOpenDetail={() => setDetailRecipe(r)}
                 />
               ))}
               {plan.veggie && (
@@ -637,6 +645,7 @@ export default function Home() {
                   locked={lockedIds.has(plan.veggie.id)}
                   onToggleLock={() => toggleLock(plan.veggie!.id)}
                   onSwap={() => swapOne(plan.veggie!)}
+                  onOpenDetail={() => setDetailRecipe(plan.veggie!)}
                 />
               )}
               {plan.soup && (
@@ -645,6 +654,7 @@ export default function Home() {
                   locked={lockedIds.has(plan.soup.id)}
                   onToggleLock={() => toggleLock(plan.soup!.id)}
                   onSwap={() => swapOne(plan.soup!)}
+                  onOpenDetail={() => setDetailRecipe(plan.soup!)}
                 />
               )}
             </div>
@@ -794,14 +804,18 @@ export default function Home() {
           </span>
         </footer>
       </main>
+
+      <DishDetail
+        recipe={detailRecipe}
+        servings={prefs.servings}
+        onClose={() => setDetailRecipe(null)}
+      />
     </div>
   );
 }
 
 function planLengthLabel() {
-  // 从 RECIPES 长度生成；这里硬编码避开循环依赖（运行时看不出影响）
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return "36";
+  return String(RECIPES.length);
 }
 
 // 当推荐结果为空时，给用户讲清楚是「忌口太严格」还是「软性条件太严格」。
@@ -826,7 +840,7 @@ function buildEmptyHint(prefs: Preferences): string {
   } else {
     // 软性条件已经全部放宽，仍然 0 道，说明忌口组合本身就极严格
     reasons.push(
-      "你的忌口组合在 36 道示例菜里没有完全匹配的菜。可以尝试关闭「配素菜 / 配汤」或减少忌口标签。",
+      `你的忌口组合在 ${RECIPES.length} 道示例菜里没有完全匹配的菜。可以尝试关闭「配素菜 / 配汤」或减少忌口标签。`,
     );
   }
   return reasons.join(" ");

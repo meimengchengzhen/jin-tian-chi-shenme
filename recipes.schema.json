@@ -108,12 +108,18 @@
     },
     "ingredients": {
       "type": "array",
-      "description": "食材清单。每项需带数量描述与买菜分类，UI 会按分类合并去重生成购物清单。",
+      "description": "食材清单。每项需带数量描述与买菜分类，UI 会按分类合并去重生成购物清单。详情页基于此估算热量与价格。",
       "minItems": 1,
       "maxItems": 30,
       "items": {
         "$ref": "#/$defs/Ingredient"
       }
+    },
+    "videoQuery": {
+      "type": "string",
+      "description": "可选：用于生成 Bilibili 视频搜索 URL 的关键词。留空会用 `name + \" 做法\"` 自动生成。",
+      "minLength": 2,
+      "maxLength": 60
     }
   },
   "$defs": {
