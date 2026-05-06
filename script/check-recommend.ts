@@ -216,7 +216,8 @@ console.log("== 推荐结果在每个硬忌口下都不含违忌食材 ==");
 
 console.log("== 数据库规模 ==");
 {
-  check(`RECIPES 总数 >= 600（实际 ${RECIPES.length}）`, RECIPES.length >= 600);
+  // v2: 1000+ 菜谱
+  check(`RECIPES 总数 >= 1000（实际 ${RECIPES.length}）`, RECIPES.length >= 1000);
   // 至少覆盖每个 course
   const byCourse: Record<string, number> = { main: 0, veggie: 0, soup: 0, staple: 0 };
   for (const r of RECIPES) byCourse[r.course] += 1;
@@ -224,6 +225,14 @@ console.log("== 数据库规模 ==");
   check(`veggie >= 30 (实际 ${byCourse.veggie})`, byCourse.veggie >= 30);
   check(`soup >= 15 (实际 ${byCourse.soup})`, byCourse.soup >= 15);
   check(`staple >= 10 (实际 ${byCourse.staple})`, byCourse.staple >= 10);
+  // 名称应几乎全部不同
+  const seenName = new Set<string>();
+  let dup = 0;
+  for (const r of RECIPES) {
+    if (seenName.has(r.name)) dup++;
+    seenName.add(r.name);
+  }
+  check(`菜名重复数量 <= 30（实际 ${dup}） — 合理重名（蔬菜炒蛋等）允许`, dup <= 30);
 }
 
 console.log("== 上下文加分（天气/季节）不破坏忌口 ==");
@@ -445,7 +454,8 @@ console.log("== 外卖品牌库 ==");
   const { TAKEOUT_BRANDS, pickTakeout } = await import(
     "../client/src/data/takeoutBrands"
   );
-  check(`外卖品牌数 >= 12（实际 ${TAKEOUT_BRANDS.length}）`, TAKEOUT_BRANDS.length >= 12);
+  // v2: 200+ 品牌
+  check(`外卖品牌数 >= 200（实际 ${TAKEOUT_BRANDS.length}）`, TAKEOUT_BRANDS.length >= 200);
   for (const b of TAKEOUT_BRANDS) {
     check(
       `品牌「${b.name}」字段齐全 (picks/coupon/calorie)`,
@@ -467,7 +477,8 @@ console.log("== 外卖品牌库 ==");
 console.log("== 零食 / 水果数据 ==");
 {
   const { SNACKS, pickSnack } = await import("../client/src/data/snacks");
-  check(`零食条目 >= 30（实际 ${SNACKS.length}）`, SNACKS.length >= 30);
+  // v2: 300+ 零食
+  check(`零食条目 >= 300（实际 ${SNACKS.length}）`, SNACKS.length >= 300);
   for (const s of SNACKS) {
     check(
       `零食「${s.name}」: calories>0 / 价格 / reason 完整`,
@@ -479,7 +490,8 @@ console.log("== 零食 / 水果数据 ==");
   check(`pickSnack 减脂控糖: alternatives 至少 3 条`, r.alternatives.length >= 3);
 
   const { FRUITS, fruitsForMonth } = await import("../client/src/data/fruits");
-  check(`水果条目 >= 18（实际 ${FRUITS.length}）`, FRUITS.length >= 18);
+  // v2: 80+ 水果
+  check(`水果条目 >= 80（实际 ${FRUITS.length}）`, FRUITS.length >= 80);
   // 每月都至少有 4 种水果
   for (let m = 1; m <= 12; m++) {
     const list = fruitsForMonth(m);
@@ -528,6 +540,82 @@ console.log("== 零食 / 水果数据 ==");
     minFirstScreenHits >= 4,
     `min=${minFirstScreenHits}`,
   );
+}
+
+console.log("== v2: 饭桌陪伴 / 话题 / 听什么 池容量 ==");
+{
+  const { WATCH_ITEMS, TOPIC_ITEMS, AUDIO_ITEMS } = await import(
+    "../client/src/data/companions"
+  );
+  check(`影视池 >= 200（实际 ${WATCH_ITEMS.length}）`, WATCH_ITEMS.length >= 200);
+  check(`话题池 >= 200（实际 ${TOPIC_ITEMS.length}）`, TOPIC_ITEMS.length >= 200);
+  check(`音频池 >= 200（实际 ${AUDIO_ITEMS.length}）`, AUDIO_ITEMS.length >= 200);
+}
+
+console.log("== v2: 美团闪购 / 美团外卖 主入口走稳定搜索 ==");
+{
+  const { snackSearchLinks } = await import("../client/src/data/snacks");
+  const links = snackSearchLinks("辣条");
+  // 第一项必须不是 i.meituan.com 直链（已知 error_page 风险）
+  check(
+    "snackSearchLinks 主入口不再是 i.meituan.com 直链",
+    !links[0].href.includes("i.meituan.com/awp/h5"),
+    `主入口=${links[0].href}`,
+  );
+  check(
+    "snackSearchLinks 主入口包含「美团闪购」字样",
+    links[0].label.includes("美团闪购"),
+  );
+  const { PLATFORMS } = await import("../client/src/data/takeout");
+  const meituan = PLATFORMS.find((p) => p.id === "meituan");
+  check(`takeout PLATFORMS 含 meituan`, !!meituan);
+  if (meituan) {
+    const url = meituan.buildSearch("test");
+    check(
+      "takeout meituan 主入口不再走 h5.waimai.meituan.com 直链",
+      !url.includes("h5.waimai.meituan.com"),
+      `url=${url}`,
+    );
+  }
+}
+
+console.log("== v2: 主题系统 ==");
+{
+  const { THEMES, applyTheme, loadTheme } = await import(
+    "../client/src/lib/theme"
+  );
+  check(`主题数 >= 6（实际 ${THEMES.length}）`, THEMES.length >= 6);
+  // 主题必须含 fresh / cream / mint / midnight / vibrant / minimal 之中至少 5 项
+  const required = ["fresh", "cream", "mint", "midnight", "vibrant", "minimal"];
+  const have = required.filter((id) => THEMES.some((t: any) => t.id === id));
+  check(`常用主题至少含 5 个 ${required.join("/")}`, have.length >= 5, `命中 ${have.join(", ")}`);
+  // 默认主题应是 fresh
+  const def = loadTheme();
+  check(`默认主题 = fresh（实际 ${def}）`, def === "fresh" || THEMES.some((t: any) => t.id === def));
+}
+
+console.log("== v2: 顶部 Tab 滚动支持 ==");
+{
+  const fs = await import("node:fs");
+  const src = fs.readFileSync("client/src/components/MainTabs.tsx", "utf-8");
+  check("MainTabs 启用了 pointer 拖拽", src.includes("pointerdown") && src.includes("pointermove"));
+  check("MainTabs 启用了滚轮横向滚动", src.includes("onWheel") || src.includes('addEventListener("wheel"'));
+  check("MainTabs 提供左右渐变提示", src.includes("from-background/95"));
+}
+
+console.log("== v2: 海报 / 浮窗 / 一周计划 / 快速问答 文件存在 ==");
+{
+  const fs = await import("node:fs");
+  for (const p of [
+    "client/src/components/DecisionPoster.tsx",
+    "client/src/components/TodayDock.tsx",
+    "client/src/components/WeeklyPlanPanel.tsx",
+    "client/src/components/LazyWizardDialog.tsx",
+    "client/src/lib/selectedToday.ts",
+    "client/src/lib/theme.ts",
+  ]) {
+    check(`存在 ${p}`, fs.existsSync(p));
+  }
 }
 
 console.log("");

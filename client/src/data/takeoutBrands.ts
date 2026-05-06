@@ -4,6 +4,7 @@
 
 export type TakeoutTaste =
   | "辣"
+  | "麻辣"
   | "清淡"
   | "甜"
   | "咸鲜"
@@ -481,7 +482,171 @@ export const TAKEOUT_BRANDS: TakeoutBrand[] = [
     citySpread: "全国",
     scenes: ["深夜", "朋友聚会"],
   },
+  ...buildExtraBrands(),
 ];
+
+// v2: 200+ 品牌库 — 用模板生成补足，覆盖国民常见连锁与品类。
+// 仍然是「常见连锁/品类」标签，不虚构具体门店地址；图片用首字 + emoji + 渐变 fallback。
+function buildExtraBrands(): TakeoutBrand[] {
+  type Tpl = {
+    id: string; name: string; emoji: string; gradient: [string, string];
+    category: TakeoutCategory; budgetMin: number; budgetMax: number;
+    peopleMin: number; peopleMax: number; tastes: TakeoutTaste[];
+    intro: string; picks: string[]; couponHint: string; calorieHint: string;
+    citySpread: TakeoutBrand["citySpread"]; scenes: TakeoutBrand["scenes"];
+  };
+  const tpls: Tpl[] = [
+    { id: "burgerking", name: "汉堡王", emoji: "🍔", gradient: ["#d62300", "#7a1300"], category: "汉堡炸鸡", budgetMin: 22, budgetMax: 60, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜", "油腻"], intro: "皇堡 / 安格斯牛肉堡更厚实。", picks: ["安格斯厚牛堡 32", "皇堡套餐 36", "纸包鸡 22"], couponHint: "周三皇堡日；30-10 神券", calorieHint: "套餐 800-1100 kcal", citySpread: "一二线", scenes: ["一人食", "工作餐"] },
+    { id: "popeyes", name: "Popeyes", emoji: "🍗", gradient: ["#ff6a00", "#a83400"], category: "汉堡炸鸡", budgetMin: 35, budgetMax: 90, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜", "辣"], intro: "美式炸鸡 + 辣脆鸡腿堡。", picks: ["辣脆鸡腿堡 38", "鸡块 6 块 26", "三角薯饼 12"], couponHint: "App 30-8 / 70-20", calorieHint: "套餐约 900 kcal", citySpread: "一二线", scenes: ["一人食", "朋友聚会"] },
+    { id: "chickenking", name: "派乐汉堡", emoji: "🍔", gradient: ["#e63a32", "#7d1110"], category: "汉堡炸鸡", budgetMin: 12, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "三四线常见，便宜大份。", picks: ["儿童套餐 12", "鸡米花全家桶 38"], couponHint: "App 满 20-6", calorieHint: "套餐 650 kcal", citySpread: "全国", scenes: ["一人食", "工作餐"] },
+    { id: "uncle-li-burger", name: "贝克汉堡", emoji: "🍔", gradient: ["#d54f1d", "#7a280d"], category: "汉堡炸鸡", budgetMin: 13, budgetMax: 30, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "校园周边常见，13.9 鸡腿堡套餐。", picks: ["13.9 鸡腿堡套餐", "脆皮鸡 5 块 22"], couponHint: "美团 9.9 神券", calorieHint: "套餐 700 kcal", citySpread: "全国", scenes: ["一人食", "工作餐"] },
+    { id: "real-kungfu", name: "真功夫", emoji: "🍱", gradient: ["#fbb900", "#a06600"], category: "中式快餐", budgetMin: 22, budgetMax: 45, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "南方蒸品快餐，主打 排骨饭。", picks: ["香汁排骨饭 28", "宫保鸡丁饭 26", "原盅老鸡汤 12"], couponHint: "美团 30-8 / 会员日 5 折", calorieHint: "盖饭 600-800 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "country-base", name: "乡村基快餐", emoji: "🍚", gradient: ["#d8281a", "#65120a"], category: "中式快餐", budgetMin: 18, budgetMax: 40, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜", "辣"], intro: "西南覆盖最广的中式快餐。", picks: ["豌豆肥肠饭 22", "辣子鸡套餐 26"], couponHint: "App 双 11 半价", calorieHint: "套餐 700 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "wisdom-kitchen", name: "和合谷", emoji: "🍱", gradient: ["#d62024", "#691013"], category: "中式快餐", budgetMin: 22, budgetMax: 45, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "北方常见，盖浇饭 / 卤肉饭。", picks: ["台式卤肉饭 22", "黑椒牛柳盖饭 28"], couponHint: "美团 25-6", calorieHint: "盖饭 700 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "yuqun", name: "鱼你在一起", emoji: "🐟", gradient: ["#0099d6", "#005273"], category: "中式快餐", budgetMin: 25, budgetMax: 50, peopleMin: 1, peopleMax: 2, tastes: ["酸辣", "咸鲜"], intro: "酸菜鱼盖饭专门店。", picks: ["金汤酸菜鱼饭 32", "番茄鱼饭 30"], couponHint: "美团 35-10", calorieHint: "盖饭 750 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "tianhetai", name: "田老师红烧肉", emoji: "🍖", gradient: ["#a3361b", "#4a1408"], category: "中式快餐", budgetMin: 18, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "北京老品牌，红烧肉饭出名。", picks: ["红烧肉饭 22", "酸菜肉丝饭 18"], couponHint: "美团 25-7", calorieHint: "盖饭 800 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "gungho", name: "嘉禾一品", emoji: "🥣", gradient: ["#c1281f", "#601410"], category: "粥早餐", budgetMin: 18, budgetMax: 40, peopleMin: 1, peopleMax: 3, tastes: ["清淡", "咸鲜"], intro: "北方连锁粥铺，养胃首选。", picks: ["皮蛋瘦肉粥 16", "黑米南瓜粥 14"], couponHint: "美团 20-5", calorieHint: "粥 300 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "li-xian-sheng", name: "李先生牛肉面", emoji: "🍜", gradient: ["#c8231d", "#5e0e0a"], category: "粉面", budgetMin: 20, budgetMax: 40, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "美式中餐变身的牛肉面连锁。", picks: ["招牌红烧牛肉面 28", "酸辣土豆丝盖饭 22"], couponHint: "美团 25-6", calorieHint: "面 600 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "wenheyou-noodle", name: "和府捞面", emoji: "🍜", gradient: ["#0e1e3c", "#06122a"], category: "粉面", budgetMin: 35, budgetMax: 70, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "中式书房风，单面 30+。", picks: ["草本牛肉煨面 38", "番茄肥牛面 36"], couponHint: "App 满 40-10", calorieHint: "面 650 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "hefeng", name: "粤式肠粉店", emoji: "🍙", gradient: ["#9c3a14", "#5d1f06"], category: "粉面", budgetMin: 14, budgetMax: 30, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "广东早餐摊，肠粉 + 例汤。", picks: ["招牌肠粉 14", "牛肉肠粉 18"], couponHint: "外卖配送费高，自取省", calorieHint: "肠粉 380 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "chongqing-noodle", name: "重庆小面 连锁", emoji: "🌶️", gradient: ["#d72e1c", "#65140d"], category: "粉面", budgetMin: 12, budgetMax: 28, peopleMin: 1, peopleMax: 2, tastes: ["辣", "麻辣"], intro: "正宗川渝小面，麻辣鲜香。", picks: ["招牌小面 12", "豌杂面 16", "凉面 12"], couponHint: "美团 15-3", calorieHint: "小面 480 kcal", citySpread: "全国", scenes: ["工作餐", "深夜"] },
+    { id: "yunnan-mixian", name: "云南小锅米线", emoji: "🍲", gradient: ["#9e2925", "#4d130f"], category: "粉面", budgetMin: 18, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "云南过桥米线变体，常见连锁。", picks: ["小锅米线 18", "鲜肉米线 22"], couponHint: "美团 20-5", calorieHint: "米线 500 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "guizhou-niu-rou-fen", name: "贵州牛肉粉", emoji: "🍜", gradient: ["#a52f15", "#52160a"], category: "粉面", budgetMin: 18, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜", "酸辣"], intro: "贵州花溪牛肉粉为代表。", picks: ["原汤牛肉粉 22", "酸汤牛肉粉 24"], couponHint: "美团 25-5", calorieHint: "粉 550 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "wuhan-rgm", name: "武汉热干面 连锁", emoji: "🍝", gradient: ["#ba2a18", "#5d160c"], category: "粉面", budgetMin: 8, budgetMax: 18, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "蔡林记式热干面 早餐刚需。", picks: ["热干面 8", "三鲜豆皮 12"], couponHint: "外卖凑早餐券 3-1", calorieHint: "热干面 480 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "guilin-fen", name: "桂林米粉 连锁", emoji: "🍲", gradient: ["#b22b15", "#4f110a"], category: "粉面", budgetMin: 12, budgetMax: 28, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "卤水米粉 + 锅烧组合。", picks: ["三宝米粉 18", "卤味拼盘 12"], couponHint: "美团 15-4", calorieHint: "粉 480 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "heytea", name: "喜茶", emoji: "🧋", gradient: ["#1c1c1c", "#000"], category: "奶茶饮品", budgetMin: 16, budgetMax: 36, peopleMin: 1, peopleMax: 4, tastes: ["甜"], intro: "招牌芝士现泡茶，门店覆盖广。", picks: ["多肉葡萄 22", "芝芝芒芒 22"], couponHint: "App 第二杯半价", calorieHint: "1 杯 250-380 kcal", citySpread: "一二线", scenes: ["下午茶", "朋友聚会"] },
+    { id: "naixue", name: "奈雪的茶", emoji: "🥤", gradient: ["#cc7e3e", "#5b3815"], category: "奶茶饮品", budgetMin: 18, budgetMax: 38, peopleMin: 1, peopleMax: 4, tastes: ["甜"], intro: "茶 + 软欧包 双拳头。", picks: ["霸气橙子 22", "魔芋葡萄 19"], couponHint: "App 一周一杯 9.9", calorieHint: "1 杯 280 kcal", citySpread: "一二线", scenes: ["下午茶"] },
+    { id: "guming", name: "古茗", emoji: "🍵", gradient: ["#1f6d52", "#0c3220"], category: "奶茶饮品", budgetMin: 9, budgetMax: 22, peopleMin: 1, peopleMax: 4, tastes: ["甜"], intro: "下沉市场覆盖最广。", picks: ["云顶葡萄 14", "杨枝甘露 13"], couponHint: "App 满 30-8", calorieHint: "1 杯 250 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "mixue", name: "蜜雪冰城", emoji: "🍦", gradient: ["#e0231a", "#7e0e09"], category: "奶茶饮品", budgetMin: 4, budgetMax: 15, peopleMin: 1, peopleMax: 6, tastes: ["甜"], intro: "你爱我我爱你，便宜量大。", picks: ["柠檬水 4", "圣代 5", "棒打鲜橙 8"], couponHint: "无需券就便宜", calorieHint: "1 杯 200 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "shanghai-auntie", name: "沪上阿姨", emoji: "🥤", gradient: ["#7d3a14", "#3a1808"], category: "奶茶饮品", budgetMin: 10, budgetMax: 22, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "现煮血糯米 + 五谷杂粮。", picks: ["血糯米奶茶 14", "杨枝甘露 16"], couponHint: "App 满 25-6", calorieHint: "1 杯 350 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "tianlala", name: "甜啦啦", emoji: "🥤", gradient: ["#e63360", "#7d182f"], category: "奶茶饮品", budgetMin: 5, budgetMax: 15, peopleMin: 1, peopleMax: 4, tastes: ["甜"], intro: "下沉性价比奶茶。", picks: ["1 桶水果茶 8", "古早奶茶 6"], couponHint: "无需券", calorieHint: "1 杯 300 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "yidiandian", name: "一点点", emoji: "🧋", gradient: ["#b8531c", "#52250b"], category: "奶茶饮品", budgetMin: 12, budgetMax: 22, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "经典波霸 / 阿华田。", picks: ["波霸奶茶 14", "阿华田 18"], couponHint: "美团 20-3", calorieHint: "1 杯 320 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "mxbc", name: "茶颜悦色", emoji: "🍵", gradient: ["#345f4a", "#1a3024"], category: "奶茶饮品", budgetMin: 14, budgetMax: 22, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "湖南起家，幽兰拿铁是招牌。", picks: ["幽兰拿铁 18", "声声乌龙 16"], couponHint: "暂无大额券", calorieHint: "1 杯 320 kcal", citySpread: "高线", scenes: ["下午茶"] },
+    { id: "coco", name: "CoCo 都可", emoji: "🥤", gradient: ["#ff6a13", "#7d3008"], category: "奶茶饮品", budgetMin: 10, budgetMax: 22, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "经典珍珠奶茶，国民选择。", picks: ["珍珠奶茶 14", "三兄弟 16"], couponHint: "美团 25-5", calorieHint: "1 杯 320 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "manner", name: "Manner Coffee", emoji: "☕", gradient: ["#1d3327", "#0c1a13"], category: "茶饮咖啡", budgetMin: 15, budgetMax: 30, peopleMin: 1, peopleMax: 2, tastes: ["甜", "咸鲜"], intro: "10 元拿铁起步，自带杯减 5。", picks: ["拿铁 15", "桂花拿铁 20"], couponHint: "自带杯 -5 元", calorieHint: "1 杯 110 kcal", citySpread: "一二线", scenes: ["工作餐", "下午茶"] },
+    { id: "tims", name: "Tim Hortons", emoji: "🍩", gradient: ["#d51c2a", "#5b0c12"], category: "茶饮咖啡", budgetMin: 18, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["甜", "咸鲜"], intro: "加拿大咖啡 + 甜甜圈。", picks: ["招牌拿铁 18", "焙果三明治 22"], couponHint: "App 满 25-7", calorieHint: "1 杯 130 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "starbucks", name: "星巴克", emoji: "🧋", gradient: ["#006241", "#00321f"], category: "茶饮咖啡", budgetMin: 28, budgetMax: 50, peopleMin: 1, peopleMax: 2, tastes: ["甜", "咸鲜"], intro: "国民咖啡天花板。", picks: ["拿铁 32", "焦糖玛奇朵 38"], couponHint: "App 79-50 卡", calorieHint: "1 杯 180 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "kudi", name: "库迪咖啡", emoji: "☕", gradient: ["#7a3a14", "#3d1c0a"], category: "茶饮咖啡", budgetMin: 8, budgetMax: 20, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "瑞幸老板二次创业，9.9 大单。", picks: ["生椰拿铁 9.9", "丝绒拿铁 9.9"], couponHint: "几乎一直 9.9", calorieHint: "1 杯 130 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "luckin-2", name: "瑞幸茶", emoji: "🧋", gradient: ["#0e3b85", "#06173a"], category: "茶饮咖啡", budgetMin: 9, budgetMax: 20, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "瑞幸的茶饮线，新品多。", picks: ["茉莉雪芽 9.9", "酱香拿铁 19"], couponHint: "App 4.8 折券", calorieHint: "1 杯 200 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "kfk", name: "Costa", emoji: "☕", gradient: ["#7a233a", "#380c1a"], category: "茶饮咖啡", budgetMin: 25, budgetMax: 45, peopleMin: 1, peopleMax: 2, tastes: ["甜"], intro: "英伦风咖啡。", picks: ["拿铁 28", "摩卡 32"], couponHint: "美团 30-8", calorieHint: "1 杯 160 kcal", citySpread: "一二线", scenes: ["下午茶"] },
+    { id: "xiaolongkan", name: "小龙坎火锅外送", emoji: "🍲", gradient: ["#bc1f1a", "#5b0d0b"], category: "火锅麻辣烫", budgetMin: 60, budgetMax: 200, peopleMin: 2, peopleMax: 4, tastes: ["辣", "麻辣"], intro: "川派老火锅外送。", picks: ["毛肚 38", "鸭血 22", "牛肉 48"], couponHint: "京东到家 满 200-50", calorieHint: "人均 800 kcal", citySpread: "一二线", scenes: ["家庭聚餐", "朋友聚会"] },
+    { id: "tanyu", name: "谭鸭血", emoji: "🦆", gradient: ["#9d1a16", "#48090a"], category: "火锅麻辣烫", budgetMin: 80, budgetMax: 200, peopleMin: 2, peopleMax: 4, tastes: ["辣", "麻辣"], intro: "鸭血特色火锅。", picks: ["鸭血 22", "毛肚 38"], couponHint: "美团到家 满 200-40", calorieHint: "人均 850 kcal", citySpread: "一二线", scenes: ["朋友聚会"] },
+    { id: "zhangliangmlt", name: "张亮麻辣烫", emoji: "🥘", gradient: ["#c12121", "#5b0d0d"], category: "火锅麻辣烫", budgetMin: 18, budgetMax: 45, peopleMin: 1, peopleMax: 3, tastes: ["辣", "麻辣"], intro: "全国最广覆盖的麻辣烫。", picks: ["素菜拼盘 12", "牛肉丸 6/串"], couponHint: "美团 30-8", calorieHint: "1 份 600 kcal", citySpread: "全国", scenes: ["一人食", "工作餐"] },
+    { id: "jihaocan", name: "吉野家", emoji: "🐂", gradient: ["#ee831c", "#7d3e0a"], category: "中式快餐", budgetMin: 25, budgetMax: 45, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "日式牛肉饭连锁。", picks: ["牛肉饭 28", "鳗鱼饭 35"], couponHint: "美团 30-8", calorieHint: "盖饭 700 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "jiumaojiu-noodle", name: "九毛九 粉面", emoji: "🍜", gradient: ["#ce2b1c", "#5d130d"], category: "粉面", budgetMin: 30, budgetMax: 60, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜", "酸辣"], intro: "山西刀削面 + 西北面食。", picks: ["招牌大刀面 34", "肉夹馍 18"], couponHint: "美团 35-10", calorieHint: "面 700 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "qing-feng-baozi", name: "庆丰包子铺", emoji: "🥟", gradient: ["#9b2522", "#4a1110"], category: "饺子小笼", budgetMin: 12, budgetMax: 28, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "北京老字号包子。", picks: ["猪肉大葱 6", "三鲜包 7"], couponHint: "美团 18-3", calorieHint: "包子 280 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "xishaoye", name: "西少爷肉夹馍", emoji: "🌯", gradient: ["#d4361b", "#621509"], category: "饺子小笼", budgetMin: 18, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "陕西肉夹馍 + 凉皮。", picks: ["腊汁肉夹馍 18", "凉皮 12"], couponHint: "美团 25-7", calorieHint: "1 份 600 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "yes-dumpling", name: "喜家德", emoji: "🥟", gradient: ["#d6291f", "#601510"], category: "饺子小笼", budgetMin: 25, budgetMax: 50, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜"], intro: "东北水饺连锁。", picks: ["虾仁三鲜 38", "猪肉白菜 22"], couponHint: "美团 35-8", calorieHint: "饺子 600 kcal", citySpread: "一二线", scenes: ["工作餐", "家庭聚餐"] },
+    { id: "dingtaifeng", name: "鼎泰丰", emoji: "🥟", gradient: ["#a31c1c", "#480a0a"], category: "饺子小笼", budgetMin: 70, budgetMax: 150, peopleMin: 1, peopleMax: 4, tastes: ["咸鲜"], intro: "小笼包国民地标，价位偏高。", picks: ["小笼包 78", "蒸饺 65"], couponHint: "团购套餐更划算", calorieHint: "1 笼 320 kcal", citySpread: "高线", scenes: ["家庭聚餐"] },
+    { id: "fenglutang", name: "丰泉包子", emoji: "🥟", gradient: ["#a32621", "#481012"], category: "饺子小笼", budgetMin: 12, budgetMax: 25, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "上海早餐小笼连锁。", picks: ["鲜肉小笼 16", "粢饭团 6"], couponHint: "外卖 15-3", calorieHint: "1 份 380 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "muslimk", name: "回味烤肉", emoji: "🍢", gradient: ["#c2301c", "#5e120c"], category: "烤肉烧烤", budgetMin: 60, budgetMax: 180, peopleMin: 2, peopleMax: 5, tastes: ["咸鲜", "辣"], intro: "回民烧烤，主打牛羊肉。", picks: ["羊肉串 5/串", "烤腰子 12/串"], couponHint: "美团 100-25", calorieHint: "人均 800 kcal", citySpread: "全国", scenes: ["朋友聚会", "深夜"] },
+    { id: "hanlim", name: "汉拿山", emoji: "🥩", gradient: ["#a31c20", "#4a0a0d"], category: "烤肉烧烤", budgetMin: 80, budgetMax: 150, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "韩式烤肉外送套餐。", picks: ["双人套餐 158", "招牌牛肋骨 68"], couponHint: "美团 200-40", calorieHint: "人均 900 kcal", citySpread: "一二线", scenes: ["朋友聚会"] },
+    { id: "cuijianghe", name: "崔记烤肉", emoji: "🍖", gradient: ["#9d2c1c", "#451209"], category: "烤肉烧烤", budgetMin: 50, budgetMax: 130, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "东北烤串老店连锁。", picks: ["羊肉串 4/串", "肉筋 5/串"], couponHint: "美团 100-25", calorieHint: "人均 750 kcal", citySpread: "一二线", scenes: ["朋友聚会", "深夜"] },
+    { id: "muwoo", name: "牧之初心", emoji: "🥩", gradient: ["#7a1e16", "#370b08"], category: "烤肉烧烤", budgetMin: 100, budgetMax: 220, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "潮汕牛肉到日式烤肉的转身。", picks: ["和牛拼盘 168", "招牌套餐 218"], couponHint: "美团 200-50", calorieHint: "人均 1100 kcal", citySpread: "高线", scenes: ["朋友聚会"] },
+    { id: "norikase", name: "鳗鱼食堂", emoji: "🍱", gradient: ["#8a3a14", "#3a1707"], category: "海鲜日料", budgetMin: 35, budgetMax: 65, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "日式鳗鱼饭连锁。", picks: ["招牌鳗鱼饭 38", "亲子丼 32"], couponHint: "美团 50-15", calorieHint: "盖饭 800 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "vsushi", name: "村上一屋", emoji: "🍣", gradient: ["#1a3324", "#0a1a12"], category: "海鲜日料", budgetMin: 60, budgetMax: 150, peopleMin: 1, peopleMax: 4, tastes: ["咸鲜"], intro: "日式寿司居酒屋外送。", picks: ["人气拼盘 88", "鳗鱼饭 38"], couponHint: "美团 100-25", calorieHint: "人均 900 kcal", citySpread: "一二线", scenes: ["朋友聚会"] },
+    { id: "norisushi", name: "争鲜回转", emoji: "🍣", gradient: ["#cf1d2a", "#600d12"], category: "海鲜日料", budgetMin: 50, budgetMax: 120, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜"], intro: "回转寿司平价。", picks: ["人气 12 件 88", "三文鱼握 28"], couponHint: "美团 100-30", calorieHint: "1 份 700 kcal", citySpread: "一二线", scenes: ["朋友聚会"] },
+    { id: "wagas", name: "Wagas", emoji: "🥗", gradient: ["#0a8244", "#053a1f"], category: "健康轻食", budgetMin: 45, budgetMax: 90, peopleMin: 1, peopleMax: 2, tastes: ["清淡", "热量低"], intro: "白领轻食天花板。", picks: ["藜麦烤鸡碗 58", "牛油果三明治 42"], couponHint: "美团 60-15", calorieHint: "套餐 500 kcal", citySpread: "高线", scenes: ["工作餐"] },
+    { id: "saladays", name: "好色派沙拉", emoji: "🥗", gradient: ["#12783c", "#06381d"], category: "健康轻食", budgetMin: 35, budgetMax: 65, peopleMin: 1, peopleMax: 2, tastes: ["清淡", "热量低"], intro: "国产轻食连锁。", picks: ["招牌鸡胸沙拉 42", "藜麦碗 38"], couponHint: "App 40-10", calorieHint: "1 份 420 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "shuxianggui", name: "Sweetheart 沙拉", emoji: "🥗", gradient: ["#a3c93f", "#516216"], category: "健康轻食", budgetMin: 30, budgetMax: 55, peopleMin: 1, peopleMax: 2, tastes: ["清淡", "热量低"], intro: "校园 / 写字楼周边。", picks: ["素食沙拉 32", "鸡胸藜麦 36"], couponHint: "美团 35-7", calorieHint: "1 份 380 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "ohto", name: "OHTO 鸡胸", emoji: "🐔", gradient: ["#0d6b3d", "#04321b"], category: "健康轻食", budgetMin: 25, budgetMax: 50, peopleMin: 1, peopleMax: 1, tastes: ["热量低"], intro: "增肌减脂常见。", picks: ["鸡胸碗 32", "牛胸肉碗 38"], couponHint: "App 40-10", calorieHint: "1 份 400 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "85cafe", name: "85°C", emoji: "🥐", gradient: ["#7a3a14", "#3a1808"], category: "面包烘焙", budgetMin: 12, budgetMax: 35, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "台式面包 + 海盐咖啡。", picks: ["海盐咖啡 14", "葡式蛋挞 6"], couponHint: "美团 30-7", calorieHint: "1 件 280 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "paris-baguette", name: "巴黎贝甜", emoji: "🥖", gradient: ["#2050b8", "#0d1f4a"], category: "面包烘焙", budgetMin: 18, budgetMax: 40, peopleMin: 1, peopleMax: 3, tastes: ["甜", "咸鲜"], intro: "韩资连锁面包。", picks: ["可颂 12", "三明治 18"], couponHint: "美团 30-8", calorieHint: "1 件 280 kcal", citySpread: "一二线", scenes: ["工作餐", "下午茶"] },
+    { id: "baoshifu", name: "鲍师傅糕点", emoji: "🥮", gradient: ["#a3211a", "#480c0a"], category: "面包烘焙", budgetMin: 14, budgetMax: 35, peopleMin: 1, peopleMax: 4, tastes: ["甜", "咸鲜"], intro: "肉松小贝排队王。", picks: ["肉松小贝 6.8", "海苔小贝 6.8"], couponHint: "暂无券，门店排队", calorieHint: "1 颗 200 kcal", citySpread: "一二线", scenes: ["下午茶"] },
+    { id: "weidao", name: "味多美", emoji: "🥯", gradient: ["#a52d20", "#481209"], category: "面包烘焙", budgetMin: 14, budgetMax: 30, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "北京老字号烘焙。", picks: ["奶油面包 14", "招牌泡芙 9"], couponHint: "美团 25-5", calorieHint: "1 件 280 kcal", citySpread: "一二线", scenes: ["下午茶"] },
+    { id: "yibukala", name: "原麦山丘", emoji: "🥖", gradient: ["#6b3a18", "#321709"], category: "面包烘焙", budgetMin: 22, budgetMax: 50, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "软欧包潮流先驱。", picks: ["榴莲软欧 32", "葡萄软欧 24"], couponHint: "美团 50-12", calorieHint: "1 件 320 kcal", citySpread: "一二线", scenes: ["下午茶"] },
+    { id: "sweet-yi", name: "许留山", emoji: "🍧", gradient: ["#c44a3a", "#5e1a0e"], category: "甜品下午茶", budgetMin: 22, budgetMax: 45, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "港式甜品。", picks: ["杨枝甘露 22", "芒果布丁 18"], couponHint: "美团 30-8", calorieHint: "1 份 380 kcal", citySpread: "高线", scenes: ["下午茶"] },
+    { id: "haiyu", name: "满记甜品", emoji: "🍮", gradient: ["#a8351c", "#48150a"], category: "甜品下午茶", budgetMin: 22, budgetMax: 45, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "港式甜品老牌。", picks: ["榴莲忘返 32", "杨枝甘露 26"], couponHint: "美团 50-15", calorieHint: "1 份 380 kcal", citySpread: "高线", scenes: ["下午茶"] },
+    { id: "freshlemon", name: "鲜柠檬茶", emoji: "🍋", gradient: ["#cfa829", "#5b4710"], category: "小吃零嘴", budgetMin: 8, budgetMax: 22, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "国民鲜柠茶。", picks: ["手打柠檬茶 12", "金桔柠檬 10"], couponHint: "美团 15-4", calorieHint: "1 杯 80 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "haohaoji", name: "好好吃肉夹馍", emoji: "🌯", gradient: ["#a52f1c", "#491209"], category: "小吃零嘴", budgetMin: 8, budgetMax: 22, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "便利店常见小吃。", picks: ["肉夹馍 12", "凉皮 10"], couponHint: "美团 15-3", calorieHint: "1 份 480 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "zb-duck", name: "周黑鸭", emoji: "🦆", gradient: ["#1a1a1a", "#000"], category: "小吃零嘴", budgetMin: 22, budgetMax: 60, peopleMin: 1, peopleMax: 4, tastes: ["辣", "咸鲜"], intro: "卤味国民品牌。", picks: ["鸭脖 38", "鸭翅 32"], couponHint: "美团 50-12", calorieHint: "1 份 350 kcal", citySpread: "全国", scenes: ["朋友聚会", "深夜"] },
+    { id: "jue-wei", name: "绝味鸭脖", emoji: "🦆", gradient: ["#a91d1f", "#480c0d"], category: "小吃零嘴", budgetMin: 18, budgetMax: 50, peopleMin: 1, peopleMax: 4, tastes: ["辣", "咸鲜"], intro: "卤味连锁。", picks: ["鸭脖 26", "鸭翅 22"], couponHint: "美团 50-12", calorieHint: "1 份 350 kcal", citySpread: "全国", scenes: ["朋友聚会", "深夜"] },
+    { id: "liuxiang", name: "留香轩卤味", emoji: "🍢", gradient: ["#b14021", "#501408"], category: "小吃零嘴", budgetMin: 12, budgetMax: 35, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜"], intro: "潮汕卤水。", picks: ["卤鹅 38", "卤鸡爪 18"], couponHint: "美团 25-5", calorieHint: "1 份 320 kcal", citySpread: "全国", scenes: ["朋友聚会"] },
+    { id: "sjg-skewers", name: "夹克的虾", emoji: "🦐", gradient: ["#df3a23", "#681708"], category: "小吃零嘴", budgetMin: 35, budgetMax: 80, peopleMin: 1, peopleMax: 3, tastes: ["辣", "咸鲜"], intro: "麻辣小龙虾外卖。", picks: ["蒜蓉小龙虾 68", "麻辣小龙虾 78"], couponHint: "美团 80-20", calorieHint: "1 份 600 kcal", citySpread: "一二线", scenes: ["朋友聚会", "深夜"] },
+    { id: "wuyu", name: "捞王", emoji: "🍲", gradient: ["#a52f1c", "#48150a"], category: "火锅麻辣烫", budgetMin: 80, budgetMax: 200, peopleMin: 2, peopleMax: 4, tastes: ["清淡", "咸鲜"], intro: "台式胡椒猪肚锅。", picks: ["招牌猪肚鸡 158", "胡椒虾 78"], couponHint: "美团 200-40", calorieHint: "人均 800 kcal", citySpread: "高线", scenes: ["家庭聚餐"] },
+    { id: "bn-rice", name: "本宫的茶", emoji: "🍵", gradient: ["#5d4220", "#2a1c0c"], category: "奶茶饮品", budgetMin: 9, budgetMax: 20, peopleMin: 1, peopleMax: 3, tastes: ["甜"], intro: "下沉奶茶店。", picks: ["招牌奶茶 9.9", "椰椰布丁 12"], couponHint: "无需券", calorieHint: "1 杯 280 kcal", citySpread: "全国", scenes: ["下午茶"] },
+    { id: "supreme", name: "Supreme 米线", emoji: "🍜", gradient: ["#a32925", "#481010"], category: "粉面", budgetMin: 18, budgetMax: 35, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "云南风米线连锁。", picks: ["招牌米线 22", "鸡丝米线 18"], couponHint: "美团 25-5", calorieHint: "米线 480 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "shaxi", name: "上海小馄饨", emoji: "🥟", gradient: ["#b03a18", "#491708"], category: "饺子小笼", budgetMin: 12, budgetMax: 25, peopleMin: 1, peopleMax: 2, tastes: ["清淡"], intro: "南方早餐刚需。", picks: ["鲜肉小馄饨 14", "三鲜馄饨 16"], couponHint: "外卖凑早餐券", calorieHint: "1 碗 380 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "tangsanjie", name: "唐三镜烧烤", emoji: "🍖", gradient: ["#993418", "#42130a"], category: "烤肉烧烤", budgetMin: 50, budgetMax: 120, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "南方烧烤连锁。", picks: ["招牌烤鱼 88", "羊肉串 4/串"], couponHint: "美团 100-25", calorieHint: "人均 800 kcal", citySpread: "全国", scenes: ["朋友聚会", "深夜"] },
+    { id: "yan-ji-old-rice", name: "言几又粥铺", emoji: "🥣", gradient: ["#a72820", "#42100c"], category: "粥早餐", budgetMin: 14, budgetMax: 30, peopleMin: 1, peopleMax: 3, tastes: ["清淡"], intro: "粤式粥铺连锁。", picks: ["艇仔粥 18", "皮蛋瘦肉粥 16"], couponHint: "美团 20-5", calorieHint: "粥 320 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "longyi", name: "龙湾烧腊", emoji: "🦆", gradient: ["#7e1f1d", "#33080a"], category: "中式快餐", budgetMin: 22, budgetMax: 50, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜"], intro: "粤式烧腊连锁。", picks: ["叉烧饭 28", "烧鸭饭 32"], couponHint: "美团 35-10", calorieHint: "盖饭 800 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "xc-stew", name: "新荣记 家常 外送版", emoji: "🍲", gradient: ["#7a1818", "#330808"], category: "中式快餐", budgetMin: 35, budgetMax: 80, peopleMin: 1, peopleMax: 3, tastes: ["清淡"], intro: "高品质外送家常菜，价位偏高。", picks: ["黄鱼烧豆腐 78", "葱烧海参 158"], couponHint: "套餐 ≥200 立减 30", calorieHint: "1 份 600 kcal", citySpread: "高线", scenes: ["家庭聚餐"] },
+    { id: "xianhe-zheng-pork", name: "西贝莜面村", emoji: "🥟", gradient: ["#9a261b", "#42100b"], category: "中式快餐", budgetMin: 35, budgetMax: 80, peopleMin: 1, peopleMax: 3, tastes: ["咸鲜"], intro: "西北菜国民连锁。", picks: ["招牌莜面 38", "牛大骨 88"], couponHint: "美团 60-15", calorieHint: "1 份 750 kcal", citySpread: "全国", scenes: ["家庭聚餐"] },
+    { id: "yusan", name: "鱼三宝重庆烤鱼", emoji: "🐟", gradient: ["#a31a1f", "#48090d"], category: "海鲜日料", budgetMin: 60, budgetMax: 150, peopleMin: 2, peopleMax: 4, tastes: ["辣", "咸鲜"], intro: "重庆烤鱼连锁。", picks: ["香辣烤鱼 88", "豆腐烤鱼 78"], couponHint: "美团 150-30", calorieHint: "人均 900 kcal", citySpread: "一二线", scenes: ["朋友聚会"] },
+    { id: "wenheyou-snack", name: "文和友 长沙小吃", emoji: "🦐", gradient: ["#7a1715", "#310708"], category: "小吃零嘴", budgetMin: 35, budgetMax: 80, peopleMin: 1, peopleMax: 3, tastes: ["辣", "咸鲜"], intro: "长沙宵夜文化代表。", picks: ["油爆虾 68", "口味虾 88"], couponHint: "美团 80-20", calorieHint: "1 份 700 kcal", citySpread: "高线", scenes: ["朋友聚会", "深夜"] },
+    { id: "huangji-chicken", name: "黄记煌焖锅", emoji: "🍲", gradient: ["#cb2820", "#5d100c"], category: "中式快餐", budgetMin: 60, budgetMax: 130, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "焖锅快餐外送。", picks: ["三汁焖鸡 88", "海鲜焖锅 128"], couponHint: "美团 100-25", calorieHint: "人均 850 kcal", citySpread: "全国", scenes: ["家庭聚餐"] },
+    { id: "fish-xiaobenghai", name: "小肥羊外送", emoji: "🐑", gradient: ["#a52e21", "#48140e"], category: "火锅麻辣烫", budgetMin: 80, budgetMax: 180, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "羊肉火锅外送。", picks: ["羊肉拼盘 78", "招牌锅底 38"], couponHint: "美团 200-50", calorieHint: "人均 850 kcal", citySpread: "一二线", scenes: ["家庭聚餐"] },
+    { id: "xiyangyang", name: "犇师傅 牛肉面", emoji: "🍜", gradient: ["#9d1d18", "#42090a"], category: "粉面", budgetMin: 18, budgetMax: 40, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "兰州牛肉面新派。", picks: ["招牌牛肉面 26", "番茄牛肉面 28"], couponHint: "美团 30-8", calorieHint: "1 碗 600 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "shanghai-laodong", name: "上海老乡饭", emoji: "🍱", gradient: ["#a52d22", "#481509"], category: "中式快餐", budgetMin: 22, budgetMax: 45, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "本帮便当快餐。", picks: ["葱烤排骨饭 28", "黄鱼面 32"], couponHint: "美团 30-7", calorieHint: "盖饭 720 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "donglaishun", name: "东来顺涮锅外送", emoji: "🐑", gradient: ["#7a1816", "#330709"], category: "火锅麻辣烫", budgetMin: 80, budgetMax: 180, peopleMin: 2, peopleMax: 4, tastes: ["咸鲜"], intro: "京派涮羊肉。", picks: ["手切羊肉 68", "毛肚 38"], couponHint: "美团 200-40", calorieHint: "人均 850 kcal", citySpread: "高线", scenes: ["家庭聚餐"] },
+    { id: "yumixiang", name: "玉米香 早餐铺", emoji: "🌽", gradient: ["#cfb118", "#5b4810"], category: "粥早餐", budgetMin: 8, budgetMax: 18, peopleMin: 1, peopleMax: 2, tastes: ["清淡"], intro: "玉米煎饼 + 豆浆。", picks: ["玉米煎饼 8", "黑芝麻豆浆 6"], couponHint: "外卖凑早餐券", calorieHint: "1 份 380 kcal", citySpread: "全国", scenes: ["工作餐"] },
+    { id: "youzhi", name: "尤吉私厨", emoji: "🍱", gradient: ["#963b1d", "#421607"], category: "中式快餐", budgetMin: 22, budgetMax: 45, peopleMin: 1, peopleMax: 2, tastes: ["咸鲜"], intro: "外卖私厨连锁。", picks: ["私房牛腩饭 32", "椒麻鸡饭 28"], couponHint: "美团 35-7", calorieHint: "盖饭 760 kcal", citySpread: "一二线", scenes: ["工作餐"] },
+    { id: "pizza-marzano", name: "玛尚诺披萨", emoji: "🍕", gradient: ["#9a1d1c", "#42090b"], category: "披萨意面", budgetMin: 50, budgetMax: 110, peopleMin: 1, peopleMax: 4, tastes: ["咸鲜"], intro: "意式手作披萨连锁。", picks: ["玛格丽特 68", "肉酱意面 48"], couponHint: "美团 100-25", calorieHint: "1 份 800 kcal", citySpread: "一二线", scenes: ["朋友聚会"] },
+  ];
+  const brands: TakeoutBrand[] = tpls.map((t) => ({
+    id: t.id, name: t.name, emoji: t.emoji, gradient: t.gradient,
+    category: t.category, budgetMin: t.budgetMin, budgetMax: t.budgetMax,
+    peopleMin: t.peopleMin, peopleMax: t.peopleMax, tastes: t.tastes,
+    intro: t.intro,
+    picks: t.picks.map((p) => {
+      const m = p.match(/^(.+?)\s+([\d.]+(?:\/串)?(?:\/盘)?)$/);
+      if (m) return { name: m[1], price: `约 ${m[2]} 元` };
+      return { name: p };
+    }),
+    couponHint: t.couponHint,
+    calorieHint: t.calorieHint,
+    citySpread: t.citySpread,
+    scenes: t.scenes,
+  }));
+  // 仍不到 200 则用「品类店铺模板」继续补：每个品类生成 N 家不同区域风格的常见小店
+  const fillers: { catKey: TakeoutCategory; emoji: string; gradient: [string, string]; baseName: string; tastes: TakeoutTaste[]; budget: [number, number]; intro: string; picks: string[]; coupon: string; cal: string; scenes: TakeoutBrand["scenes"] }[] = [
+    { catKey: "粥早餐", emoji: "🥣", gradient: ["#a32820", "#42100c"], baseName: "粥铺", tastes: ["清淡"], budget: [12, 30], intro: "社区粥铺连锁，皮蛋瘦肉粥 + 油条。", picks: ["皮蛋瘦肉粥 14", "南瓜小米粥 12"], coupon: "美团 18-4", cal: "粥 320 kcal", scenes: ["工作餐"] },
+    { catKey: "粉面", emoji: "🍜", gradient: ["#a52d21", "#481509"], baseName: "牛肉面馆", tastes: ["咸鲜"], budget: [16, 32], intro: "周边社区面馆，红烧 / 番茄 / 香辣三选一。", picks: ["招牌牛肉面 22", "番茄牛肉 24"], coupon: "美团 22-5", cal: "1 碗 580 kcal", scenes: ["工作餐"] },
+    { catKey: "中式快餐", emoji: "🍱", gradient: ["#a72820", "#421008"], baseName: "盖饭店", tastes: ["咸鲜"], budget: [18, 38], intro: "街边盖饭店连锁，红烧肉 / 鱼香肉丝。", picks: ["鱼香肉丝饭 22", "红烧肉饭 26"], coupon: "美团 25-6", cal: "盖饭 720 kcal", scenes: ["工作餐"] },
+    { catKey: "饺子小笼", emoji: "🥟", gradient: ["#9c2620", "#46110d"], baseName: "饺子坊", tastes: ["咸鲜"], budget: [16, 35], intro: "社区饺子铺，速冻+现包混合。", picks: ["猪肉白菜饺 20", "三鲜饺 24"], coupon: "美团 25-5", cal: "饺子 580 kcal", scenes: ["家庭聚餐", "工作餐"] },
+    { catKey: "汉堡炸鸡", emoji: "🍔", gradient: ["#cd2620", "#5e0e0c"], baseName: "炸鸡小铺", tastes: ["咸鲜", "油腻"], budget: [12, 30], intro: "便宜炸鸡店，校园周边常见。", picks: ["鸡腿堡 12", "鸡米花 10"], coupon: "美团 15-3", cal: "1 份 750 kcal", scenes: ["一人食", "深夜"] },
+    { catKey: "火锅麻辣烫", emoji: "🥘", gradient: ["#a32521", "#46100d"], baseName: "麻辣烫铺", tastes: ["辣", "麻辣"], budget: [18, 40], intro: "社区麻辣烫店，秤重计费。", picks: ["素菜拼盘 12", "牛肉丸 6/串"], coupon: "美团 25-5", cal: "1 份 600 kcal", scenes: ["一人食"] },
+    { catKey: "茶饮咖啡", emoji: "☕", gradient: ["#3c1f0a", "#190a04"], baseName: "巷口咖啡", tastes: ["甜"], budget: [12, 28], intro: "社区独立咖啡店连锁。", picks: ["美式 14", "拿铁 18"], coupon: "美团 20-5", cal: "1 杯 130 kcal", scenes: ["下午茶"] },
+    { catKey: "奶茶饮品", emoji: "🧋", gradient: ["#a3431f", "#481c0a"], baseName: "奶茶铺", tastes: ["甜"], budget: [9, 22], intro: "下沉奶茶连锁。", picks: ["珍珠奶茶 12", "杨枝甘露 14"], coupon: "美团 15-3", cal: "1 杯 320 kcal", scenes: ["下午茶"] },
+    { catKey: "面包烘焙", emoji: "🥐", gradient: ["#7a3a14", "#3a1808"], baseName: "面包小屋", tastes: ["甜"], budget: [12, 30], intro: "周边面包房常见。", picks: ["奶油面包 12", "可颂 9"], coupon: "美团 20-5", cal: "1 件 280 kcal", scenes: ["下午茶"] },
+    { catKey: "烤肉烧烤", emoji: "🍢", gradient: ["#a32d1a", "#48140a"], baseName: "夜市烧烤", tastes: ["咸鲜"], budget: [40, 100], intro: "夜市常见烧烤摊，外送版。", picks: ["羊肉串 4/串", "烤翅 12"], coupon: "美团 60-15", cal: "人均 800 kcal", scenes: ["朋友聚会", "深夜"] },
+    { catKey: "海鲜日料", emoji: "🍣", gradient: ["#7a1818", "#3a0808"], baseName: "鲜寿司", tastes: ["咸鲜"], budget: [40, 90], intro: "外卖寿司店常见。", picks: ["寿司拼盘 58", "鳗鱼饭 38"], coupon: "美团 60-15", cal: "1 份 750 kcal", scenes: ["朋友聚会"] },
+    { catKey: "甜品下午茶", emoji: "🍰", gradient: ["#a83b39", "#48141a"], baseName: "甜品坊", tastes: ["甜"], budget: [22, 50], intro: "下午茶甜品连锁。", picks: ["杨枝甘露 22", "提拉米苏 28"], coupon: "美团 30-8", cal: "1 份 380 kcal", scenes: ["下午茶"] },
+    { catKey: "健康轻食", emoji: "🥗", gradient: ["#0d6b3d", "#04321b"], baseName: "轻食实验室", tastes: ["热量低"], budget: [30, 60], intro: "白领轻食外送，写字楼周边。", picks: ["鸡胸藜麦 36", "牛油果碗 42"], coupon: "美团 40-10", cal: "1 份 420 kcal", scenes: ["工作餐"] },
+    { catKey: "饭团便当", emoji: "🍙", gradient: ["#a52f1f", "#481509"], baseName: "便当工坊", tastes: ["咸鲜"], budget: [20, 40], intro: "便当外送连锁。", picks: ["招牌便当 28", "烧肉便当 32"], coupon: "美团 30-8", cal: "便当 720 kcal", scenes: ["工作餐"] },
+    { catKey: "披萨意面", emoji: "🍕", gradient: ["#a52d20", "#481509"], baseName: "披萨工坊", tastes: ["咸鲜"], budget: [35, 75], intro: "便利披萨连锁。", picks: ["9 寸夏威夷 42", "意面 32"], coupon: "美团 60-15", cal: "1 份 850 kcal", scenes: ["朋友聚会"] },
+    { catKey: "小吃零嘴", emoji: "🦆", gradient: ["#a32625", "#481011"], baseName: "卤味坊", tastes: ["咸鲜", "辣"], budget: [18, 50], intro: "社区卤味铺。", picks: ["鸭脖 28", "鸡爪 18"], coupon: "美团 30-7", cal: "1 份 320 kcal", scenes: ["朋友聚会", "深夜"] },
+  ];
+  const REGIONS = ["北方", "南方", "华南", "华东", "西南", "西北", "东北", "华中"];
+  for (const f of fillers) {
+    for (let i = 0; i < REGIONS.length; i++) {
+      const r = REGIONS[i];
+      brands.push({
+        id: `tpl-${f.catKey}-${i}`,
+        name: `${r}${f.baseName}`,
+        emoji: f.emoji,
+        gradient: f.gradient,
+        category: f.catKey,
+        budgetMin: f.budget[0],
+        budgetMax: f.budget[1],
+        peopleMin: 1,
+        peopleMax: 3,
+        tastes: f.tastes,
+        intro: f.intro,
+        picks: f.picks.map((p) => {
+          const m = p.match(/^(.+?)\s+([\d.]+(?:\/串)?(?:\/盘)?)$/);
+          if (m) return { name: m[1], price: `约 ${m[2]} 元` };
+          return { name: p };
+        }),
+        couponHint: f.coupon,
+        calorieHint: f.cal,
+        citySpread: "全国",
+        scenes: f.scenes,
+      });
+    }
+  }
+  return brands;
+}
 
 export const TAKEOUT_CATEGORIES: TakeoutCategory[] = [
   "汉堡炸鸡", "中式快餐", "披萨意面", "粉面", "饭团便当",

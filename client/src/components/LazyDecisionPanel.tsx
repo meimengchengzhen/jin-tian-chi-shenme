@@ -19,6 +19,7 @@ import {
   Tv,
   MessageCircle,
   Heart,
+  Plus,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +29,10 @@ import { pickTakeout, type TakeoutTaste } from "@/data/takeoutBrands";
 import { pickSnack, snackSearchLinks, type SnackAudience } from "@/data/snacks";
 import { pickFruit, type FruitAudience } from "@/data/fruits";
 import { recommendWatch, recommendTopics, type CompanionContext } from "@/lib/companionRecommend";
+import { LazyWizardDialog, type WizardAnswers } from "@/components/LazyWizardDialog";
+import { DecisionPoster } from "@/components/DecisionPoster";
+import { WeeklyPlanPanel } from "@/components/WeeklyPlanPanel";
+import { addSelected } from "@/lib/selectedToday";
 
 type Mood = "开心" | "压力大" | "疲惫" | "沮丧" | "想奖励自己" | "平淡";
 type Weather = "晴" | "雨" | "冷" | "热" | "舒适" | "未知";
@@ -61,15 +66,21 @@ const QUOTES_BY_MOOD: Record<Mood, string[]> = {
 
 interface LazyResult {
   recipe: { name: string; cuisine: string; reason: string } | null;
-  takeoutBrand: { name: string; emoji: string; intro: string };
-  snack: { name: string; emoji: string; reason: string };
-  fruit: { name: string; emoji: string; reason: string };
+  takeoutBrand: { id: string; name: string; emoji: string; intro: string; budgetMin: number; budgetMax: number };
+  snack: { id: string; name: string; emoji: string; reason: string; price: string; calories: number };
+  fruit: { id: string; name: string; emoji: string; reason: string; calories: number };
   watch: { title: string; type: string; reason: string } | null;
   topic: { text: string } | null;
   drink: string;
   quote: string;
   /** 一句汇总文案 */
   summary: string;
+  /** 估价（本桌总和，元） */
+  priceEst: number;
+  /** 估热量（本人，kcal） */
+  caloriesEst: number;
+  /** 是否超预算 */
+  overBudget: boolean;
 }
 
 export function LazyDecisionPanel() {
@@ -171,34 +182,86 @@ export function LazyDecisionPanel() {
 
     const summary = `${recipe?.name ?? "家常一道菜"} + 外卖去 ${takeout.special.name} + 零食 ${snack.name} + 水果 ${fruit.name} + 喝点 ${drink}`;
 
+    // 估价 / 估热量：粗略合并外卖人均 + 零食 + 水果（自己算饭菜很难，所以排除自炊菜）
+    const takeoutMid = (takeout.special.budgetMin + takeout.special.budgetMax) / 2;
+    const snackPriceNum = parseSnackPrice(snack.price);
+    const fruitPriceNum = 12; // 水果一份估算 12 元，简化
+    const drinkPriceNum = 18;
+    const priceEst = Math.round(takeoutMid + snackPriceNum + fruitPriceNum + drinkPriceNum);
+    const fruitCal = (fruit as any).calories ?? 60;
+    const caloriesEst = Math.round(700 + snack.calories + fruitCal + 200);
+    const overBudget = priceEst > budget * 1.05;
+
     return {
       recipe,
       takeoutBrand: {
+        id: takeout.special.id,
         name: takeout.special.name,
         emoji: takeout.special.emoji,
         intro: takeout.special.intro,
+        budgetMin: takeout.special.budgetMin,
+        budgetMax: takeout.special.budgetMax,
       },
-      snack: { name: snack.name, emoji: snack.emoji, reason: snack.reason },
-      fruit: { name: fruit.name, emoji: fruit.emoji, reason: fruit.reason },
+      snack: {
+        id: snack.id,
+        name: snack.name,
+        emoji: snack.emoji,
+        reason: snack.reason,
+        price: snack.price,
+        calories: snack.calories,
+      },
+      fruit: { id: fruit.id, name: fruit.name, emoji: fruit.emoji, reason: fruit.reason, calories: (fruit as any).calories ?? 60 },
       watch,
       topic,
       drink,
       quote,
       summary,
+      priceEst,
+      caloriesEst,
+      overBudget,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mood, weather, people, budget, tastes, interest, nonce]);
 
+  function parseSnackPrice(s: string): number {
+    const m = s.match(/\d+(\.\d+)?/);
+    return m ? Number(m[0]) : 5;
+  }
+
+  // v2: 接受 wizard 输出，把答案投影到本面板状态
+  function applyWizard(a: WizardAnswers): void {
+    setMood(a.mood);
+    setWeather(a.weather);
+    setBudget(a.budget);
+    setPeople(a.people);
+    // 口味映射
+    if (a.taste === "辣") setTastes(["辣"]);
+    else if (a.taste === "清淡") setTastes(["清淡"]);
+    else if (a.taste === "酸甜") setTastes(["酸辣"]);
+    else if (a.taste === "咸鲜") setTastes(["咸鲜"]);
+    else if (a.taste === "甜口") setTastes(["甜"]);
+    else setTastes([]);
+    // 减脂目标 → 加 热量低
+    if (a.goal === "减脂") setTastes((p) => Array.from(new Set([...p, "热量低" as TakeoutTaste])));
+    setNonce((n) => n + 1);
+  }
+
   return (
     <section className="mt-2 space-y-4" data-testid="lazy-panel">
-      <header>
-        <h2 className="font-display text-[1.7rem] tracking-tight">
-          <Wand2 className="mb-1 mr-1 inline h-5 w-5 text-primary" />
-          懒人一键决定
-        </h2>
-        <p className="mt-1 text-[14px] text-muted-foreground">
-          告诉我们一点点信息 · 一键替你决定吃什么 / 喝什么 / 看什么 / 聊什么 / 零食水果 — 减少今日选择困难
-        </p>
+      <header className="flex flex-wrap items-end justify-between gap-2">
+        <div>
+          <h2 className="font-display text-[1.7rem] tracking-tight">
+            <Wand2 className="mb-1 mr-1 inline h-5 w-5 text-primary" />
+            懒人一键决定
+          </h2>
+          <p className="mt-1 text-[14px] text-muted-foreground">
+            告诉我们一点点信息 · 一键替你决定吃什么 / 喝什么 / 看什么 / 聊什么 / 零食水果 — 减少今日选择困难
+          </p>
+        </div>
+        <LazyWizardDialog
+          initial={{ mood, weather, budget, people }}
+          onSubmit={applyWizard}
+        />
       </header>
 
       <Card className="grain border-card-border/60 bg-card/70 p-4 sm:p-5">
@@ -441,7 +504,72 @@ export function LazyDecisionPanel() {
         <p className="mt-4 text-[11px] text-muted-foreground">
           所有推荐基于内置数据 deterministic + 轻量随机生成 · 不上传数据 · 选了不喜欢就再点一次
         </p>
+
+        {/* 估价 / 估热量 + 加入今日 + 海报 */}
+        <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl border border-border/40 bg-background/50 px-3 py-2 text-[12.5px]">
+          <span className="num inline-flex items-center gap-1">
+            <Wallet className="h-3.5 w-3.5 text-primary" />
+            预算估算 ¥{result.priceEst}
+            {result.overBudget && (
+              <Badge variant="outline" className="ml-1 rounded-full px-1.5 py-0 text-[10.5px] text-amber-700">
+                超一点点
+              </Badge>
+            )}
+          </span>
+          <span className="num inline-flex items-center gap-1">
+            <Sparkles className="h-3.5 w-3.5 text-primary" />
+            热量估算 ≈ {result.caloriesEst} kcal
+          </span>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="ml-auto h-8 rounded-full text-[12px]"
+            data-testid="lazy-add-all"
+            onClick={() => {
+              if (result.recipe) {
+                addSelected({ id: `lazy-recipe-${result.recipe.name}`, kind: "dish", name: result.recipe.name, calories: 600, price: 0, note: result.recipe.cuisine });
+              }
+              addSelected({
+                id: result.takeoutBrand.id,
+                kind: "takeout",
+                name: result.takeoutBrand.name,
+                price: Math.round((result.takeoutBrand.budgetMin + result.takeoutBrand.budgetMax) / 2),
+                calories: 700,
+                note: result.takeoutBrand.intro.slice(0, 12),
+              });
+              addSelected({ id: result.snack.id, kind: "snack", name: result.snack.name, price: parseSnackPrice(result.snack.price), calories: result.snack.calories });
+              addSelected({ id: result.fruit.id, kind: "fruit", name: result.fruit.name, price: 12, calories: result.fruit.calories });
+              addSelected({ id: `drink-${result.drink.slice(0, 10)}`, kind: "drink", name: result.drink, price: 18, calories: 150 });
+            }}
+          >
+            <Plus className="mr-1 h-3.5 w-3.5" /> 全部加入「今日已选」
+          </Button>
+        </div>
       </Card>
+
+      {/* v2: 海报式结果卡 */}
+      <DecisionPoster
+        payload={{
+          date: new Date().toLocaleDateString("zh-CN", { month: "long", day: "numeric", weekday: "short" }),
+          mood,
+          weather,
+          scenario: people === 1 ? "一个人" : people >= 4 ? "家庭聚餐" : "双人/朋友",
+          recipe: result.recipe?.name,
+          takeout: result.takeoutBrand.name,
+          snack: result.snack.name,
+          fruit: result.fruit.name,
+          drink: result.drink,
+          watch: result.watch?.title,
+          topic: result.topic?.text,
+          quote: result.quote,
+          price: result.priceEst,
+          calories: result.caloriesEst,
+        }}
+      />
+
+      {/* v2: 一周计划 / 预算计划 */}
+      <WeeklyPlanPanel />
     </section>
   );
 }

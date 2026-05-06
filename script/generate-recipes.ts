@@ -2173,10 +2173,10 @@ function safeId(raw: string): string {
 
 // === 主菜：主料 × 蔬菜（家常小炒搭配） ===
 function genStirCombo(p: Protein, v: Veg): GenRecipe | null {
-  // 限制：只用快手主料
-  if (!["lean-pork", "minced-pork", "chicken-breast", "chicken-thigh", "beef", "shrimp-meat", "egg", "tofu-firm"].includes(p.key)) return null;
-  // 蔬菜需要适合炒
-  if (!["potato", "pepper-green", "pepper-color", "celery", "leek", "beans", "mushroom", "cabbage", "bokchoy", "fungus", "carrot", "onion", "loofah"].includes(v.key)) return null;
+  // 限制：只用快手主料（v2 放宽，加上蛋类/虾仁/豆腐组合）
+  if (!["lean-pork", "minced-pork", "chicken-breast", "chicken-thigh", "beef", "shrimp-meat", "egg", "tofu-firm", "tofu-soft", "shrimp", "porkbelly", "beef-brisket"].includes(p.key)) return null;
+  // 蔬菜需要适合炒（v2 放宽：加 西兰花/菠菜/番茄/冬瓜/莲藕/竹笋/豆干/萝卜/茄子）
+  if (!["potato", "pepper-green", "pepper-color", "celery", "leek", "beans", "mushroom", "cabbage", "bokchoy", "fungus", "carrot", "onion", "loofah", "broccoli", "spinach", "tomato", "winter-melon", "lotus", "bamboo", "doudou", "radish", "eggplant", "cucumber", "rape"].includes(v.key)) return null;
 
   const id = safeId(`combo-${p.key}-${v.key}`);
   const name = `${p.display}炒${v.display}`;
@@ -2377,6 +2377,308 @@ function inferRegions(c: Cuisine): RegionTag[] | undefined {
   }
 }
 
+// v2: 新增组合生成 — 把数据库扩到 1000+，避免靠堆 hand-recipes。
+// === 砂锅 / 煲（protein × veg）===
+function genCasseroleCombo(p: Protein, v: Veg): GenRecipe | null {
+  if (!["chicken-thigh", "ribs", "beef-brisket", "porkbelly", "shrimp", "tofu-firm", "fish", "perch", "whole-chicken"].includes(p.key)) return null;
+  if (!["radish", "potato", "winter-melon", "lotus", "carrot", "mushroom", "cabbage", "tomato", "bamboo", "doudou"].includes(v.key)) return null;
+  const id = safeId(`casserole-${p.key}-${v.key}`);
+  const name = `${p.display}${v.display}煲`;
+  const ings: GenIngredient[] = [
+    { name: p.ingName, qty: p.qty, category: p.category },
+    { name: v.ingName, qty: v.qty, category: "蔬菜" },
+    GINGER_GARLIC, SOY_SAUCE, OYSTER, SALT, COOKING_WINE, COOKING_OIL,
+  ];
+  const containsSet = new Set<Restriction>([...p.contains]);
+  return {
+    id,
+    name,
+    course: "main",
+    cuisine: p.cuisine ?? "家常",
+    difficulty: "中等",
+    timeMinutes: 60,
+    tastes: ["咸鲜"],
+    contains: Array.from(containsSet),
+    steps: [
+      `${p.display}焯水或煎香`,
+      `${v.display}切大块`,
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅",
+    ],
+    reason: `${p.display}与${v.display}慢炖，汤汁浓郁，米饭杀手。`,
+    serves: 3,
+    ingredients: ings,
+    seasons: ["秋", "冬"],
+    weathers: ["冷"],
+    slots: ["lunch", "dinner"],
+    energy: ["驱寒", "暖胃"],
+  };
+}
+
+// === 蒸（蛋羹 / 茄子 / 排骨等）===
+function genSteamCombo(p: Protein, v: Veg): GenRecipe | null {
+  // 仅特定主料 × 特定蔬菜
+  const ok = (
+    (p.key === "egg" && ["mushroom", "tomato", "spinach", "carrot"].includes(v.key)) ||
+    (p.key === "minced-pork" && ["eggplant", "tofu-soft" as any, "winter-melon"].includes(v.key)) ||
+    (p.key === "ribs" && ["potato", "lotus", "radish"].includes(v.key)) ||
+    (p.key === "chicken-thigh" && ["mushroom", "lotus"].includes(v.key)) ||
+    (p.key === "shrimp-meat" && ["broccoli", "carrot"].includes(v.key))
+  );
+  if (!ok) return null;
+  const id = safeId(`steam-${p.key}-${v.key}`);
+  const name = `${p.display}蒸${v.display}`;
+  const ings: GenIngredient[] = [
+    { name: p.ingName, qty: p.qty, category: p.category },
+    { name: v.ingName, qty: v.qty, category: "蔬菜" },
+    GINGER_GARLIC, SOY_SAUCE, SALT, COOKING_OIL, STARCH,
+  ];
+  return {
+    id,
+    name,
+    course: "main",
+    cuisine: p.cuisine ?? "家常",
+    difficulty: "简单",
+    timeMinutes: 25,
+    tastes: ["清淡", "咸鲜"],
+    contains: [...p.contains],
+    steps: [
+      `${p.display}处理切好`,
+      `${v.display}切片或切丁`,
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香",
+    ],
+    reason: `${p.display}遇到${v.display}，蒸的最大限度保住食材本味，软嫩易消化。`,
+    serves: 2,
+    ingredients: ings,
+    seasons: undefined,
+    weathers: undefined,
+    slots: ["lunch", "dinner"],
+    energy: ["快手"],
+  };
+}
+
+// === 凉拌（多蔬菜组合）===
+function genColdMixCombo(v1: Veg, v2: Veg): GenRecipe | null {
+  if (v1.key === v2.key) return null;
+  // 字典序避免重复
+  if (v1.key.localeCompare(v2.key) >= 0) return null;
+  const okV = ["cucumber", "carrot", "radish", "fungus", "lotus", "celery", "spinach", "tomato", "doudou", "cabbage"];
+  if (!okV.includes(v1.key) || !okV.includes(v2.key)) return null;
+  const id = safeId(`coldmix-${v1.key}-${v2.key}`);
+  const name = `凉拌${v1.display}${v2.display}`;
+  const ings: GenIngredient[] = [
+    { name: v1.ingName, qty: v1.qty, category: "蔬菜" },
+    { name: v2.ingName, qty: v2.qty, category: "蔬菜" },
+    GINGER_GARLIC, VINEGAR, SOY_SAUCE, SALT, COOKING_OIL,
+  ];
+  return {
+    id,
+    name,
+    course: "veggie",
+    cuisine: "家常",
+    difficulty: "简单",
+    timeMinutes: 12,
+    tastes: ["清淡", "咸鲜"],
+    contains: [],
+    steps: [
+      `${v1.display}与${v2.display}分别洗净处理`,
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可",
+    ],
+    reason: `${v1.display}遇上${v2.display}，清爽开胃低热量，夏天不踩雷。`,
+    serves: 2,
+    ingredients: ings,
+    seasons: ["夏"],
+    weathers: ["热"],
+    slots: ["lunch", "dinner"],
+    energy: ["快手", "解暑"],
+  };
+}
+
+// === 蛋类家常变体 ===
+function genEggCombo(v: Veg): GenRecipe | null {
+  if (!["tomato", "leek", "pepper-green", "pepper-color", "fungus", "spinach", "mushroom", "bokchoy", "carrot", "cucumber", "doudou"].includes(v.key)) return null;
+  const id = safeId(`egg-stir-${v.key}`);
+  const name = `${v.display}炒蛋`;
+  const ings: GenIngredient[] = [
+    { name: "鸡蛋", qty: "3 个", category: "肉蛋豆制品" },
+    { name: v.ingName, qty: v.qty, category: "蔬菜" },
+    GINGER_GARLIC, SOY_SAUCE, SALT, COOKING_OIL,
+  ];
+  return {
+    id,
+    name,
+    course: "main",
+    cuisine: "家常",
+    difficulty: "简单",
+    timeMinutes: 10,
+    tastes: ["咸鲜", "清淡"],
+    contains: ["无蛋"],
+    steps: [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      `${v.display}下锅炒 1 分钟`,
+      "回锅鸡蛋翻匀，调生抽出锅",
+    ],
+    reason: `${v.display}炒蛋是国民菜，10 分钟出锅扛饿。`,
+    serves: 2,
+    ingredients: ings,
+    seasons: undefined,
+    weathers: undefined,
+    slots: ["breakfast", "lunch", "dinner"],
+    energy: ["快手"],
+  };
+}
+
+// === 主食面食扩展（一份主食 × 配料）===
+const NOODLE_TYPES: { key: string; display: string }[] = [
+  { key: "lamian", display: "拉面" },
+  { key: "udon", display: "乌冬面" },
+  { key: "rice-noodle", display: "米粉" },
+  { key: "vermicelli", display: "粉丝" },
+  { key: "yangchun", display: "阳春面" },
+  { key: "egg-noodle", display: "鸡蛋面" },
+  { key: "knife-cut", display: "刀削面" },
+  { key: "buckwheat", display: "荞麦面" },
+];
+const NOODLE_TOPPINGS: { key: string; display: string; contains: Restriction[] }[] = [
+  { key: "beef-marinade", display: "卤牛肉", contains: ["无牛肉"] },
+  { key: "braised-pork", display: "红烧肉", contains: ["无猪肉"] },
+  { key: "minced-pork", display: "肉末浇头", contains: ["无猪肉"] },
+  { key: "chicken-leg", display: "鸡腿浇头", contains: [] },
+  { key: "tomato-egg", display: "番茄鸡蛋", contains: ["无蛋"] },
+  { key: "shrimp", display: "鲜虾", contains: ["无海鲜"] },
+  { key: "chashao", display: "叉烧", contains: ["无猪肉"] },
+  { key: "veg-rich", display: "蔬菜浇头", contains: [] },
+];
+
+function genNoodleCombo(t: { key: string; display: string }, top: { key: string; display: string; contains: Restriction[] }): GenRecipe | null {
+  const id = safeId(`noodle-${t.key}-${top.key}`);
+  const name = `${top.display}${t.display}`;
+  const ings: GenIngredient[] = [
+    { name: t.display, qty: "1 人份 (200g)", category: "调味/主食" },
+    { name: top.display, qty: "适量 (150g)", category: "肉蛋豆制品" },
+    { name: "葱花", qty: "1 把", category: "蔬菜" },
+    SOY_SAUCE, SALT, COOKING_OIL,
+  ];
+  return {
+    id,
+    name,
+    course: "staple",
+    cuisine: "家常",
+    difficulty: "简单",
+    timeMinutes: 15,
+    tastes: ["咸鲜"],
+    contains: [...top.contains],
+    steps: [
+      `烧水煮${t.display}至适合口感`,
+      `${top.display}另起锅炒香或加热`,
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可",
+    ],
+    reason: `${t.display}配${top.display}是国民面馆经典组合。`,
+    serves: 1,
+    ingredients: ings,
+    seasons: undefined,
+    weathers: undefined,
+    slots: ["lunch", "dinner"],
+    energy: ["快手"],
+  };
+}
+
+// === 米饭主食盖浇饭 ===
+const RICE_TOPPINGS: { key: string; display: string; contains: Restriction[]; reason: string }[] = [
+  { key: "yuxiang-pork", display: "鱼香肉丝", contains: ["无猪肉"], reason: "酸甜微辣下饭神器" },
+  { key: "kungpao-chicken", display: "宫保鸡丁", contains: [], reason: "经典川菜浇头" },
+  { key: "redbraise-pork", display: "红烧肉", contains: ["无猪肉"], reason: "肥而不腻盖浇饭天花板" },
+  { key: "blackpepper-beef", display: "黑椒牛柳", contains: ["无牛肉"], reason: "牛柳爆香盖饭" },
+  { key: "curry-chicken", display: "咖喱鸡", contains: ["无奶"], reason: "咖喱浓郁配米饭最香" },
+  { key: "sweet-sour-pork", display: "糖醋里脊", contains: ["无猪肉", "无蛋"], reason: "酸甜外酥里嫩" },
+  { key: "veg-mushroom", display: "三鲜菌菇", contains: [], reason: "素食盖浇也丰盛" },
+  { key: "japanese-curry", display: "日式咖喱", contains: ["无奶"], reason: "微甜咖喱国民盖饭" },
+];
+function genRiceTopping(t: { key: string; display: string; contains: Restriction[]; reason: string }): GenRecipe {
+  const id = safeId(`rice-${t.key}`);
+  return {
+    id,
+    name: `${t.display}盖浇饭`,
+    course: "staple",
+    cuisine: "家常",
+    difficulty: "中等",
+    timeMinutes: 25,
+    tastes: ["咸鲜"],
+    contains: [...t.contains],
+    steps: [
+      `白米饭蒸好备用`,
+      `炒制${t.display}主菜`,
+      `淋汁勾芡浇在饭上`,
+      `撒葱花点缀即可`,
+    ],
+    reason: t.reason,
+    serves: 1,
+    ingredients: [
+      { name: "大米", qty: "1 杯", category: "调味/主食" },
+      { name: t.display, qty: "1 份", category: "肉蛋豆制品" },
+      { name: "葱花", qty: "适量", category: "蔬菜" },
+      SOY_SAUCE, SALT,
+    ],
+    seasons: undefined,
+    weathers: undefined,
+    slots: ["lunch", "dinner"],
+    energy: ["下饭", "快手"],
+  };
+}
+
+// === 早餐扩展 ===
+const BREAKFAST_VARS: { key: string; name: string; reason: string; contains: Restriction[]; ings: GenIngredient[] }[] = [
+  { key: "porridge-pumpkin", name: "南瓜小米粥", reason: "暖胃护肠",
+    contains: [], ings: [{ name: "小米", qty: "半杯", category: "调味/主食" }, { name: "南瓜", qty: "300g", category: "蔬菜" }] },
+  { key: "porridge-eight", name: "八宝粥", reason: "膳食纤维丰富",
+    contains: [], ings: [{ name: "糙米", qty: "半杯", category: "调味/主食" }, { name: "红豆", qty: "30g", category: "调味/主食" }, { name: "莲子", qty: "20g", category: "蔬菜" }] },
+  { key: "porridge-millet", name: "白米粥", reason: "清淡养胃",
+    contains: [], ings: [{ name: "大米", qty: "半杯", category: "调味/主食" }] },
+  { key: "porridge-pork", name: "皮蛋瘦肉粥", reason: "国民早餐之王",
+    contains: ["无蛋", "无猪肉"], ings: [{ name: "大米", qty: "半杯", category: "调味/主食" }, { name: "猪里脊", qty: "150g", category: "肉蛋豆制品" }, { name: "皮蛋", qty: "1 个", category: "肉蛋豆制品" }] },
+  { key: "egg-tomato-noodle", name: "番茄鸡蛋面", reason: "10 分钟一碗",
+    contains: ["无蛋"], ings: [{ name: "面条", qty: "1 人份", category: "调味/主食" }, { name: "番茄", qty: "2 个", category: "蔬菜" }, { name: "鸡蛋", qty: "2 个", category: "肉蛋豆制品" }] },
+  { key: "wonton", name: "鲜肉小馄饨", reason: "清晨暖胃",
+    contains: ["无猪肉"], ings: [{ name: "馄饨皮", qty: "20 张", category: "调味/主食" }, { name: "猪肉末", qty: "150g", category: "肉蛋豆制品" }, { name: "紫菜", qty: "1 把", category: "蔬菜" }] },
+  { key: "fan-tuan", name: "上海饭团", reason: "出门带着吃方便",
+    contains: ["无猪肉"], ings: [{ name: "糯米", qty: "1 杯", category: "调味/主食" }, { name: "肉松", qty: "30g", category: "肉蛋豆制品" }, { name: "油条", qty: "1 根", category: "调味/主食" }] },
+  { key: "cong-you-bing", name: "葱油饼", reason: "外脆里软香",
+    contains: [], ings: [{ name: "面粉", qty: "200g", category: "调味/主食" }, { name: "葱花", qty: "1 把", category: "蔬菜" }] },
+  { key: "egg-pancake", name: "煎蛋三明治", reason: "蛋白补充快手",
+    contains: ["无蛋"], ings: [{ name: "吐司", qty: "2 片", category: "调味/主食" }, { name: "鸡蛋", qty: "2 个", category: "肉蛋豆制品" }] },
+  { key: "soy-milk-doutiao", name: "豆浆油条", reason: "中式早餐 CP",
+    contains: [], ings: [{ name: "豆浆", qty: "300ml", category: "调味/主食" }, { name: "油条", qty: "2 根", category: "调味/主食" }] },
+];
+function genBreakfastVar(t: typeof BREAKFAST_VARS[number]): GenRecipe {
+  const id = safeId(`bk-${t.key}`);
+  return {
+    id,
+    name: t.name,
+    course: "staple",
+    cuisine: "家常",
+    difficulty: "简单",
+    timeMinutes: 15,
+    tastes: ["清淡"],
+    contains: t.contains,
+    steps: ["按食谱常规步骤备料", "下锅煮 / 煎制", "调味盛出"],
+    reason: t.reason,
+    serves: 1,
+    ingredients: t.ings,
+    seasons: undefined,
+    weathers: undefined,
+    slots: ["breakfast"],
+    energy: ["快手", "暖胃"],
+    category: "早餐",
+  };
+}
+
 // === 生成主体 ===
 function generate(): GenRecipe[] {
   const out: GenRecipe[] = [];
@@ -2394,6 +2696,36 @@ function generate(): GenRecipe[] {
       if (r) out.push(r);
     }
   }
+  // 1c) v2: 砂锅煲 / 蒸 / 蛋系组合，把主菜池继续扩大
+  for (const p of MAIN_PROTEINS) {
+    for (const v of COMMON_VEG) {
+      const c = genCasseroleCombo(p, v);
+      if (c) out.push(c);
+      const s = genSteamCombo(p, v);
+      if (s) out.push(s);
+    }
+  }
+  for (const v of COMMON_VEG) {
+    const e = genEggCombo(v);
+    if (e) out.push(e);
+  }
+  // 1d) v2: 凉拌组合
+  for (const v1 of COMMON_VEG) {
+    for (const v2 of COMMON_VEG) {
+      const c = genColdMixCombo(v1, v2);
+      if (c) out.push(c);
+    }
+  }
+  // 1e) v2: 面条 × 浇头组合
+  for (const t of NOODLE_TYPES) {
+    for (const top of NOODLE_TOPPINGS) {
+      const r = genNoodleCombo(t, top);
+      if (r) out.push(r);
+    }
+  }
+  // 1f) v2: 盖浇饭 / 早餐扩展
+  for (const t of RICE_TOPPINGS) out.push(genRiceTopping(t));
+  for (const t of BREAKFAST_VARS) out.push(genBreakfastVar(t));
   // 2) 素菜
   const vegStyles: ("garlic" | "vinegar-stir" | "cold-shred" | "stir-simple" | "sourspicy")[] = [
     "garlic",

@@ -86,7 +86,11 @@ interface Props {
  */
 export function MainTabsNav({ active, onChange }: Props) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const dragRef = useRef<{ active: boolean; startX: number; startLeft: number; moved: boolean }>({
+    active: false, startX: 0, startLeft: 0, moved: false,
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -104,6 +108,7 @@ export function MainTabsNav({ active, onChange }: Props) {
     const update = () => {
       const more = el.scrollWidth - el.clientWidth - el.scrollLeft > 4;
       setCanScrollRight(more);
+      setCanScrollLeft(el.scrollLeft > 4);
     };
     update();
     el.addEventListener("scroll", update, { passive: true });
@@ -112,6 +117,70 @@ export function MainTabsNav({ active, onChange }: Props) {
       el.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
+  }, []);
+
+  // v2: 鼠标横向拖拽（桌面/触控屏均支持）
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onPointerDown = (e: PointerEvent) => {
+      // 只对左键 / 触摸 / 笔反应
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      dragRef.current = { active: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
+      el.setPointerCapture?.(e.pointerId);
+      el.style.cursor = "grabbing";
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d.active) return;
+      const dx = e.clientX - d.startX;
+      if (Math.abs(dx) > 4) d.moved = true;
+      el.scrollLeft = d.startLeft - dx;
+    };
+    const onPointerUp = (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d.active) return;
+      d.active = false;
+      el.releasePointerCapture?.(e.pointerId);
+      el.style.cursor = "";
+      // 拖动完后短暂禁掉子按钮 click，防止触发误点
+      if (d.moved) {
+        const blockClick = (ev: Event) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          window.removeEventListener("click", blockClick, true);
+        };
+        window.addEventListener("click", blockClick, true);
+        setTimeout(() => window.removeEventListener("click", blockClick, true), 80);
+      }
+    };
+    el.addEventListener("pointerdown", onPointerDown);
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
+    return () => {
+      el.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+    };
+  }, []);
+
+  // v2: 滚轮横向滚动（鼠标用户）
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      // 只在没有水平意图（deltaX 占主导）时把垂直滚轮转为横滚
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        if (el.scrollWidth - el.clientWidth > 0) {
+          el.scrollLeft += e.deltaY;
+          e.preventDefault();
+        }
+      }
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel as EventListener);
   }, []);
 
   function handleClick(id: MainTabId) {
@@ -125,6 +194,12 @@ export function MainTabsNav({ active, onChange }: Props) {
     }, 30);
   }
 
+  function nudge(dir: -1 | 1) {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.max(180, el.clientWidth * 0.6), behavior: "smooth" });
+  }
+
   return (
     <nav
       aria-label="主导航"
@@ -132,15 +207,45 @@ export function MainTabsNav({ active, onChange }: Props) {
       className="sticky top-[58px] z-20 -mx-4 mt-1 border-y border-border/50 bg-background/90 backdrop-blur-md sm:-mx-6 sm:top-[62px]"
     >
       <div className="relative">
+        {/* 左侧渐变 + 按钮（出现仅当可向左滚） */}
         <div
           aria-hidden
-          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-background/95 to-transparent transition-opacity lg:hidden ${
+          className={`pointer-events-none absolute left-0 top-0 z-10 h-full w-10 bg-gradient-to-r from-background/95 to-transparent transition-opacity ${
+            canScrollLeft ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        {canScrollLeft && (
+          <button
+            type="button"
+            aria-label="向左"
+            onClick={() => nudge(-1)}
+            className="absolute left-1 top-1/2 z-20 hidden -translate-y-1/2 rounded-full border border-border/70 bg-card/85 p-1 text-foreground/80 shadow-sm hover-elevate active-elevate-2 sm:inline-flex"
+            data-testid="main-tabs-nudge-left"
+          >
+            <span className="text-[12px] leading-none">‹</span>
+          </button>
+        )}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-background/95 to-transparent transition-opacity ${
             canScrollRight ? "opacity-100" : "opacity-0"
           }`}
         />
+        {canScrollRight && (
+          <button
+            type="button"
+            aria-label="向右"
+            onClick={() => nudge(1)}
+            className="absolute right-1 top-1/2 z-20 hidden -translate-y-1/2 rounded-full border border-border/70 bg-card/85 p-1 text-foreground/80 shadow-sm hover-elevate active-elevate-2 sm:inline-flex"
+            data-testid="main-tabs-nudge-right"
+          >
+            <span className="text-[12px] leading-none">›</span>
+          </button>
+        )}
         <div
           ref={scrollerRef}
           className="no-scrollbar mx-auto flex items-center gap-1.5 overflow-x-auto px-3 py-2.5 sm:gap-2 sm:px-5 lg:px-6"
+          style={{ cursor: "grab", touchAction: "pan-x", scrollSnapType: "x proximity", overscrollBehaviorX: "contain", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
         >
           {MAIN_TABS.map((t) => {
             const ActiveIcon = t.icon;
@@ -152,7 +257,8 @@ export function MainTabsNav({ active, onChange }: Props) {
                 onClick={() => handleClick(t.id)}
                 data-testid={`tab-${t.id}`}
                 aria-current={isActive ? "page" : undefined}
-                className={`group inline-flex h-11 shrink-0 items-center justify-center gap-1.5 rounded-full border px-3.5 text-[14px] font-semibold tracking-tight transition-all hover-elevate active-elevate-2 ${
+                style={{ scrollSnapAlign: "start" }}
+                className={`group inline-flex h-11 shrink-0 select-none items-center justify-center gap-1.5 rounded-full border px-3.5 text-[14px] font-semibold tracking-tight transition-all hover-elevate active-elevate-2 ${
                   isActive
                     ? "border-primary/60 bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
                     : "border-border/70 bg-card/70 text-foreground/90"

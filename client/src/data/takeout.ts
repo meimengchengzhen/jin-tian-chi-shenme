@@ -139,10 +139,12 @@ export const PLATFORMS: PlatformDef[] = [
   {
     id: "meituan",
     label: "美团外卖",
-    hint: "覆盖最广 / 神券多",
+    hint: "稳定搜索入口（百度站内）",
+    // 美团外卖 H5 搜索 URL 多次改版，直链常常跳到 error_page。
+    // v2: 走百度站内搜索 site:meituan.com，确保用户点开有结果。
     buildSearch: (q) =>
-      `https://h5.waimai.meituan.com/waimai/mindex/search?keyword=${encodeURIComponent(q)}`,
-    needsLogin: true,
+      `https://www.baidu.com/s?wd=${encodeURIComponent("site:meituan.com 外卖 " + q)}`,
+    needsLogin: false,
   },
   {
     id: "eleme",

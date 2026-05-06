@@ -109,6 +109,217 @@
   );
 }
 
+/* === v2: 整站主题（data-theme） === */
+/* 默认 :root 是 warm 主题。data-theme=warm 等价于不设。 */
+:root[data-theme="fresh"] {
+  --background: 210 36% 97%;
+  --foreground: 218 35% 14%;
+  --border: 210 22% 88%;
+  --card: 210 40% 99%;
+  --card-foreground: 218 35% 14%;
+  --card-border: 210 22% 90%;
+  --primary: 213 88% 52%;
+  --primary-foreground: 210 36% 98%;
+  --secondary: 210 28% 92%;
+  --secondary-foreground: 218 35% 14%;
+  --muted: 210 22% 92%;
+  --muted-foreground: 218 14% 38%;
+  --accent: 198 60% 90%;
+  --accent-foreground: 200 50% 22%;
+  --input: 210 22% 80%;
+  --ring: 213 88% 52%;
+  --sidebar: 210 32% 95%;
+  --sidebar-foreground: 218 35% 14%;
+  --sidebar-border: 210 22% 88%;
+  --sidebar-primary: 213 88% 52%;
+  --sidebar-primary-foreground: 210 36% 98%;
+  --sidebar-accent: 210 28% 90%;
+  --sidebar-accent-foreground: 218 35% 14%;
+  --sidebar-ring: 213 88% 52%;
+  --popover: 210 40% 98%;
+  --popover-foreground: 218 35% 14%;
+  --popover-border: 210 22% 88%;
+  --destructive: 358 60% 48%;
+  --destructive-foreground: 210 36% 98%;
+}
+:root[data-theme="fresh"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(210 80% 92% / 0.65), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(195 70% 88% / 0.55), transparent 42%);
+}
+:root[data-theme="cream"] {
+  --background: 36 50% 95%;
+  --foreground: 26 32% 18%;
+  --border: 32 24% 84%;
+  --card: 36 55% 98%;
+  --card-foreground: 26 32% 18%;
+  --card-border: 32 24% 88%;
+  --primary: 30 70% 48%;
+  --primary-foreground: 36 50% 98%;
+  --secondary: 34 28% 90%;
+  --secondary-foreground: 26 32% 18%;
+  --muted: 34 26% 91%;
+  --muted-foreground: 26 14% 38%;
+  --accent: 38 50% 88%;
+  --accent-foreground: 26 50% 22%;
+  --input: 32 24% 80%;
+  --ring: 30 70% 48%;
+  --sidebar: 36 35% 92%;
+  --sidebar-foreground: 26 32% 18%;
+  --sidebar-border: 32 24% 84%;
+  --sidebar-primary: 30 70% 48%;
+  --sidebar-primary-foreground: 36 50% 98%;
+  --sidebar-accent: 36 28% 88%;
+  --sidebar-accent-foreground: 26 32% 18%;
+  --sidebar-ring: 30 70% 48%;
+  --popover: 36 50% 97%;
+  --popover-foreground: 26 32% 18%;
+  --popover-border: 32 24% 86%;
+}
+:root[data-theme="cream"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(36 60% 88% / 0.55), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(28 60% 88% / 0.45), transparent 42%);
+}
+:root[data-theme="mint"] {
+  --background: 138 36% 96%;
+  --foreground: 158 35% 14%;
+  --border: 138 22% 86%;
+  --card: 138 40% 98%;
+  --card-foreground: 158 35% 14%;
+  --card-border: 138 22% 88%;
+  --primary: 154 56% 38%;
+  --primary-foreground: 138 36% 97%;
+  --secondary: 138 26% 90%;
+  --secondary-foreground: 158 35% 14%;
+  --muted: 138 22% 92%;
+  --muted-foreground: 158 14% 36%;
+  --accent: 130 36% 88%;
+  --accent-foreground: 150 50% 22%;
+  --input: 138 22% 80%;
+  --ring: 154 56% 38%;
+  --sidebar: 138 32% 94%;
+  --sidebar-foreground: 158 35% 14%;
+  --sidebar-border: 138 22% 86%;
+  --sidebar-primary: 154 56% 38%;
+  --sidebar-primary-foreground: 138 36% 97%;
+  --sidebar-accent: 138 26% 88%;
+  --sidebar-accent-foreground: 158 35% 14%;
+  --sidebar-ring: 154 56% 38%;
+  --popover: 138 40% 97%;
+  --popover-foreground: 158 35% 14%;
+  --popover-border: 138 22% 86%;
+}
+:root[data-theme="mint"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(150 60% 88% / 0.6), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(170 50% 86% / 0.45), transparent 42%);
+}
+:root[data-theme="midnight"] {
+  --background: 220 18% 9%;
+  --foreground: 210 30% 92%;
+  --border: 220 14% 22%;
+  --card: 220 18% 13%;
+  --card-foreground: 210 30% 92%;
+  --card-border: 220 14% 20%;
+  --primary: 213 90% 64%;
+  --primary-foreground: 220 18% 9%;
+  --secondary: 220 14% 22%;
+  --secondary-foreground: 210 30% 92%;
+  --muted: 220 14% 22%;
+  --muted-foreground: 210 12% 65%;
+  --accent: 200 30% 22%;
+  --accent-foreground: 210 30% 86%;
+  --input: 220 14% 30%;
+  --ring: 213 90% 64%;
+  --sidebar: 220 18% 12%;
+  --sidebar-foreground: 210 30% 92%;
+  --sidebar-border: 220 14% 22%;
+  --sidebar-primary: 213 90% 64%;
+  --sidebar-primary-foreground: 220 18% 9%;
+  --sidebar-accent: 220 14% 20%;
+  --sidebar-accent-foreground: 210 30% 92%;
+  --sidebar-ring: 213 90% 64%;
+  --popover: 220 18% 13%;
+  --popover-foreground: 210 30% 92%;
+  --popover-border: 220 14% 22%;
+  --destructive: 358 65% 60%;
+  --destructive-foreground: 220 18% 9%;
+  --elevate-1: rgba(255, 255, 255, 0.05);
+  --elevate-2: rgba(255, 255, 255, 0.10);
+}
+:root[data-theme="midnight"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(220 30% 18% / 0.7), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(218 40% 16% / 0.5), transparent 42%);
+}
+:root[data-theme="vibrant"] {
+  --background: 12 60% 97%;
+  --foreground: 348 35% 18%;
+  --border: 12 28% 88%;
+  --card: 12 60% 99%;
+  --card-foreground: 348 35% 18%;
+  --card-border: 12 28% 90%;
+  --primary: 354 86% 58%;
+  --primary-foreground: 12 60% 98%;
+  --secondary: 12 30% 92%;
+  --secondary-foreground: 348 35% 18%;
+  --muted: 12 28% 93%;
+  --muted-foreground: 348 14% 38%;
+  --accent: 28 80% 88%;
+  --accent-foreground: 18 50% 26%;
+  --input: 12 28% 80%;
+  --ring: 354 86% 58%;
+  --sidebar: 12 50% 95%;
+  --sidebar-foreground: 348 35% 18%;
+  --sidebar-border: 12 28% 88%;
+  --sidebar-primary: 354 86% 58%;
+  --sidebar-primary-foreground: 12 60% 98%;
+  --sidebar-accent: 12 30% 90%;
+  --sidebar-accent-foreground: 348 35% 18%;
+  --sidebar-ring: 354 86% 58%;
+  --popover: 12 60% 98%;
+  --popover-foreground: 348 35% 18%;
+  --popover-border: 12 28% 88%;
+}
+:root[data-theme="vibrant"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(28 80% 88% / 0.65), transparent 38%),
+    radial-gradient(circle at 92% 110%, hsl(354 65% 86% / 0.55), transparent 42%);
+}
+:root[data-theme="minimal"] {
+  --background: 0 0% 99%;
+  --foreground: 0 0% 12%;
+  --border: 0 0% 88%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 12%;
+  --card-border: 0 0% 90%;
+  --primary: 0 0% 12%;
+  --primary-foreground: 0 0% 99%;
+  --secondary: 0 0% 94%;
+  --secondary-foreground: 0 0% 12%;
+  --muted: 0 0% 94%;
+  --muted-foreground: 0 0% 36%;
+  --accent: 0 0% 92%;
+  --accent-foreground: 0 0% 12%;
+  --input: 0 0% 80%;
+  --ring: 0 0% 12%;
+  --sidebar: 0 0% 96%;
+  --sidebar-foreground: 0 0% 12%;
+  --sidebar-border: 0 0% 88%;
+  --sidebar-primary: 0 0% 12%;
+  --sidebar-primary-foreground: 0 0% 99%;
+  --sidebar-accent: 0 0% 92%;
+  --sidebar-accent-foreground: 0 0% 12%;
+  --sidebar-ring: 0 0% 12%;
+  --popover: 0 0% 99%;
+  --popover-foreground: 0 0% 12%;
+  --popover-border: 0 0% 88%;
+}
+:root[data-theme="minimal"] body {
+  background-image: none;
+}
+
 /* === 餐次主题：通过 data-meal=breakfast/lunch/dinner 覆盖 primary + 背景渐变。 === */
 :root[data-meal="breakfast"] {
   --primary: 36 75% 56%;

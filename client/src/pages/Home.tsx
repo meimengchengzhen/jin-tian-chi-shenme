@@ -115,6 +115,7 @@ import type { CompanionContext } from "@/lib/companionRecommend";
 import { CategoryBrowser } from "@/components/CategoryBrowser";
 import { CloudSyncDialog } from "@/components/CloudSyncDialog";
 import { isConfigured as isCloudConfigured } from "@/lib/cloudSync";
+import { TodayDock } from "@/components/TodayDock";
 import {
   PAGE_SIZES,
   applyPageSize,
@@ -122,6 +123,14 @@ import {
   savePageSize,
   type PageSizeId,
 } from "@/lib/pageSize";
+import {
+  THEMES,
+  applyTheme,
+  loadTheme,
+  saveTheme,
+  type ThemeId,
+} from "@/lib/theme";
+import { Palette } from "lucide-react";
 import { Type as TypeIcon } from "lucide-react";
 
 // === 小工具组件 ===
@@ -630,6 +639,13 @@ export default function Home() {
     savePageSize(pageSize);
   }, [pageSize]);
 
+  // v2: 主题色系（清爽蓝白默认）
+  const [themeId, setThemeId] = useState<ThemeId>(() => loadTheme());
+  useEffect(() => {
+    applyTheme(themeId);
+    saveTheme(themeId);
+  }, [themeId]);
+
   // 食材偏好（想吃什么）
   const [ingredientWish, setIngredientWish] = useState<IngredientWishId[]>([]);
 
@@ -985,6 +1001,32 @@ export default function Home() {
                 );
               })}
             </div>
+            {/* v2: 主题循环按钮（点击循环切换主题） */}
+            <button
+              type="button"
+              onClick={() => {
+                const idx = THEMES.findIndex((t) => t.id === themeId);
+                const next = THEMES[(idx + 1) % THEMES.length];
+                setThemeId(next.id);
+                toast({
+                  title: `主题已切到「${next.label}」`,
+                  description: next.hint,
+                });
+              }}
+              data-testid="button-theme"
+              title={`当前主题：${THEMES.find((t) => t.id === themeId)?.label} · 点击循环切换`}
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-2.5 py-1.5 text-[12px] text-foreground/85 hover-elevate active-elevate-2"
+            >
+              <Palette className="h-3.5 w-3.5 text-primary" />
+              <span className="hidden sm:inline" data-testid="text-theme-label">
+                {THEMES.find((t) => t.id === themeId)?.label.replace(/(.)(.)/, "$1") ?? "主题"}
+              </span>
+              <span className="flex items-center gap-0.5">
+                {(THEMES.find((t) => t.id === themeId)?.swatch ?? []).slice(0, 3).map((c, i) => (
+                  <span key={i} className="inline-block h-3 w-1.5 rounded-sm" style={{ background: c }} />
+                ))}
+              </span>
+            </button>
             <a
               href="https://github.com/meimengchengzhen/jin-tian-chi-shenme"
               target="_blank"
@@ -1993,6 +2035,9 @@ export default function Home() {
       />
 
       <CloudSyncDialog open={cloudOpen} onClose={() => setCloudOpen(false)} />
+
+      {/* v2: 今日已选浮窗 */}
+      <TodayDock />
     </div>
   );
 }

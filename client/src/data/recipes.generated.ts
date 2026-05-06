@@ -1,6 +1,6 @@
 // 自动生成 — 请勿直接编辑。
 // 生成脚本：script/generate-recipes.ts
-// 包含 572 道由模板组合扩展的菜谱（与 RECIPES 中手写菜谱合并）。
+// 包含 998 道由模板组合扩展的菜谱（与 RECIPES 中手写菜谱合并）。
 // 字段约定见 client/src/data/recipes.ts。
 
 import type { Recipe } from "./recipes";
@@ -7202,6 +7202,1638 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-porkbelly-potato",
+    "name": "五花肉炒土豆",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "土豆处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下土豆炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭土豆的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-eggplant",
+    "name": "五花肉炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-pepper-green",
+    "name": "五花肉炒青椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "青椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下青椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭青椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "青椒",
+        "qty": "2 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-pepper-color",
+    "name": "五花肉炒彩椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "彩椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下彩椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭彩椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "彩椒",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-onion",
+    "name": "五花肉炒洋葱",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "洋葱处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下洋葱炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭洋葱的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "洋葱",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-carrot",
+    "name": "五花肉炒胡萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "胡萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下胡萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭胡萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-broccoli",
+    "name": "五花肉炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-bokchoy",
+    "name": "五花肉炒小白菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "小白菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下小白菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭小白菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-spinach",
+    "name": "五花肉炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-cabbage",
+    "name": "五花肉炒包菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "包菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下包菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭包菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-cucumber",
+    "name": "五花肉炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-winter-melon",
+    "name": "五花肉炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-loofah",
+    "name": "五花肉炒丝瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "丝瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下丝瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭丝瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "丝瓜",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-beans",
+    "name": "五花肉炒豆角",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆角处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆角炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭豆角的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆角",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-mushroom",
+    "name": "五花肉炒香菇",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "香菇处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下香菇炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭香菇的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-fungus",
+    "name": "五花肉炒木耳",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "木耳处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下木耳炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭木耳的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-lotus",
+    "name": "五花肉炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-leek",
+    "name": "五花肉炒韭菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "韭菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下韭菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭韭菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "韭菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-celery",
+    "name": "五花肉炒芹菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "芹菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下芹菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭芹菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-radish",
+    "name": "五花肉炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-bamboo",
+    "name": "五花肉炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-tomato",
+    "name": "五花肉炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-doudou",
+    "name": "五花肉炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-porkbelly-rape",
+    "name": "五花肉炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "五花肉的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-lean-pork-potato",
     "name": "猪里脊炒土豆",
     "course": "main",
@@ -7232,6 +8864,84 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-eggplant",
+    "name": "猪里脊炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -7592,6 +9302,84 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-lean-pork-broccoli",
+    "name": "猪里脊炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-lean-pork-bokchoy",
     "name": "猪里脊炒小白菜",
     "course": "main",
@@ -7621,6 +9409,84 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-spinach",
+    "name": "猪里脊炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -7700,6 +9566,162 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-cucumber",
+    "name": "猪里脊炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-winter-melon",
+    "name": "猪里脊炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -8060,6 +10082,84 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-lean-pork-lotus",
+    "name": "猪里脊炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-lean-pork-leek",
     "name": "猪里脊炒韭菜",
     "course": "main",
@@ -8216,6 +10316,396 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-lean-pork-radish",
+    "name": "猪里脊炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-bamboo",
+    "name": "猪里脊炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-tomato",
+    "name": "猪里脊炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-doudou",
+    "name": "猪里脊炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-lean-pork-rape",
+    "name": "猪里脊炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪里脊处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪里脊的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "qty": "250g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-minced-pork-potato",
     "name": "猪肉末炒土豆",
     "course": "main",
@@ -8246,6 +10736,74 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-eggplant",
+    "name": "猪肉末炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -8556,6 +11114,74 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-minced-pork-broccoli",
+    "name": "猪肉末炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-minced-pork-bokchoy",
     "name": "猪肉末炒小白菜",
     "course": "main",
@@ -8585,6 +11211,74 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-spinach",
+    "name": "猪肉末炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -8654,6 +11348,142 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-cucumber",
+    "name": "猪肉末炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-winter-melon",
+    "name": "猪肉末炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -8964,6 +11794,74 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-minced-pork-lotus",
+    "name": "猪肉末炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-minced-pork-leek",
     "name": "猪肉末炒韭菜",
     "course": "main",
@@ -9100,6 +11998,346 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-minced-pork-radish",
+    "name": "猪肉末炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-bamboo",
+    "name": "猪肉末炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-tomato",
+    "name": "猪肉末炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-doudou",
+    "name": "猪肉末炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-minced-pork-rape",
+    "name": "猪肉末炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "猪肉末的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-chicken-thigh-potato",
     "name": "鸡腿肉炒土豆",
     "course": "main",
@@ -9128,6 +12366,82 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-eggplant",
+    "name": "鸡腿肉炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -9480,6 +12794,82 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-chicken-thigh-broccoli",
+    "name": "鸡腿肉炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-chicken-thigh-bokchoy",
     "name": "鸡腿肉炒小白菜",
     "course": "main",
@@ -9507,6 +12897,82 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-spinach",
+    "name": "鸡腿肉炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -9584,6 +13050,158 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-cucumber",
+    "name": "鸡腿肉炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-winter-melon",
+    "name": "鸡腿肉炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -9936,6 +13554,82 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-chicken-thigh-lotus",
+    "name": "鸡腿肉炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-chicken-thigh-leek",
     "name": "鸡腿肉炒韭菜",
     "course": "main",
@@ -10088,6 +13782,386 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-chicken-thigh-radish",
+    "name": "鸡腿肉炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-bamboo",
+    "name": "鸡腿肉炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-tomato",
+    "name": "鸡腿肉炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-doudou",
+    "name": "鸡腿肉炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-thigh-rape",
+    "name": "鸡腿肉炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡腿肉的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-chicken-breast-potato",
     "name": "鸡胸肉炒土豆",
     "course": "main",
@@ -10116,6 +14190,82 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-eggplant",
+    "name": "鸡胸肉炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -10468,6 +14618,82 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-chicken-breast-broccoli",
+    "name": "鸡胸肉炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-chicken-breast-bokchoy",
     "name": "鸡胸肉炒小白菜",
     "course": "main",
@@ -10495,6 +14721,82 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-spinach",
+    "name": "鸡胸肉炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -10572,6 +14874,158 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-cucumber",
+    "name": "鸡胸肉炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-winter-melon",
+    "name": "鸡胸肉炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -10924,6 +15378,82 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-chicken-breast-lotus",
+    "name": "鸡胸肉炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-chicken-breast-leek",
     "name": "鸡胸肉炒韭菜",
     "course": "main",
@@ -11076,6 +15606,386 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-chicken-breast-radish",
+    "name": "鸡胸肉炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-bamboo",
+    "name": "鸡胸肉炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-tomato",
+    "name": "鸡胸肉炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-doudou",
+    "name": "鸡胸肉炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-chicken-breast-rape",
+    "name": "鸡胸肉炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡胸肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡胸肉的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡胸肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-beef-potato",
     "name": "牛肉炒土豆",
     "course": "main",
@@ -11106,6 +16016,84 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-eggplant",
+    "name": "牛肉炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -11466,6 +16454,84 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-beef-broccoli",
+    "name": "牛肉炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-beef-bokchoy",
     "name": "牛肉炒小白菜",
     "course": "main",
@@ -11495,6 +16561,84 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-spinach",
+    "name": "牛肉炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -11574,6 +16718,162 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-cucumber",
+    "name": "牛肉炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-winter-melon",
+    "name": "牛肉炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -11934,6 +17234,84 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-beef-lotus",
+    "name": "牛肉炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-beef-leek",
     "name": "牛肉炒韭菜",
     "course": "main",
@@ -12090,6 +17468,3660 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-beef-radish",
+    "name": "牛肉炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-bamboo",
+    "name": "牛肉炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-tomato",
+    "name": "牛肉炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-doudou",
+    "name": "牛肉炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-rape",
+    "name": "牛肉炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛肉处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛肉的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-potato",
+    "name": "牛腩炒土豆",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "土豆处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下土豆炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭土豆的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-eggplant",
+    "name": "牛腩炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-pepper-green",
+    "name": "牛腩炒青椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "青椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下青椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭青椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "青椒",
+        "qty": "2 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-pepper-color",
+    "name": "牛腩炒彩椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "彩椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下彩椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭彩椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "彩椒",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-onion",
+    "name": "牛腩炒洋葱",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "洋葱处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下洋葱炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭洋葱的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "洋葱",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-carrot",
+    "name": "牛腩炒胡萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "胡萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下胡萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭胡萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-broccoli",
+    "name": "牛腩炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-bokchoy",
+    "name": "牛腩炒小白菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "小白菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下小白菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭小白菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-spinach",
+    "name": "牛腩炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-cabbage",
+    "name": "牛腩炒包菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "包菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下包菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭包菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-cucumber",
+    "name": "牛腩炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-winter-melon",
+    "name": "牛腩炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-loofah",
+    "name": "牛腩炒丝瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "丝瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下丝瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭丝瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "丝瓜",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-beans",
+    "name": "牛腩炒豆角",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆角处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆角炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭豆角的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆角",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-mushroom",
+    "name": "牛腩炒香菇",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "香菇处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下香菇炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭香菇的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-fungus",
+    "name": "牛腩炒木耳",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "木耳处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下木耳炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭木耳的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-lotus",
+    "name": "牛腩炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-leek",
+    "name": "牛腩炒韭菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "韭菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下韭菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭韭菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "韭菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-celery",
+    "name": "牛腩炒芹菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "芹菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下芹菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭芹菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-radish",
+    "name": "牛腩炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-bamboo",
+    "name": "牛腩炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-tomato",
+    "name": "牛腩炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-doudou",
+    "name": "牛腩炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-beef-brisket-rape",
+    "name": "牛腩炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "牛腩的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-potato",
+    "name": "鲜虾炒土豆",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "土豆处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下土豆炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭土豆的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-eggplant",
+    "name": "鲜虾炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-pepper-green",
+    "name": "鲜虾炒青椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "青椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下青椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭青椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "青椒",
+        "qty": "2 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-pepper-color",
+    "name": "鲜虾炒彩椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "彩椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下彩椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭彩椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "彩椒",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-onion",
+    "name": "鲜虾炒洋葱",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "洋葱处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下洋葱炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭洋葱的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "洋葱",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-carrot",
+    "name": "鲜虾炒胡萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "胡萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下胡萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭胡萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-broccoli",
+    "name": "鲜虾炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-bokchoy",
+    "name": "鲜虾炒小白菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "小白菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下小白菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭小白菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-spinach",
+    "name": "鲜虾炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-cabbage",
+    "name": "鲜虾炒包菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "包菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下包菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭包菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-cucumber",
+    "name": "鲜虾炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-winter-melon",
+    "name": "鲜虾炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-loofah",
+    "name": "鲜虾炒丝瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "丝瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下丝瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭丝瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "丝瓜",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-beans",
+    "name": "鲜虾炒豆角",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆角处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆角炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭豆角的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆角",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-mushroom",
+    "name": "鲜虾炒香菇",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "香菇处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下香菇炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭香菇的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-fungus",
+    "name": "鲜虾炒木耳",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "木耳处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下木耳炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭木耳的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-lotus",
+    "name": "鲜虾炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-leek",
+    "name": "鲜虾炒韭菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "韭菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下韭菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭韭菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "韭菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-celery",
+    "name": "鲜虾炒芹菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "芹菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下芹菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭芹菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-radish",
+    "name": "鲜虾炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-bamboo",
+    "name": "鲜虾炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-tomato",
+    "name": "鲜虾炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-doudou",
+    "name": "鲜虾炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-rape",
+    "name": "鲜虾炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鲜虾的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-shrimp-meat-potato",
     "name": "虾仁炒土豆",
     "course": "main",
@@ -12120,6 +21152,74 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-eggplant",
+    "name": "虾仁炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -12430,6 +21530,74 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-shrimp-meat-broccoli",
+    "name": "虾仁炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-shrimp-meat-bokchoy",
     "name": "虾仁炒小白菜",
     "course": "main",
@@ -12459,6 +21627,74 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-spinach",
+    "name": "虾仁炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -12528,6 +21764,142 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-cucumber",
+    "name": "虾仁炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-winter-melon",
+    "name": "虾仁炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -12838,6 +22210,74 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-shrimp-meat-lotus",
+    "name": "虾仁炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-shrimp-meat-leek",
     "name": "虾仁炒韭菜",
     "course": "main",
@@ -12974,6 +22414,346 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-shrimp-meat-radish",
+    "name": "虾仁炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-bamboo",
+    "name": "虾仁炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-tomato",
+    "name": "虾仁炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-doudou",
+    "name": "虾仁炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-shrimp-meat-rape",
+    "name": "虾仁炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "虾仁的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-egg-potato",
     "name": "鸡蛋炒土豆",
     "course": "main",
@@ -13004,6 +22784,74 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-eggplant",
+    "name": "鸡蛋炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -13314,6 +23162,74 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-egg-broccoli",
+    "name": "鸡蛋炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-egg-bokchoy",
     "name": "鸡蛋炒小白菜",
     "course": "main",
@@ -13343,6 +23259,74 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-spinach",
+    "name": "鸡蛋炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -13412,6 +23396,142 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-cucumber",
+    "name": "鸡蛋炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-winter-melon",
+    "name": "鸡蛋炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -13722,6 +23842,74 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-egg-lotus",
+    "name": "鸡蛋炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-egg-leek",
     "name": "鸡蛋炒韭菜",
     "course": "main",
@@ -13858,6 +24046,346 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-egg-radish",
+    "name": "鸡蛋炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-bamboo",
+    "name": "鸡蛋炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-tomato",
+    "name": "鸡蛋炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-doudou",
+    "name": "鸡蛋炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-egg-rape",
+    "name": "鸡蛋炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "鸡蛋的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-tofu-firm-potato",
     "name": "老豆腐炒土豆",
     "course": "main",
@@ -13886,6 +24414,72 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "土豆",
         "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-eggplant",
+    "name": "老豆腐炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
         "category": "蔬菜"
       },
       {
@@ -14188,6 +24782,72 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-tofu-firm-broccoli",
+    "name": "老豆腐炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-tofu-firm-bokchoy",
     "name": "老豆腐炒小白菜",
     "course": "main",
@@ -14215,6 +24875,72 @@ export const GENERATED_RECIPES: Recipe[] = [
       },
       {
         "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-spinach",
+    "name": "老豆腐炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
         "qty": "1 把 (300g)",
         "category": "蔬菜"
       },
@@ -14282,6 +25008,138 @@ export const GENERATED_RECIPES: Recipe[] = [
       {
         "name": "包菜",
         "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-cucumber",
+    "name": "老豆腐炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-winter-melon",
+    "name": "老豆腐炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
         "category": "蔬菜"
       },
       {
@@ -14584,6 +25442,72 @@ export const GENERATED_RECIPES: Recipe[] = [
     ]
   },
   {
+    "id": "combo-tofu-firm-lotus",
+    "name": "老豆腐炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
     "id": "combo-tofu-firm-leek",
     "name": "老豆腐炒韭菜",
     "course": "main",
@@ -14714,6 +25638,18687 @@ export const GENERATED_RECIPES: Recipe[] = [
       "快手",
       "下饭"
     ]
+  },
+  {
+    "id": "combo-tofu-firm-radish",
+    "name": "老豆腐炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-bamboo",
+    "name": "老豆腐炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-tomato",
+    "name": "老豆腐炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-doudou",
+    "name": "老豆腐炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-firm-rape",
+    "name": "老豆腐炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "老豆腐的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-potato",
+    "name": "嫩豆腐炒土豆",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "土豆处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下土豆炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭土豆的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-eggplant",
+    "name": "嫩豆腐炒茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "茄子处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下茄子炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭茄子的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-pepper-green",
+    "name": "嫩豆腐炒青椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "青椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下青椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭青椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "青椒",
+        "qty": "2 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-pepper-color",
+    "name": "嫩豆腐炒彩椒",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "彩椒处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下彩椒炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭彩椒的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "彩椒",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-onion",
+    "name": "嫩豆腐炒洋葱",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "洋葱处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下洋葱炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭洋葱的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "洋葱",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-carrot",
+    "name": "嫩豆腐炒胡萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "胡萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下胡萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭胡萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-broccoli",
+    "name": "嫩豆腐炒西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "西兰花处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下西兰花炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭西兰花的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-bokchoy",
+    "name": "嫩豆腐炒小白菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "小白菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下小白菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭小白菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-spinach",
+    "name": "嫩豆腐炒菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "菠菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下菠菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭菠菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-cabbage",
+    "name": "嫩豆腐炒包菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "包菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下包菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭包菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-cucumber",
+    "name": "嫩豆腐炒黄瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "黄瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下黄瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭黄瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-winter-melon",
+    "name": "嫩豆腐炒冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "冬瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下冬瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭冬瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-loofah",
+    "name": "嫩豆腐炒丝瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "丝瓜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下丝瓜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭丝瓜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "丝瓜",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-beans",
+    "name": "嫩豆腐炒豆角",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆角处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆角炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭豆角的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆角",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-mushroom",
+    "name": "嫩豆腐炒香菇",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "香菇处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下香菇炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭香菇的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-fungus",
+    "name": "嫩豆腐炒木耳",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "木耳处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下木耳炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭木耳的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-lotus",
+    "name": "嫩豆腐炒莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "莲藕处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下莲藕炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭莲藕的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-leek",
+    "name": "嫩豆腐炒韭菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "韭菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下韭菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭韭菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "韭菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-celery",
+    "name": "嫩豆腐炒芹菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "芹菜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下芹菜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭芹菜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-radish",
+    "name": "嫩豆腐炒白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "白萝卜处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下白萝卜炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭白萝卜的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-bamboo",
+    "name": "嫩豆腐炒竹笋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "竹笋处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下竹笋炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭竹笋的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-tomato",
+    "name": "嫩豆腐炒番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "番茄处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下番茄炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭番茄的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-doudou",
+    "name": "嫩豆腐炒豆干",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "豆干处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下豆干炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭豆干的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "combo-tofu-soft-rape",
+    "name": "嫩豆腐炒油菜心",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 18,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "嫩豆腐处理切片或切丁（如有需要腌生抽料酒淀粉 10 分钟）",
+      "油菜心处理切好",
+      "热油爆姜蒜，下主料快炒变色盛出",
+      "下油菜心炒至断生",
+      "回锅主料调生抽蚝油盐翻匀出锅"
+    ],
+    "reason": "嫩豆腐的鲜搭油菜心的脆，家常下饭组合。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "下饭"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-potato",
+    "name": "五花肉土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-carrot",
+    "name": "五花肉胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-cabbage",
+    "name": "五花肉包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-winter-melon",
+    "name": "五花肉冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-mushroom",
+    "name": "五花肉香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-lotus",
+    "name": "五花肉莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-radish",
+    "name": "五花肉白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-bamboo",
+    "name": "五花肉竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-tomato",
+    "name": "五花肉番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-porkbelly-doudou",
+    "name": "五花肉豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "五花肉焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "五花肉与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "五花肉",
+        "qty": "300g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-minced-pork-eggplant",
+    "name": "猪肉末蒸茄子",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切好",
+      "茄子切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "猪肉末遇到茄子，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "茄子",
+        "qty": "2 根 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-minced-pork-winter-melon",
+    "name": "猪肉末蒸冬瓜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切好",
+      "冬瓜切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "猪肉末遇到冬瓜，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-minced-pork-tofu-soft",
+    "name": "猪肉末蒸嫩豆腐",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "猪肉末处理切好",
+      "嫩豆腐切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "猪肉末遇到嫩豆腐，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "嫩豆腐",
+        "qty": "1 盒 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-ribs-potato",
+    "name": "排骨土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-ribs-potato",
+    "name": "排骨蒸土豆",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨处理切好",
+      "土豆切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "排骨遇到土豆，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-ribs-carrot",
+    "name": "排骨胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-ribs-cabbage",
+    "name": "排骨包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-ribs-winter-melon",
+    "name": "排骨冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-ribs-mushroom",
+    "name": "排骨香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-ribs-lotus",
+    "name": "排骨莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-ribs-lotus",
+    "name": "排骨蒸莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨处理切好",
+      "莲藕切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "排骨遇到莲藕，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-ribs-radish",
+    "name": "排骨白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-ribs-radish",
+    "name": "排骨蒸白萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨处理切好",
+      "白萝卜切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "排骨遇到白萝卜，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-ribs-bamboo",
+    "name": "排骨竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-ribs-tomato",
+    "name": "排骨番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-ribs-doudou",
+    "name": "排骨豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "排骨焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "排骨与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "排骨",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-potato",
+    "name": "鸡腿肉土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-carrot",
+    "name": "鸡腿肉胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-cabbage",
+    "name": "鸡腿肉包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-winter-melon",
+    "name": "鸡腿肉冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-mushroom",
+    "name": "鸡腿肉香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-chicken-thigh-mushroom",
+    "name": "鸡腿肉蒸香菇",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切好",
+      "香菇切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "鸡腿肉遇到香菇，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-lotus",
+    "name": "鸡腿肉莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-chicken-thigh-lotus",
+    "name": "鸡腿肉蒸莲藕",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉处理切好",
+      "莲藕切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "鸡腿肉遇到莲藕，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-radish",
+    "name": "鸡腿肉白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-bamboo",
+    "name": "鸡腿肉竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-tomato",
+    "name": "鸡腿肉番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-chicken-thigh-doudou",
+    "name": "鸡腿肉豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "鸡腿肉焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鸡腿肉与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鸡腿肉",
+        "qty": "400g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-potato",
+    "name": "整鸡土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-carrot",
+    "name": "整鸡胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-cabbage",
+    "name": "整鸡包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-winter-melon",
+    "name": "整鸡冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-mushroom",
+    "name": "整鸡香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-lotus",
+    "name": "整鸡莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-radish",
+    "name": "整鸡白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-bamboo",
+    "name": "整鸡竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-tomato",
+    "name": "整鸡番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-whole-chicken-doudou",
+    "name": "整鸡豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "整鸡焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "整鸡与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "qty": "半只 (800g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-potato",
+    "name": "牛腩土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-carrot",
+    "name": "牛腩胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-cabbage",
+    "name": "牛腩包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-winter-melon",
+    "name": "牛腩冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-mushroom",
+    "name": "牛腩香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-lotus",
+    "name": "牛腩莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-radish",
+    "name": "牛腩白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-bamboo",
+    "name": "牛腩竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-tomato",
+    "name": "牛腩番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-beef-brisket-doudou",
+    "name": "牛腩豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "牛腩焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "牛腩与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "qty": "500g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-potato",
+    "name": "草鱼土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-carrot",
+    "name": "草鱼胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-cabbage",
+    "name": "草鱼包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-winter-melon",
+    "name": "草鱼冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-mushroom",
+    "name": "草鱼香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-lotus",
+    "name": "草鱼莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-radish",
+    "name": "草鱼白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-bamboo",
+    "name": "草鱼竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-tomato",
+    "name": "草鱼番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-fish-doudou",
+    "name": "草鱼豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "草鱼焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "草鱼与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "qty": "1 条 (约 1kg)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-potato",
+    "name": "鲈鱼土豆煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-carrot",
+    "name": "鲈鱼胡萝卜煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-cabbage",
+    "name": "鲈鱼包菜煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-winter-melon",
+    "name": "鲈鱼冬瓜煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-mushroom",
+    "name": "鲈鱼香菇煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-lotus",
+    "name": "鲈鱼莲藕煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-radish",
+    "name": "鲈鱼白萝卜煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-bamboo",
+    "name": "鲈鱼竹笋煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-tomato",
+    "name": "鲈鱼番茄煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-perch-doudou",
+    "name": "鲈鱼豆干煲",
+    "course": "main",
+    "cuisine": "粤菜",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲈鱼焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲈鱼与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "qty": "1 条 (约 500g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-potato",
+    "name": "鲜虾土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-carrot",
+    "name": "鲜虾胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-cabbage",
+    "name": "鲜虾包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-winter-melon",
+    "name": "鲜虾冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-mushroom",
+    "name": "鲜虾香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-lotus",
+    "name": "鲜虾莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-radish",
+    "name": "鲜虾白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-bamboo",
+    "name": "鲜虾竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-tomato",
+    "name": "鲜虾番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-shrimp-doudou",
+    "name": "鲜虾豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "鲜虾焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "鲜虾与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "鲜虾",
+        "qty": "12 只 (约 250g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "steam-shrimp-meat-carrot",
+    "name": "虾仁蒸胡萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切好",
+      "胡萝卜切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "虾仁遇到胡萝卜，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-shrimp-meat-broccoli",
+    "name": "虾仁蒸西兰花",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "虾仁处理切好",
+      "西兰花切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "虾仁遇到西兰花，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "qty": "200g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "西兰花",
+        "qty": "1 颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-egg-carrot",
+    "name": "鸡蛋蒸胡萝卜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切好",
+      "胡萝卜切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "鸡蛋遇到胡萝卜，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-egg-spinach",
+    "name": "鸡蛋蒸菠菜",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切好",
+      "菠菜切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "鸡蛋遇到菠菜，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-egg-mushroom",
+    "name": "鸡蛋蒸香菇",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切好",
+      "香菇切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "鸡蛋遇到香菇，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "steam-egg-tomato",
+    "name": "鸡蛋蒸番茄",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 25,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋处理切好",
+      "番茄切片或切丁",
+      "码盘加盐料酒生抽淀粉拌匀",
+      "上汽蒸 12-18 分钟",
+      "出锅淋少许生抽热油激香"
+    ],
+    "reason": "鸡蛋遇到番茄，蒸的最大限度保住食材本味，软嫩易消化。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "4 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "淀粉",
+        "qty": "1 小勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-potato",
+    "name": "老豆腐土豆煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "土豆切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与土豆慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "土豆",
+        "qty": "2 个 (约 360g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-carrot",
+    "name": "老豆腐胡萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "胡萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与胡萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-cabbage",
+    "name": "老豆腐包菜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "包菜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与包菜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-winter-melon",
+    "name": "老豆腐冬瓜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "冬瓜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与冬瓜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "冬瓜",
+        "qty": "500g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-mushroom",
+    "name": "老豆腐香菇煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "香菇切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与香菇慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-lotus",
+    "name": "老豆腐莲藕煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "莲藕切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与莲藕慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-radish",
+    "name": "老豆腐白萝卜煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "白萝卜切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与白萝卜慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-bamboo",
+    "name": "老豆腐竹笋煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "竹笋切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与竹笋慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "竹笋",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-tomato",
+    "name": "老豆腐番茄煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "番茄切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与番茄慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "casserole-tofu-firm-doudou",
+    "name": "老豆腐豆干煲",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 60,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "老豆腐焯水或煎香",
+      "豆干切大块",
+      "砂锅底铺姜葱，下主料和蔬菜",
+      "倒入生抽蚝油料酒+少量水",
+      "中小火慢炖 30-40 分钟，收汁出锅"
+    ],
+    "reason": "老豆腐与豆干慢炖，汤汁浓郁，米饭杀手。",
+    "serves": 3,
+    "ingredients": [
+      {
+        "name": "老豆腐",
+        "qty": "1 块 (400g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蚝油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "料酒",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "秋",
+      "冬"
+    ],
+    "weathers": [
+      "冷"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "驱寒",
+      "暖胃"
+    ]
+  },
+  {
+    "id": "egg-stir-pepper-green",
+    "name": "青椒炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "青椒下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "青椒炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "青椒",
+        "qty": "2 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-pepper-color",
+    "name": "彩椒炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "彩椒下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "彩椒炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "彩椒",
+        "qty": "1 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-carrot",
+    "name": "胡萝卜炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "胡萝卜下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "胡萝卜炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-bokchoy",
+    "name": "小白菜炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "小白菜下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "小白菜炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "小白菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-spinach",
+    "name": "菠菜炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "菠菜下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "菠菜炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-cucumber",
+    "name": "黄瓜炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "黄瓜下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "黄瓜炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-mushroom",
+    "name": "香菇炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "香菇下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "香菇炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "香菇",
+        "qty": "150g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-fungus",
+    "name": "木耳炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "木耳下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "木耳炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-leek",
+    "name": "韭菜炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "韭菜下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "韭菜炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "韭菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-tomato",
+    "name": "番茄炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "番茄下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "番茄炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "egg-stir-doudou",
+    "name": "豆干炒蛋",
+    "course": "main",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 10,
+    "tastes": [
+      "咸鲜",
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "鸡蛋打散加少许盐",
+      "热油快炒蛋盛出",
+      "豆干下锅炒 1 分钟",
+      "回锅鸡蛋翻匀，调生抽出锅"
+    ],
+    "reason": "豆干炒蛋是国民菜，10 分钟出锅扛饿。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "鸡蛋",
+        "qty": "3 个",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast",
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-spinach",
+    "name": "凉拌胡萝卜菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-cucumber",
+    "name": "凉拌胡萝卜黄瓜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与黄瓜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上黄瓜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-fungus",
+    "name": "凉拌胡萝卜木耳",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与木耳分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上木耳，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-lotus",
+    "name": "凉拌胡萝卜莲藕",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与莲藕分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上莲藕，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-celery",
+    "name": "凉拌胡萝卜芹菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与芹菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上芹菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-radish",
+    "name": "凉拌胡萝卜白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-tomato",
+    "name": "凉拌胡萝卜番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-carrot-doudou",
+    "name": "凉拌胡萝卜豆干",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "胡萝卜与豆干分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "胡萝卜遇上豆干，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-spinach-tomato",
+    "name": "凉拌菠菜番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "菠菜与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "菠菜遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-carrot",
+    "name": "凉拌包菜胡萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与胡萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上胡萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "胡萝卜",
+        "qty": "1 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-spinach",
+    "name": "凉拌包菜菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-cucumber",
+    "name": "凉拌包菜黄瓜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与黄瓜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上黄瓜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-fungus",
+    "name": "凉拌包菜木耳",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与木耳分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上木耳，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-lotus",
+    "name": "凉拌包菜莲藕",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与莲藕分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上莲藕，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-celery",
+    "name": "凉拌包菜芹菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与芹菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上芹菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-radish",
+    "name": "凉拌包菜白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-tomato",
+    "name": "凉拌包菜番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cabbage-doudou",
+    "name": "凉拌包菜豆干",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "包菜与豆干分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "包菜遇上豆干，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "包菜",
+        "qty": "半颗 (400g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cucumber-spinach",
+    "name": "凉拌黄瓜菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "黄瓜与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "黄瓜遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cucumber-fungus",
+    "name": "凉拌黄瓜木耳",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "黄瓜与木耳分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "黄瓜遇上木耳，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cucumber-lotus",
+    "name": "凉拌黄瓜莲藕",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "黄瓜与莲藕分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "黄瓜遇上莲藕，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cucumber-radish",
+    "name": "凉拌黄瓜白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "黄瓜与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "黄瓜遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cucumber-tomato",
+    "name": "凉拌黄瓜番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "黄瓜与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "黄瓜遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-cucumber-doudou",
+    "name": "凉拌黄瓜豆干",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "黄瓜与豆干分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "黄瓜遇上豆干，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-fungus-spinach",
+    "name": "凉拌木耳菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "木耳与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "木耳遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-fungus-lotus",
+    "name": "凉拌木耳莲藕",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "木耳与莲藕分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "木耳遇上莲藕，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-fungus-radish",
+    "name": "凉拌木耳白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "木耳与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "木耳遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-fungus-tomato",
+    "name": "凉拌木耳番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "木耳与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "木耳遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-lotus-spinach",
+    "name": "凉拌莲藕菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "莲藕与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "莲藕遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-lotus-radish",
+    "name": "凉拌莲藕白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "莲藕与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "莲藕遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-lotus-tomato",
+    "name": "凉拌莲藕番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "莲藕与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "莲藕遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-spinach",
+    "name": "凉拌芹菜菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-cucumber",
+    "name": "凉拌芹菜黄瓜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与黄瓜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上黄瓜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "黄瓜",
+        "qty": "2 根",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-fungus",
+    "name": "凉拌芹菜木耳",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与木耳分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上木耳，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-lotus",
+    "name": "凉拌芹菜莲藕",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与莲藕分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上莲藕，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-radish",
+    "name": "凉拌芹菜白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-tomato",
+    "name": "凉拌芹菜番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-celery-doudou",
+    "name": "凉拌芹菜豆干",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "芹菜与豆干分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "芹菜遇上豆干，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "芹菜",
+        "qty": "300g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-radish-spinach",
+    "name": "凉拌白萝卜菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "白萝卜与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "白萝卜遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-radish-tomato",
+    "name": "凉拌白萝卜番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "白萝卜与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "白萝卜遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-doudou-spinach",
+    "name": "凉拌豆干菠菜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "豆干与菠菜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "豆干遇上菠菜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "菠菜",
+        "qty": "1 把 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-doudou-fungus",
+    "name": "凉拌豆干木耳",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "豆干与木耳分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "豆干遇上木耳，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "木耳",
+        "qty": "20g (干)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-doudou-lotus",
+    "name": "凉拌豆干莲藕",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "豆干与莲藕分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "豆干遇上莲藕，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "莲藕",
+        "qty": "1 节 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-doudou-radish",
+    "name": "凉拌豆干白萝卜",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "豆干与白萝卜分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "豆干遇上白萝卜，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "白萝卜",
+        "qty": "半根 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "coldmix-doudou-tomato",
+    "name": "凉拌豆干番茄",
+    "course": "veggie",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 12,
+    "tastes": [
+      "清淡",
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "豆干与番茄分别洗净处理",
+      "需要焯水的烫一下过凉",
+      "切丝或切片码碗",
+      "蒜末醋生抽香油盐拌匀，淋上即可"
+    ],
+    "reason": "豆干遇上番茄，清爽开胃低热量，夏天不踩雷。",
+    "serves": 2,
+    "ingredients": [
+      {
+        "name": "豆干",
+        "qty": "200g",
+        "category": "蔬菜"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个 (300g)",
+        "category": "蔬菜"
+      },
+      {
+        "name": "葱姜蒜",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "醋",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "seasons": [
+      "夏"
+    ],
+    "weathers": [
+      "热"
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手",
+      "解暑"
+    ]
+  },
+  {
+    "id": "noodle-lamian-beef-marinade",
+    "name": "卤牛肉拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-braised-pork",
+    "name": "红烧肉拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-minced-pork",
+    "name": "肉末浇头拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-chicken-leg",
+    "name": "鸡腿浇头拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-tomato-egg",
+    "name": "番茄鸡蛋拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-shrimp",
+    "name": "鲜虾拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-chashao",
+    "name": "叉烧拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-lamian-veg-rich",
+    "name": "蔬菜浇头拉面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮拉面至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "拉面配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "拉面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-beef-marinade",
+    "name": "卤牛肉乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-braised-pork",
+    "name": "红烧肉乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-minced-pork",
+    "name": "肉末浇头乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-chicken-leg",
+    "name": "鸡腿浇头乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-tomato-egg",
+    "name": "番茄鸡蛋乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-shrimp",
+    "name": "鲜虾乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-chashao",
+    "name": "叉烧乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-udon-veg-rich",
+    "name": "蔬菜浇头乌冬面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮乌冬面至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "乌冬面配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "乌冬面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-beef-marinade",
+    "name": "卤牛肉米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-braised-pork",
+    "name": "红烧肉米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-minced-pork",
+    "name": "肉末浇头米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-chicken-leg",
+    "name": "鸡腿浇头米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-tomato-egg",
+    "name": "番茄鸡蛋米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-shrimp",
+    "name": "鲜虾米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-chashao",
+    "name": "叉烧米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-rice-noodle-veg-rich",
+    "name": "蔬菜浇头米粉",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮米粉至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "米粉配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "米粉",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-beef-marinade",
+    "name": "卤牛肉粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-braised-pork",
+    "name": "红烧肉粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-minced-pork",
+    "name": "肉末浇头粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-chicken-leg",
+    "name": "鸡腿浇头粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-tomato-egg",
+    "name": "番茄鸡蛋粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-shrimp",
+    "name": "鲜虾粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-chashao",
+    "name": "叉烧粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-vermicelli-veg-rich",
+    "name": "蔬菜浇头粉丝",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮粉丝至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "粉丝配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-beef-marinade",
+    "name": "卤牛肉阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-braised-pork",
+    "name": "红烧肉阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-minced-pork",
+    "name": "肉末浇头阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-chicken-leg",
+    "name": "鸡腿浇头阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-tomato-egg",
+    "name": "番茄鸡蛋阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-shrimp",
+    "name": "鲜虾阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-chashao",
+    "name": "叉烧阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-yangchun-veg-rich",
+    "name": "蔬菜浇头阳春面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮阳春面至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "阳春面配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "阳春面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-beef-marinade",
+    "name": "卤牛肉鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-braised-pork",
+    "name": "红烧肉鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-minced-pork",
+    "name": "肉末浇头鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-chicken-leg",
+    "name": "鸡腿浇头鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-tomato-egg",
+    "name": "番茄鸡蛋鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-shrimp",
+    "name": "鲜虾鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-chashao",
+    "name": "叉烧鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-egg-noodle-veg-rich",
+    "name": "蔬菜浇头鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮鸡蛋面至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "鸡蛋面配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "鸡蛋面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-beef-marinade",
+    "name": "卤牛肉刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-braised-pork",
+    "name": "红烧肉刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-minced-pork",
+    "name": "肉末浇头刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-chicken-leg",
+    "name": "鸡腿浇头刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-tomato-egg",
+    "name": "番茄鸡蛋刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-shrimp",
+    "name": "鲜虾刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-chashao",
+    "name": "叉烧刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-knife-cut-veg-rich",
+    "name": "蔬菜浇头刀削面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮刀削面至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "刀削面配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "刀削面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-beef-marinade",
+    "name": "卤牛肉荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "卤牛肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配卤牛肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "卤牛肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-braised-pork",
+    "name": "红烧肉荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "红烧肉另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配红烧肉是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-minced-pork",
+    "name": "肉末浇头荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "肉末浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配肉末浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉末浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-chicken-leg",
+    "name": "鸡腿浇头荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "鸡腿浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配鸡腿浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡腿浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-tomato-egg",
+    "name": "番茄鸡蛋荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "番茄鸡蛋另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配番茄鸡蛋是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄鸡蛋",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-shrimp",
+    "name": "鲜虾荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无海鲜"
+    ],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "鲜虾另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配鲜虾是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鲜虾",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-chashao",
+    "name": "叉烧荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "叉烧另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配叉烧是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "叉烧",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "noodle-buckwheat-veg-rich",
+    "name": "蔬菜浇头荞麦面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "烧水煮荞麦面至适合口感",
+      "蔬菜浇头另起锅炒香或加热",
+      "面捞入碗，浇上浇头",
+      "撒葱花淋少许酱汁即可"
+    ],
+    "reason": "荞麦面配蔬菜浇头是国民面馆经典组合。",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "荞麦面",
+        "qty": "1 人份 (200g)",
+        "category": "调味/主食"
+      },
+      {
+        "name": "蔬菜浇头",
+        "qty": "适量 (150g)",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      },
+      {
+        "name": "食用油",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-yuxiang-pork",
+    "name": "鱼香肉丝盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制鱼香肉丝主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "酸甜微辣下饭神器",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鱼香肉丝",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-kungpao-chicken",
+    "name": "宫保鸡丁盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制宫保鸡丁主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "经典川菜浇头",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "宫保鸡丁",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-redbraise-pork",
+    "name": "红烧肉盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制红烧肉主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "肥而不腻盖浇饭天花板",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红烧肉",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-blackpepper-beef",
+    "name": "黑椒牛柳盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无牛肉"
+    ],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制黑椒牛柳主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "牛柳爆香盖饭",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "黑椒牛柳",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-curry-chicken",
+    "name": "咖喱鸡盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无奶"
+    ],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制咖喱鸡主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "咖喱浓郁配米饭最香",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "咖喱鸡",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-sweet-sour-pork",
+    "name": "糖醋里脊盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无猪肉",
+      "无蛋"
+    ],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制糖醋里脊主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "酸甜外酥里嫩",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "糖醋里脊",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-veg-mushroom",
+    "name": "三鲜菌菇盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制三鲜菌菇主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "素食盖浇也丰盛",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "三鲜菌菇",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "rice-japanese-curry",
+    "name": "日式咖喱盖浇饭",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "中等",
+    "timeMinutes": 25,
+    "tastes": [
+      "咸鲜"
+    ],
+    "contains": [
+      "无奶"
+    ],
+    "steps": [
+      "白米饭蒸好备用",
+      "炒制日式咖喱主菜",
+      "淋汁勾芡浇在饭上",
+      "撒葱花点缀即可"
+    ],
+    "reason": "微甜咖喱国民盖饭",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "日式咖喱",
+        "qty": "1 份",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "葱花",
+        "qty": "适量",
+        "category": "蔬菜"
+      },
+      {
+        "name": "生抽",
+        "qty": "1 大勺",
+        "category": "调味/主食"
+      },
+      {
+        "name": "盐",
+        "qty": "适量",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "lunch",
+      "dinner"
+    ],
+    "energy": [
+      "下饭",
+      "快手"
+    ]
+  },
+  {
+    "id": "bk-porridge-pumpkin",
+    "name": "南瓜小米粥",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "暖胃护肠",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "小米",
+        "qty": "半杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "南瓜",
+        "qty": "300g",
+        "category": "蔬菜"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-porridge-eight",
+    "name": "八宝粥",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "膳食纤维丰富",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "糙米",
+        "qty": "半杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "红豆",
+        "qty": "30g",
+        "category": "调味/主食"
+      },
+      {
+        "name": "莲子",
+        "qty": "20g",
+        "category": "蔬菜"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-porridge-millet",
+    "name": "白米粥",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "清淡养胃",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "半杯",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-porridge-pork",
+    "name": "皮蛋瘦肉粥",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [
+      "无蛋",
+      "无猪肉"
+    ],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "国民早餐之王",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "大米",
+        "qty": "半杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "猪里脊",
+        "qty": "150g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "皮蛋",
+        "qty": "1 个",
+        "category": "肉蛋豆制品"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-egg-tomato-noodle",
+    "name": "番茄鸡蛋面",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "10 分钟一碗",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "面条",
+        "qty": "1 人份",
+        "category": "调味/主食"
+      },
+      {
+        "name": "番茄",
+        "qty": "2 个",
+        "category": "蔬菜"
+      },
+      {
+        "name": "鸡蛋",
+        "qty": "2 个",
+        "category": "肉蛋豆制品"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-wonton",
+    "name": "鲜肉小馄饨",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "清晨暖胃",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "馄饨皮",
+        "qty": "20 张",
+        "category": "调味/主食"
+      },
+      {
+        "name": "猪肉末",
+        "qty": "150g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "紫菜",
+        "qty": "1 把",
+        "category": "蔬菜"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-fan-tuan",
+    "name": "上海饭团",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [
+      "无猪肉"
+    ],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "出门带着吃方便",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "糯米",
+        "qty": "1 杯",
+        "category": "调味/主食"
+      },
+      {
+        "name": "肉松",
+        "qty": "30g",
+        "category": "肉蛋豆制品"
+      },
+      {
+        "name": "油条",
+        "qty": "1 根",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-cong-you-bing",
+    "name": "葱油饼",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "外脆里软香",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "面粉",
+        "qty": "200g",
+        "category": "调味/主食"
+      },
+      {
+        "name": "葱花",
+        "qty": "1 把",
+        "category": "蔬菜"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-egg-pancake",
+    "name": "煎蛋三明治",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [
+      "无蛋"
+    ],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "蛋白补充快手",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "吐司",
+        "qty": "2 片",
+        "category": "调味/主食"
+      },
+      {
+        "name": "鸡蛋",
+        "qty": "2 个",
+        "category": "肉蛋豆制品"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
+  },
+  {
+    "id": "bk-soy-milk-doutiao",
+    "name": "豆浆油条",
+    "course": "staple",
+    "cuisine": "家常",
+    "difficulty": "简单",
+    "timeMinutes": 15,
+    "tastes": [
+      "清淡"
+    ],
+    "contains": [],
+    "steps": [
+      "按食谱常规步骤备料",
+      "下锅煮 / 煎制",
+      "调味盛出"
+    ],
+    "reason": "中式早餐 CP",
+    "serves": 1,
+    "ingredients": [
+      {
+        "name": "豆浆",
+        "qty": "300ml",
+        "category": "调味/主食"
+      },
+      {
+        "name": "油条",
+        "qty": "2 根",
+        "category": "调味/主食"
+      }
+    ],
+    "slots": [
+      "breakfast"
+    ],
+    "energy": [
+      "快手",
+      "暖胃"
+    ],
+    "category": "早餐"
   },
   {
     "id": "vinegar-stir-potato-veg",
