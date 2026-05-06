@@ -115,13 +115,14 @@ export function DishDetail({ recipe, servings, onClose, onFavoriteChange }: Dish
         className="max-h-[92vh] overflow-y-auto p-0 sm:max-w-2xl"
         data-testid="dialog-detail"
       >
-        {/* 视觉头部：真实图片 + 渐变叠层 */}
+        {/* 视觉头部：本地渲染氛围图（详情页用 DialogHeader 显示菜名） */}
         <div className="relative overflow-hidden rounded-t-md">
           <DishImage
             visual={visual}
-            alt={`${recipe.name} 示意图`}
+            alt={`${recipe.name} 菜品氛围示意图`}
             className="h-44 w-full sm:h-52"
             large
+            showBadge={false}
           />
           <div
             aria-hidden
@@ -137,7 +138,7 @@ export function DishDetail({ recipe, servings, onClose, onFavoriteChange }: Dish
               className="rounded-full bg-black/35 px-2 py-0.5 text-[10.5px] text-white backdrop-blur-sm"
               data-testid="badge-illustrative"
             >
-              示意图
+              氛围示意图
             </span>
             <button
               type="button"

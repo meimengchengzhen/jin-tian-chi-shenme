@@ -1,79 +1,101 @@
-// 菜品图片组件：
-//  - 默认显示 images.unsplash.com 的真实菜品图。
-//  - 加载失败时先切到 FALLBACK_IMAGE_URL（通用菜品图），仍失败才回到 emoji 渐变。
-//  - 可用 noPhoto 强制走 emoji（性能敏感的场景小图）。
-//  - 加 onLoad 控制状态，确保图加载完前不显示「红叉」。
+// 菜品「示意图」组件：
+//  - 不再使用网络上的随机菜品照片：QA 反馈鸡肉菜显示 Tacos，关键词命中误差大且无法核验。
+//  - 改成完全本地渲染的氛围图：渐变背景（按 course/cuisine） + 食材 emoji + 菜名覆盖 + 「示意图」角标。
+//  - 不依赖网络，零破图风险，且明确告诉用户这是示意图而非实拍。
 
-import { useEffect, useState } from "react";
-import { FALLBACK_IMAGE_URL, type DishVisual } from "@/lib/dishVisual";
+import type { DishVisual } from "@/lib/dishVisual";
 
 interface DishImageProps {
   visual: DishVisual;
   alt: string;
   className?: string;
-  /** 大图模式：会同时显示 emoji 角标。 */
+  /** 大图模式：用于详情页头部，emoji 更大、菜名样式更突出。 */
   large?: boolean;
-  /** 关闭真实图片，纯渐变 + emoji（用于性能敏感的场景，如锁定中的食材小图）。 */
-  noPhoto?: boolean;
+  /** 显示菜名覆盖（默认大图显示，小图不显示）。 */
+  showName?: boolean;
+  /** 显示「示意图」角标（默认大图显示）。 */
+  showBadge?: boolean;
+  /** 菜名（可选；若不传则只渲染 emoji 与渐变） */
+  name?: string;
 }
 
-type ImgState = "loading" | "loaded" | "fallback" | "errored";
-
-export function DishImage({ visual, alt, className, large, noPhoto }: DishImageProps) {
-  const [state, setState] = useState<ImgState>("loading");
-
-  useEffect(() => {
-    setState("loading");
-  }, [visual.imageUrl]);
-
-  const showPhoto = !noPhoto && state !== "errored";
-  const currentSrc = state === "fallback" ? FALLBACK_IMAGE_URL : visual.imageUrl;
-
-  function handleError() {
-    if (state === "loading" || state === "loaded") {
-      setState("fallback");
-    } else if (state === "fallback") {
-      setState("errored");
-    }
-  }
+export function DishImage({
+  visual,
+  alt,
+  className,
+  large,
+  showName,
+  showBadge,
+  name,
+}: DishImageProps) {
+  const renderName = showName ?? large;
+  const renderBadge = showBadge ?? large;
 
   return (
     <div
+      role="img"
+      aria-label={alt}
       className={`relative overflow-hidden ${className ?? ""}`}
       style={{
         background: `linear-gradient(135deg, ${visual.gradient[0]}, ${visual.gradient[1]})`,
       }}
+      data-testid="dish-illustration"
     >
-      {showPhoto && (
-        <img
-          src={currentSrc}
-          alt={alt}
-          loading="lazy"
-          decoding="async"
-          referrerPolicy="no-referrer"
-          onLoad={() => setState((s) => (s === "fallback" ? "fallback" : "loaded"))}
-          onError={handleError}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-200"
-          style={{ opacity: state === "loaded" || state === "fallback" ? 1 : 0 }}
-        />
-      )}
-      {/* fallback 层：emoji 永远渲染在底层；图加载完成后被覆盖 */}
-      <span
-        aria-hidden
-        className={`relative flex h-full w-full items-center justify-center drop-shadow-sm ${
-          large ? "text-5xl sm:text-6xl" : "text-2xl"
-        }`}
-      >
-        {visual.emoji}
-      </span>
+      {/* 顶部高光，让卡片立体一些 */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.32), transparent 55%)",
+            "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.36), transparent 58%)",
         }}
       />
+      {/* 主 emoji：大图居左大尺寸，小图居中适中 */}
+      <span
+        aria-hidden
+        className={`relative flex h-full w-full items-center justify-center drop-shadow-sm ${
+          large ? "text-[5.5rem] sm:text-[6.5rem]" : "text-[1.75rem]"
+        }`}
+      >
+        {visual.emoji}
+      </span>
+      {/* 菜系/类目角标 emoji，仅大图显示 */}
+      {large && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute bottom-3 left-4 text-2xl opacity-85"
+        >
+          {visual.badge}
+        </span>
+      )}
+      {/* 菜名覆盖：大图模式必显示，给一道明确视觉锚点 */}
+      {renderName && name && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 px-4 pb-3 pt-6">
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.38) 70%, rgba(0,0,0,0.5) 100%)",
+            }}
+          />
+          <div
+            className="relative font-display text-[1.3rem] leading-tight text-white drop-shadow-md sm:text-[1.55rem]"
+            data-testid="dish-illustration-name"
+          >
+            {name}
+          </div>
+        </div>
+      )}
+      {/* 「示意图」角标：大图默认显示。明确告诉用户不是实拍。 */}
+      {renderBadge && (
+        <span
+          className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/40 px-2 py-0.5 text-[10.5px] font-medium text-white backdrop-blur-sm"
+          data-testid="dish-illustration-badge"
+        >
+          示意图
+        </span>
+      )}
     </div>
   );
 }

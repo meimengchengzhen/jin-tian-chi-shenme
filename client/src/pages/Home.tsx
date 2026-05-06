@@ -518,6 +518,11 @@ export default function Home() {
     ? calorieSummary(plan, recommendCtx.targetMealCalories)
     : null;
 
+  // 控卡 / 增肌场景下，若没启用饮食计划：在结果区显眼引导用户去开启。
+  const calorieScenario = scenarioId === "personal-cut" || scenarioId === "fitness-bulk";
+  const calorieHintNeeded =
+    calorieScenario && !recommendCtx.targetMealCalories;
+
   const meal = MEAL_THEMES[currentSlot];
 
   return (
@@ -574,50 +579,56 @@ export default function Home() {
           </p>
         </section>
 
-        {/* 场景 Tabs */}
+        {/* 场景 Tabs：移动端 2 列网格（一眼可见），桌面端水平 wrap */}
         <section className="mt-7">
           <div className="mb-2 flex items-baseline justify-between gap-2">
             <h2 className="font-display text-[1.05rem] tracking-tight">今天的场景</h2>
-            <span
-              className="inline-flex items-center gap-1 text-[11px] text-muted-foreground sm:hidden"
-              data-testid="scenario-scroll-hint"
-            >
-              <ChevronRight className="h-3 w-3 -rotate-180" /> 左右滑动 <ChevronRight className="h-3 w-3" />
-              <span className="num">共 {SCENARIOS.length} 个</span>
-            </span>
-            <span className="hidden text-[11px] text-muted-foreground sm:inline">
+            <span className="text-[11px] text-muted-foreground">
               点一下切换默认设置 · 共 {SCENARIOS.length} 个
             </span>
           </div>
-          {/* 移动端：横向滚动 + 右侧渐变遮罩提示还有更多。桌面端：直接 flex-wrap 一次性展示。 */}
-          <div className="relative">
-            <div className="scenario-scroll -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
-              {SCENARIOS.map((s) => (
+          <div
+            className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
+            data-testid="scenario-grid"
+          >
+            {SCENARIOS.map((s) => {
+              const active = scenarioId === s.id;
+              return (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => applyScenario(s.id)}
                   data-testid={`scenario-tab-${s.id}`}
-                  className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] transition-colors hover-elevate active-elevate-2 ${
-                    scenarioId === s.id
+                  className={`flex w-full items-center gap-2 rounded-full border px-3 py-2 text-[13px] transition-colors hover-elevate active-elevate-2 sm:w-auto ${
+                    active
                       ? "border-primary/50 bg-primary text-primary-foreground"
                       : "border-border bg-card/60 text-foreground/80"
                   }`}
                 >
-                  <span aria-hidden>{s.emoji}</span>
-                  <span>{s.label}</span>
+                  <span aria-hidden className="text-base">{s.emoji}</span>
+                  <span className="truncate">{s.label}</span>
                 </button>
-              ))}
-            </div>
-            {/* 右侧渐变遮罩，仅移动端显示 */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-background via-background/70 to-transparent sm:hidden"
-            />
+              );
+            })}
           </div>
           <p className="mt-1.5 text-[11.5px] text-muted-foreground" data-testid="text-scenario-desc">
             {getScenario(scenarioId).description}
           </p>
+          {(scenarioId === "personal-cut" || scenarioId === "fitness-bulk") &&
+            !(profile?.planEnabled && profile.body) && (
+              <button
+                type="button"
+                onClick={() => setProfileOpen(true)}
+                data-testid="banner-enable-plan"
+                className="mt-2 inline-flex w-full items-start gap-2 rounded-lg border border-primary/40 bg-primary/5 px-3 py-2 text-left text-[12px] hover-elevate active-elevate-2 sm:w-auto"
+              >
+                <Flame className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-primary" />
+                <span className="flex-1 text-foreground/85">
+                  开启饮食计划后可按热量精细推荐 — 填身高 / 体重 / 活动量即可
+                  <span className="ml-1 text-primary underline-offset-2 hover:underline">去设置</span>
+                </span>
+              </button>
+          )}
         </section>
 
         {/* 历史 / 收藏 快捷入口（始终展示，方便发现） */}
@@ -980,6 +991,36 @@ export default function Home() {
               </div>
             )}
 
+            {/* 控卡 / 增肌 但未启用饮食计划：显眼引导 */}
+            {calorieHintNeeded && (
+              <Card
+                className="mb-3 border-primary/40 bg-primary/5 p-3 text-[13px]"
+                data-testid="panel-calorie-hint"
+              >
+                <div className="flex items-start gap-2">
+                  <Flame className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+                  <div className="flex-1">
+                    <div className="font-medium text-foreground">
+                      想按热量精细推荐？开启饮食计划即可
+                    </div>
+                    <p className="mt-0.5 text-[11.5px] text-muted-foreground">
+                      你选了「{getScenario(scenarioId).label}」。在档案里填身高 / 体重 / 活动量并开启饮食计划，
+                      推荐就会给出本餐目标热量、人均合计、偏轻 / 接近 / 偏高的评估。所有数据只保存在你的浏览器里。
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={() => setProfileOpen(true)}
+                    data-testid="button-open-profile-from-calorie-hint"
+                    className="h-8 rounded-full text-[12px]"
+                  >
+                    去设置
+                  </Button>
+                </div>
+              </Card>
+            )}
+
             {/* 餐次热量汇总 */}
             {calSummary && (
               <Card
@@ -1254,58 +1295,6 @@ export default function Home() {
             )}
           </section>
         )}
-
-        {/* GitHub / 开源 路线 */}
-        <section className="mt-16 border-t border-border/60 pt-10">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            <Github className="h-3.5 w-3.5" /> open-source roadmap
-          </div>
-          <h2 className="mt-3 font-display text-[1.6rem] tracking-tight">
-            适合作为开源 MVP 的方向
-          </h2>
-          <p className="mt-2 text-[14px] text-muted-foreground">
-            这是一个原型。如果你想 fork，下面是建议的模块化拓展方向。
-          </p>
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {[
-              {
-                t: "菜谱数据层",
-                d: "把 client/src/data/recipes.ts 抽成独立 JSON / YAML，社区 PR 即可贡献菜谱；增加图片字段。",
-              },
-              {
-                t: "推荐算法",
-                d: "lib/recommend.ts 可替换：当前是「过滤 + 评分 + 随机扰动」，可接入用户历史偏好或本地小模型。",
-              },
-              {
-                t: "买菜清单导出",
-                d: "复制文本已就绪，可加导出为微信小程序卡片 / Markdown / 打印模板。",
-              },
-              {
-                t: "本地化数据",
-                d: "把买菜单位适配到「斤 / 把 / 克」混排，按地区菜场习惯切换。",
-              },
-              {
-                t: "营养与预算",
-                d: "为每道菜补充能量、蛋白质和大致价格，扩展过滤条件。",
-              },
-              {
-                t: "PWA & 离线",
-                d: "缓存数据 + 添加到主屏，让做饭中途也能查步骤。",
-              },
-            ].map((card) => (
-              <Card
-                key={card.t}
-                className="border-card-border/60 bg-card/60 p-4 hover-elevate active-elevate-2"
-              >
-                <h3 className="font-display text-[15px] tracking-tight">{card.t}</h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
-                  {card.d}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </section>
 
         <footer className="mt-16 flex flex-col items-center gap-2 pb-8 text-center text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1.5 text-primary/80">
