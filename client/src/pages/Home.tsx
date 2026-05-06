@@ -31,7 +31,14 @@ import { DishDetail } from "@/components/DishDetail";
 import { ProfileDialog } from "@/components/ProfileDialog";
 import { Onboarding } from "@/components/Onboarding";
 import { DishImage } from "@/components/DishImage";
+import { DishPhoto } from "@/components/DishPhoto";
 import { dishVisual } from "@/lib/dishVisual";
+import { MainTabsNav, loadTabFromHash, type MainTabId } from "@/components/MainTabs";
+import { HealthPanel } from "@/components/HealthPanel";
+import { SearchPanel } from "@/components/SearchPanel";
+import { TravelPanel } from "@/components/TravelPanel";
+import { pushRecent, recentPoolSet } from "@/lib/recentPool";
+import type { HealthFilterId, IngredientWishId } from "@/lib/recommend";
 import { Wordmark, Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -163,6 +170,18 @@ const COURSE_LABEL: Record<string, string> = {
   staple: "主食",
 };
 
+const WISH_OPTIONS: { id: IngredientWishId; label: string; emoji: string }[] = [
+  { id: "beef", label: "牛肉", emoji: "🥩" },
+  { id: "pork", label: "猪肉", emoji: "🥓" },
+  { id: "chicken", label: "鸡肉", emoji: "🍗" },
+  { id: "seafood", label: "鱼虾", emoji: "🍤" },
+  { id: "tofu", label: "豆腐", emoji: "🟦" },
+  { id: "vegetable", label: "蔬菜", emoji: "🥬" },
+  { id: "noodle", label: "面食", emoji: "🍜" },
+  { id: "rice", label: "米饭", emoji: "🍚" },
+  { id: "dessert", label: "甜品", emoji: "🍰" },
+];
+
 function DifficultyDots({ d }: { d: "简单" | "中等" | "进阶" }) {
   const n = d === "简单" ? 1 : d === "中等" ? 2 : 3;
   return (
@@ -189,6 +208,7 @@ function DishCard({
   onOpenDetail,
   onToggleFavorite,
   targetMealCal,
+  realImagesEnabled,
 }: {
   recipe: Recipe;
   locked: boolean;
@@ -199,6 +219,7 @@ function DishCard({
   onToggleFavorite: () => void;
   /** 当前餐次目标人均热量，启用饮食计划时显示对比 */
   targetMealCal?: number;
+  realImagesEnabled?: boolean;
 }) {
   const visual = dishVisual(recipe.name, recipe.course, recipe.cuisine);
   const perPerson = targetMealCal ? perPersonCaloriesOf(recipe) : 0;
@@ -213,7 +234,17 @@ function DishCard({
             aria-label={`查看 ${recipe.name} 详情`}
             className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl shadow-sm transition-transform hover:scale-[1.04] active:scale-[0.98]"
           >
-            <DishImage visual={visual} alt={`${recipe.name} 示意图`} className="h-full w-full" name={recipe.name} />
+            {realImagesEnabled ? (
+              <DishPhoto
+                name={recipe.name}
+                visual={visual}
+                alt={`${recipe.name} 示意图`}
+                className="h-full w-full"
+                showSourceBadge={false}
+              />
+            ) : (
+              <DishImage visual={visual} alt={`${recipe.name} 示意图`} className="h-full w-full" name={recipe.name} />
+            )}
           </button>
           <div>
             <div className="flex items-center gap-2">
@@ -572,6 +603,49 @@ export default function Home() {
   const [history, setHistory] = useState<HistoryEntry[]>(() => loadHistory());
   const [noRepeat, setNoRepeat] = useState<boolean>(() => loadNoRepeat());
 
+  // Tab 导航
+  const [tab, setTab] = useState<MainTabId>(() => loadTabFromHash());
+
+  // 食材偏好（想吃什么）
+  const [ingredientWish, setIngredientWish] = useState<IngredientWishId[]>([]);
+
+  // 健康规则（来自 health 面板的 syncFlags）
+  const [healthFlags, setHealthFlags] = useState<HealthFilterId[]>([]);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onApplied = () => {
+      try {
+        const raw = localStorage.getItem("chishenme.health.appliedFlags.v1");
+        if (!raw) return;
+        const parsed = JSON.parse(raw) as { flags: HealthFilterId[] };
+        if (parsed?.flags) {
+          setHealthFlags(parsed.flags);
+          toast({
+            title: "健康规则已应用到「今日推荐」",
+            description: "推荐排序会优先匹配 " + parsed.flags.join(" / ") + "。",
+          });
+        }
+      } catch {}
+    };
+    window.addEventListener("chishenme:health-applied", onApplied);
+    return () => window.removeEventListener("chishenme:health-applied", onApplied);
+  }, [toast]);
+
+  // 真实图片开关（默认开启；用户可通过 LocalStorage 关闭以省流量）
+  const [realImagesEnabled, setRealImagesEnabled] = useState<boolean>(() => {
+    try {
+      const raw = localStorage.getItem("chishenme.realImages.v1");
+      return raw == null ? true : raw === "1";
+    } catch {
+      return true;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("chishenme.realImages.v1", realImagesEnabled ? "1" : "0");
+    } catch {}
+  }, [realImagesEnabled]);
+
   // 应用场景预设到 prefs（Onboarding 选完 / 用户切 Tab 时）
   function applyScenario(id: ScenarioId, opts?: { silent?: boolean }) {
     setScenarioId(id);
@@ -634,8 +708,11 @@ export default function Home() {
     ctx.favorites = favorites;
     ctx.recentIds = recentRecipeIds(7);
     ctx.noRepeat = noRepeat;
+    ctx.recentSwapIds = recentPoolSet(40);
+    if (ingredientWish.length > 0) ctx.ingredientWish = ingredientWish;
+    if (healthFlags.length > 0) ctx.healthFilter = healthFlags;
     return ctx;
-  }, [profile, env, scenarioId, favorites, history, noRepeat]);
+  }, [profile, env, scenarioId, favorites, history, noRepeat, ingredientWish, healthFlags]);
 
   // 当前锁定菜品
   const lockedRecipes = useMemo(() => {
@@ -646,7 +723,10 @@ export default function Home() {
   function rollAll() {
     setShaking(true);
     setTimeout(() => {
-      setPlan(recommend(prefs, lockedRecipes, recommendCtx));
+      const next = recommend(prefs, lockedRecipes, recommendCtx);
+      setPlan(next);
+      // 把新推荐的菜 ids 写入近期池，下一次推荐会自动避开
+      pushRecent(planToList(next).map((r) => r.id));
       setShaking(false);
     }, 280);
   }
@@ -655,13 +735,26 @@ export default function Home() {
     if (!plan) return;
     const keepLocked = lockedRecipes.filter((r) => r.id !== recipe.id);
     const tempPrefs: Preferences = { ...prefs };
+    // 先把被换掉的菜临时加入「最近池」，让推荐避开它（避免反复出现同一道菜）
+    pushRecent([recipe.id]);
+    const localRecent = new Set<string>(recommendCtx.recentSwapIds ?? []);
+    localRecent.add(recipe.id);
+    const ctxWithBan = { ...recommendCtx, recentSwapIds: localRecent };
     let attempts = 0;
-    let next: MealPlan = recommend(tempPrefs, keepLocked, recommendCtx);
-    while (planToList(next).some((r) => r.id === recipe.id) && attempts < 6) {
-      next = recommend(tempPrefs, keepLocked, recommendCtx);
+    let next: MealPlan = recommend(tempPrefs, keepLocked, ctxWithBan);
+    while (planToList(next).some((r) => r.id === recipe.id) && attempts < 8) {
+      next = recommend(tempPrefs, keepLocked, ctxWithBan);
       attempts++;
     }
+    if (planToList(next).some((r) => r.id === recipe.id)) {
+      // 实在避不开 — 候选池太小，提示用户
+      toast({
+        title: "可换的菜较少",
+        description: "在当前筛选条件下，还会回到同一道菜。可以放宽口味或减少忌口再试。",
+      });
+    }
     setPlan(next);
+    pushRecent(planToList(next).map((r) => r.id));
     if (lockedIds.has(recipe.id)) {
       const ns = new Set(lockedIds);
       ns.delete(recipe.id);
@@ -813,6 +906,41 @@ export default function Home() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl px-4 sm:px-6">
+        <MainTabsNav active={tab} onChange={setTab} />
+        <div id="tab-content-anchor" className="scroll-mt-32" />
+
+        {tab !== "home" && (
+          <div className="pt-6">
+            {tab === "health" && (
+              <HealthPanel
+                onPickRecipe={(r) => setDetailRecipe(r)}
+                realImagesEnabled={realImagesEnabled}
+              />
+            )}
+            {tab === "search" && (
+              <SearchPanel
+                onPickRecipe={(r) => setDetailRecipe(r)}
+                realImagesEnabled={realImagesEnabled}
+              />
+            )}
+            {tab === "travel" && <TravelPanel />}
+            {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
+            {tab === "hotboard" && <HotBoard />}
+            <div className="mt-6 flex justify-end">
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 bg-card/60 px-3 py-1 text-[11.5px] hover-elevate">
+                <span>真实图片（公开图库）</span>
+                <Switch
+                  checked={realImagesEnabled}
+                  onCheckedChange={setRealImagesEnabled}
+                  data-testid="switch-real-images"
+                />
+              </label>
+            </div>
+          </div>
+        )}
+
+        {tab === "home" && (
+        <>
         {/* Hero — 升级版：渐变光晕 + 数据徽章 + 智能推荐卡。lg+ 用 mx-auto + 最大 5xl 让右侧卡片有空间。 */}
         <section className="relative pt-10 sm:pt-14 lg:-mx-32 xl:-mx-48">
           {/* 装饰背景 */}
@@ -869,10 +997,13 @@ export default function Home() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => scrollToSection("hotboard-section")}
+                  onClick={() => {
+                    setTab("hotboard");
+                    if (typeof window !== "undefined") window.location.hash = "#/hotboard";
+                  }}
                   data-testid="hero-stat-hotboard"
                   className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 font-medium text-primary transition-colors hover-elevate active-elevate-2"
-                  title="跳到饭桌热榜"
+                  title="跳到饭桌热榜 Tab"
                 >
                   <Flame className="h-3 w-3" />
                   <span>实时饭桌热榜</span>
@@ -889,7 +1020,10 @@ export default function Home() {
               scenarioLabel={getScenario(scenarioId).label}
               scenarioEmoji={getScenario(scenarioId).emoji}
               targetMealCalories={recommendCtx.targetMealCalories}
-              onJumpHot={() => scrollToSection("hotboard-section")}
+              onJumpHot={() => {
+                setTab("hotboard");
+                if (typeof window !== "undefined") window.location.hash = "#/hotboard";
+              }}
               onJumpCategories={() => scrollToSection("category-browser-section")}
             />
           </div>
@@ -1050,6 +1184,25 @@ export default function Home() {
                   data-testid="switch-no-repeat"
                 />
               </label>
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 hover-elevate" title="开启后从公开图库拉真实菜品图，加载失败会自动回落本地示意图">
+                <span>真实图片</span>
+                <Switch
+                  checked={realImagesEnabled}
+                  onCheckedChange={setRealImagesEnabled}
+                  data-testid="switch-real-images-home"
+                />
+              </label>
+              {healthFlags.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setHealthFlags([])}
+                  data-testid="chip-health-flags"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-emerald-700 hover-elevate"
+                  title="点击清除"
+                >
+                  <Leaf className="h-3.5 w-3.5" /> 健康规则: {healthFlags.length}
+                </button>
+              )}
             </div>
           </Card>
         </section>
@@ -1143,22 +1296,45 @@ export default function Home() {
 
             <Separator className="my-5" />
 
-            <SectionTitle num="01" title="口味偏好" hint="可多选 / 留空不限" />
-            <div className="flex flex-wrap gap-2">
-              {ALL_TASTES.map((t) => (
+            <SectionTitle num="01" title="想吃什么" hint="可多选 · 软偏好，不违反硬忌口" />
+            <div className="flex flex-wrap gap-2" data-testid="wish-chips">
+              {WISH_OPTIONS.map((w) => (
                 <Chip
-                  key={t}
-                  active={prefs.tastes.includes(t)}
-                  onClick={() => togglePref("tastes", t)}
-                  testId={`chip-taste-${t}`}
+                  key={w.id}
+                  active={ingredientWish.includes(w.id)}
+                  onClick={() =>
+                    setIngredientWish((prev) =>
+                      prev.includes(w.id)
+                        ? prev.filter((x) => x !== w.id)
+                        : [...prev, w.id],
+                    )
+                  }
+                  testId={`chip-wish-${w.id}`}
                 >
-                  {t}
+                  <span className="mr-1" aria-hidden>{w.emoji}</span>
+                  {w.label}
                 </Chip>
               ))}
             </div>
 
             <div className="mt-5">
-              <SectionTitle num="02" title="忌口 / 饮食限制" hint="勾选避开" />
+              <SectionTitle num="02" title="口味偏好" hint="可多选 / 留空不限" />
+              <div className="flex flex-wrap gap-2">
+                {ALL_TASTES.map((t) => (
+                  <Chip
+                    key={t}
+                    active={prefs.tastes.includes(t)}
+                    onClick={() => togglePref("tastes", t)}
+                    testId={`chip-taste-${t}`}
+                  >
+                    {t}
+                  </Chip>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <SectionTitle num="03" title="忌口 / 饮食限制" hint="勾选避开" />
               <div className="flex flex-wrap gap-2">
                 {ALL_RESTRICTIONS.map((r) => (
                   <Chip
@@ -1175,7 +1351,7 @@ export default function Home() {
 
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div>
-                <SectionTitle num="03" title="菜系" />
+                <SectionTitle num="04" title="菜系" />
                 <div className="flex flex-wrap gap-2">
                   {ALL_CUISINES.map((c) => (
                     <Chip
@@ -1190,7 +1366,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <SectionTitle num="04" title="难度" />
+                <SectionTitle num="05" title="难度" />
                 <div className="flex flex-wrap gap-2">
                   {ALL_DIFFICULTIES.map((d) => (
                     <Chip
@@ -1414,6 +1590,7 @@ export default function Home() {
                   onOpenDetail={() => setDetailRecipe(r)}
                   onToggleFavorite={() => onToggleFavorite(r.id)}
                   targetMealCal={recommendCtx.targetMealCalories}
+                  realImagesEnabled={realImagesEnabled}
                 />
               ))}
               {plan.veggie && (
@@ -1426,6 +1603,7 @@ export default function Home() {
                   onOpenDetail={() => setDetailRecipe(plan.veggie!)}
                   onToggleFavorite={() => onToggleFavorite(plan.veggie!.id)}
                   targetMealCal={recommendCtx.targetMealCalories}
+                  realImagesEnabled={realImagesEnabled}
                 />
               )}
               {plan.soup && (
@@ -1438,6 +1616,7 @@ export default function Home() {
                   onOpenDetail={() => setDetailRecipe(plan.soup!)}
                   onToggleFavorite={() => onToggleFavorite(plan.soup!.id)}
                   targetMealCal={recommendCtx.targetMealCalories}
+                  realImagesEnabled={realImagesEnabled}
                 />
               )}
             </div>
@@ -1540,13 +1719,7 @@ export default function Home() {
           </section>
         )}
 
-        {/* 饭桌陪伴 */}
-        <CompanionPanel ctx={companionCtx} />
-
-        {/* 饭桌热榜：饭桌陪伴附近 */}
-        <HotBoard />
-
-        {/* 门类浏览：甜品 / 饮品 / 小吃 / 烘焙 等 */}
+        {/* 门类浏览：甜品 / 饮品 / 小吃 / 烘焙 等。饭桌陪伴/热榜已拆到独立 Tab。 */}
         <CategoryBrowser onPickRecipe={(r) => setDetailRecipe(r)} />
 
         {/* 历史 / 收藏 */}
@@ -1619,6 +1792,8 @@ export default function Home() {
               </Card>
             )}
           </section>
+        )}
+        </>
         )}
 
         <footer className="mt-16 flex flex-col items-center gap-2 pb-8 text-center text-xs text-muted-foreground">

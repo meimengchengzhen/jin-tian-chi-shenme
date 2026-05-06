@@ -323,6 +323,13 @@
   .num {
     font-variant-numeric: tabular-nums lining-nums;
   }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
   @keyframes shake-rise {
     0% { transform: translateY(8px) rotate(-2deg); opacity: 0; }
     50% { transform: translateY(-3px) rotate(1deg); opacity: 1; }

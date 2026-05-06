@@ -71,7 +71,34 @@ export interface RecommendContext {
   recentIds?: Set<string>;
   /** 是否启用「不吃重复」软规则 */
   noRepeat?: boolean;
+  /** 「换一批」级别的最近推荐池 — 始终生效的软降权，避免连续抽到同一道菜 */
+  recentSwapIds?: Set<string>;
+  /** 食材偏好（想吃什么）— 软偏好加分；不会违反硬忌口 */
+  ingredientWish?: IngredientWishId[];
+  /** 健康规则：低糖 / 低盐 / 低嘌呤 / 软烂 / 优质蛋白 */
+  healthFilter?: HealthFilterId[];
 }
+
+/** 食材偏好 — 想吃什么。仅作为软评分加分。 */
+export type IngredientWishId =
+  | "beef"
+  | "pork"
+  | "chicken"
+  | "seafood"
+  | "tofu"
+  | "vegetable"
+  | "noodle"
+  | "rice"
+  | "dessert";
+
+/** 健康规则 — 用关键词推断。仅作为软排序参考，不是硬性医疗承诺。 */
+export type HealthFilterId =
+  | "low-sugar"
+  | "low-salt"
+  | "low-oil"
+  | "low-purine"
+  | "soft-easy-digest"
+  | "high-quality-protein";
 
 // === 硬性约束（无论如何都必须满足）===
 function violatesHardRestrictions(recipe: Recipe, prefs: Preferences): boolean {
@@ -220,8 +247,92 @@ export function scoreRecipe(
   // 7) 收藏加分 / 历史降权
   if (ctx.favorites && ctx.favorites.has(recipe.id)) s += 1.2;
   if (ctx.noRepeat && ctx.recentIds && ctx.recentIds.has(recipe.id)) s -= 1.5;
+  if (ctx.recentSwapIds && ctx.recentSwapIds.has(recipe.id)) s -= 1.0;
+
+  // 8) 食材偏好（想吃什么）— 软加分
+  if (ctx.ingredientWish && ctx.ingredientWish.length > 0) {
+    const blob = `${recipe.name} ${recipe.ingredients.map((i) => i.name).join(" ")} ${recipe.steps.join(" ")}`;
+    for (const wish of ctx.ingredientWish) {
+      if (matchesIngredientWish(wish, blob, recipe)) s += 0.9;
+    }
+  }
+
+  // 9) 健康偏好 — 软加分；不通过的菜不剔除（用户可自行换一批）
+  if (ctx.healthFilter && ctx.healthFilter.length > 0) {
+    for (const flag of ctx.healthFilter) {
+      if (passesHealthRule(flag, recipe)) s += 0.8;
+      else s -= 0.4;
+    }
+  }
 
   return s;
+}
+
+const WISH_PATTERNS: Record<IngredientWishId, { pos: RegExp; neg?: RegExp }> = {
+  beef: { pos: /牛肉|牛腩|牛排|肥牛|雪花牛|牛筋|牛舌|牛尾/ },
+  pork: {
+    pos: /猪肉|猪里脊|五花肉|排骨|里脊|梅花|肉末|肉丝|肉片|肉丁|叉烧|腊肉|腊肠|火腿|培根/,
+    neg: /牛肉|鸡肉|羊肉|鸭肉|鱼肉|虾肉|蟹肉|植物肉/,
+  },
+  chicken: { pos: /鸡肉|鸡胸|鸡腿|鸡翅|鸡丁|鸡丝|鸡块|鸡爪|三黄鸡/ },
+  seafood: { pos: /虾|鱼(?!香)|蟹|贝|蛤|蛎|鱿|墨鱼|带鱼|鲈|鲫|草鱼|三文|鳕|黄鱼|海鲜/ },
+  tofu: { pos: /豆腐|豆干|腐竹|豆皮|百叶/ },
+  vegetable: { pos: /白菜|青菜|菠菜|生菜|包菜|油菜|空心菜|西兰花|花菜|芹菜|茄子|黄瓜|番茄|西红柿|胡萝卜|土豆|莲藕|蘑菇|香菇|青椒|彩椒|尖椒|豆角|玉米|冬瓜|丝瓜|南瓜|韭菜/ },
+  noodle: { pos: /面|粉条|粉丝|米线|河粉|馄饨|饺|包子|烧麦|饼|馍|年糕/ },
+  rice: { pos: /米饭|炒饭|粥|焖饭|盖饭|拌饭|饭团|寿司|烩饭/ },
+  dessert: { pos: /蛋糕|布丁|奶冻|双皮奶|果冻|马卡龙|塔派|月饼|糖水|甜品|糖醋|糖浆|蜂蜜|甜汤|蛋挞|可丽饼|奶茶|果汁/ },
+};
+
+function matchesIngredientWish(wish: IngredientWishId, blob: string, recipe: Recipe): boolean {
+  const rule = WISH_PATTERNS[wish];
+  if (!rule.pos.test(blob)) {
+    // 类目兜底：dessert 可命中 category=甜品/饮品/烘焙
+    if (wish === "dessert" && (recipe.category === "甜品" || recipe.category === "饮品" || recipe.category === "烘焙" || recipe.category === "下午茶")) {
+      return true;
+    }
+    if (wish === "rice" && recipe.course === "staple" && /饭|粥/.test(recipe.name)) return true;
+    if (wish === "noodle" && recipe.course === "staple" && /面|粉|饼/.test(recipe.name)) return true;
+    return false;
+  }
+  if (rule.neg && rule.neg.test(blob)) return false;
+  return true;
+}
+
+// === 健康规则 ===
+// 仅基于现有 tags / ingredients / steps 关键词做粗略判断。
+// 不构成医疗建议；只用于排序加分。
+function passesHealthRule(flag: HealthFilterId, recipe: Recipe): boolean {
+  const blob = `${recipe.ingredients.map((i) => i.name).join(" ")} ${recipe.steps.join(" ")}`;
+  switch (flag) {
+    case "low-sugar":
+      // 不含糖/可乐/糖醋；口味不是「酸甜」（糖醋、糖油等）
+      return (
+        !/糖醋|可乐|冰糖|白糖|蜂蜜|果糖|麦芽糖|糖浆|甜面酱|糖油|蜜汁/.test(blob) &&
+        !recipe.tastes.includes("酸甜")
+      );
+    case "low-salt":
+      // 不含 高盐/重口 调料：豆瓣酱、老抽用量大、咸蛋、火腿、腊肉等
+      return !/豆瓣酱|腊肉|腊肠|火腿(?!肠)|咸蛋|咸菜|榨菜|酱油.*大勺|老抽.*大勺|盐.*大勺|郫县/.test(blob);
+    case "low-oil":
+      return !/油.*大勺|食用油.*大勺|香油.*大勺|猪油|花生油.*大勺|炸|爆/.test(blob) || /蒸|煮|炖|焖/.test(blob);
+    case "low-purine":
+      // 嘌呤高源：动物内脏、海鲜、浓汤、火锅、卤味、肉汤
+      return !/海鲜|虾|蟹|贝|蛤|鱼(?!香)|内脏|肝|心(?!粉)|肚|肠|脑|动物油|高汤|肉汤|浓汤|卤(?!水)/.test(blob);
+    case "soft-easy-digest":
+      // 软烂：粥、蒸、炖、煮、汤；不油炸、不爆炒
+      if (/粥|蒸|炖|煮|焖|羹|汤/.test(`${recipe.name} ${recipe.steps.join(" ")}`)) return true;
+      return recipe.course === "soup" || recipe.course === "veggie" && /煮|蒸/.test(blob);
+    case "high-quality-protein":
+      return /鸡胸|鸡蛋|鱼|虾|豆腐|腐竹|牛里脊|瘦肉|鸡腿肉(?!.*油炸)/.test(blob);
+  }
+}
+
+export function listHealthMatches(recipe: Recipe): HealthFilterId[] {
+  const out: HealthFilterId[] = [];
+  for (const f of ["low-sugar", "low-salt", "low-oil", "low-purine", "soft-easy-digest", "high-quality-protein"] as HealthFilterId[]) {
+    if (passesHealthRule(f, recipe)) out.push(f);
+  }
+  return out;
 }
 
 function pickFromCourse(
