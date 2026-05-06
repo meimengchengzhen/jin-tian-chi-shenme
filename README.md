@@ -6,6 +6,8 @@
 
 无登录 · 无后端 · 纯前端 MVP · 中文优先
 
+🌐 **[在线预览 · 立即体验](https://www.perplexity.ai/computer/a/jin-tian-chi-shi-yao-cai-JZA2UQlEQiqcDTqlYZnfsQ)**
+
 [功能特性](#功能特性) · [快速开始](#快速开始) · [项目结构](#项目结构) · [菜谱数据](#菜谱数据格式) · [推荐算法](#推荐算法简介) · [路线图](#路线图) · [贡献](#贡献方式)
 
 </div>
@@ -27,9 +29,9 @@
 
 ## 在线预览
 
-> 预览链接占位：项目可通过 `npm run build` 产出静态站点，部署到任意静态托管（Vercel / Netlify / Cloudflare Pages / GitHub Pages）。本仓库不绑定特定部署，请在 fork 后填入自己的预览地址，例如：
->
-> 🌐 **Live Demo:** `https://your-username.github.io/caipu/`
+🌐 **Live Demo:** <https://www.perplexity.ai/computer/a/jin-tian-chi-shi-yao-cai-JZA2UQlEQiqcDTqlYZnfsQ>
+
+打开链接即可在浏览器里直接试用本原型 —— 无需登录、不收集数据，刷新即换一组。如果你想自己 fork 后部署，项目通过 `npm run build` 产出静态站点，可托管到任意静态平台（Vercel / Netlify / Cloudflare Pages / GitHub Pages 等），fork 后把链接换成你自己的即可。
 
 如果你只想看截图，往下翻一屏。
 
@@ -44,6 +46,8 @@
 - **响应式 + 暗色模式**：手机一手可达，深色模式自动跟随系统。
 
 ## 截图
+
+> 想直接动手试？点 [在线预览](https://www.perplexity.ai/computer/a/jin-tian-chi-shi-yao-cai-JZA2UQlEQiqcDTqlYZnfsQ) 比看图更快。
 
 桌面端（1440 × 900）：
 
