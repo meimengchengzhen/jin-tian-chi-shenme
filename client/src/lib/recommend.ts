@@ -183,12 +183,12 @@ export function buildShoppingList(plan: MealPlan): Record<IngredientCategory, Sh
     "肉蛋豆制品": [],
     "调味/主食": [],
   };
-  for (const item of map.values()) {
+  Array.from(map.values()).forEach((item) => {
     grouped[item.category].push(item);
-  }
-  for (const cat of Object.keys(grouped) as IngredientCategory[]) {
+  });
+  (Object.keys(grouped) as IngredientCategory[]).forEach((cat) => {
     grouped[cat].sort((a, b) => a.name.localeCompare(b.name, "zh"));
-  }
+  });
   return grouped;
 }
 
