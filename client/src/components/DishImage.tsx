@@ -31,6 +31,9 @@ export function DishImage({
   const renderName = showName ?? large;
   const renderBadge = showBadge ?? large;
 
+  // 小图模式：在 emoji 旁叠一个标题首字，让缩略图不再像「纯色 + 单一 emoji」占位块。
+  const firstChar = !large && name ? (name.trim().charAt(0) || "") : "";
+
   return (
     <div
       role="img"
@@ -50,15 +53,49 @@ export function DishImage({
             "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.36), transparent 58%)",
         }}
       />
-      {/* 主 emoji：大图居左大尺寸，小图居中适中 */}
-      <span
-        aria-hidden
-        className={`relative flex h-full w-full items-center justify-center drop-shadow-sm ${
-          large ? "text-[5.5rem] sm:text-[6.5rem]" : "text-[1.75rem]"
-        }`}
-      >
-        {visual.emoji}
-      </span>
+      {/* 微纹理：小图也带，避免「纯色块」感 */}
+      {!large && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255,255,255,0.85) 1px, transparent 1px)",
+            backgroundSize: "7px 7px",
+          }}
+        />
+      )}
+      {/* 主视觉：大图保留大 emoji；小图叠首字 + emoji 角标，更像「卡面」 */}
+      {large ? (
+        <span
+          aria-hidden
+          className="relative flex h-full w-full items-center justify-center text-[5.5rem] drop-shadow-sm sm:text-[6.5rem]"
+        >
+          {visual.emoji}
+        </span>
+      ) : firstChar ? (
+        <>
+          <span
+            aria-hidden
+            className="relative flex h-full w-full items-center justify-center font-display text-[1.55rem] font-semibold leading-none text-white drop-shadow-md"
+          >
+            {firstChar}
+          </span>
+          <span
+            aria-hidden
+            className="absolute right-1 top-1 text-[14px] drop-shadow"
+          >
+            {visual.emoji}
+          </span>
+        </>
+      ) : (
+        <span
+          aria-hidden
+          className="relative flex h-full w-full items-center justify-center text-[1.75rem] drop-shadow-sm"
+        >
+          {visual.emoji}
+        </span>
+      )}
       {/* 菜系/类目角标 emoji，仅大图显示 */}
       {large && (
         <span

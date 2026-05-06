@@ -93,6 +93,10 @@ const SENSITIVE_KEYWORDS = [
   "性侵", "自杀", "自缢", "跳楼", "猥亵", "拐卖", "绑架", "纵火",
   // 重大社会冲突 / 群体事件
   "维权", "群体", "示威", "游行", "抗议", "封城", "封控", "拆迁",
+  "打架", "冲突", "斗殴", "暴力", "霸凌",
+  // 事故 / 案件
+  "车祸", "矿难", "事故现场", "判决", "目击证词", "持续发酵",
+  "刑事案件", "案件", "事故",
   // 地域 / 民族攻击
   "歧视", "排华", "辱华", "对立", "地域黑",
   // 涉黄涉赌 / 违法
@@ -185,27 +189,42 @@ export function decorate(items: HotItem[]): HotItem[] {
 }
 
 // ====== 静态 fallback 数据：API 失败 / 离线 / 没有 CORS 时仍展示 ======
-// 这些是「示例话题」，不是实时热点。屏蔽过滤后剩下都是饭桌友好。
+// 这些是「示例话题」，不是实时热点。屏蔽过滤后剩下大多数是饭桌友好；
+// 每个平台都故意保留 2-3 条会被屏蔽的话题（争议/事故/案件/冲突），
+// 这样关闭屏蔽开关时能看到条目数明显增加，开启时能看到「已屏蔽 X 条」。
+// 风格上每个平台尽量贴合真实调性：
+//   微博 — 明星 / 综艺 / 社会话题
+//   百度 — 民生 / 经济 / 设备评测
+//   抖音 — 短视频 / 探店 / 挑战
+//   知乎 — 长问答 / 推理 / 测评
+//   B 站 — 番剧 / 数码 / 鬼畜
+//   头条 — 财经 / 国际 / 民生
 export const STATIC_FALLBACK: Record<HotSource, HotItem[]> = {
   weibo: [
-    { id: "fb-w-1", title: "今天最适合喝什么奶茶", source: "weibo", hot: 980000, tag: "热" },
-    { id: "fb-w-2", title: "周末徒步路线分享", source: "weibo", hot: 760000 },
-    { id: "fb-w-3", title: "深秋必去的 5 个城市", source: "weibo", hot: 1230000, tag: "新" },
-    { id: "fb-w-4", title: "国产电影十月新片速递", source: "weibo", hot: 540000 },
-    { id: "fb-w-5", title: "今晚月色真美", source: "weibo", hot: 420000 },
-    { id: "fb-w-6", title: "小说改剧爆款盘点", source: "weibo", hot: 870000 },
-    { id: "fb-w-7", title: "猫咪冬天怎么过冬", source: "weibo", hot: 350000 },
-    { id: "fb-w-8", title: "城市烟火气最浓的小街", source: "weibo", hot: 660000 },
+    { id: "fb-w-1", title: "今天最适合喝什么奶茶", source: "weibo", hot: 9800000, tag: "热" },
+    { id: "fb-w-2", title: "周末徒步路线分享 City Walk 全攻略", source: "weibo", hot: 7600000 },
+    { id: "fb-w-3", title: "深秋必去的 5 个小众城市", source: "weibo", hot: 12300000, tag: "新" },
+    { id: "fb-w-4", title: "国产电影十月新片速递", source: "weibo", hot: 5400000, tag: "🔥" },
+    { id: "fb-w-5", title: "猫咪冬天怎么过冬最舒服", source: "weibo", hot: 3500000 },
+    { id: "fb-w-6", title: "今晚月色真美 全国赏月地图", source: "weibo", hot: 4200000 },
+    { id: "fb-w-7", title: "小说改剧年度爆款盘点", source: "weibo", hot: 8700000 },
+    { id: "fb-w-8", title: "城市烟火气最浓的 10 条小街", source: "weibo", hot: 6600000 },
+    { id: "fb-w-9", title: "演唱会安可名场面合集", source: "weibo", hot: 5200000, tag: "沸" },
+    { id: "fb-w-10", title: "顶流明星家暴风波再起争议", source: "weibo", hot: 18800000, tag: "爆" },
+    { id: "fb-w-11", title: "知名网红出轨塌房后续", source: "weibo", hot: 14500000 },
   ],
   baidu: [
     { id: "fb-b-1", title: "高德发布秋游热度榜", source: "baidu", hot: 5400000 },
-    { id: "fb-b-2", title: "今年最火的国产手机", source: "baidu", hot: 4800000 },
-    { id: "fb-b-3", title: "AI 工具评测年终盘点", source: "baidu", hot: 3200000 },
-    { id: "fb-b-4", title: "旅游 City Walk 攻略", source: "baidu", hot: 2900000 },
-    { id: "fb-b-5", title: "本周新片票房榜", source: "baidu", hot: 2700000 },
-    { id: "fb-b-6", title: "宠物粮选购指南", source: "baidu", hot: 1900000 },
-    { id: "fb-b-7", title: "热门动漫新番更新", source: "baidu", hot: 2100000 },
-    { id: "fb-b-8", title: "国产剧情片最新影评", source: "baidu", hot: 1500000 },
+    { id: "fb-b-2", title: "今年最火的国产手机评测", source: "baidu", hot: 4800000 },
+    { id: "fb-b-3", title: "AI 工具年终盘点", source: "baidu", hot: 3200000 },
+    { id: "fb-b-4", title: "旅游 City Walk 攻略大全", source: "baidu", hot: 2900000 },
+    { id: "fb-b-5", title: "本周新片票房榜 Top 10", source: "baidu", hot: 2700000 },
+    { id: "fb-b-6", title: "宠物粮怎么选 兽医说真话", source: "baidu", hot: 1900000 },
+    { id: "fb-b-7", title: "热门动漫新番更新表", source: "baidu", hot: 2100000 },
+    { id: "fb-b-8", title: "国产剧情片影评 豆瓣高分新作", source: "baidu", hot: 1500000 },
+    { id: "fb-b-9", title: "新能源车冬天续航测试", source: "baidu", hot: 2600000 },
+    { id: "fb-b-10", title: "高速车祸事故现场曝光", source: "baidu", hot: 8200000 },
+    { id: "fb-b-11", title: "电信诈骗最新套路警示", source: "baidu", hot: 3300000 },
   ],
   douyin: [
     { id: "fb-d-1", title: "抖音餐饮探店周榜", source: "douyin", hot: 12300000, tag: "🔥" },
@@ -214,27 +233,48 @@ export const STATIC_FALLBACK: Record<HotSource, HotItem[]> = {
     { id: "fb-d-4", title: "猫狗治愈视频精选", source: "douyin", hot: 6500000 },
     { id: "fb-d-5", title: "周末旅行打卡灵感", source: "douyin", hot: 4900000 },
     { id: "fb-d-6", title: "穿搭秋冬好物分享", source: "douyin", hot: 4300000 },
+    { id: "fb-d-7", title: "百万粉丝厨师教你做家常菜", source: "douyin", hot: 9100000, tag: "新" },
+    { id: "fb-d-8", title: "城市夜景延时摄影合集", source: "douyin", hot: 3600000 },
+    { id: "fb-d-9", title: "最近爆火的解压短剧", source: "douyin", hot: 5800000 },
+    { id: "fb-d-10", title: "网红打架冲突视频疯传", source: "douyin", hot: 11000000 },
+    { id: "fb-d-11", title: "外卖员被打事件持续发酵", source: "douyin", hot: 7400000 },
   ],
   zhihu: [
     { id: "fb-z-1", title: "如何挑选适合自己的咖啡豆", source: "zhihu", hot: 980000 },
-    { id: "fb-z-2", title: "适合居家锻炼的 5 个动作", source: "zhihu", hot: 770000 },
+    { id: "zh-2", title: "适合居家锻炼的 5 个动作", source: "zhihu", hot: 770000 },
     { id: "fb-z-3", title: "冷门但好用的 App 推荐", source: "zhihu", hot: 1300000 },
     { id: "fb-z-4", title: "最值得读的 2025 书单", source: "zhihu", hot: 1100000 },
     { id: "fb-z-5", title: "如何提高睡眠质量", source: "zhihu", hot: 880000 },
     { id: "fb-z-6", title: "如何在家煮一杯好喝的奶茶", source: "zhihu", hot: 660000 },
+    { id: "fb-z-7", title: "30 岁后该不该转行 求职指南", source: "zhihu", hot: 1450000, tag: "新" },
+    { id: "fb-z-8", title: "猫为什么半夜跑酷 行为学解读", source: "zhihu", hot: 920000 },
+    { id: "fb-z-9", title: "刑事案件中目击证词为何不可靠", source: "zhihu", hot: 1320000 },
+    { id: "fb-z-10", title: "如何看待最近这起命案的判决争议", source: "zhihu", hot: 2800000 },
   ],
   bilibili: [
     { id: "fb-bi-1", title: "新番十月推荐合集", source: "bilibili", hot: 5500000 },
-    { id: "fb-bi-2", title: "纪录片新作《风味人间》", source: "bilibili", hot: 4900000 },
+    { id: "fb-bi-2", title: "纪录片新作《风味人间》第四季", source: "bilibili", hot: 4900000, tag: "新" },
     { id: "fb-bi-3", title: "国产 3A 游戏开箱实测", source: "bilibili", hot: 4100000 },
     { id: "fb-bi-4", title: "数码博主双 11 推荐", source: "bilibili", hot: 3700000 },
     { id: "fb-bi-5", title: "Vlog 挑战 7 天极简生活", source: "bilibili", hot: 2800000 },
+    { id: "fb-bi-6", title: "鬼畜全明星新作上线", source: "bilibili", hot: 6200000, tag: "🔥" },
+    { id: "fb-bi-7", title: "深夜美食 ASMR 治愈合集", source: "bilibili", hot: 3300000 },
+    { id: "fb-bi-8", title: "学习区 100 天打卡挑战", source: "bilibili", hot: 2400000 },
+    { id: "fb-bi-9", title: "国漫《雾山五行》第二季前瞻", source: "bilibili", hot: 5100000 },
+    { id: "fb-bi-10", title: "校园暴力题材动画引发争议", source: "bilibili", hot: 4600000 },
+    { id: "fb-bi-11", title: "知名 Up 主因游戏诈骗道歉", source: "bilibili", hot: 3800000 },
   ],
   toutiao: [
     { id: "fb-t-1", title: "国庆出游热门城市榜", source: "toutiao", hot: 1980000 },
     { id: "fb-t-2", title: "iPhone 新机首批评测", source: "toutiao", hot: 1660000 },
     { id: "fb-t-3", title: "小米汽车 SU7 详细评测", source: "toutiao", hot: 1450000 },
     { id: "fb-t-4", title: "新茶饮品牌融资盘点", source: "toutiao", hot: 1180000 },
+    { id: "fb-t-5", title: "A 股周末重磅消息回顾", source: "toutiao", hot: 2240000, tag: "新" },
+    { id: "fb-t-6", title: "高考志愿填报实用指南", source: "toutiao", hot: 1330000 },
+    { id: "fb-t-7", title: "猪肉价格连续三周下跌", source: "toutiao", hot: 970000 },
+    { id: "fb-t-8", title: "央视《舌尖上的中国》新季", source: "toutiao", hot: 2100000, tag: "🔥" },
+    { id: "fb-t-9", title: "中东冲突局势再度升级", source: "toutiao", hot: 4800000 },
+    { id: "fb-t-10", title: "煤矿事故矿难调查最新进展", source: "toutiao", hot: 3300000 },
   ],
 };
 

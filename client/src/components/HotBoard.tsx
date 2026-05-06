@@ -2,7 +2,7 @@
 // 数据来源：lib/hotBoard.ts（多源 fallback + 静态兜底）。
 // 注意：所有外链都用 noopener noreferrer + target=_blank，避免劫持。
 import { useEffect, useState, useMemo } from "react";
-import { Flame, Shield, ShieldOff, RefreshCw, ExternalLink, Search, AlertTriangle, Sparkles, Loader2 } from "lucide-react";
+import { Flame, Shield, ShieldOff, RefreshCw, ExternalLink, Search, AlertTriangle, Sparkles, Loader2, Eye } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
@@ -69,7 +69,12 @@ export function HotBoard() {
   }
 
   const visible = useMemo(
-    () => applySensitiveFilter(items, settings.blockSensitive).slice(0, 10),
+    () =>
+      applySensitiveFilter(items, settings.blockSensitive).slice(
+        0,
+        // 关闭屏蔽时多放几条，让差异肉眼可见
+        settings.blockSensitive ? 10 : 14,
+      ),
     [items, settings.blockSensitive],
   );
   const blockedCount = useMemo(
@@ -143,8 +148,26 @@ export function HotBoard() {
               data-testid="switch-block-sensitive"
             />
           </label>
-          <span className="text-muted-foreground">
-            {settings.blockSensitive ? `已屏蔽 ${blockedCount} 条` : "全部展示"}
+          <span
+            className={`inline-flex items-center gap-1 ${
+              settings.blockSensitive
+                ? "text-primary/80"
+                : "text-amber-700"
+            }`}
+            data-testid="hotboard-block-status"
+          >
+            {settings.blockSensitive ? (
+              <>
+                <Shield className="h-3 w-3" /> 已屏蔽 {blockedCount} 条
+                {blockedCount > 0 && (
+                  <span className="text-muted-foreground">·饭桌不友好的话题</span>
+                )}
+              </>
+            ) : (
+              <>
+                <Eye className="h-3 w-3" /> 已显示全部热搜（含争议话题）
+              </>
+            )}
           </span>
           <span className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground">
             {live ? (
@@ -152,8 +175,8 @@ export function HotBoard() {
                 实时 · {sourceMeta.label}
               </Badge>
             ) : (
-              <Badge variant="outline" className="rounded-full border-amber-500/40 px-2 py-0 text-[10.5px] text-amber-700">
-                示例数据 · 远端不可达
+              <Badge variant="outline" className="rounded-full border-border/60 bg-background/60 px-2 py-0 text-[10.5px] text-muted-foreground">
+                内置精选 · {sourceMeta.label}
               </Badge>
             )}
           </span>
@@ -173,30 +196,78 @@ export function HotBoard() {
           <ol className="space-y-2" data-testid="hotboard-list">
             {visible.map((it, idx) => {
               const v = it.visual!;
+              const rank = idx + 1;
+              // 取标题首字（中文优先），没有则平台 emoji
+              const firstChar = (it.title || "").trim().charAt(0) || v.emoji;
+              const isTopRank = rank <= 3;
               return (
                 <li
                   key={it.id}
                   data-testid={`hotboard-item-${idx}`}
-                  className="group relative overflow-hidden rounded-lg border border-border/60 bg-background/60 p-3 transition-all hover:border-primary/40 hover:shadow-sm"
+                  className="group relative overflow-hidden rounded-xl border border-border/60 bg-background/60 p-3 transition-all hover:border-primary/40 hover:shadow-sm"
                 >
                   <div className="flex items-stretch gap-3">
-                    {/* 视觉卡 */}
+                    {/* 视觉卡：渐变 + 大号首字 + 平台徽章 + 排名 + 微纹理 */}
                     <div
-                      className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg text-2xl shadow-inner"
+                      className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-[68px] sm:w-[68px]"
                       style={{
-                        background: `linear-gradient(135deg, ${v.gradient[0]}, ${v.gradient[1]})`,
+                        background: `linear-gradient(135deg, ${v.gradient[0]} 0%, ${v.gradient[1]} 100%)`,
                       }}
                       aria-hidden
+                      data-testid={`hotboard-visual-${idx}`}
                     >
-                      <span>{v.emoji}</span>
-                      <span className="absolute bottom-0.5 right-0.5 rounded-full bg-white/85 px-1 text-[9px] text-foreground/70">
-                        示意图
+                      {/* 高光斑 */}
+                      <span
+                        className="pointer-events-none absolute inset-0"
+                        style={{
+                          background:
+                            "radial-gradient(circle at 30% 22%, rgba(255,255,255,0.42), transparent 60%)",
+                        }}
+                      />
+                      {/* 微点阵纹理 */}
+                      <span
+                        className="pointer-events-none absolute inset-0 opacity-[0.18]"
+                        style={{
+                          backgroundImage:
+                            "radial-gradient(rgba(255,255,255,0.85) 1px, transparent 1px)",
+                          backgroundSize: "8px 8px",
+                        }}
+                      />
+                      {/* 大首字 + emoji 叠加 */}
+                      <span className="relative flex h-full w-full items-center justify-center">
+                        <span className="font-display text-[1.95rem] font-semibold leading-none text-white drop-shadow-md">
+                          {firstChar}
+                        </span>
+                        <span className="absolute right-1 top-1 text-[14px] drop-shadow">
+                          {v.emoji}
+                        </span>
+                      </span>
+                      {/* 排名 */}
+                      <span
+                        className={`absolute left-1 top-1 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 font-display text-[10.5px] font-bold tabular-nums ${
+                          isTopRank
+                            ? "bg-primary text-primary-foreground shadow"
+                            : "bg-white/85 text-foreground/80"
+                        }`}
+                      >
+                        {rank}
+                      </span>
+                      {/* 平台徽章（底栏） */}
+                      <span
+                        className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-0.5 px-1 py-[1px] text-[9px] font-medium text-white/95"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, transparent, rgba(0,0,0,0.45))",
+                        }}
+                      >
+                        <span aria-hidden>{sourceMeta.emoji}</span>
+                        <span className="truncate">{sourceMeta.label}</span>
                       </span>
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline gap-2">
                         <span className="font-display text-[15px] num text-primary">
-                          #{idx + 1}
+                          #{rank}
                         </span>
                         <h3
                           className="truncate text-[14px] font-medium text-foreground"
@@ -234,16 +305,18 @@ export function HotBoard() {
                           <ExternalLink className="h-3 w-3" />
                           看{sourceMeta.label}
                         </a>
-                        <a
-                          href={baiduUrlFor(it)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/60 px-2 py-0.5 text-[11px] text-foreground/80 hover-elevate active-elevate-2"
-                          data-testid={`hotboard-baidu-${idx}`}
-                        >
-                          <Search className="h-3 w-3" />
-                          百度搜
-                        </a>
+                        {settings.source !== "baidu" && (
+                          <a
+                            href={baiduUrlFor(it)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/60 px-2 py-0.5 text-[11px] text-foreground/80 hover-elevate active-elevate-2"
+                            data-testid={`hotboard-baidu-${idx}`}
+                          >
+                            <Search className="h-3 w-3" />
+                            百度搜
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -254,8 +327,8 @@ export function HotBoard() {
         )}
 
         {error && (
-          <p className="mt-3 text-[11px] text-muted-foreground" data-testid="hotboard-error">
-            ℹ 远端聚合 API 暂不可达（{error.slice(0, 40)}），已切到示例热榜。所有外链仍可正常跳转到平台搜索。
+          <p className="mt-3 text-[11px] text-muted-foreground/80" data-testid="hotboard-error">
+            已使用内置热榜样例 · 联网后自动刷新；外链仍跳转到对应平台搜索结果。
           </p>
         )}
       </Card>

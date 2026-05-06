@@ -28,6 +28,95 @@ import {
 
 type TabKey = "watch" | "topic" | "audio";
 
+const COMPANION_GRADIENTS: [string, string][] = [
+  ["#fbb273", "#c8552a"],
+  ["#f0c179", "#a85a2c"],
+  ["#a4cef0", "#3a78b6"],
+  ["#bce39a", "#5e9c45"],
+  ["#f8bbd0", "#c2185b"],
+  ["#c5cae9", "#3f51b5"],
+  ["#b2dfdb", "#00897b"],
+  ["#ffd180", "#f57c00"],
+];
+
+function pickCompanionGradient(seed: string): [string, string] {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
+  return COMPANION_GRADIENTS[Math.abs(h) % COMPANION_GRADIENTS.length];
+}
+
+function pickCompanionEmoji(title: string, kind: "watch" | "audio", typeHint?: string): string {
+  const t = `${title}|${typeHint ?? ""}`;
+  if (/纪录|纪实|风味|地球|自然/.test(t)) return "🌏";
+  if (/动画|动漫|宫崎|漫|番/.test(t)) return "🎞️";
+  if (/综艺|笑|搞笑|喜剧|相声|脱口/.test(t)) return "🎙️";
+  if (/悬疑|推理|侦探|凶/.test(t)) return "🔍";
+  if (/美食|厨|食|做饭|餐|烤|甜/.test(t)) return "🍱";
+  if (/球|赛|奥运|联赛/.test(t)) return "🏆";
+  if (/历史|帝|朝/.test(t)) return "🏯";
+  if (/科幻|宇宙|太空|未来/.test(t)) return "🛸";
+  if (/电影|院线|首映|大片/.test(t)) return "🎬";
+  if (/电视剧|剧/.test(t)) return "📺";
+  if (/小说|书|文学|读书/.test(t)) return "📖";
+  if (/古典|交响|钢琴|爵士|乐曲/.test(t)) return "🎼";
+  if (/民谣|流行|金曲|华语/.test(t)) return "🎵";
+  if (/播客|脱口|访谈|对谈/.test(t)) return "🎤";
+  if (/治愈|温暖|睡前|白噪|放松/.test(t)) return "🌿";
+  return kind === "watch" ? "🎬" : "🎧";
+}
+
+function CompanionVisual({
+  title,
+  kind,
+  typeHint,
+}: {
+  title: string;
+  kind: "watch" | "audio";
+  typeHint?: string;
+}) {
+  const gradient = pickCompanionGradient(title + kind);
+  const emoji = pickCompanionEmoji(title, kind, typeHint);
+  const firstChar = (title || "").trim().charAt(0) || emoji;
+  return (
+    <div
+      className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-14 sm:w-14"
+      style={{ background: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})` }}
+      aria-hidden
+    >
+      <span
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 22%, rgba(255,255,255,0.4), transparent 60%)",
+        }}
+      />
+      <span
+        className="pointer-events-none absolute inset-0 opacity-[0.18]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.85) 1px, transparent 1px)",
+          backgroundSize: "8px 8px",
+        }}
+      />
+      <span className="relative flex h-full w-full items-center justify-center font-display text-[1.3rem] font-semibold text-white drop-shadow-md sm:text-[1.55rem]">
+        {firstChar}
+      </span>
+      <span className="absolute right-0.5 top-0.5 text-[12px] drop-shadow">{emoji}</span>
+      {typeHint && (
+        <span
+          className="absolute inset-x-0 bottom-0 truncate px-1 py-[1px] text-center text-[8.5px] font-medium text-white/95"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, rgba(0,0,0,0.42))",
+          }}
+        >
+          {typeHint}
+        </span>
+      )}
+    </div>
+  );
+}
+
 interface Props {
   ctx: CompanionContext;
 }
@@ -170,8 +259,9 @@ function WatchList({ items }: { items: RecommendedWatch[] }) {
             className="rounded-xl border border-border/60 bg-background/40 p-3"
             data-testid={`watch-${it.id}`}
           >
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0">
+            <div className="flex items-start gap-3">
+              <CompanionVisual title={it.title} kind="watch" typeHint={it.type} />
+              <div className="min-w-0 flex-1">
                 <h4 className="truncate font-display text-[15px] tracking-tight">{it.title}</h4>
                 <div className="mt-0.5 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
                   <Badge variant="outline" className="rounded-full px-1.5 py-0 text-[10.5px]">
@@ -252,8 +342,9 @@ function AudioList({ items }: { items: RecommendedAudio[] }) {
             className="rounded-xl border border-border/60 bg-background/40 p-3"
             data-testid={`audio-${it.id}`}
           >
-            <div className="flex items-start justify-between gap-2">
-              <div className="min-w-0">
+            <div className="flex items-start gap-3">
+              <CompanionVisual title={it.title} kind="audio" typeHint={it.type} />
+              <div className="min-w-0 flex-1">
                 <h4 className="truncate font-display text-[15px] tracking-tight">{it.title}</h4>
                 <div className="mt-0.5 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
                   <Badge variant="outline" className="rounded-full px-1.5 py-0 text-[10.5px]">

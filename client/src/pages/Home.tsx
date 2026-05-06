@@ -213,7 +213,7 @@ function DishCard({
             aria-label={`查看 ${recipe.name} 详情`}
             className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl shadow-sm transition-transform hover:scale-[1.04] active:scale-[0.98]"
           >
-            <DishImage visual={visual} alt={`${recipe.name} 示意图`} className="h-full w-full" />
+            <DishImage visual={visual} alt={`${recipe.name} 示意图`} className="h-full w-full" name={recipe.name} />
           </button>
           <div>
             <div className="flex items-center gap-2">
