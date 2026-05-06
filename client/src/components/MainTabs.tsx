@@ -121,31 +121,41 @@ export function MainTabsNav({ active, onChange }: Props) {
     };
   }, []);
 
-  // v2: 鼠标横向拖拽（桌面/触控屏均支持）
+  // v2.1: 鼠标横向拖拽 — 只在「鼠标按下并真正拖动」时启用；
+  // 普通点击 / 触摸滚动一律不参与，避免 setPointerCapture 把 click 抢走。
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
+    const DRAG_THRESHOLD = 6;
     const onPointerDown = (e: PointerEvent) => {
-      // 只对左键 / 触摸 / 笔反应
-      if (e.pointerType === "mouse" && e.button !== 0) return;
-      dragRef.current = { active: true, startX: e.clientX, startLeft: el.scrollLeft, moved: false };
-      el.setPointerCapture?.(e.pointerId);
+      // 只对鼠标左键参与拖拽。触摸/笔走原生横滑（touch-action: pan-x），不拦截。
+      if (e.pointerType !== "mouse") return;
+      if (e.button !== 0) return;
+      // 如果按到的是按钮（Tab 按钮），完全不接管，避免误判 drag 偷走 click
+      const tgt = e.target as Element | null;
+      if (tgt && tgt.closest("button")) return;
+      dragRef.current = {
+        active: true,
+        startX: e.clientX,
+        startLeft: el.scrollLeft,
+        moved: false,
+      };
       el.style.cursor = "grabbing";
     };
     const onPointerMove = (e: PointerEvent) => {
       const d = dragRef.current;
       if (!d.active) return;
       const dx = e.clientX - d.startX;
-      if (Math.abs(dx) > 4) d.moved = true;
+      if (!d.moved && Math.abs(dx) <= DRAG_THRESHOLD) return; // 还没到阈值，按"未拖动"处理
+      if (!d.moved) d.moved = true;
       el.scrollLeft = d.startLeft - dx;
     };
-    const onPointerUp = (e: PointerEvent) => {
+    const onPointerUp = () => {
       const d = dragRef.current;
       if (!d.active) return;
       d.active = false;
-      el.releasePointerCapture?.(e.pointerId);
       el.style.cursor = "";
-      // 拖动完后短暂禁掉子按钮 click，防止触发误点
+      // 只有真正拖动过才短暂屏蔽 click，避免拖完释放误点中按钮
       if (d.moved) {
         const blockClick = (ev: Event) => {
           ev.preventDefault();
@@ -153,7 +163,7 @@ export function MainTabsNav({ active, onChange }: Props) {
           window.removeEventListener("click", blockClick, true);
         };
         window.addEventListener("click", blockClick, true);
-        setTimeout(() => window.removeEventListener("click", blockClick, true), 80);
+        setTimeout(() => window.removeEventListener("click", blockClick, true), 60);
       }
     };
     el.addEventListener("pointerdown", onPointerDown);

@@ -320,7 +320,12 @@
   background-image: none;
 }
 
-/* === 餐次主题：通过 data-meal=breakfast/lunch/dinner 覆盖 primary + 背景渐变。 === */
+/* === 餐次主题：通过 data-meal=breakfast/lunch/dinner 与当前 data-theme 组合覆盖。 ===
+ *  设计：每个主题都为早/午/晚定义不同的 --primary / --accent / --background 与背景渐变，
+ *  让"主题 × 餐次"得到 7×3 = 21 种明显不同的视觉，而不再固定一组暖色。
+ */
+
+/* 默认（warm 经典）— 早餐：晨光鹅黄 */
 :root[data-meal="breakfast"] {
   --primary: 36 75% 56%;
   --ring: 36 75% 56%;
@@ -330,9 +335,10 @@
 }
 :root[data-meal="breakfast"] body {
   background-image:
-    radial-gradient(circle at 12% 8%, hsl(45 80% 88% / 0.65), transparent 38%),
-    radial-gradient(circle at 92% 110%, hsl(195 50% 86% / 0.55), transparent 42%);
+    radial-gradient(circle at 12% 8%, hsl(45 80% 86% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(195 60% 84% / 0.55), transparent 42%);
 }
+/* 默认（warm 经典）— 午餐：日正暖橙 */
 :root[data-meal="lunch"] {
   --primary: 22 80% 52%;
   --ring: 22 80% 52%;
@@ -342,9 +348,10 @@
 }
 :root[data-meal="lunch"] body {
   background-image:
-    radial-gradient(circle at 14% 6%, hsl(36 80% 86% / 0.6), transparent 38%),
-    radial-gradient(circle at 92% 110%, hsl(20 65% 84% / 0.55), transparent 42%);
+    radial-gradient(circle at 14% 6%, hsl(36 80% 86% / 0.65), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(20 65% 82% / 0.55), transparent 42%);
 }
+/* 默认（warm 经典）— 晚餐：暮色陶红 */
 :root[data-meal="dinner"] {
   --primary: 14 60% 42%;
   --ring: 14 60% 42%;
@@ -354,8 +361,274 @@
 }
 :root[data-meal="dinner"] body {
   background-image:
-    radial-gradient(circle at 12% 6%, hsl(28 50% 82% / 0.6), transparent 38%),
-    radial-gradient(circle at 88% 110%, hsl(14 45% 80% / 0.55), transparent 42%);
+    radial-gradient(circle at 12% 6%, hsl(28 60% 80% / 0.65), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(14 50% 76% / 0.55), transparent 42%);
+}
+
+/* === fresh 蓝白 × 餐次 === */
+:root[data-theme="fresh"][data-meal="breakfast"] {
+  --primary: 198 88% 50%;
+  --ring: 198 88% 50%;
+  --accent: 50 80% 88%;
+  --accent-foreground: 36 60% 22%;
+  --background: 200 55% 97%;
+}
+:root[data-theme="fresh"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 10% 8%, hsl(50 90% 86% / 0.65), transparent 38%),
+    radial-gradient(circle at 92% 108%, hsl(198 80% 86% / 0.6), transparent 42%);
+}
+:root[data-theme="fresh"][data-meal="lunch"] {
+  --primary: 213 88% 50%;
+  --ring: 213 88% 50%;
+  --accent: 200 70% 86%;
+  --accent-foreground: 210 50% 22%;
+  --background: 210 45% 97%;
+}
+:root[data-theme="fresh"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(210 90% 88% / 0.65), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(195 70% 84% / 0.55), transparent 42%);
+}
+:root[data-theme="fresh"][data-meal="dinner"] {
+  --primary: 232 70% 52%;
+  --ring: 232 70% 52%;
+  --accent: 230 35% 84%;
+  --accent-foreground: 232 60% 22%;
+  --background: 220 35% 94%;
+}
+:root[data-theme="fresh"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 10% 6%, hsl(230 60% 82% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(258 60% 82% / 0.5), transparent 42%);
+}
+
+/* === cream 奶油 × 餐次 === */
+:root[data-theme="cream"][data-meal="breakfast"] {
+  --primary: 36 80% 52%;
+  --ring: 36 80% 52%;
+  --accent: 38 60% 88%;
+  --accent-foreground: 28 50% 24%;
+  --background: 38 60% 96%;
+}
+:root[data-theme="cream"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(45 80% 86% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(28 70% 86% / 0.55), transparent 42%);
+}
+:root[data-theme="cream"][data-meal="lunch"] {
+  --primary: 28 78% 50%;
+  --ring: 28 78% 50%;
+  --accent: 36 50% 86%;
+  --accent-foreground: 26 50% 22%;
+  --background: 32 50% 95%;
+}
+:root[data-theme="cream"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(32 80% 84% / 0.65), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(20 70% 82% / 0.5), transparent 42%);
+}
+:root[data-theme="cream"][data-meal="dinner"] {
+  --primary: 18 60% 42%;
+  --ring: 18 60% 42%;
+  --accent: 16 30% 82%;
+  --accent-foreground: 18 50% 22%;
+  --background: 24 32% 92%;
+}
+:root[data-theme="cream"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(24 50% 78% / 0.7), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(10 45% 76% / 0.55), transparent 42%);
+}
+
+/* === mint 薄荷 × 餐次 === */
+:root[data-theme="mint"][data-meal="breakfast"] {
+  --primary: 154 60% 38%;
+  --ring: 154 60% 38%;
+  --accent: 50 65% 88%;
+  --accent-foreground: 50 50% 22%;
+  --background: 132 45% 96%;
+}
+:root[data-theme="mint"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(50 80% 86% / 0.65), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(150 70% 84% / 0.55), transparent 42%);
+}
+:root[data-theme="mint"][data-meal="lunch"] {
+  --primary: 150 60% 36%;
+  --ring: 150 60% 36%;
+  --accent: 80 40% 84%;
+  --accent-foreground: 90 40% 22%;
+  --background: 130 40% 95%;
+}
+:root[data-theme="mint"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(140 70% 84% / 0.65), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(80 65% 84% / 0.55), transparent 42%);
+}
+:root[data-theme="mint"][data-meal="dinner"] {
+  --primary: 170 50% 30%;
+  --ring: 170 50% 30%;
+  --accent: 200 32% 80%;
+  --accent-foreground: 210 50% 22%;
+  --background: 180 28% 92%;
+}
+:root[data-theme="mint"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(180 55% 80% / 0.65), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(220 45% 80% / 0.55), transparent 42%);
+}
+
+/* === midnight 夜宵 × 餐次 === */
+:root[data-theme="midnight"][data-meal="breakfast"] {
+  --primary: 38 90% 60%;
+  --ring: 38 90% 60%;
+  --accent: 30 30% 22%;
+  --accent-foreground: 38 60% 86%;
+  --background: 220 20% 11%;
+}
+:root[data-theme="midnight"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(38 60% 28% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(220 35% 18% / 0.55), transparent 42%);
+}
+:root[data-theme="midnight"][data-meal="lunch"] {
+  --primary: 213 90% 64%;
+  --ring: 213 90% 64%;
+  --accent: 200 30% 22%;
+  --accent-foreground: 210 30% 86%;
+  --background: 218 22% 10%;
+}
+:root[data-theme="midnight"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(220 50% 22% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(200 50% 22% / 0.55), transparent 42%);
+}
+:root[data-theme="midnight"][data-meal="dinner"] {
+  --primary: 280 65% 65%;
+  --ring: 280 65% 65%;
+  --accent: 260 20% 22%;
+  --accent-foreground: 260 30% 86%;
+  --background: 250 22% 10%;
+}
+:root[data-theme="midnight"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(280 40% 22% / 0.7), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(220 35% 18% / 0.55), transparent 42%);
+}
+
+/* === vibrant 粉橘 × 餐次 === */
+:root[data-theme="vibrant"][data-meal="breakfast"] {
+  --primary: 24 86% 56%;
+  --ring: 24 86% 56%;
+  --accent: 38 80% 88%;
+  --accent-foreground: 24 60% 24%;
+  --background: 30 60% 97%;
+}
+:root[data-theme="vibrant"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(38 90% 86% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(354 65% 86% / 0.5), transparent 42%);
+}
+:root[data-theme="vibrant"][data-meal="lunch"] {
+  --primary: 354 86% 58%;
+  --ring: 354 86% 58%;
+  --accent: 22 80% 86%;
+  --accent-foreground: 18 50% 24%;
+  --background: 12 60% 97%;
+}
+:root[data-theme="vibrant"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(28 80% 86% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(354 80% 84% / 0.55), transparent 42%);
+}
+:root[data-theme="vibrant"][data-meal="dinner"] {
+  --primary: 330 65% 50%;
+  --ring: 330 65% 50%;
+  --accent: 320 30% 84%;
+  --accent-foreground: 320 50% 22%;
+  --background: 340 30% 95%;
+}
+:root[data-theme="vibrant"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(330 60% 82% / 0.7), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(280 50% 80% / 0.5), transparent 42%);
+}
+
+/* === minimal 黑白 × 餐次 — 用浅灰阶 + 微弱色调 === */
+:root[data-theme="minimal"][data-meal="breakfast"] {
+  --primary: 0 0% 18%;
+  --ring: 0 0% 18%;
+  --accent: 50 30% 92%;
+  --accent-foreground: 0 0% 12%;
+  --background: 40 18% 98%;
+}
+:root[data-theme="minimal"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(50 40% 92% / 0.6), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(0 0% 94% / 0.55), transparent 42%);
+}
+:root[data-theme="minimal"][data-meal="lunch"] {
+  --primary: 0 0% 12%;
+  --ring: 0 0% 12%;
+  --accent: 0 0% 92%;
+  --accent-foreground: 0 0% 12%;
+  --background: 0 0% 99%;
+}
+:root[data-theme="minimal"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(0 0% 94% / 0.6), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(0 0% 90% / 0.5), transparent 42%);
+}
+:root[data-theme="minimal"][data-meal="dinner"] {
+  --primary: 0 0% 6%;
+  --ring: 0 0% 6%;
+  --accent: 220 15% 88%;
+  --accent-foreground: 0 0% 12%;
+  --background: 220 14% 96%;
+}
+:root[data-theme="minimal"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(220 18% 90% / 0.65), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(0 0% 88% / 0.55), transparent 42%);
+}
+
+/* === warm 经典暖橘 × 餐次（与默认相同，但显式声明优先级覆盖） === */
+:root[data-theme="warm"][data-meal="breakfast"] {
+  --primary: 36 75% 56%;
+  --ring: 36 75% 56%;
+  --accent: 198 55% 88%;
+  --accent-foreground: 200 50% 28%;
+  --background: 42 65% 96%;
+}
+:root[data-theme="warm"][data-meal="breakfast"] body {
+  background-image:
+    radial-gradient(circle at 12% 8%, hsl(45 80% 86% / 0.7), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(195 60% 84% / 0.55), transparent 42%);
+}
+:root[data-theme="warm"][data-meal="lunch"] {
+  --primary: 22 80% 52%;
+  --ring: 22 80% 52%;
+  --accent: 60 30% 86%;
+  --accent-foreground: 26 50% 26%;
+  --background: 36 55% 95%;
+}
+:root[data-theme="warm"][data-meal="lunch"] body {
+  background-image:
+    radial-gradient(circle at 14% 6%, hsl(36 80% 86% / 0.65), transparent 40%),
+    radial-gradient(circle at 92% 110%, hsl(20 65% 82% / 0.55), transparent 42%);
+}
+:root[data-theme="warm"][data-meal="dinner"] {
+  --primary: 14 60% 42%;
+  --ring: 14 60% 42%;
+  --accent: 18 25% 84%;
+  --accent-foreground: 18 50% 22%;
+  --background: 24 30% 92%;
+}
+:root[data-theme="warm"][data-meal="dinner"] body {
+  background-image:
+    radial-gradient(circle at 12% 6%, hsl(28 60% 80% / 0.65), transparent 40%),
+    radial-gradient(circle at 88% 110%, hsl(14 50% 76% / 0.55), transparent 42%);
 }
 
 .dark {
