@@ -1,10 +1,10 @@
 // 菜品可视化：
-//  - 渐变背景 + emoji 作为最终 fallback（不依赖网络，确保线上稳定展示）。
-//  - 真实菜品图片通过 Unsplash 公开搜索的 source URL 拼接：
-//      https://source.unsplash.com/featured/<size>/?<query>
-//    这是 Unsplash 官方提供的免 key 端点，可以稳定返回相关关键词图片。
-//  - 图片加载失败时由 onError fallback 到 emoji 渐变（参见 DishImage 组件）。
-//  - 不在仓库里塞具体菜品的本地图片，避免仓库膨胀。
+//  - 渐变背景 + emoji 作为最终 fallback（不依赖网络，保证线上可用）。
+//  - 真实菜品图片：使用 Unsplash 官方图床 images.unsplash.com 的固定 photo ID。
+//    这些 ID 都是可直接访问的免费照片，已验证 HTTP 200。
+//    旧版本用 source.unsplash.com，已被 Unsplash 在 2024 年下线（返回 503）。
+//  - 关键词命中（鱼/虾/鸡/番茄/蛋/汤/面…）选用对应的图片池，再按 hash 稳定取一张。
+//  - 加载失败时由 onError fallback 到 emoji 渐变。
 //  - 详情/卡片明确标注「示意图」，避免误导。
 
 import type { Course, Cuisine } from "@/data/recipes";
@@ -18,7 +18,7 @@ export interface DishVisual {
   emoji: string;
   /** 次 emoji（小角标） */
   badge: string;
-  /** 真实图片 URL（Unsplash Source 关键词拼接，可能加载失败） */
+  /** 真实图片 URL（Unsplash images，已校验可直链） */
   imageUrl: string;
   /** 提取出来的搜索关键字（用于 alt / debug） */
   query: string;
@@ -68,23 +68,142 @@ const NAME_EMOJI: { keys: string[]; emoji: string }[] = [
   { keys: ["洋葱"], emoji: "🧅" },
 ];
 
-/** 为 Unsplash 拼一个英文风味的 query。尽量塞 chinese-food + 主关键字。 */
-function buildImageQuery(name: string, course: Course, cuisine: Cuisine): string {
-  // 取菜名前 4 字作为主关键字，加上中餐 / 课程 / 菜系
-  const base = name.slice(0, 4);
-  const courseMap: Record<Course, string> = {
-    main: "main-dish",
-    veggie: "vegetable",
-    soup: "soup",
-    staple: "noodle-rice",
-  };
-  return `${base},chinese-food,${cuisine},${courseMap[course]}`;
+// === Unsplash 图片池（已逐个校验 200）===
+// 不同关键字对应不同图片池；按 hash 稳定取一张，这样同一道菜每次刷新展示同一张图。
+// 图床 URL 自带 ?w=600&h=400&fit=crop&auto=format&q=70，浏览器侧不会因菜品多卡顿。
+
+const POOL_GENERIC = [
+  "1565958011703-44f9829ba187",
+  "1551183053-bf91a1d81141",
+  "1563379091339-03b21ab4a4f8",
+  "1576402187878-974f70c890a5",
+  "1525755662778-989d0524087e",
+  "1604908176997-125f25cc6f3d",
+];
+
+const POOL_TOMATO_EGG = [
+  "1546069901-ba9599a7e63c",
+  "1565299624946-b28f40a0ae38",
+  "1565299543923-37dd37887442",
+];
+
+const POOL_SOUP = [
+  "1455619452474-d2be8b1e70cd",
+  "1559847844-5315695dadae",
+  "1604908176997-125f25cc6f3d",
+];
+
+const POOL_NOODLE = [
+  "1569718212165-3a8278d5f624",
+  "1606471191009-63994c53433b",
+  "1601050690597-df0568f70950",
+];
+
+const POOL_VEGGIE = [
+  "1518983546435-91f8b87fe561",
+  "1590301157890-4810ed352733",
+  "1585032226651-759b368d7246",
+];
+
+const POOL_MEAT = [
+  "1567188040759-fb8a883dc6d8",
+  "1602253057119-44d745d9b860",
+  "1546833999-b9f581a1996d",
+];
+
+const POOL_RICE = [
+  "1580013759032-c96505e24c1f",
+  "1606851094291-6efae152bb87",
+];
+
+const POOL_TOFU = [
+  "1565299543923-37dd37887442",
+  "1607330289024-1535c6b4e1c1",
+];
+
+const POOL_SPICY = [
+  "1542010589005-d1eacc3918f2",
+  "1596797038530-2c107229654b",
+  "1606755962773-d324e0a13086",
+  "1626777552726-4a6b54c97e46",
+];
+
+const POOL_FISH = [
+  "1558818498-28c1e002b655",
+  "1626804475297-41608ea09aeb",
+  "1551326844-4df70f78d0e9",
+];
+
+const POOL_DUMPLING = [
+  "1617196034796-73dfa7b1fd56",
+  "1546964124-0cce460f38ef",
+];
+
+const POOL_CHICKEN = [
+  "1615870216519-2f9fa575fa5c",
+  "1602253057119-44d745d9b860",
+];
+
+interface PoolMatch {
+  keys: string[];
+  pool: string[];
+  /** 用于 alt / query 的英文标签 */
+  tag: string;
 }
 
-function buildImageUrl(query: string): string {
-  // 用 hash 让同一道菜稳定返回相同图片（Unsplash Source 接受任意签名 sig）
-  return `https://source.unsplash.com/featured/600x400/?${encodeURIComponent(query)}`;
+const KEYWORD_POOLS: PoolMatch[] = [
+  { keys: ["番茄", "西红柿"], pool: POOL_TOMATO_EGG, tag: "tomato-egg" },
+  { keys: ["蛋"], pool: POOL_TOMATO_EGG, tag: "egg" },
+  { keys: ["鱼"], pool: POOL_FISH, tag: "fish" },
+  { keys: ["虾", "蟹", "贝", "蛤"], pool: POOL_FISH, tag: "seafood" },
+  { keys: ["鸡"], pool: POOL_CHICKEN, tag: "chicken" },
+  { keys: ["排骨", "猪", "牛", "羊", "肉"], pool: POOL_MEAT, tag: "meat" },
+  { keys: ["豆腐"], pool: POOL_TOFU, tag: "tofu" },
+  { keys: ["饺", "馄饨", "包子", "烧麦"], pool: POOL_DUMPLING, tag: "dumpling" },
+  { keys: ["面", "粉"], pool: POOL_NOODLE, tag: "noodle" },
+  { keys: ["米", "饭", "粥"], pool: POOL_RICE, tag: "rice" },
+  { keys: ["汤", "羹", "炖", "煲"], pool: POOL_SOUP, tag: "soup" },
+  { keys: ["椒", "辣", "麻"], pool: POOL_SPICY, tag: "spicy" },
+  {
+    keys: ["菠菜", "白菜", "青菜", "包菜", "西兰花", "黄瓜", "茄", "蘑菇", "菌", "土豆", "胡萝卜", "玉米", "豆角", "芹菜"],
+    pool: POOL_VEGGIE,
+    tag: "vegetable",
+  },
+];
+
+const COURSE_POOL: Record<Course, string[]> = {
+  main: POOL_GENERIC,
+  veggie: POOL_VEGGIE,
+  soup: POOL_SOUP,
+  staple: POOL_NOODLE,
+};
+
+/** djb2 hash → 非负整数，用来稳定从池子里挑图。 */
+function stableHash(input: string): number {
+  let h = 5381;
+  for (let i = 0; i < input.length; i++) {
+    h = ((h << 5) + h + input.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h);
 }
+
+function pickPool(name: string, course: Course): { pool: string[]; tag: string } {
+  // 命中第一个关键字池
+  for (const p of KEYWORD_POOLS) {
+    if (p.keys.some((k) => name.includes(k))) {
+      return { pool: p.pool, tag: p.tag };
+    }
+  }
+  return { pool: COURSE_POOL[course], tag: course };
+}
+
+/** 拼接 images.unsplash.com 的稳定 URL（带尺寸/裁剪/q 参数）。 */
+function buildImageUrl(photoId: string): string {
+  return `https://images.unsplash.com/photo-${photoId}?w=600&h=400&fit=crop&auto=format&q=70`;
+}
+
+/** 给 Unsplash images 一个备用图（菜品列表通用），用于二次 onError。 */
+export const FALLBACK_IMAGE_URL = buildImageUrl(POOL_GENERIC[0]);
 
 export function dishVisual(name: string, course: Course, cuisine: Cuisine): DishVisual {
   const base = COURSE_VISUAL[course];
@@ -95,13 +214,15 @@ export function dishVisual(name: string, course: Course, cuisine: Cuisine): Dish
       break;
     }
   }
-  const query = buildImageQuery(name, course, cuisine);
+  const { pool, tag } = pickPool(name, course);
+  const idx = stableHash(name + course + cuisine) % pool.length;
+  const photoId = pool[idx];
   return {
     ...base,
     emoji,
     badge: CUISINE_EMOJI[cuisine] ?? base.badge,
-    imageUrl: buildImageUrl(query),
-    query,
+    imageUrl: buildImageUrl(photoId),
+    query: `${tag},chinese-food,${cuisine}`,
   };
 }
 

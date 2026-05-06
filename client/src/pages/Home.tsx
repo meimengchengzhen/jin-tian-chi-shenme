@@ -576,31 +576,99 @@ export default function Home() {
 
         {/* 场景 Tabs */}
         <section className="mt-7">
-          <div className="mb-2 flex items-baseline justify-between">
+          <div className="mb-2 flex items-baseline justify-between gap-2">
             <h2 className="font-display text-[1.05rem] tracking-tight">今天的场景</h2>
-            <span className="text-[11px] text-muted-foreground">点一下切换默认设置</span>
+            <span
+              className="inline-flex items-center gap-1 text-[11px] text-muted-foreground sm:hidden"
+              data-testid="scenario-scroll-hint"
+            >
+              <ChevronRight className="h-3 w-3 -rotate-180" /> 左右滑动 <ChevronRight className="h-3 w-3" />
+              <span className="num">共 {SCENARIOS.length} 个</span>
+            </span>
+            <span className="hidden text-[11px] text-muted-foreground sm:inline">
+              点一下切换默认设置 · 共 {SCENARIOS.length} 个
+            </span>
           </div>
-          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-            {SCENARIOS.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => applyScenario(s.id)}
-                data-testid={`scenario-tab-${s.id}`}
-                className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] transition-colors hover-elevate active-elevate-2 ${
-                  scenarioId === s.id
-                    ? "border-primary/50 bg-primary text-primary-foreground"
-                    : "border-border bg-card/60 text-foreground/80"
-                }`}
-              >
-                <span aria-hidden>{s.emoji}</span>
-                <span>{s.label}</span>
-              </button>
-            ))}
+          {/* 移动端：横向滚动 + 右侧渐变遮罩提示还有更多。桌面端：直接 flex-wrap 一次性展示。 */}
+          <div className="relative">
+            <div className="scenario-scroll -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
+              {SCENARIOS.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => applyScenario(s.id)}
+                  data-testid={`scenario-tab-${s.id}`}
+                  className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] transition-colors hover-elevate active-elevate-2 ${
+                    scenarioId === s.id
+                      ? "border-primary/50 bg-primary text-primary-foreground"
+                      : "border-border bg-card/60 text-foreground/80"
+                  }`}
+                >
+                  <span aria-hidden>{s.emoji}</span>
+                  <span>{s.label}</span>
+                </button>
+              ))}
+            </div>
+            {/* 右侧渐变遮罩，仅移动端显示 */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-background via-background/70 to-transparent sm:hidden"
+            />
           </div>
           <p className="mt-1.5 text-[11.5px] text-muted-foreground" data-testid="text-scenario-desc">
             {getScenario(scenarioId).description}
           </p>
+        </section>
+
+        {/* 历史 / 收藏 快捷入口（始终展示，方便发现） */}
+        <section className="mt-3 flex flex-wrap gap-2" data-testid="quick-history-fav">
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("history-fav-section");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+              } else {
+                toast({
+                  title: "还没有历史记录",
+                  description: "在结果页点「就吃这个了」会保存到本地浏览器。",
+                });
+              }
+            }}
+            data-testid="button-quick-history"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 text-[12.5px] text-foreground/85 hover-elevate active-elevate-2"
+          >
+            <HistoryIcon className="h-3.5 w-3.5 text-primary" />
+            最近就吃了
+            <span className="rounded-full bg-primary/10 px-1.5 text-[11px] text-primary num">
+              {history.length}
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("history-fav-section");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+              } else {
+                toast({
+                  title: "还没有收藏",
+                  description: "点菜卡上的爱心收藏起来；下次推荐会有更高几率出现。",
+                });
+              }
+            }}
+            data-testid="button-quick-fav"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 text-[12.5px] text-foreground/85 hover-elevate active-elevate-2"
+          >
+            <Heart className={`h-3.5 w-3.5 ${favorites.size > 0 ? "fill-rose-500 text-rose-500" : "text-rose-500"}`} />
+            我收藏的菜
+            <span className="rounded-full bg-rose-50 px-1.5 text-[11px] text-rose-600 num">
+              {favorites.size}
+            </span>
+          </button>
+          <span className="ml-auto self-center text-[11px] text-muted-foreground">
+            数据仅保存在你浏览器本地
+          </span>
         </section>
 
         {/* 上下文条：登录 / 环境 / 饮食计划 */}
@@ -918,15 +986,13 @@ export default function Home() {
                 className={`mb-3 border-primary/40 bg-primary/5 p-3 text-[13px] ${
                   calSummary.verdict === "ok"
                     ? ""
-                    : calSummary.verdict === "low"
-                      ? "border-amber-500/40 bg-amber-500/5"
-                      : "border-amber-500/40 bg-amber-500/5"
+                    : "border-amber-500/40 bg-amber-500/5"
                 }`}
                 data-testid="panel-calorie-summary"
               >
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <span className="font-display text-[15px] text-primary">
-                    <Flame className="mr-1 inline h-4 w-4" /> 餐次热量评估
+                    <Flame className="mr-1 inline h-4 w-4" /> 本餐热量评估
                   </span>
                   <span className="num">
                     人均合计 <span className="font-medium text-primary">{calSummary.perPersonTotal}</span> kcal
@@ -944,17 +1010,38 @@ export default function Home() {
                         ? "border-primary/50 text-primary"
                         : "border-amber-500/60 text-amber-700"
                     }`}
+                    data-testid="badge-calorie-verdict"
                   >
                     {calSummary.verdict === "ok"
-                      ? "刚好"
+                      ? "本餐热量接近目标"
                       : calSummary.verdict === "low"
-                        ? "偏轻"
-                        : "偏高"}
+                        ? "本餐热量偏轻"
+                        : "本餐热量偏高"}
                   </Badge>
                 </div>
                 <p className="mt-1 text-[11.5px] text-muted-foreground">
-                  按你设定的身体数据推算。忌口仍然严格遵守，热量只是在符合忌口的菜里做软匹配。
+                  这是<strong className="text-foreground/85">这一餐</strong>的估算热量，不代表你的身体状态。按档案里的身高/体重/活动量推算今日餐次目标后做对比。
                 </p>
+                {calSummary.verdict === "low" && (
+                  <p
+                    className="mt-1 text-[11.5px] text-amber-700"
+                    data-testid="text-calorie-tip-low"
+                  >
+                    {scenarioId === "personal-cut"
+                      ? "控卡场景下偏低是可以接受的；如果会饿，可以加一份主食或一碗汤。"
+                      : scenarioId === "fitness-bulk"
+                        ? "增肌场景建议补充：可以「换一组」或加一道主菜 / 一份米饭。"
+                        : "如果想吃饱一点：可以加一份主食、再换一道高热量主菜。"}
+                  </p>
+                )}
+                {calSummary.verdict === "high" && (
+                  <p
+                    className="mt-1 text-[11.5px] text-amber-700"
+                    data-testid="text-calorie-tip-high"
+                  >
+                    本餐热量偏高 — 可以减一道主菜 / 改素菜搭配，或拉长用餐节奏。
+                  </p>
+                )}
               </Card>
             )}
 
@@ -1098,7 +1185,11 @@ export default function Home() {
 
         {/* 历史 / 收藏 */}
         {(history.length > 0 || favorites.size > 0) && (
-          <section className="mt-10 grid gap-3 sm:grid-cols-2">
+          <section
+            id="history-fav-section"
+            className="mt-10 grid gap-3 sm:grid-cols-2"
+            data-testid="section-history-fav"
+          >
             {history.length > 0 && (
               <Card className="border-card-border/60 bg-card/60 p-4">
                 <div className="mb-2 flex items-center gap-2">
