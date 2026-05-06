@@ -29,10 +29,13 @@ interface TravelLink {
   hint?: string;
 }
 
-// 大众点评直达 URL 经常 404 / 反爬，因此改用百度站内搜索（site:dianping.com）作为
-// 稳妥的入口；若用户已登录大众点评，也可以用 m.dianping.com 主站搜索（移动端 H5）。
-// 优先 m.dianping.com 搜索页（公开可达，落地页是搜索结果而不是 404）。
-function dianpingSearchUrl(q: string): string {
+// 大众点评的 m.dianping.com/searchshop 也会跳到 error_page（QA 实测西湖醋鱼）；
+// 直接 dianping.com 搜索同样不稳定。这里改成「百度站内搜索 site:dianping.com」作为
+// 主入口（稳定、不会 404），原 m.dianping.com 直达只作为次级、并标注「可能不可用」。
+function dianpingBaiduUrl(q: string): string {
+  return `https://www.baidu.com/s?wd=${encodeURIComponent(q + " site:dianping.com")}`;
+}
+function dianpingDirectUrl(q: string): string {
   return `https://m.dianping.com/searchshop?keyword=${encodeURIComponent(q)}`;
 }
 
@@ -42,16 +45,15 @@ const LINKS: TravelLink[] = [
   { id: "xhs", label: "小红书", build: (q: string) => `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(q)}` },
   {
     id: "dp",
-    label: "大众点评",
-    build: dianpingSearchUrl,
-    hint: "搜索入口 · 可能需登录",
+    label: "大众点评 · 百度站内",
+    build: dianpingBaiduUrl,
+    hint: "稳定入口",
   },
   {
-    id: "dp-baidu",
-    label: "百度站内 · 大众点评",
-    build: (q: string) =>
-      `https://www.baidu.com/s?wd=${encodeURIComponent(q + " site:dianping.com")}`,
-    hint: "兜底入口",
+    id: "dp-direct",
+    label: "点评直达",
+    build: dianpingDirectUrl,
+    hint: "可能不可用",
   },
 ];
 

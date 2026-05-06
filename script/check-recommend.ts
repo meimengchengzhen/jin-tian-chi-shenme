@@ -299,26 +299,35 @@ console.log("== 健康规则覆盖率 ==");
   check(`优质蛋白数 >= 30 (实际 ${protein})`, protein >= 30);
 }
 
-console.log("== 旅行美食 大众点评链接（不再生成 404 keyword 硬路径）==");
+console.log("== 旅行美食 大众点评链接（主入口必须是百度站内搜索，避免 dianping 404）==");
 {
-  // 历史上 dianping.com/search/keyword/0_0_0_<q> 路径常 404；这次改为 m.dianping.com 搜索
-  // + 百度站内搜索兜底。这里用结构化检查：travel-panel 的 LINKS 至少包含 m.dianping.com / baidu。
+  // 历史上 dianping.com/search/keyword/0_0_0_<q> 与 m.dianping.com/searchshop 都会跳 error_page。
+  // 现在主大众点评按钮必须走百度 site:dianping.com，dianping 直达只能作为次级且明确标注。
   const fs = await import("node:fs");
   const src = fs.readFileSync("client/src/components/TravelPanel.tsx", "utf-8");
   check(
-    "TravelPanel 大众点评走 m.dianping.com 搜索",
-    src.includes("m.dianping.com/searchshop"),
-    "未在 TravelPanel.tsx 找到 m.dianping.com/searchshop 入口",
+    "TravelPanel 提供大众点评的百度站内搜索主入口",
+    src.includes("site:dianping.com"),
+    "未提供 baidu site:dianping.com 主入口",
   );
   check(
     "TravelPanel 不再生成 dianping.com/search/keyword/0_0_0_ 形式 URL",
     !src.includes("dianping.com/search/keyword/0_0_0_"),
     "TravelPanel 仍在生成已知 404 的旧形式 dianping URL",
   );
+  // 主大众点评 LINKS 项不能 build 为 m.dianping.com/searchshop —— 该 URL 已知会 error_page。
+  // 通过结构化匹配 LINKS 中 id="dp" 的 build 函数：必须返回百度，而不是 m.dianping.com/searchshop。
+  const dpEntryMatch = src.match(/id:\s*"dp"[^}]*build:\s*([A-Za-z_]+)/);
   check(
-    "TravelPanel 提供大众点评的百度站内搜索兜底",
-    src.includes("site:dianping.com"),
-    "未提供 baidu site:dianping.com 兜底入口",
+    "TravelPanel 主大众点评（id=\"dp\"）的 build 必须是百度站内搜索而非 m.dianping.com 直达",
+    !!dpEntryMatch && dpEntryMatch[1] === "dianpingBaiduUrl",
+    `LINKS 中 id="dp" 当前 build=${dpEntryMatch?.[1] ?? "(未找到)"}，应为 dianpingBaiduUrl`,
+  );
+  // 副入口（点评直达）允许使用 m.dianping.com，但必须标注「可能不可用」。
+  check(
+    "TravelPanel 若保留 m.dianping.com 直达，必须标注「可能不可用」",
+    !src.includes("m.dianping.com/searchshop") || src.includes("可能不可用"),
+    "保留了 m.dianping.com 直达但未标注「可能不可用」",
   );
 }
 

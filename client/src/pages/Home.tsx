@@ -921,7 +921,8 @@ export default function Home() {
               <span className="hidden sm:inline">云端同步</span>
               <span className="rounded-full bg-primary/10 px-1.5 text-[9.5px] text-primary num">Beta</span>
             </button>
-            {/* 页面大小切换：4 档循环；初始为 default（比中字大一点） */}
+            {/* 页面大小：四档分段选择（小 / 中 / 默认 / 大），同时可见，当前选中态高亮。
+                同时保留循环按钮（含图标 + 当前档名）作为快速切换；分段选择紧跟其后。 */}
             <button
               type="button"
               onClick={() => {
@@ -934,14 +935,51 @@ export default function Home() {
                 });
               }}
               data-testid="button-page-size"
-              title={`当前字号：${PAGE_SIZES.find((p) => p.id === pageSize)?.label} · 点击切换`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-[12.5px] text-foreground/85 hover-elevate active-elevate-2"
+              title={`当前字号：${PAGE_SIZES.find((p) => p.id === pageSize)?.label} · 点击循环切换`}
+              className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-[12.5px] text-foreground/85 hover-elevate active-elevate-2 md:inline-flex"
             >
               <TypeIcon className="h-3.5 w-3.5 text-primary" />
               <span data-testid="text-page-size-label">
                 {PAGE_SIZES.find((p) => p.id === pageSize)?.label ?? "默认"}
               </span>
             </button>
+            <div
+              role="group"
+              aria-label="页面大小"
+              data-testid="page-size-segment"
+              title="选择页面字号 · 默认推荐"
+              className="inline-flex shrink-0 items-center gap-0.5 overflow-x-auto rounded-full border border-border/70 bg-card/60 p-0.5 text-[11.5px]"
+            >
+              <TypeIcon className="ml-1 mr-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+              {PAGE_SIZES.map((p) => {
+                const active = p.id === pageSize;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => {
+                      if (p.id !== pageSize) {
+                        setPageSize(p.id);
+                        toast({
+                          title: `字号已切到「${p.label}」`,
+                          description: p.hint,
+                        });
+                      }
+                    }}
+                    data-testid={`button-page-size-${p.id}`}
+                    aria-pressed={active}
+                    title={p.hint}
+                    className={`shrink-0 rounded-full px-2 py-1 transition-colors ${
+                      active
+                        ? "bg-primary text-primary-foreground"
+                        : "text-foreground/80 hover-elevate active-elevate-2"
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
             <a
               href="https://github.com/meimengchengzhen/jin-tian-chi-shenme"
               target="_blank"
