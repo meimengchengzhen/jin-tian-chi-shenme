@@ -136,6 +136,11 @@ export const LAZY_MEALS: LazyMeal[] = [
   { id: "snack-green-veg", name: "白灼时蔬（10 分钟）", emoji: "🥬", equipment: ["一口锅"], minutes: 10, uses: ["青菜"], goals: ["减脂", "长辈"], price: 5, calories: 120, steps: ["水开下蔬菜烫 1 分钟", "捞出码盘", "蒸鱼豉油+热油激蒜末浇上"], swaps: "蔬菜任意：菜心/生菜/油麦菜", reason: "粤式做法，原味又下饭。" },
   { id: "egg-soy-ricecake", name: "韩式年糕辣炒（速食版）", emoji: "🍢", equipment: ["一口锅"], minutes: 15, uses: ["火腿"], goals: ["治愈"], price: 10, calories: 520, steps: ["年糕条泡热水", "锅里水+韩式辣酱+番茄酱+糖煮开", "下年糕+鱼饼+火腿煮 3-5 分钟，撒芝士"], swaps: "无年糕用速食乌冬", reason: "10 分钟亚洲街边小吃。" },
   { id: "rc-mushroom-rice", name: "电饭煲菌菇饭", emoji: "🍄", equipment: ["电饭煲"], minutes: 38, uses: ["米饭"], goals: ["治愈"], price: 9, calories: 460, steps: ["杏鲍菇+香菇切块用油盐生抽腌 5 分钟", "铺在米上正常水量煮", "撒葱花和黑胡椒"], swaps: "可加培根 / 鸡腿粒", reason: "素食友好，香气扑鼻。" },
+  { id: "rc-egg-fried-rice", name: "电饭煲蛋炒饭（免开火）", emoji: "🍳", equipment: ["电饭煲"], minutes: 25, uses: ["鸡蛋", "米饭"], goals: ["省钱", "治愈"], price: 6, calories: 510, steps: ["内胆刷一层薄油，倒入隔夜米饭散开", "鸡蛋打散加少许盐生抽淋在米饭上，葱花撒匀", "按煮饭键，跳后焖 3 分钟翻拌即可"], swaps: "可加火腿丁 / 玉米粒", reason: "懒人版蛋炒饭：电饭煲一键搞定，零油烟。" },
+  { id: "rc-egg-tomato-rice", name: "电饭煲番茄鸡蛋饭", emoji: "🍅", equipment: ["电饭煲"], minutes: 35, uses: ["鸡蛋", "米饭", "番茄"], goals: ["省钱", "治愈", "儿童"], price: 8, calories: 540, steps: ["米按正常水量入锅，番茄整颗放中央", "周围打 2 个生鸡蛋，淋一勺生抽 + 少许盐", "按煮饭键，跳后压扁番茄拌匀"], swaps: "可加火腿丁 / 玉米", reason: "INS 网红整颗番茄饭加蛋版，一键开饭。" },
+  { id: "rc-sausage-egg-rice", name: "电饭煲腊肠鸡蛋焖饭", emoji: "🍱", equipment: ["电饭煲"], minutes: 35, uses: ["鸡蛋", "米饭"], goals: ["省钱", "治愈"], price: 11, calories: 580, steps: ["米淘好按正常水量，腊肠斜切片铺面", "煮饭键跳后开盖打入鸡蛋，盖上焖 5 分钟", "淋豉油+香油拌匀，撒葱花"], swaps: "腊肠可换培根 / 火腿", reason: "广式煲仔饭懒版+太阳蛋，一锅蛋白碳水齐全。" },
+  { id: "rc-veg-egg-rice", name: "电饭煲杂蔬鸡蛋焖饭", emoji: "🥕", equipment: ["电饭煲"], minutes: 35, uses: ["鸡蛋", "米饭", "玉米"], goals: ["省钱", "减脂", "儿童"], price: 8, calories: 480, steps: ["米加少许油盐拌匀，铺胡萝卜丁、玉米、青豆", "煮饭键跳后磕入鸡蛋焖 5 分钟", "拌匀，撒黑胡椒"], swaps: "蔬菜任意搭配 / 加豌豆", reason: "色彩缤纷，省钱减脂双友好。" },
+  { id: "rc-egg-rice-bowl", name: "电饭煲生蛋酱油拌饭", emoji: "🥚", equipment: ["电饭煲"], minutes: 30, uses: ["鸡蛋", "米饭"], goals: ["省钱", "治愈"], price: 5, calories: 460, steps: ["电饭煲按平时水量煮饭", "饭好开盖立刻打入 1 个生鸡蛋（怕生菌可用温泉蛋）", "淋生抽+香油+葱花，蓬松拌匀"], swaps: "可加海苔碎 / 韩式辣酱", reason: "TKG 风味电饭煲版：5 块钱治愈一餐。" },
   { id: "af-banana", name: "空气炸锅烤香蕉", emoji: "🍌", equipment: ["空气炸锅"], minutes: 12, uses: [], goals: ["治愈", "儿童"], price: 4, calories: 180, steps: ["香蕉对半切，刷一点黄油", "180°C 烤 8 分钟", "撒肉桂粉/淋蜂蜜"], swaps: "无黄油用花生酱", reason: "下午茶级甜点，0 添加。" },
   { id: "no-overnight-oats", name: "隔夜燕麦杯（无设备）", emoji: "🥣", equipment: ["无设备"], minutes: 5, uses: ["牛奶"], goals: ["减脂", "省钱"], price: 6, calories: 320, steps: ["前一晚燕麦 + 牛奶 + 奇亚籽 + 蜂蜜入罐", "冷藏 8 小时", "早起加水果坚果即食"], swaps: "牛奶可换酸奶 / 燕麦奶", reason: "早晨无需任何设备的早餐。" },
   { id: "pan-shredded-pot", name: "土豆丝下饭（10 分钟）", emoji: "🥔", equipment: ["一口锅"], minutes: 10, uses: ["土豆"], goals: ["省钱"], price: 4, calories: 280, steps: ["土豆刨丝泡水沥干", "热油爆蒜+干辣椒", "下土豆丝大火快炒+醋+盐"], swaps: "可加青椒丝", reason: "5 块钱解决一顿，下饭。" },
@@ -152,41 +157,58 @@ export interface LazyMealQuery {
 export interface LazyMealPick {
   special: LazyMeal;
   alternatives: LazyMeal[];
+  /** 用户指定了设备但该设备模板池为空时给出的提示；UI 据此渲染「替代方案」横幅 */
+  fallbackNote?: string;
+}
+
+function rankMeals(pool: LazyMeal[], q: LazyMealQuery): LazyMeal[] {
+  const fridge = q.fridge ?? [];
+  const goals = q.goals ?? [];
+  const maxMin = q.maxMinutes ?? 30;
+  return pool
+    .map((m) => {
+      let score = Math.random() * 1.2;
+      if (m.minutes <= maxMin) score += 1.5;
+      else score -= (m.minutes - maxMin) / 10;
+      if (fridge.length > 0) {
+        const hits = m.uses.filter((u) => fridge.includes(u)).length;
+        score += hits * 1.4;
+      }
+      if (goals.length > 0) {
+        const hits = m.goals.filter((g) => goals.includes(g)).length;
+        score += hits * 1.5;
+      }
+      return { m, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .map((x) => x.m);
 }
 
 export function pickLazyMeal(q: LazyMealQuery): LazyMealPick {
   const eq = q.equipment ?? [];
-  const fridge = q.fridge ?? [];
-  const goals = q.goals ?? [];
-  const maxMin = q.maxMinutes ?? 30;
 
-  const scored = LAZY_MEALS.map((m) => {
-    let score = Math.random() * 1.2;
-    if (m.minutes <= maxMin) score += 1.5;
-    else score -= (m.minutes - maxMin) / 10;
-    if (eq.length > 0) {
-      const hit = m.equipment.some((e) => eq.includes(e));
-      score += hit ? 2.5 : -1.5;
+  // 用户明确选择了设备：先在该设备池里硬筛，池非空即只在池内随机；池为空才回退。
+  if (eq.length > 0) {
+    const inEquipment = LAZY_MEALS.filter((m) =>
+      m.equipment.some((e) => eq.includes(e)),
+    );
+    if (inEquipment.length > 0) {
+      const ranked = rankMeals(inEquipment, q);
+      const special = ranked[0];
+      const alts = ranked.slice(1, 5);
+      return { special, alternatives: alts };
     }
-    if (fridge.length > 0) {
-      const hits = m.uses.filter((u) => fridge.includes(u)).length;
-      score += hits * 1.2;
-    }
-    if (goals.length > 0) {
-      const hits = m.goals.filter((g) => goals.includes(g)).length;
-      score += hits * 1.5;
-    }
-    return { m, score };
-  }).sort((a, b) => b.score - a.score);
-
-  const special = scored[0].m;
-  const alts: LazyMeal[] = [];
-  const seen = new Set<string>([special.id]);
-  for (const x of scored) {
-    if (alts.length >= 4) break;
-    if (seen.has(x.m.id)) continue;
-    alts.push(x.m);
-    seen.add(x.m.id);
+    // 该设备池完全为空 — 这种情况理论上不会发生（电饭煲/空气炸锅等都已有候选），
+    // 但保底回退到全库，并显式提示这是替代方案。
+    const ranked = rankMeals(LAZY_MEALS, q);
+    return {
+      special: ranked[0],
+      alternatives: ranked.slice(1, 5),
+      fallbackNote: `「${eq.join(" / ")}」暂无完全匹配的模板，给你一个替代方案`,
+    };
   }
-  return { special, alternatives: alts };
+
+  // 没选设备：全库排序。
+  const ranked = rankMeals(LAZY_MEALS, q);
+  return { special: ranked[0], alternatives: ranked.slice(1, 5) };
 }

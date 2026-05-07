@@ -1130,6 +1130,76 @@ console.log("== v7: 懒人简餐模板池 ==");
   const r = pickLazyMeal({ equipment: ["空气炸锅"], maxMinutes: 30 });
   check(`pickLazyMeal(空气炸锅): special 含「空气炸锅」`, r.special.equipment.includes("空气炸锅"));
   check(`pickLazyMeal: alternatives >= 3`, r.alternatives.length >= 3);
+
+  // v7.1: 用户明确选了设备 → 池非空时 special + alternatives 必须全部命中该设备
+  const SINGLE_EQUIPMENTS = ["电饭煲", "空气炸锅", "微波炉", "早餐机", "一口锅"] as const;
+  for (const eq of SINGLE_EQUIPMENTS) {
+    const poolSize = LAZY_MEALS.filter((m) => m.equipment.includes(eq)).length;
+    if (poolSize === 0) continue; // 跳过空池设备（理论不应有）
+    let mainHits = 0;
+    let allHits = 0;
+    const N = 30;
+    for (let i = 0; i < N; i++) {
+      const r = pickLazyMeal({ equipment: [eq], maxMinutes: 60 });
+      const all = [r.special, ...r.alternatives];
+      if (r.special.equipment.includes(eq)) mainHits++;
+      if (all.every((m) => m.equipment.includes(eq))) allHits++;
+    }
+    check(
+      `v7.1 设备「${eq}」严格筛选: 30 次 special 全部命中（${mainHits}/${N}）`,
+      mainHits === N,
+    );
+    check(
+      `v7.1 设备「${eq}」严格筛选: 30 次 special+alternatives 全部命中（${allHits}/${N}）`,
+      allHits === N,
+    );
+  }
+
+  // v7.1: 电饭煲 + 鸡蛋 + 米饭 + 省钱 — 必须给电饭煲方案，且应优先含鸡蛋的电饭煲模板
+  let rcEggHits = 0;
+  let rcEggRiceHits = 0;
+  const M = 30;
+  for (let i = 0; i < M; i++) {
+    const r = pickLazyMeal({
+      equipment: ["电饭煲"],
+      maxMinutes: 60,
+      fridge: ["鸡蛋", "米饭"],
+      goals: ["省钱"],
+    });
+    const all = [r.special, ...r.alternatives];
+    if (all.every((m) => m.equipment.includes("电饭煲"))) rcEggHits++;
+    if (
+      r.special.equipment.includes("电饭煲") &&
+      r.special.uses.includes("鸡蛋") &&
+      r.special.uses.includes("米饭")
+    ) {
+      rcEggRiceHits++;
+    }
+  }
+  check(
+    `v7.1 电饭煲+鸡蛋+米饭+省钱: 30 次结果全程电饭煲（${rcEggHits}/${M}）`,
+    rcEggHits === M,
+  );
+  check(
+    `v7.1 电饭煲+鸡蛋+米饭+省钱: 至少 80% 次 special 同时含鸡蛋+米饭（${rcEggRiceHits}/${M}）`,
+    rcEggRiceHits >= Math.ceil(M * 0.8),
+  );
+
+  // v7.1: 电饭煲 + 鸡蛋 + 米饭 这个组合下，"酱油拌饭（无设备版）" 永远不能成为 special
+  let strayHits = 0;
+  for (let i = 0; i < 30; i++) {
+    const r = pickLazyMeal({
+      equipment: ["电饭煲"],
+      maxMinutes: 60,
+      fridge: ["鸡蛋", "米饭"],
+      goals: ["省钱"],
+    });
+    if (r.special.id === "soy-rice-bowl") strayHits++;
+  }
+  check(
+    `v7.1 电饭煲+鸡蛋+米饭: 「酱油拌饭（无设备版）」不应成为 special（${strayHits}/30）`,
+    strayHits === 0,
+  );
   // LazyDecisionPanel 引用了 LazyMealsPanel
   const fs = await import("node:fs");
   const lazySrc = fs.readFileSync("client/src/components/LazyDecisionPanel.tsx", "utf-8");
