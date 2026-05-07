@@ -1,6 +1,24 @@
 {
-  "name": "rest-express",
+  "name": "fanda",
   "version": "1.0.0",
+  "description": "饭搭子 · 今天吃什么 — 替选择困难的人一键决定吃 / 买 / 看 / 聊：一桌菜、一周菜单、外卖、零食、水果、健康饮食、饭桌话题与陪伴。纯前端 PWA，零登录。",
+  "homepage": "https://meimengchengzhen.github.io/jin-tian-chi-shenme/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meimengchengzhen/jin-tian-chi-shenme.git"
+  },
+  "keywords": [
+    "今天吃什么",
+    "饭搭子",
+    "家常菜",
+    "菜谱",
+    "外卖",
+    "一周菜单",
+    "饭桌话题",
+    "PWA",
+    "react",
+    "vite"
+  ],
   "license": "MIT",
   "type": "module",
   "scripts": {
