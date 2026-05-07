@@ -147,6 +147,8 @@ function TabRow({
   cols: number;
 }) {
   // 用内联 CSS 变量 + 自定义类，在 mobile (<640px) 强制 3 列，sm+ 自动等分。
+  // 副标题用「两行布局 + 截断」方式：sm+ 把图标+主标题放第一行，副标题放第二行。
+  // 这样桌面端无论 6 列还是 5 列都不会让 hint 撑出按钮宽度。
   return (
     <div
       data-testid="main-tabs-row"
@@ -165,7 +167,8 @@ function TabRow({
             onClick={() => onClick(t.id)}
             data-testid={`tab-${t.id}`}
             aria-current={isActive ? "page" : undefined}
-            className={`group inline-flex h-12 select-none items-center justify-center gap-1.5 rounded-xl border px-2.5 text-[14.5px] font-semibold tracking-tight transition-all hover-elevate active-elevate-2 sm:h-12 sm:px-3 ${
+            title={`${t.label} · ${t.hint}`}
+            className={`group inline-flex h-12 select-none items-center justify-center gap-1.5 overflow-hidden rounded-xl border px-2 text-[14px] font-semibold tracking-tight transition-all hover-elevate active-elevate-2 sm:h-14 sm:px-2.5 ${
               isActive
                 ? "border-primary/60 bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-[1.02]"
                 : "border-border/70 bg-card/70 text-foreground/90"
@@ -174,13 +177,16 @@ function TabRow({
             <Icon
               className={`h-4 w-4 flex-shrink-0 sm:h-[17px] sm:w-[17px] ${isActive ? "" : "text-primary"}`}
             />
-            <span className="whitespace-nowrap">{t.label}</span>
-            <span
-              className={`hidden whitespace-nowrap text-[11.5px] font-normal lg:inline ${
-                isActive ? "text-primary-foreground/80" : "text-muted-foreground"
-              }`}
-            >
-              · {t.hint}
+            {/* 文本块：sm+ 两行（主标题 + 副标题），mobile 单行只显示主标题 */}
+            <span className="flex min-w-0 flex-col items-start leading-tight">
+              <span className="block truncate whitespace-nowrap">{t.label}</span>
+              <span
+                className={`hidden truncate whitespace-nowrap text-[10.5px] font-normal sm:block ${
+                  isActive ? "text-primary-foreground/85" : "text-muted-foreground"
+                }`}
+              >
+                {t.hint}
+              </span>
             </span>
           </button>
         );

@@ -92,6 +92,10 @@ export interface SnackPickInput {
   audiences: SnackAudience[];
   maxCalories?: number;
   preferCategories?: SnackCategory[];
+  /** 用户标记「喜欢」的零食 id（加分，下次更可能推） */
+  likedIds?: Set<string>;
+  /** 用户标记「不喜欢」的零食 id（强降权，从候选池中剔除） */
+  dislikedIds?: Set<string>;
 }
 
 export interface SnackPickResult {
@@ -105,9 +109,13 @@ export function pickSnack(input: SnackPickInput): SnackPickResult {
   // 主推荐 + 备选都只能从这些分类里出。否则会出现「点了巧克力糖果，
   // 主卡却显示伊利优酸乳（酸奶乳品）」的串类问题。
   const filterByCategory = input.preferCategories && input.preferCategories.length > 0;
-  const pool = filterByCategory
+  let pool = filterByCategory
     ? SNACKS.filter((s) => input.preferCategories!.includes(s.category))
     : SNACKS;
+  if (input.dislikedIds && input.dislikedIds.size > 0) {
+    const filtered = pool.filter((s) => !input.dislikedIds!.has(s.id));
+    if (filtered.length >= 3) pool = filtered;
+  }
   // pool 为空（理论上不会，因为 SNACKS 覆盖每个 category 都有数据）时，
   // 兜底回到全量池，避免 UI 崩溃。
   const candidates = pool.length > 0 ? pool : SNACKS;
@@ -136,6 +144,8 @@ export function pickSnack(input: SnackPickInput): SnackPickResult {
     }
     // A 真实商品加权（regenerated.ts 全部为真实商品，但保留逻辑兼容）
     if (s.confidence === "A") score += 4;
+    if (input.likedIds && input.likedIds.has(s.id)) score += 9;
+    if (input.dislikedIds && input.dislikedIds.has(s.id)) score -= 30;
     score += Math.random() * 5;
     return { snack: s, score };
   }).sort((a, b) => b.score - a.score);

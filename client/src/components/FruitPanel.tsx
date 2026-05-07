@@ -22,6 +22,8 @@ import {
   type FruitAudience,
 } from "@/data/fruits";
 import { snackSearchLinks } from "@/data/snacks";
+import { ReactionButtons } from "./ReactionButtons";
+import { useReactions } from "@/hooks/useReactions";
 
 const AUDIENCES: { id: FruitAudience; label: string; emoji: string }[] = [
   { id: "减脂", label: "减脂", emoji: "🏃" },
@@ -130,6 +132,9 @@ function FruitCard({ fruit, special }: { fruit: Fruit; special?: boolean }) {
               </a>
             ))}
           </div>
+          <div className="mt-2">
+            <ReactionButtons kind="fruit" id={fruit.id} compact />
+          </div>
         </div>
       </div>
     </Card>
@@ -142,11 +147,18 @@ export function FruitPanel() {
   const [audiences, setAudiences] = useState<FruitAudience[]>([]);
   const [seasonalOnly, setSeasonalOnly] = useState<boolean>(true);
   const [nonce, setNonce] = useState(0);
+  const reactions = useReactions("fruit");
 
   const result = useMemo(
-    () => pickFruit({ month, audiences, seasonalOnly }),
+    () => pickFruit({
+      month,
+      audiences,
+      seasonalOnly,
+      likedIds: reactions.likes,
+      dislikedIds: reactions.dislikes,
+    }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [month, audiences, seasonalOnly, nonce],
+    [month, audiences, seasonalOnly, nonce, reactions.likes.size, reactions.dislikes.size],
   );
 
   const monthList = fruitsForMonth(month);

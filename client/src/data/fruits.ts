@@ -294,6 +294,10 @@ export interface FruitPickInput {
   audiences: FruitAudience[];
   /** 是否优先在当月当令的水果 */
   seasonalOnly?: boolean;
+  /** 用户标记「喜欢」的水果 id（加分） */
+  likedIds?: Set<string>;
+  /** 用户标记「不喜欢」的水果 id（强降权 + 候选剔除） */
+  dislikedIds?: Set<string>;
 }
 
 export interface FruitPickResult {
@@ -333,7 +337,11 @@ export function highlightsForMonth(month: number): Fruit[] {
 export function pickFruit(input: FruitPickInput): FruitPickResult {
   const m = input.month ?? new Date().getMonth() + 1;
   const seasonal = FRUITS.filter((f) => f.months.includes(m));
-  const pool = input.seasonalOnly ? seasonal : FRUITS;
+  let pool = input.seasonalOnly ? seasonal : FRUITS;
+  if (input.dislikedIds && input.dislikedIds.size > 0) {
+    const filtered = pool.filter((f) => !input.dislikedIds!.has(f.id));
+    if (filtered.length >= 3) pool = filtered;
+  }
   const highlightIds = new Set(MONTH_HIGHLIGHTS[m] ?? []);
   const noUserPrefs = input.audiences.length === 0;
 
@@ -348,6 +356,8 @@ export function pickFruit(input: FruitPickInput): FruitPickResult {
     score += aHits * 10;
     if (input.audiences.includes("控糖") && f.sugar > 12) score -= 8;
     if (input.audiences.includes("减脂") && f.calories > 80) score -= 6;
+    if (input.likedIds && input.likedIds.has(f.id)) score += 8;
+    if (input.dislikedIds && input.dislikedIds.has(f.id)) score -= 30;
     score += Math.random() * 4;
     return { fruit: f, score };
   }).sort((a, b) => b.score - a.score);

@@ -77,6 +77,15 @@ export interface RecommendContext {
   ingredientWish?: IngredientWishId[];
   /** 健康规则：低糖 / 低盐 / 低嘌呤 / 软烂 / 优质蛋白 */
   healthFilter?: HealthFilterId[];
+  /** 用户在卡片上点过「喜欢」的菜品 id（轻加分）。 */
+  likedDishIds?: Set<string>;
+  /** 用户在卡片上点过「不喜欢」的菜品 id（强降权，但仍不硬过滤，给用户改主意机会）。 */
+  dislikedDishIds?: Set<string>;
+  /** 喜欢的菜系 / 口味 / 关键词聚合（来自 likedDishIds 推断的相似偏好，软加分）。 */
+  likedTraits?: {
+    cuisines: Set<Cuisine>;
+    tastes: Set<Taste>;
+  };
 }
 
 /** 食材偏好 — 想吃什么。仅作为软评分加分。 */
@@ -311,8 +320,19 @@ export function scoreRecipe(
     }
   }
 
-  // 7) 收藏加分 / 历史降权
+  // 7) 收藏加分 / 历史降权 + 反馈
   if (ctx.favorites && ctx.favorites.has(recipe.id)) s += 1.2;
+  if (ctx.likedDishIds && ctx.likedDishIds.has(recipe.id)) s += 1.6;
+  if (ctx.dislikedDishIds && ctx.dislikedDishIds.has(recipe.id)) s -= 4.0;
+  // 喜欢菜的「相似偏好」：菜系 / 口味命中加分（让推荐慢慢学到用户喜好）
+  if (ctx.likedTraits) {
+    if (ctx.likedTraits.cuisines.has(recipe.cuisine)) s += 0.6;
+    let tasteHits = 0;
+    for (const t of recipe.tastes) {
+      if (ctx.likedTraits.tastes.has(t)) tasteHits++;
+    }
+    if (tasteHits > 0) s += Math.min(1.2, tasteHits * 0.5);
+  }
   if (ctx.noRepeat && ctx.recentIds && ctx.recentIds.has(recipe.id)) s -= 1.5;
   // 「换一批」近期池：强降权，确保即使场景+心愿+热量加分叠加也翻不过来。
   if (ctx.recentSwapIds && ctx.recentSwapIds.has(recipe.id)) s -= 3.5;
@@ -654,6 +674,22 @@ export function countByCourseUnderHardOnly(prefs: Preferences): Record<Course, n
     counts[r.course] += 1;
   }
   return counts;
+}
+
+/** 从用户「喜欢」的菜 id 集合中聚合菜系 / 口味（用于让推荐学到偏好）。 */
+export function deriveLikedTraits(likedIds: Set<string>): {
+  cuisines: Set<Cuisine>;
+  tastes: Set<Taste>;
+} {
+  const cuisines = new Set<Cuisine>();
+  const tastes = new Set<Taste>();
+  if (likedIds.size === 0) return { cuisines, tastes };
+  for (const r of RECIPES) {
+    if (!likedIds.has(r.id)) continue;
+    cuisines.add(r.cuisine);
+    for (const t of r.tastes) tastes.add(t);
+  }
+  return { cuisines, tastes };
 }
 
 // === 餐次热量汇总：把当前 plan 的人均总热量与目标对比 ===

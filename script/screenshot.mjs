@@ -24,13 +24,16 @@ const targets = [
   { hash: "#/hotboard", file: "hotboard.png", label: "饭桌热榜" },
 ];
 
-async function setup(page) {
+async function setup(page, opts = {}) {
   // Skip onboarding (modal blocks layout) by pre-seeding localStorage flags.
-  await page.addInitScript(() => {
+  await page.addInitScript((skipPersona) => {
     try {
       localStorage.setItem("chishenme.onboarded.v1", "1");
+      if (skipPersona) {
+        localStorage.setItem("chishenme.persona.setup.v1", "true");
+      }
     } catch {}
-  });
+  }, opts.skipPersona ?? true);
 }
 
 async function captureDesktop(browser, target) {
@@ -61,12 +64,33 @@ async function captureMobile(browser, target, file) {
   await ctx.close();
 }
 
+async function captureWelcome(browser) {
+  // Persona welcome dialog: do NOT skip the persona setup flag, so the dialog
+  // shows up automatically on first visit.
+  const ctx = await browser.newContext({ viewport: desktop, locale: "zh-CN" });
+  const page = await ctx.newPage();
+  await setup(page, { skipPersona: false });
+  await page.goto(`${BASE}/#/home`, { waitUntil: "networkidle", timeout: 60_000 });
+  await page.waitForTimeout(1500);
+  // Click the role tile to advance to step 1 so the screenshot shows mood/health chips
+  try {
+    await page.locator('[data-testid="persona-role-fitness-cut"]').click({ timeout: 4000 });
+    await page.waitForTimeout(500);
+  } catch {}
+  const file = path.join(OUT, "persona-welcome.png");
+  await page.screenshot({ path: file, fullPage: false });
+  console.log(`✓ desktop persona welcome -> ${file}`);
+  await ctx.close();
+}
+
 async function main() {
   await mkdir(OUT, { recursive: true });
   const browser = await chromium.launch();
   for (const t of targets) {
     await captureDesktop(browser, t);
   }
+  // Persona welcome popover (new in v9)
+  await captureWelcome(browser);
   // Two extra mobile shots (home + lazy) so README has phone view.
   await captureMobile(browser, targets[0], "mobile-home.png");
   await captureMobile(browser, targets[2], "mobile-lazy.png");

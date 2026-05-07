@@ -22,6 +22,8 @@ import {
   type SnackAudience,
   type SnackCategory,
 } from "@/data/snacks";
+import { ReactionButtons } from "./ReactionButtons";
+import { useReactions } from "@/hooks/useReactions";
 
 const AUDIENCE_OPTIONS: { id: SnackAudience; label: string; emoji: string }[] = [
   { id: "减脂", label: "减脂", emoji: "🏃" },
@@ -172,6 +174,9 @@ function SnackCard({ snack, special }: { snack: Snack; special?: boolean }) {
               </a>
             ))}
           </div>
+          <div className="mt-2">
+            <ReactionButtons kind="snack" id={snack.id} compact />
+          </div>
         </div>
       </div>
     </Card>
@@ -183,6 +188,7 @@ export function SnacksPanel() {
   const [categories, setCategories] = useState<SnackCategory[]>([]);
   const [maxCal, setMaxCal] = useState<number | undefined>(undefined);
   const [nonce, setNonce] = useState(0);
+  const reactions = useReactions("snack");
 
   const result = useMemo(
     () =>
@@ -190,9 +196,11 @@ export function SnacksPanel() {
         audiences,
         preferCategories: categories,
         maxCalories: maxCal,
+        likedIds: reactions.likes,
+        dislikedIds: reactions.dislikes,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [audiences, categories, maxCal, nonce],
+    [audiences, categories, maxCal, nonce, reactions.likes.size, reactions.dislikes.size],
   );
 
   return (

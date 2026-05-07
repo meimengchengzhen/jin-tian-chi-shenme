@@ -30,6 +30,20 @@ import {
 import { DishDetail } from "@/components/DishDetail";
 import { ProfileDialog } from "@/components/ProfileDialog";
 import { Onboarding } from "@/components/Onboarding";
+import { PersonaWelcome } from "@/components/PersonaWelcome";
+import {
+  ROLES,
+  hasPersonaSetupShown,
+  loadPersona,
+  markPersonaSetupShown,
+  personaEnergyHints,
+  personaHealthFilters,
+  savePersona,
+  type Persona,
+  type RoleId,
+} from "@/lib/persona";
+import { loadReactions, subscribeReactions } from "@/lib/reactions";
+import { ReactionButtons } from "@/components/ReactionButtons";
 import { DishImage } from "@/components/DishImage";
 import { DishPhoto } from "@/components/DishPhoto";
 import { dishVisual } from "@/lib/dishVisual";
@@ -73,6 +87,7 @@ import {
   planToList,
   countByCourseUnderHardOnly,
   calorieSummary,
+  deriveLikedTraits,
   type MealPlan,
   type Preferences,
   type RecommendContext,
@@ -365,20 +380,23 @@ function DishCard({
         </div>
       )}
 
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        onClick={onOpenDetail}
-        data-testid={`button-detail-${recipe.id}`}
-        className="mt-3 h-9 w-full justify-between rounded-full border-primary/30 bg-primary/5 text-[13px] text-primary hover:bg-primary/10"
-      >
-        <span className="inline-flex items-center gap-1.5">
-          <Info className="h-3.5 w-3.5" />
-          查看详情 · 食材 / 视频 / 抖音 / 百度
-        </span>
-        <ChevronRight className="h-4 w-4" />
-      </Button>
+      <div className="mt-3 flex items-center justify-between gap-2">
+        <ReactionButtons kind="dish" id={recipe.id} compact />
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={onOpenDetail}
+          data-testid={`button-detail-${recipe.id}`}
+          className="h-9 flex-1 justify-between rounded-full border-primary/30 bg-primary/5 text-[13px] text-primary hover:bg-primary/10"
+        >
+          <span className="inline-flex items-center gap-1.5">
+            <Info className="h-3.5 w-3.5" />
+            查看详情
+          </span>
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
     </Card>
   );
 }
@@ -620,7 +638,16 @@ export default function Home() {
 
   // 场景 / 引导
   const [scenarioId, setScenarioId] = useState<ScenarioId>(() => loadScenario());
-  const [onboardingOpen, setOnboardingOpen] = useState<boolean>(() => !hasOnboarded());
+  // 旧 Onboarding（场景预设选择）保留，但仅在已经看过 Persona 弹窗、且未选择过场景时弹出。
+  const [onboardingOpen, setOnboardingOpen] = useState<boolean>(false);
+
+  // v9: 个性化画像（首次进入显示一次轻量弹窗，可关闭）
+  const [persona, setPersona] = useState<Persona | null>(() => loadPersona());
+  const [personaOpen, setPersonaOpen] = useState<boolean>(() => !hasPersonaSetupShown());
+
+  // 反馈（喜欢 / 不喜欢）— 订阅本地反馈库
+  const [reactionTick, setReactionTick] = useState(0);
+  useEffect(() => subscribeReactions(() => setReactionTick((x) => x + 1)), []);
 
   // 收藏 / 历史 / 不吃重复
   const [favorites, setFavorites] = useState<Set<string>>(() => loadFavorites());
@@ -758,9 +785,43 @@ export default function Home() {
     ctx.noRepeat = noRepeat;
     ctx.recentSwapIds = recentPoolSet(40);
     if (ingredientWish.length > 0) ctx.ingredientWish = ingredientWish;
-    if (healthFlags.length > 0) ctx.healthFilter = healthFlags;
+
+    // v9: 把 persona 的健康关注合并进 healthFilter 软规则；persona.moods 合并进
+    // scenario.energyHints（不直接改 scenario，新建一个浅拷贝）。
+    const personaHF = personaHealthFilters(persona);
+    const allHF = Array.from(
+      new Set<string>([...healthFlags, ...personaHF]),
+    ) as typeof healthFlags;
+    if (allHF.length > 0) ctx.healthFilter = allHF;
+
+    const moodHints = personaEnergyHints(persona);
+    if (moodHints.length > 0 && ctx.scenario) {
+      ctx.scenario = {
+        ...ctx.scenario,
+        energyHints: Array.from(
+          new Set([...ctx.scenario.energyHints, ...moodHints]),
+        ) as typeof ctx.scenario.energyHints,
+      };
+    }
+
+    // 反馈：dish like / dislike + 推断「喜欢的菜系/口味」
+    const reactions = loadReactions();
+    const likedDish = new Set<string>();
+    const dislikedDish = new Set<string>();
+    reactions.likes.forEach((k) => {
+      if (k.startsWith("dish:")) likedDish.add(k.slice(5));
+    });
+    reactions.dislikes.forEach((k) => {
+      if (k.startsWith("dish:")) dislikedDish.add(k.slice(5));
+    });
+    if (likedDish.size > 0) ctx.likedDishIds = likedDish;
+    if (dislikedDish.size > 0) ctx.dislikedDishIds = dislikedDish;
+    if (likedDish.size > 0) ctx.likedTraits = deriveLikedTraits(likedDish);
+
     return ctx;
-  }, [profile, env, scenarioId, favorites, history, noRepeat, ingredientWish, healthFlags, slotOverride]);
+    // reactionTick 是为了在反馈变化时刷新；history 仅作为依赖触发 recentIds 重新读取
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile, env, scenarioId, favorites, history, noRepeat, ingredientWish, healthFlags, slotOverride, persona, reactionTick]);
 
   // 当前锁定菜品
   const lockedRecipes = useMemo(() => {
@@ -931,6 +992,21 @@ export default function Home() {
             >
               <UserCircle2 className="h-3.5 w-3.5 text-primary" />
               {profile ? <span className="max-w-[7em] truncate">{profile.nickname}</span> : "登录 / 档案"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setPersonaOpen(true)}
+              data-testid="button-open-persona"
+              title="再来一次个性化设置（仅本地保存）"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-foreground/85 hover-elevate active-elevate-2"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              <span className="hidden sm:inline">个性化</span>
+              {persona?.role && (
+                <span className="rounded-full bg-primary/10 px-1.5 text-[9.5px] text-primary">
+                  {ROLES.find((r) => r.id === persona.role)?.emoji ?? "•"}
+                </span>
+              )}
             </button>
             <button
               type="button"
@@ -2053,6 +2129,42 @@ export default function Home() {
         onSkip={() => {
           markOnboarded();
           setOnboardingOpen(false);
+        }}
+      />
+
+      <PersonaWelcome
+        open={personaOpen}
+        initial={persona}
+        onClose={() => {
+          markPersonaSetupShown();
+          setPersonaOpen(false);
+        }}
+        onSave={(p, opts) => {
+          const next: Persona = { ...p, updatedAt: Date.now() };
+          savePersona(next);
+          setPersona(next);
+          markPersonaSetupShown();
+          setPersonaOpen(false);
+
+          // 若选了 role，做相应跳转 + 场景预设
+          if (p.role) {
+            const role = ROLES.find((r) => r.id === p.role);
+            if (role?.defaultScenario) {
+              applyScenario(role.defaultScenario, { silent: true });
+            }
+            if (opts.jumpRole && role) {
+              setTab(role.preferredTab);
+              if (typeof window !== "undefined") {
+                try {
+                  window.history.replaceState(null, "", `#/${role.preferredTab}`);
+                } catch {}
+              }
+            }
+          }
+          toast({
+            title: "个性化已保存（仅本地）",
+            description: "你可以在「档案」对话框里重新打开个性化设置。",
+          });
         }}
       />
 

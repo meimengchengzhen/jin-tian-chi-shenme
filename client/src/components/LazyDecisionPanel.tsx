@@ -37,6 +37,7 @@ import { addSelected } from "@/lib/selectedToday";
 import { buildLazyItems, totalsOfLazyItems } from "@/lib/lazyEstimates";
 import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
 import { moodQuote, poemFor, tenderParagraph } from "@/lib/lazyCopy";
+import { useReactions } from "@/hooks/useReactions";
 
 type Mood = "开心" | "压力大" | "疲惫" | "沮丧" | "想奖励自己" | "平淡";
 type Weather = "晴" | "雨" | "冷" | "热" | "舒适" | "未知";
@@ -94,6 +95,9 @@ export function LazyDecisionPanel() {
   const [tastes, setTastes] = useState<TakeoutTaste[]>([]);
   const [interest, setInterest] = useState<"治愈" | "搞笑" | "学习" | "热血" | "无所谓">("无所谓");
   const [nonce, setNonce] = useState(0);
+  const dishReactions = useReactions("dish");
+  const snackReactions = useReactions("snack");
+  const fruitReactions = useReactions("fruit");
 
   const result = useMemo<LazyResult>(() => {
     // 1. 心情 / 天气 → 推荐菜偏好
@@ -101,9 +105,19 @@ export function LazyDecisionPanel() {
     const wantCold = weather === "热";
     const sweetMood = mood === "沮丧" || mood === "想奖励自己" || mood === "压力大";
 
-    // 2. 菜推荐：从 RECIPES 主菜中挑 1
-    const mainCands = RECIPES.filter((r) => r.course === "main");
-    const recipeIdx = Math.floor(Math.random() * mainCands.length);
+    // 2. 菜推荐：从 RECIPES 主菜中挑 1。
+    //    避开用户反馈过「不喜欢」的主菜；「喜欢」过的主菜稍微提高被命中概率。
+    const mainCandsRaw = RECIPES.filter((r) => r.course === "main");
+    const filtered = mainCandsRaw.filter((r) => !dishReactions.dislikes.has(r.id));
+    const mainCands = filtered.length >= 5 ? filtered : mainCandsRaw;
+    const weights = mainCands.map((r) => (dishReactions.likes.has(r.id) ? 3 : 1));
+    const total = weights.reduce((a, b) => a + b, 0);
+    let target = Math.random() * total;
+    let recipeIdx = 0;
+    for (let i = 0; i < mainCands.length; i++) {
+      target -= weights[i];
+      if (target <= 0) { recipeIdx = i; break; }
+    }
     const recipe = mainCands[recipeIdx]
       ? {
           name: mainCands[recipeIdx].name,
@@ -137,14 +151,23 @@ export function LazyDecisionPanel() {
     if (mood === "想奖励自己") snackAud.push("解压");
     if (people === 1) snackAud.push("学生党");
     if (takeoutInput.slot === "midnight") snackAud.push("深夜");
-    const snackResult = pickSnack({ audiences: snackAud });
+    const snackResult = pickSnack({
+      audiences: snackAud,
+      likedIds: snackReactions.likes,
+      dislikedIds: snackReactions.dislikes,
+    });
     const snack = snackResult.special;
 
     // 5. 水果
     const fruitAud: FruitAudience[] = [];
     if (mood === "想奖励自己" || mood === "开心") fruitAud.push("解馋");
     if (tastes.includes("热量低")) fruitAud.push("减脂");
-    const fruitResult = pickFruit({ audiences: fruitAud, seasonalOnly: true });
+    const fruitResult = pickFruit({
+      audiences: fruitAud,
+      seasonalOnly: true,
+      likedIds: fruitReactions.likes,
+      dislikedIds: fruitReactions.dislikes,
+    });
     const fruit = fruitResult.special;
 
     // 6. 视频 + 话题
@@ -240,7 +263,11 @@ export function LazyDecisionPanel() {
       takeoutGradient: takeout.special.gradient,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mood, weather, people, budget, tastes, interest, nonce]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mood, weather, people, budget, tastes, interest, nonce,
+      dishReactions.likes.size, dishReactions.dislikes.size,
+      snackReactions.likes.size, snackReactions.dislikes.size,
+      fruitReactions.likes.size, fruitReactions.dislikes.size]);
 
   // v2: 接受 wizard 输出，把答案投影到本面板状态
   function applyWizard(a: WizardAnswers): void {
