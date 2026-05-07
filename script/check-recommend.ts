@@ -1009,6 +1009,137 @@ console.log("== v2: 海报 / 浮窗 / 一周计划 / 快速问答 文件存在 =
   }
 }
 
+console.log("== v7: 桌面结构推荐（家庭/长辈/儿童不全凉菜不全汤）==");
+{
+  const { applyScenarioToPrefs, getScenario } = await import("../client/src/lib/scenarios");
+  const scenarios = ["family-dinner", "elder-light", "kid-friendly"] as const;
+  for (const sid of scenarios) {
+    const sc = getScenario(sid as any);
+    const prefs = applyScenarioToPrefs(DEFAULT_PREFS, sid as any);
+    let allColdRuns = 0;
+    let allSoupRuns = 0;
+    let proteinHits = 0;
+    let veggieHits = 0;
+    const N = 25;
+    for (let i = 0; i < N; i++) {
+      const plan = recommend(prefs, [], { scenario: sc });
+      const list = planToList(plan);
+      const COLD = /凉拌|拌(?!饭|面|粉)|沙拉|凉菜|凉面|凉皮|皮蛋豆腐|拍黄瓜|呛|腌/;
+      const cold = list.filter((d) => COLD.test(d.name)).length;
+      const soups = list.filter((d) => d.course === "soup").length;
+      if (list.length > 0 && cold === list.length) allColdRuns++;
+      if (list.length > 0 && soups === list.length) allSoupRuns++;
+      const protein = list.some((d) =>
+        d.ingredients.some(
+          (i: any) =>
+            i.category === "肉蛋豆制品" &&
+            /鸡|鸭|鱼|虾|蟹|猪|牛|羊|肉|蛋|豆腐|腐竹|豆干|百叶/.test(i.name),
+        ),
+      );
+      const veg = list.some((d) => d.course === "veggie");
+      if (protein) proteinHits++;
+      if (veg) veggieHits++;
+    }
+    check(`v7 ${sid}: 25 次推荐均不是「全凉菜」`, allColdRuns === 0, `allColdRuns=${allColdRuns}`);
+    check(`v7 ${sid}: 25 次推荐均不是「全汤」`, allSoupRuns === 0, `allSoupRuns=${allSoupRuns}`);
+    check(
+      `v7 ${sid}: 至少 80% 推荐含蛋白主菜（实际 ${proteinHits}/${N}）`,
+      proteinHits >= Math.ceil(N * 0.8),
+    );
+    check(
+      `v7 ${sid}: 至少 80% 推荐含蔬菜（实际 ${veggieHits}/${N}）`,
+      veggieHits >= Math.ceil(N * 0.8),
+    );
+  }
+  // family-dinner 默认 mainCount=2 + withSoup + withVeggie，应该有「主菜+蔬菜+汤」三类
+  const sc = getScenario("family-dinner");
+  const prefs = applyScenarioToPrefs(DEFAULT_PREFS, "family-dinner");
+  const plan = recommend(prefs, [], { scenario: sc });
+  check(
+    `v7 family-dinner: tableBalance 字段存在`,
+    !!plan.tableBalance,
+    JSON.stringify(plan.tableBalance ?? null),
+  );
+  check(
+    `v7 family-dinner: tableBalance.style === 'family'`,
+    plan.tableBalance?.style === "family",
+  );
+}
+
+console.log("== v7: 外卖品类平衡（清淡+酸辣+100元 不全咖啡）==");
+{
+  const { pickTakeout } = await import("../client/src/data/takeoutBrands");
+  const drinkCats = new Set(["茶饮咖啡", "奶茶饮品", "甜品下午茶"]);
+  const mainCats = new Set([
+    "中式快餐", "粉面", "汉堡炸鸡", "饭团便当", "饺子小笼",
+    "披萨意面", "火锅麻辣烫", "烤肉烧烤", "健康轻食", "海鲜日料", "粥早餐",
+  ]);
+  // 上海+100+清淡+酸辣，午餐 — 不应全咖啡
+  let drinkSpecialCount = 0;
+  let allDrinkRuns = 0;
+  let mainCountSum = 0;
+  const N = 25;
+  for (let i = 0; i < N; i++) {
+    const r = pickTakeout({ city: "上海", budget: 100, people: 1, tastes: ["清淡", "酸辣"], slot: "lunch" });
+    const all = [r.special, ...r.alternatives];
+    if (drinkCats.has(r.special.category)) drinkSpecialCount++;
+    if (all.every((b) => drinkCats.has(b.category))) allDrinkRuns++;
+    mainCountSum += all.filter((b) => mainCats.has(b.category)).length;
+  }
+  check(`v7 上海+100+清淡酸辣 lunch: special 几乎不是饮品（${drinkSpecialCount}/${N}）`, drinkSpecialCount <= Math.ceil(N * 0.1));
+  check(`v7 上海+100+清淡酸辣 lunch: 没有「全咖啡」候选（${allDrinkRuns}/${N}）`, allDrinkRuns === 0);
+  check(`v7 上海+100+清淡酸辣 lunch: 平均正餐数 >= 2 (${(mainCountSum / N).toFixed(1)})`, mainCountSum / N >= 2);
+  // 候选中饮品最多 1 个（lunch 不允许多饮品）
+  let drinkOver1 = 0;
+  for (let i = 0; i < N; i++) {
+    const r = pickTakeout({ city: "上海", budget: 100, people: 1, tastes: ["清淡", "酸辣"], slot: "lunch" });
+    const drinks = [r.special, ...r.alternatives].filter((b) => drinkCats.has(b.category)).length;
+    if (drinks > 1) drinkOver1++;
+  }
+  check(`v7 lunch 候选中饮品 <= 1（违规次数 ${drinkOver1}/${N}）`, drinkOver1 === 0);
+  // dinner 同样测试
+  for (let i = 0; i < 10; i++) {
+    const r = pickTakeout({ city: "北京", budget: 60, people: 1, tastes: ["清淡"], slot: "dinner" });
+    const all = [r.special, ...r.alternatives];
+    const drinks = all.filter((b) => drinkCats.has(b.category)).length;
+    const mains = all.filter((b) => mainCats.has(b.category)).length;
+    check(`v7 dinner 候选 drinks<=1 mains>=2 (drinks=${drinks} mains=${mains})`, drinks <= 1 && mains >= 2);
+  }
+  // breakfast 时段允许多饮品（不强制限制）
+  const br = pickTakeout({ city: "上海", budget: 30, people: 1, tastes: [], slot: "breakfast" });
+  check(`v7 breakfast: 至少能给出 special + alternatives`, !!br.special && br.alternatives.length >= 3);
+}
+
+console.log("== v7: 懒人简餐模板池 ==");
+{
+  const { LAZY_MEALS, pickLazyMeal } = await import("../client/src/data/lazyMeals");
+  check(`懒人简餐模板 >= 60（实际 ${LAZY_MEALS.length}）`, LAZY_MEALS.length >= 60);
+  for (const m of LAZY_MEALS) {
+    check(
+      `模板「${m.name}」字段齐全 (equipment/steps/calories/price)`,
+      m.equipment.length >= 1 && m.steps.length >= 1 && m.calories > 0 && m.price > 0,
+    );
+  }
+  // 各设备至少有几个
+  const eqCount: Record<string, number> = {};
+  for (const m of LAZY_MEALS) for (const e of m.equipment) eqCount[e] = (eqCount[e] ?? 0) + 1;
+  for (const eq of ["空气炸锅", "电饭煲", "微波炉", "一口锅"] as const) {
+    check(`设备「${eq}」至少有 5 个模板（实际 ${eqCount[eq] ?? 0}）`, (eqCount[eq] ?? 0) >= 5);
+  }
+  // pickLazyMeal 命中
+  const r = pickLazyMeal({ equipment: ["空气炸锅"], maxMinutes: 30 });
+  check(`pickLazyMeal(空气炸锅): special 含「空气炸锅」`, r.special.equipment.includes("空气炸锅"));
+  check(`pickLazyMeal: alternatives >= 3`, r.alternatives.length >= 3);
+  // LazyDecisionPanel 引用了 LazyMealsPanel
+  const fs = await import("node:fs");
+  const lazySrc = fs.readFileSync("client/src/components/LazyDecisionPanel.tsx", "utf-8");
+  check(`LazyDecisionPanel 引入 LazyMealsPanel`, lazySrc.includes("LazyMealsPanel"));
+  check(
+    `LazyMealsPanel 文件存在`,
+    fs.existsSync("client/src/components/LazyMealsPanel.tsx"),
+  );
+}
+
 console.log("");
 if (failed === 0) {
   console.log(`✅ 全部检查通过 (RECIPES=${RECIPES.length} 道)`);

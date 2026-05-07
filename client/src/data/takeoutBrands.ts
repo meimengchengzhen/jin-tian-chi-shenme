@@ -109,6 +109,79 @@ const SLOT_BIAS: Record<NonNullable<TakeoutPickInput["slot"]>, TakeoutCategory[]
   midnight: ["小吃零嘴", "汉堡炸鸡", "粉面"],
 };
 
+// v7: 品类平衡 — 区分「饮品/下午茶」与「正餐/小吃」。除非用户明确选择了下午茶/早餐场景，
+// 候选不能让饮品（茶饮咖啡 / 奶茶饮品 / 甜品下午茶）刷屏。
+const DRINK_CATEGORIES: TakeoutCategory[] = ["茶饮咖啡", "奶茶饮品", "甜品下午茶"];
+const MAIN_MEAL_CATEGORIES: TakeoutCategory[] = [
+  "中式快餐", "粉面", "汉堡炸鸡", "饭团便当", "饺子小笼",
+  "披萨意面", "火锅麻辣烫", "烤肉烧烤", "健康轻食", "海鲜日料", "粥早餐",
+];
+
+function isDrinkBrand(b: TakeoutBrand): boolean {
+  return DRINK_CATEGORIES.includes(b.category);
+}
+function isMainMealBrand(b: TakeoutBrand): boolean {
+  return MAIN_MEAL_CATEGORIES.includes(b.category);
+}
+
+// v7: alternatives 平衡器：饮品最多 maxDrinks 个；至少 minMains 个正餐；同一 category 不超过 maxPerCat。
+// 当候选不够时，从 fallbackPool（按分数排序）补齐。
+function balanceAlternatives(
+  initial: TakeoutBrand[],
+  fallbackPool: TakeoutBrand[],
+  special: TakeoutBrand,
+  drinkAllowed: boolean,
+  size = 4,
+): TakeoutBrand[] {
+  const maxDrinks = drinkAllowed ? 2 : 1;
+  const minMains = drinkAllowed ? 1 : 2;
+  const maxPerCat = 2;
+
+  const out: TakeoutBrand[] = [];
+  const seen = new Set<string>([special.id]);
+  const catCount: Record<string, number> = {};
+  let drinkCount = 0;
+
+  function tryAdd(b: TakeoutBrand): boolean {
+    if (seen.has(b.id)) return false;
+    if ((catCount[b.category] ?? 0) >= maxPerCat) return false;
+    if (isDrinkBrand(b) && drinkCount >= maxDrinks) return false;
+    out.push(b);
+    seen.add(b.id);
+    catCount[b.category] = (catCount[b.category] ?? 0) + 1;
+    if (isDrinkBrand(b)) drinkCount++;
+    return true;
+  }
+
+  // 1) 先按原顺序加入
+  for (const b of initial) {
+    if (out.length >= size) break;
+    tryAdd(b);
+  }
+  // 2) 若正餐不够，从 fallbackPool 主餐补齐
+  if (out.filter(isMainMealBrand).length < minMains) {
+    for (const b of fallbackPool) {
+      if (out.length >= size) break;
+      if (out.filter(isMainMealBrand).length >= minMains) break;
+      if (!isMainMealBrand(b)) continue;
+      tryAdd(b);
+    }
+  }
+  // 3) 若数量不够，再从 fallbackPool 补齐
+  for (const b of fallbackPool) {
+    if (out.length >= size) break;
+    tryAdd(b);
+  }
+  // 4) 兜底：如果还是不足（极小池），允许同 category 第三个
+  for (const b of fallbackPool) {
+    if (out.length >= size) break;
+    if (seen.has(b.id)) continue;
+    out.push(b);
+    seen.add(b.id);
+  }
+  return out.slice(0, size);
+}
+
 export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
   const perPerson = Math.max(8, Math.round(input.budget / Math.max(1, input.people)));
   const slotCats = input.slot ? SLOT_BIAS[input.slot] : [];
@@ -133,6 +206,26 @@ export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
     score += Math.random() * 6;
     return { brand: b, score };
   }).sort((a, b) => b.score - a.score);
+
+  // v7: 品类平衡 — 除非时段是「早餐」/「下午茶」或用户明显在挑饮品，否则正餐优先。
+  // - 用户没勾「热量低」+ 没勾任何饮品口味 + 时段是 lunch/dinner/midnight → 强制正餐为 special。
+  // - alternatives：饮品最多 1 个；保证至少 2 个正餐/主食。
+  const drinkSlot = input.slot === "breakfast"; // 早餐允许多茶饮咖啡
+  const explicitlyDrink =
+    input.tastes.includes("甜") && input.tastes.length === 1 && (input.slot === undefined || input.slot === "breakfast");
+  const allowDrinkSpecial = drinkSlot || explicitlyDrink || !!input.pinnedBrandId || !!input.searchQuery;
+
+  if (!allowDrinkSpecial) {
+    const topMain = scored.find((s) => isMainMealBrand(s.brand));
+    if (topMain && isDrinkBrand(scored[0].brand)) {
+      // 把第一个非饮品提到前面
+      const idx = scored.indexOf(topMain);
+      if (idx > 0) {
+        scored.splice(idx, 1);
+        scored.unshift(topMain);
+      }
+    }
+  }
 
   // v4: pinnedBrandId 强制置顶 — 即便预算不符，也用品牌作为 special，并给出预算提示。
   let special = scored[0].brand;
@@ -175,6 +268,9 @@ export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
       }
     }
   }
+
+  // v7: 候选去刷屏 — 饮品最多 1 个；至少 2 个正餐/主食；保留多样化品类。
+  alternatives = balanceAlternatives(alternatives, scored.map((s) => s.brand), special, allowDrinkSpecial);
 
   const decisionLine = (() => {
     const parts: string[] = [];

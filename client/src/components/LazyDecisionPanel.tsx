@@ -32,6 +32,7 @@ import { recommendWatch, recommendTopics, type CompanionContext } from "@/lib/co
 import { LazyWizardDialog, type WizardAnswers } from "@/components/LazyWizardDialog";
 import { DecisionPoster } from "@/components/DecisionPoster";
 import { WeeklyPlanPanel } from "@/components/WeeklyPlanPanel";
+import { LazyMealsPanel } from "@/components/LazyMealsPanel";
 import { addSelected } from "@/lib/selectedToday";
 import { buildLazyItems, totalsOfLazyItems } from "@/lib/lazyEstimates";
 import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
@@ -639,6 +640,9 @@ export function LazyDecisionPanel() {
           calories: result.caloriesEst,
         }}
       />
+
+      {/* v7: 「今天懒人做什么」二级 section — 设备/时间/冰箱剩什么/目标 → 简餐惊喜 */}
+      <LazyMealsPanel />
 
       {/* v2: 一周计划 / 预算计划 */}
       <WeeklyPlanPanel />

@@ -43,6 +43,13 @@ export interface ScenarioPreset {
   caloriePriority: number;
   /** 评分调权：偏好快手 / 慢炖 / 健康清淡 等。 */
   energyHints: ("快手" | "慢炖" | "暖胃" | "清爽" | "下饭")[];
+  /** 桌面结构性偏好（v7）。
+   * - family: 一桌多人，主菜+素+汤+主食组合，避免清一色凉拌；
+   * - elder: 长辈友好，软烂蒸炖优先但仍需热菜+蛋白；
+   * - kid: 儿童友好，避免全辣/骨刺多，蛋白+蔬菜均衡；
+   * - solo: 单人控卡，无需「一桌结构」。
+   */
+  tableStyle?: "family" | "elder" | "kid" | "solo";
 }
 
 export const SCENARIOS: ScenarioPreset[] = [
@@ -62,6 +69,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: [],
     caloriePriority: 1.6,
     energyHints: ["清爽", "快手"],
+    tableStyle: "solo",
   },
   {
     id: "family-dinner",
@@ -79,6 +87,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: [],
     caloriePriority: 0.9,
     energyHints: ["下饭", "暖胃"],
+    tableStyle: "family",
   },
   {
     id: "quick-work",
@@ -96,6 +105,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: [],
     caloriePriority: 1.0,
     energyHints: ["快手"],
+    tableStyle: "solo",
   },
   {
     id: "kid-friendly",
@@ -113,6 +123,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: ["无辣"],
     caloriePriority: 0.9,
     energyHints: ["暖胃", "清爽"],
+    tableStyle: "kid",
   },
   {
     id: "elder-light",
@@ -130,6 +141,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: ["无辣"],
     caloriePriority: 1.0,
     energyHints: ["暖胃", "清爽"],
+    tableStyle: "elder",
   },
   {
     id: "fitness-bulk",
@@ -147,6 +159,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: [],
     caloriePriority: 1.4,
     energyHints: ["下饭"],
+    tableStyle: "solo",
   },
   {
     id: "weekend-cook",
@@ -164,6 +177,7 @@ export const SCENARIOS: ScenarioPreset[] = [
     defaultRestrictions: [],
     caloriePriority: 0.8,
     energyHints: ["慢炖", "下饭"],
+    tableStyle: "family",
   },
 ];
 

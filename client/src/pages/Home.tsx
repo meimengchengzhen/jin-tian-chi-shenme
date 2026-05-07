@@ -1662,6 +1662,26 @@ export default function Home() {
               </div>
             )}
 
+            {/* v7: 桌面结构提示 — 主菜 / 素菜 / 汤是否齐全；长辈/儿童友好提示 */}
+            {plan.tableBalance && planToList(plan).length > 0 && (
+              <div
+                className={`mb-3 flex items-start gap-2 rounded-lg border px-3 py-2 text-[12.5px] ${
+                  plan.tableBalance.level === "warn"
+                    ? "border-amber-500/40 bg-amber-500/10 text-foreground/85"
+                    : "border-emerald-500/30 bg-emerald-500/5 text-foreground/85"
+                }`}
+                data-testid="banner-table-balance"
+              >
+                <Info className={`mt-0.5 h-3.5 w-3.5 flex-shrink-0 ${plan.tableBalance.level === "warn" ? "text-amber-500" : "text-emerald-600"}`} />
+                <span>
+                  这一桌结构：
+                  <span className="font-medium">
+                    {plan.tableBalance.notes.join(" · ")}
+                  </span>
+                </span>
+              </div>
+            )}
+
             {/* 兜底：未填满的 course */}
             {plan.unmetCourses && plan.unmetCourses.length > 0 && planToList(plan).length > 0 && (
               <div

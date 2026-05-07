@@ -499,6 +499,9 @@ export function TakeoutPanel() {
         <p className="mb-2 text-[12.5px] text-primary/80" data-testid="takeout-decision">
           {result.decisionLine} · 城市：{city} · 人均 ¥{result.perPerson}
         </p>
+        <p className="mb-2 text-[11.5px] text-muted-foreground" data-testid="takeout-balance-hint">
+          品类平衡：正餐优先，饮品/咖啡不刷屏（除非选择「早餐」/「下午茶」时段或主动搜索咖啡品牌）
+        </p>
         <BrandCard brand={result.special} special defaultOpen />
       </div>
 

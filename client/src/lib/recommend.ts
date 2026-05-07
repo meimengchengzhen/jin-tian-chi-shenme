@@ -167,6 +167,41 @@ function envEnergyForWeather(weather: WeatherTag | undefined): EnergyTag[] {
   }
 }
 
+// === v7: 桌面结构判定辅助 ===
+// 用名称 / 步骤关键词判定一道菜是否「凉菜」「软烂蒸炖」「含动物蛋白」。
+// 仅用于排序加分与平衡提示，不构成硬性过滤。
+const COLD_DISH_RE =
+  /凉拌|拌(?!饭|面|粉)|沙拉|凉菜|凉面|凉皮|皮蛋豆腐|拍黄瓜|呛|酸汤|腌|泡椒(?!炒)/;
+const SOFT_COOK_RE = /蒸|炖|焖|煮|羹|粥|烩|炆|煨|靠/;
+const STIR_FRY_RE = /炒|爆|煎|烧|焗|烤(?!箱)/;
+const SPICY_RE = /(微辣|重辣|麻辣)/;
+const FISH_BONE_RE = /整条|整鱼|带骨|排骨|凤爪|鸡爪|花椒|鱼头|鱼尾|鸡架|骨头/;
+const PROTEIN_INGREDIENT_RE =
+  /鸡|鸭|鱼|虾|蟹|猪|牛|羊|肉|蛋|豆腐|腐竹|豆干|百叶|鹌鹑|火腿|腊/;
+
+function isColdDish(r: Recipe): boolean {
+  if (COLD_DISH_RE.test(r.name)) return true;
+  // 步骤里只有腌/拌没有热加工
+  const steps = r.steps.join(" ");
+  const hasHeat = SOFT_COOK_RE.test(steps) || STIR_FRY_RE.test(steps);
+  if (!hasHeat && /拌|腌|淋|捞/.test(steps)) return true;
+  return false;
+}
+function isSoftCooked(r: Recipe): boolean {
+  return SOFT_COOK_RE.test(r.name) || SOFT_COOK_RE.test(r.steps.join(" "));
+}
+function hasAnimalProtein(r: Recipe): boolean {
+  return r.ingredients.some(
+    (i) => i.category === "肉蛋豆制品" && PROTEIN_INGREDIENT_RE.test(i.name),
+  );
+}
+function kidUnfriendly(r: Recipe): boolean {
+  // 整辣或重辣或骨头多的菜对小朋友不友好
+  if (r.tastes.some((t) => t === "重辣" || t === "麻辣")) return true;
+  if (FISH_BONE_RE.test(r.name) || FISH_BONE_RE.test(r.steps.join(" "))) return true;
+  return false;
+}
+
 export function scoreRecipe(
   recipe: Recipe,
   prefs: Preferences,
@@ -254,6 +289,25 @@ export function scoreRecipe(
       ctx.scenario.defaultDifficulties.includes(recipe.difficulty)
     ) {
       s += 0.25;
+    }
+    // v7: 桌面结构调权
+    const style = ctx.scenario.tableStyle;
+    if (style === "elder") {
+      // 长辈：软烂蒸炖优先；但仍要保证主菜含蛋白；过辣强减
+      if (isSoftCooked(recipe)) s += 1.2;
+      if (recipe.tastes.some((t) => t === "重辣" || t === "麻辣")) s -= 2.0;
+      if (recipe.course === "main" && hasAnimalProtein(recipe)) s += 0.8;
+      if (recipe.course === "veggie" && isColdDish(recipe)) s -= 0.6;
+    } else if (style === "kid") {
+      // 儿童：避免重辣 / 多骨；甜口或咸鲜加分；蛋白主菜加分
+      if (kidUnfriendly(recipe)) s -= 2.0;
+      if (recipe.course === "main" && hasAnimalProtein(recipe)) s += 0.8;
+      if (recipe.tastes.includes("酸甜") || recipe.tastes.includes("咸鲜")) s += 0.4;
+    } else if (style === "family") {
+      // 家庭：主菜要蛋白；素菜不要再被凉菜抢；汤是软搭配
+      if (recipe.course === "main" && hasAnimalProtein(recipe)) s += 0.8;
+      if (recipe.course === "veggie" && isColdDish(recipe)) s -= 0.5;
+      if (recipe.course === "main" && isColdDish(recipe)) s -= 1.2;
     }
   }
 
@@ -396,6 +450,23 @@ export interface MealPlan {
   relaxedNotes?: string[];
   /** 即使全部放宽也仍然没有候选的 course（一般是硬性忌口太严格） */
   unmetCourses?: Course[];
+  /** v7: 桌面结构汇总（family/elder/kid 场景启用），UI 用于显示「主菜/素菜/汤齐全」「老人/小孩友好」等。 */
+  tableBalance?: TableBalance;
+}
+
+/** v7: 一桌结构汇总，告诉 UI 是否齐了「主菜+素+汤+主食」、是否全凉菜/全汤、对老人小孩是否友好。 */
+export interface TableBalance {
+  /** 当前场景的桌面风格，没有则 undefined（不显示提示条）。 */
+  style: "family" | "elder" | "kid" | "solo";
+  hasProtein: boolean;
+  hasVeggie: boolean;
+  hasSoup: boolean;
+  hasStaple: boolean;
+  coldCount: number;
+  totalCount: number;
+  notes: string[];
+  /** 友好提示等级：ok=均衡；warn=不太均衡（如全凉菜 / 缺蛋白） */
+  level: "ok" | "warn";
 }
 
 const RELAX_LABELS: Record<number, string> = {
@@ -461,9 +532,46 @@ export function recommend(
     picked.forEach((r) => lockedIds.add(r.id));
   }
 
-  const newMains = courseResults.get("main") ?? [];
+  let newMains = courseResults.get("main") ?? [];
+  let veggie = lockedVeg ?? courseResults.get("veggie")?.[0];
+
+  // v7: 家庭/长辈/儿童场景下，如果主菜全是素的（无蛋白），尝试用本场景下含蛋白的候选替换一道。
+  const style = ctx.scenario?.tableStyle;
+  if ((style === "family" || style === "elder" || style === "kid") && newMains.length > 0) {
+    const proteinIn = (rs: Recipe[]) => rs.some(hasAnimalProtein);
+    if (!proteinIn(newMains) && !lockedMains.some(hasAnimalProtein)) {
+      // 在最宽松 level 下找含蛋白的主菜
+      const pool = buildPool(prefs, 3).filter(
+        (r) => r.course === "main" && hasAnimalProtein(r) && !lockedIds.has(r.id) && !newMains.find((x) => x.id === r.id),
+      );
+      if (pool.length > 0) {
+        const ranked = pool
+          .map((r) => ({ r, s: scoreRecipe(r, prefs, ctx) }))
+          .sort((a, b) => b.s - a.s);
+        const swap = ranked[Math.floor(Math.random() * Math.min(3, ranked.length))].r;
+        // 替换掉第一道无蛋白的主菜
+        const idx = newMains.findIndex((m) => !hasAnimalProtein(m));
+        if (idx >= 0) {
+          newMains = [...newMains];
+          newMains[idx] = swap;
+        }
+      }
+    }
+    // v7: 素菜不应是凉拌（家庭桌至少 1 道热素），尝试替换为热炒素
+    if (veggie && isColdDish(veggie) && !lockedVeg) {
+      const pool = buildPool(prefs, 3).filter(
+        (r) => r.course === "veggie" && !isColdDish(r) && !lockedIds.has(r.id) && r.id !== veggie!.id,
+      );
+      if (pool.length > 0) {
+        const ranked = pool
+          .map((r) => ({ r, s: scoreRecipe(r, prefs, ctx) }))
+          .sort((a, b) => b.s - a.s);
+        veggie = ranked[Math.floor(Math.random() * Math.min(3, ranked.length))].r;
+      }
+    }
+  }
+
   const mains = [...lockedMains, ...newMains];
-  const veggie = lockedVeg ?? courseResults.get("veggie")?.[0];
   const soup = lockedSoup ?? courseResults.get("soup")?.[0];
 
   const relaxedNotes: string[] = [];
@@ -472,12 +580,62 @@ export function recommend(
     if (label) relaxedNotes.push(label);
   }
 
+  // v7: 计算桌面结构汇总
+  let tableBalance: TableBalance | undefined;
+  if (style && style !== "solo") {
+    const all: Recipe[] = [...mains];
+    if (veggie) all.push(veggie);
+    if (soup) all.push(soup);
+    const protein = all.some(hasAnimalProtein);
+    const hasV = !!veggie;
+    const hasS = !!soup;
+    const hasStaple = all.some((r) => r.course === "staple");
+    const cold = all.filter(isColdDish).length;
+    const notes: string[] = [];
+    let level: "ok" | "warn" = "ok";
+    if (!protein) {
+      notes.push("当前未推蛋白主菜，可换一道含鸡/鱼/牛/豆制品的菜");
+      level = "warn";
+    } else {
+      notes.push("含蛋白主菜");
+    }
+    if (hasV) notes.push("含蔬菜");
+    else { notes.push("缺蔬菜"); level = "warn"; }
+    if (hasS) notes.push("含汤");
+    if (cold === all.length && all.length > 1) {
+      notes.push("⚠️ 全是凉菜，建议加 1 道热菜");
+      level = "warn";
+    }
+    if (style === "elder") {
+      const soft = all.filter(isSoftCooked).length;
+      if (soft === 0) { notes.push("缺软烂蒸炖菜（长辈友好）"); level = "warn"; }
+      else notes.push(`长辈友好 ${soft} 道软烂菜`);
+    }
+    if (style === "kid") {
+      const unkid = all.filter(kidUnfriendly).length;
+      if (unkid > 0) { notes.push(`含 ${unkid} 道偏辣/多骨菜，给小朋友单独留素`); level = "warn"; }
+      else notes.push("无重辣多骨菜（儿童友好）");
+    }
+    tableBalance = {
+      style,
+      hasProtein: protein,
+      hasVeggie: hasV,
+      hasSoup: hasS,
+      hasStaple,
+      coldCount: cold,
+      totalCount: all.length,
+      notes,
+      level,
+    };
+  }
+
   return {
     mains,
     veggie,
     soup,
     relaxedNotes: relaxedNotes.length > 0 ? relaxedNotes : undefined,
     unmetCourses: unmetCourses.length > 0 ? unmetCourses : undefined,
+    tableBalance,
   };
 }
 
