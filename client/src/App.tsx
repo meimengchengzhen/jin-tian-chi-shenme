@@ -14,6 +14,7 @@ function AppRouter() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/home" component={Home} />
+      <Route path="/weekly" component={Home} />
       <Route path="/lazy" component={Home} />
       <Route path="/health" component={Home} />
       <Route path="/search" component={Home} />

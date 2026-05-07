@@ -861,23 +861,26 @@ console.log("== v2: 主题系统 ==");
   check(`默认主题 = fresh（实际 ${def}）`, def === "fresh" || THEMES.some((t: any) => t.id === def));
 }
 
-console.log("== v2: 顶部 Tab 滚动支持 ==");
+console.log("== v8: 顶部 Tab 两排大按钮（不再依赖横向拖动）==");
 {
   const fs = await import("node:fs");
   const src = fs.readFileSync("client/src/components/MainTabs.tsx", "utf-8");
-  check("MainTabs 启用了 pointer 拖拽", src.includes("pointerdown") && src.includes("pointermove"));
-  check("MainTabs 启用了滚轮横向滚动", src.includes("onWheel") || src.includes('addEventListener("wheel"'));
-  check("MainTabs 提供左右渐变提示", src.includes("from-background"));
-  // v3: 顶部箭头按钮 hit target 至少 40x40，移动端也可见
+  check("MainTabs 含 weekly tab", src.includes('id: "weekly"'));
+  check("MainTabs 渲染两排（row1 / row2 + TabRow）", src.includes("TabRow") && src.includes("group !== \"extra\"") && src.includes("group === \"extra\""));
   check(
-    "MainTabs 左右箭头按钮 hit target 至少 h-10 w-10",
-    src.includes("h-10 w-10") &&
-      src.includes("main-tabs-nudge-left") &&
-      src.includes("main-tabs-nudge-right"),
+    "MainTabs 按钮高度 h-12（更大）",
+    src.includes("h-12"),
   );
+  // 不应再依赖 horizontal scroll / 拖拽 — 用户说「减少拖动麻烦」
   check(
-    "MainTabs 左右箭头按钮在移动端也可见（无 hidden sm:inline-flex）",
-    !/hidden\s+-translate-y-1\/2[^\"]*sm:inline-flex/.test(src),
+    "MainTabs 不再使用横向拖拽（pointerdown）",
+    !src.includes("pointerdown") || src.split("pointerdown").length <= 1,
+  );
+  // CSS 提供 .main-tabs-row 自适应等分
+  const css = fs.readFileSync("client/src/index.css", "utf-8");
+  check(
+    ".main-tabs-row 自定义类支持媒体查询",
+    css.includes(".main-tabs-row") && css.includes("--tab-cols"),
   );
 }
 
@@ -1207,6 +1210,163 @@ console.log("== v7: 懒人简餐模板池 ==");
   check(
     `LazyMealsPanel 文件存在`,
     fs.existsSync("client/src/components/LazyMealsPanel.tsx"),
+  );
+}
+
+console.log("== v8: 家庭一周菜单 + 预算 ==");
+{
+  const { defaultFamilyInput, planFamilyWeek, weeklyMenuToText } = await import(
+    "../client/src/lib/familyWeekly"
+  );
+  // 默认 1500 月预算 / 3 人 / 均衡 → 必须能生成 7 天
+  const input = defaultFamilyInput();
+  check(`默认输入 monthlyBudget=1500`, input.monthlyBudget === 1500);
+  check(`默认输入 weeklyBudget 在 350-400`, input.weeklyBudget >= 340 && input.weeklyBudget <= 410);
+  const plan = planFamilyWeek(input, 1);
+  check(`一周生成 7 天`, plan.days.length === 7, `days=${plan.days.length}`);
+  // 每天必须有 lunch + dinner
+  let badDay = 0;
+  for (const d of plan.days) {
+    const slots = d.meals.map((m: any) => m.slot);
+    if (!slots.includes("lunch") || !slots.includes("dinner")) badDay++;
+  }
+  check(`每天含午+晚`, badDay === 0);
+  // 总价不应明显超预算（默认结构应基本贴近）
+  check(`默认总估价 <= 周预算 * 1.4（实际 ¥${plan.totalCost} / 周预算 ¥${input.weeklyBudget}）`, plan.totalCost <= input.weeklyBudget * 1.4);
+  // 频次字段存在且至少 5 类
+  check(`蛋白频次至少含 5 类（鸡/牛/猪/鱼虾/豆腐蛋）`, plan.proteinFreq.length >= 5);
+  // 全部主菜餐次 + 外卖 = 14（午+晚）
+  const totalMeals = plan.proteinFreq.reduce((acc: number, p: any) => acc + p.count, 0);
+  check(`蛋白主菜总次数 == 14（实际 ${totalMeals}）`, totalMeals === 14);
+  // 不全凉菜不全汤：主菜数量大致等于 14
+  let allColdRuns = 0, allSoupRuns = 0;
+  for (const d of plan.days) {
+    for (const m of d.meals) {
+      const dishes = m.dishes;
+      if (dishes.length > 0 && dishes.every((x: any) => /凉|拌(?!饭)|沙拉|皮蛋豆腐/.test(x.recipe?.name ?? ""))) allColdRuns++;
+      if (dishes.length > 0 && dishes.every((x: any) => x.recipe?.course === "soup")) allSoupRuns++;
+    }
+  }
+  check(`不存在「全凉菜」一餐`, allColdRuns === 0);
+  check(`不存在「全汤」一餐`, allSoupRuns === 0);
+  // 买菜清单非空
+  const totalShopItems = plan.shopping.reduce((acc: number, g: any) => acc + g.items.length, 0);
+  check(`买菜清单非空（共 ${totalShopItems} 项）`, totalShopItems >= 10);
+  // 4 个分组都存在
+  const groupNames = plan.shopping.map((g: any) => g.group);
+  for (const g of ["肉蛋奶", "蔬菜", "主食豆制品", "调味杂项"]) {
+    check(`买菜清单含分组「${g}」`, groupNames.includes(g));
+  }
+  // 文本输出
+  const txt = weeklyMenuToText(input, plan);
+  check(`weeklyMenuToText 含「家庭一周菜单」`, txt.includes("家庭一周菜单"));
+  check(`weeklyMenuToText 含「买菜清单」`, txt.includes("买菜清单"));
+  // 省钱目标下牛肉应该 0 / 外卖少 / 豆腐蛋多
+  const cheap = planFamilyWeek({ ...input, goal: "省钱", takeoutCount: 1 }, 2);
+  const beefFreq = cheap.proteinFreq.find((p: any) => p.kind === "牛肉")?.count ?? -1;
+  const tofuFreq = cheap.proteinFreq.find((p: any) => p.kind === "豆腐蛋")?.count ?? -1;
+  check(`省钱方案：牛肉 == 0`, beefFreq === 0);
+  check(`省钱方案：豆腐蛋 >= 5`, tofuFreq >= 5);
+  // 长辈多人：默认目标含 friendly flag 至少出现 1 次（如果 elders > 0）
+  const elder = planFamilyWeek({ ...input, elders: 1, kids: 0, adults: 2, people: 3, goal: "长辈友好" }, 3);
+  let elderFlagged = 0;
+  for (const d of elder.days) for (const m of d.meals) for (const x of m.dishes) {
+    if (x.flags.some((f: string) => f.includes("长辈"))) elderFlagged++;
+  }
+  check(`长辈友好目标 elders=1：至少 5 道菜带「长辈友好」标记`, elderFlagged >= 5, `count=${elderFlagged}`);
+  // 忌口：无海鲜下不应出现鱼虾
+  const noSeafood = planFamilyWeek({ ...input, restrictions: ["无海鲜"] }, 5);
+  const seafoodFreq = noSeafood.proteinFreq.find((p: any) => p.kind === "鱼虾")?.count ?? -1;
+  // 忌口下 mainsByProtein.鱼虾 = 0，所以会降级为豆腐蛋；此处直接检查没违忌的菜
+  let viol = 0;
+  for (const d of noSeafood.days) for (const m of d.meals) for (const x of m.dishes) {
+    if (x.recipe?.contains?.includes("无海鲜")) viol++;
+  }
+  check(`无海鲜忌口：返回的菜不含「无海鲜」contains`, viol === 0);
+  // App.tsx 注册 /weekly 路由
+  const fs = await import("node:fs");
+  const appSrc = fs.readFileSync("client/src/App.tsx", "utf-8");
+  check(`App.tsx 注册 /weekly`, appSrc.includes('path="/weekly"'));
+  // Home.tsx lazy import WeeklyMenuPanel
+  const homeSrc = fs.readFileSync("client/src/pages/Home.tsx", "utf-8");
+  check(`Home.tsx 引入 WeeklyMenuPanel`, homeSrc.includes("WeeklyMenuPanel"));
+  check(`Home.tsx 渲染 weekly tab`, homeSrc.includes('tab === "weekly"'));
+}
+
+console.log("== v8: HotBoard 各平台内容差异化 ==");
+{
+  const { loadSource, MONTH_THEMES, currentMonth } = await import(
+    "../client/src/lib/hotBoard"
+  );
+  const sources = ["weibo", "douyin", "toutiao", "zhihu", "bilibili", "baidu"] as const;
+  // 1) 各平台首屏标题不同
+  const firstTitles: Record<string, string[]> = {};
+  for (const s of sources) {
+    const r = await loadSource(s as any, { seed: 0, offline: true });
+    firstTitles[s] = r.items.slice(0, 6).map((it: any) => it.title);
+  }
+  // 任意两个平台的前 4 条标题不应完全相同
+  let collisions = 0;
+  for (let i = 0; i < sources.length; i++) {
+    for (let j = i + 1; j < sources.length; j++) {
+      const a = new Set(firstTitles[sources[i]].slice(0, 4));
+      const b = new Set(firstTitles[sources[j]].slice(0, 4));
+      const overlap = Array.from(a).filter((x) => b.has(x)).length;
+      if (overlap >= 4) collisions++;
+    }
+  }
+  check(
+    `任意两个平台前 4 条标题不应完全相同（碰撞 ${collisions}）`,
+    collisions === 0,
+  );
+  // 2) 抖音 phrasing 应含短视频/挑战/打卡 等抖音风格关键词
+  const douyin = firstTitles["douyin"].join(" ");
+  check(
+    `抖音首屏带抖音调性（短视频/挑战/打卡/刷屏）`,
+    /短视频|挑战|打卡|刷屏|翻拍|话题|片段/.test(douyin),
+    douyin,
+  );
+  // 3) 头条 phrasing 应含新闻/调查/速递等
+  const toutiao = firstTitles["toutiao"].join(" ");
+  check(
+    `头条首屏带新闻调性（速报/调查/营养/票房）`,
+    /速报|速递|调查|营养|票房|价格|客流/.test(toutiao),
+    toutiao,
+  );
+  // 4) 知乎 phrasing 应含「如何评价」「值不值得」等
+  const zhihu = firstTitles["zhihu"].join(" ");
+  check(
+    `知乎首屏带知乎调性（如何评价/值不值得/详细体验）`,
+    /如何评价|如何看待|值不值得|体验报告|详解|高赞/.test(zhihu),
+    zhihu,
+  );
+  // 5) 刷新 seed 变化导致至少部分标题变化
+  for (const s of sources) {
+    const a = await loadSource(s as any, { seed: 0, offline: true });
+    const b = await loadSource(s as any, { seed: 1, offline: true });
+    const aTitles = a.items.slice(0, 6).map((it: any) => it.title).join("|");
+    const bTitles = b.items.slice(0, 6).map((it: any) => it.title).join("|");
+    check(`平台 ${s} seed=0 vs seed=1 前 6 条不同`, aTitles !== bTitles);
+  }
+  // 6) 5 月内容仍正确（至少有当月主题词命中）
+  const m = currentMonth();
+  if (m === 5) {
+    const r = await loadSource("weibo" as any, { seed: 0, offline: true });
+    const themeWords = MONTH_THEMES[5].themes;
+    const all = [...themeWords, ...MONTH_THEMES[5].food, ...MONTH_THEMES[5].life];
+    const hit = r.items.some((it: any) => all.some((w: string) => it.title.includes(w)));
+    check(
+      `5 月微博首屏含至少 1 条命中当月主题`,
+      hit,
+      r.items.slice(0, 4).map((i: any) => i.title).join(" | "),
+    );
+  }
+  // 7) HotBoard.tsx 调用 refresh 时传 bumpSeed
+  const fs = await import("node:fs");
+  const hbSrc = fs.readFileSync("client/src/components/HotBoard.tsx", "utf-8");
+  check(
+    `HotBoard 刷新按钮 onClick 含 bumpSeed: true`,
+    hbSrc.includes("bumpSeed: true"),
   );
 }
 

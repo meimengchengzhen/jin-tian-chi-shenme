@@ -314,8 +314,9 @@ export function currentSeason(): "春" | "夏" | "秋" | "冬" {
 /** 把候选话题数组按月份做轻量加权 / 替换。
  *  规则：候选列表中如果命中其它月份的关键词，会被换成当前月份的相关话题；
  *  保留通用话题。返回顺序保持稳定，但前 N 条会被替换为月份特色话题以让用户立刻看到。
+ *  v8: 每个平台 phrasing 不同 + seed 控制刷新内容变化。
  */
-function rotateForCurrentMonth(items: HotItem[], topUpCount = 4): HotItem[] {
+function rotateForCurrentMonth(items: HotItem[], topUpCount = 4, seed = 0): HotItem[] {
   const m = currentMonth();
   const theme = MONTH_THEMES[m];
   const otherThemes = Object.values(MONTH_THEMES).filter((t) => t.month !== m);
@@ -329,21 +330,79 @@ function rotateForCurrentMonth(items: HotItem[], topUpCount = 4): HotItem[] {
     }
     return true;
   });
-  // 用月份特色话题补足前 N 条
   const source = items[0]?.source ?? "weibo";
+  // 每平台 phrasing 不同，确保「抖音 / 头条 / 微博」不再共用同一批月份话题。
+  const monthlyPhrasings = monthlyTopicsForPlatform(theme, source);
+  // 用 seed 选取 topUpCount 条
+  const offset = Math.abs(seed) % Math.max(1, monthlyPhrasings.length);
   const monthly: HotItem[] = [];
-  const pool = [...theme.food, ...theme.life, ...theme.entertainment, ...theme.travel];
-  for (let i = 0; i < Math.min(topUpCount, pool.length); i++) {
+  for (let i = 0; i < Math.min(topUpCount, monthlyPhrasings.length); i++) {
+    const idx = (offset + i) % monthlyPhrasings.length;
     monthly.push({
-      id: `month-${m}-${source}-${i}`,
-      title: pool[i],
+      id: `month-${m}-${source}-${seed}-${i}`,
+      title: monthlyPhrasings[idx],
       source,
       hot: 8000000 - i * 500000,
       tag: i === 0 ? "本月" : i === 1 ? "新" : undefined,
     });
   }
-  // 月份在前，其它在后；并控制总数
-  return [...monthly, ...cleaned].slice(0, 14);
+  // 平台基线池也按 seed 做小偏移，使刷新生效（保持相对顺序）
+  const baseOffset = Math.abs((seed * 11 + 7)) % Math.max(1, cleaned.length);
+  const rotatedBase = cleaned.length > 0
+    ? [...cleaned.slice(baseOffset), ...cleaned.slice(0, baseOffset)]
+    : cleaned;
+  return [...monthly, ...rotatedBase].slice(0, 14);
+}
+
+// === 每平台调性 ===
+// 抖音：短视频 / 探店 / 挑战 / 情绪
+// 头条 / 百度：新闻 / 健康 / 节气 / 价格
+// 微博：明星 / 综艺 / 节日 / 轻社交
+// 知乎：知识 / 决策 / 健康
+// B 站：长视频 / 纪录片 / 教程 / 测评
+function platformPhrase(source: HotSource, food: string, kind: "food" | "life" | "ent" | "travel"): string {
+  switch (source) {
+    case "douyin":
+      if (kind === "food") return `#${food.replace(/[？?]/g, "")}# 短视频教程刷屏`;
+      if (kind === "life") return `${food} | 抖音情绪话题`;
+      if (kind === "ent") return `${food} 同款挑战 #翻拍达人`;
+      return `${food} 打卡片段刷爆`;
+    case "toutiao":
+      if (kind === "food") return `${food} | 营养专家这样说`;
+      if (kind === "life") return `${food} 调查：超 7 成人这样选`;
+      if (kind === "ent") return `${food} 票房 / 收视速递`;
+      return `${food}：本周价格 / 客流速报`;
+    case "baidu":
+      if (kind === "food") return `${food} 怎么做 百度知道高赞`;
+      if (kind === "life") return `${food} 全攻略`;
+      if (kind === "ent") return `${food} 详解`;
+      return `${food} 路线图`;
+    case "weibo":
+      if (kind === "food") return `${food} #餐桌话题#`;
+      if (kind === "life") return `${food} 你怎么看`;
+      if (kind === "ent") return `${food} 微博热议`;
+      return `${food} 同行打卡`;
+    case "bilibili":
+      if (kind === "food") return `${food}【美食区 UP 教程】`;
+      if (kind === "life") return `${food}｜生活区 vlog`;
+      if (kind === "ent") return `${food} 高燃剪辑`;
+      return `${food} 沉浸式 vlog`;
+    case "zhihu":
+      if (kind === "food") return `如何评价：${food}`;
+      if (kind === "life") return `${food}：值不值得？`;
+      if (kind === "ent") return `如何看待 ${food}`;
+      return `${food}：详细体验报告`;
+  }
+  return food;
+}
+
+function monthlyTopicsForPlatform(theme: MonthTheme, source: HotSource): string[] {
+  const out: string[] = [];
+  for (const f of theme.food) out.push(platformPhrase(source, f, "food"));
+  for (const f of theme.life) out.push(platformPhrase(source, f, "life"));
+  for (const f of theme.entertainment) out.push(platformPhrase(source, f, "ent"));
+  for (const f of theme.travel) out.push(platformPhrase(source, f, "travel"));
+  return out;
 }
 
 // ====== 静态 fallback 数据：API 失败 / 离线 / 没有 CORS 时仍展示 ======
@@ -470,20 +529,27 @@ async function fetchOneSource(source: HotSource, base: string, timeoutMs = 4000)
 /** 拉取一个 source；任意 base 成功就返回。
  *  fallback 路径会按当前月份 rotateForCurrentMonth：把当前月份的话题放在最前几条，
  *  并过滤掉明显属于其它月份的话题（避免 5 月看到 10 月内容）。
+ *  v8: 接受 seed 参数；fallback 路径会按 seed 做平台调性 + 内容轮换，刷新可换。
  */
-export async function loadSource(source: HotSource): Promise<{ items: HotItem[]; live: boolean; error?: string }> {
+export async function loadSource(
+  source: HotSource,
+  options?: { seed?: number; offline?: boolean },
+): Promise<{ items: HotItem[]; live: boolean; error?: string }> {
+  const seed = options?.seed ?? 0;
   let lastErr: unknown = undefined;
-  for (const base of HOT_API_BASES) {
-    try {
-      const items = await fetchOneSource(source, base);
-      return { items: decorate(items), live: true };
-    } catch (e) {
-      lastErr = e;
+  if (!options?.offline) {
+    for (const base of HOT_API_BASES) {
+      try {
+        const items = await fetchOneSource(source, base);
+        return { items: decorate(items), live: true };
+      } catch (e) {
+        lastErr = e;
+      }
     }
   }
-  // 全 fail，使用静态 + 月份 rotate
+  // 全 fail，使用静态 + 月份 rotate（按平台调性 + seed）
   const base = STATIC_FALLBACK[source] || [];
-  const rotated = rotateForCurrentMonth(base, 4);
+  const rotated = rotateForCurrentMonth(base, 4, seed);
   const items = decorate(rotated);
   return {
     items,

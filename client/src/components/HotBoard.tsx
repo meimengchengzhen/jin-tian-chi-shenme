@@ -36,12 +36,17 @@ export function HotBoard() {
   const [loading, setLoading] = useState<boolean>(true);
   const [live, setLive] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
+  // v8: 每次刷新 seed+1，离线 fallback 路径下让内容真的轮换；平台间 phrasing 也保留差异。
+  const [seed, setSeed] = useState<number>(0);
 
-  async function refresh(source: HotSource = settings.source) {
+  async function refresh(source: HotSource = settings.source, opts?: { bumpSeed?: boolean }) {
+    const nextSeed = opts?.bumpSeed ? seed + 1 : seed;
+    if (opts?.bumpSeed) setSeed(nextSeed);
     setLoading(true);
     setError(undefined);
     try {
-      const r = await loadSource(source);
+      // 用户主动「刷新」：如果之前是 live，再尝试一次 live；否则保持 offline 走 seed 切换
+      const r = await loadSource(source, { seed: nextSeed, offline: opts?.bumpSeed && !live });
       setItems(r.items);
       setLive(r.live);
       if (!r.live) setError(r.error);
@@ -94,17 +99,17 @@ export function HotBoard() {
             饭桌热榜
           </h2>
           <p className="mt-0.5 text-[12px] text-muted-foreground">
-            实时聚合 6 个平台的热点 · 一键屏蔽争议 / 沉重话题 · 找谈资就够了
+            实时聚合 6 个平台的热点 · 每个平台调性不同 · 一键屏蔽争议话题
           </p>
           <p className="mt-0.5 text-[11px] text-primary/80" data-testid="hotboard-month-hint">
-            离线时按当前月份推荐话题（{MONTH_THEMES[currentMonth()].label}）— 不是实时热搜
+            离线时按当前月份 + 平台风格推荐话题（{MONTH_THEMES[currentMonth()].label}）— 不是实时热搜，刷新可换内容
           </p>
         </div>
         <Button
           type="button"
           size="sm"
           variant="ghost"
-          onClick={() => refresh()}
+          onClick={() => refresh(settings.source, { bumpSeed: true })}
           data-testid="button-refresh-hotboard"
           className="rounded-full"
         >

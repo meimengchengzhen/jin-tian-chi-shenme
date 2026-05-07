@@ -839,4 +839,15 @@
   .animate-wiggle {
     animation: wiggle 360ms ease-in-out;
   }
+  /* v8 主导航两排大按钮：移动端 3 列固定换行，桌面 / 平板 ≥640px 自动按行内等分 */
+  .main-tabs-row {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (min-width: 640px) {
+    .main-tabs-row {
+      grid-template-columns: repeat(var(--tab-cols, 6), minmax(0, 1fr));
+    }
+  }
 }

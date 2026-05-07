@@ -45,6 +45,7 @@ const HotBoard = lazy(() => import("@/components/HotBoard").then((m) => ({ defau
 const SnacksPanel = lazy(() => import("@/components/SnacksPanel").then((m) => ({ default: m.SnacksPanel })));
 const FruitPanel = lazy(() => import("@/components/FruitPanel").then((m) => ({ default: m.FruitPanel })));
 const LazyDecisionPanel = lazy(() => import("@/components/LazyDecisionPanel").then((m) => ({ default: m.LazyDecisionPanel })));
+const WeeklyMenuPanel = lazy(() => import("@/components/WeeklyMenuPanel").then((m) => ({ default: m.WeeklyMenuPanel })));
 import { pushRecent, recentPoolSet, banInSession } from "@/lib/recentPool";
 import { healthFilterLabel, type HealthFilterId, type IngredientWishId } from "@/lib/recommend";
 import { Wordmark, Logo } from "@/components/Logo";
@@ -1070,6 +1071,7 @@ export default function Home() {
               {tab === "snacks" && <SnacksPanel />}
               {tab === "fruit" && <FruitPanel />}
               {tab === "lazy" && <LazyDecisionPanel />}
+              {tab === "weekly" && <WeeklyMenuPanel />}
               {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
               {tab === "hotboard" && <HotBoard />}
             </Suspense>
