@@ -47,7 +47,18 @@ export interface SnackPickResult {
 }
 
 export function pickSnack(input: SnackPickInput): SnackPickResult {
-  const scored = SNACKS.map((s) => {
+  // v5: 当用户勾选了 preferCategories，必须严格按当前所选分类过滤候选池——
+  // 主推荐 + 备选都只能从这些分类里出。否则会出现「点了巧克力糖果，
+  // 主卡却显示伊利优酸乳（酸奶乳品）」的串类问题。
+  const filterByCategory = input.preferCategories && input.preferCategories.length > 0;
+  const pool = filterByCategory
+    ? SNACKS.filter((s) => input.preferCategories!.includes(s.category))
+    : SNACKS;
+  // pool 为空（理论上不会，因为 SNACKS 覆盖每个 category 都有数据）时，
+  // 兜底回到全量池，避免 UI 崩溃。
+  const candidates = pool.length > 0 ? pool : SNACKS;
+
+  const scored = candidates.map((s) => {
     let score = 0;
     const aHits = input.audiences.filter((a) => s.audiences.includes(a)).length;
     score += aHits * 12;

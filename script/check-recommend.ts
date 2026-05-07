@@ -605,6 +605,70 @@ console.log("== 零食 / 水果数据 ==");
     check(`v4 真乳品「${k}」仍在酸奶乳品筛选`, stillDairy);
   }
 
+  // v5: pickSnack 在 preferCategories 下必须严格过滤 main + alternatives，
+  // 不再「选了巧克力糖果，主卡却显示伊利优酸乳」。
+  // 注意：DAIRY_KW 不能含「牛奶」二字 —— 巧克力名字里就有「牛奶巧克力」，会误伤。
+  // 用品牌 + 真实乳品代号定位真乳品。
+  const CHOC_KW = /巧克力|德芙|明治牛奶巧克力|Hershey|Dove|Meiji|Kisses|KitKat|Snickers|士力架|费列罗|Lindt|瑞士莲|大白兔|徐福记|阿尔卑斯|曼妥思|奶糖|软糖|薄荷糖|口香糖/i;
+  const DAIRY_KW = /优酸乳|安慕希|纯甄|莫斯利安|卡士|酸奶|希腊酸奶|风味酸奶|奶昔|奶酪|奶粉|乳品|乳制品|金典|特仑苏|每日鲜语|味全|光明优倍|新养道|早餐奶/;
+  for (let i = 0; i < 40; i++) {
+    const r = pickSnack({ audiences: [], preferCategories: ["巧克力糖果"] });
+    const all = [r.special, ...r.alternatives];
+    const allChoc = all.every((s: any) => s.category === "巧克力糖果");
+    check(
+      `v5 巧克力糖果筛选(第${i + 1}次): 主卡+候选 category 全部 = 巧克力糖果`,
+      allChoc,
+      all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    const dairyHits = all.filter((s: any) => DAIRY_KW.test(s.name + " " + (s.brand ?? "")));
+    check(
+      `v5 巧克力糖果筛选(第${i + 1}次): 主卡+候选 不含真乳品名`,
+      dairyHits.length === 0,
+      dairyHits.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    if (!allChoc || dairyHits.length > 0) break;
+  }
+  for (let i = 0; i < 40; i++) {
+    const r = pickSnack({ audiences: [], preferCategories: ["酸奶乳品"] });
+    const all = [r.special, ...r.alternatives];
+    const allDairy = all.every((s: any) => s.category === "酸奶乳品");
+    check(
+      `v5 酸奶乳品筛选(第${i + 1}次): 主卡+候选 category 全部 = 酸奶乳品`,
+      allDairy,
+      all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    const chocHits = all.filter((s: any) => CHOC_KW.test(s.name + " " + (s.brand ?? "")));
+    check(
+      `v5 酸奶乳品筛选(第${i + 1}次): 主卡+候选 不含巧克力关键字`,
+      chocHits.length === 0,
+      chocHits.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    if (!allDairy || chocHits.length > 0) break;
+  }
+  // 也覆盖另外几个分类（仅检查池中有数据的分类，空池由 UI 隐藏）
+  // 通过 SNACKS 实际分布确定哪些分类可用
+  const catCounts: Record<string, number> = {};
+  for (const s of SNACKS as any[]) catCounts[s.category] = (catCounts[s.category] ?? 0) + 1;
+  for (const cat of ["饮料", "无糖饮料", "薯片膨化", "坚果", "蛋白零食", "肉脯肉干", "饼干曲奇", "冰品冰淇淋"] as const) {
+    if ((catCounts[cat] ?? 0) === 0) continue;
+    const r = pickSnack({ audiences: [], preferCategories: [cat] });
+    const all = [r.special, ...r.alternatives];
+    const ok = all.every((s: any) => s.category === cat);
+    check(
+      `v5 「${cat}」筛选: 主卡+候选 category 全部一致`,
+      ok,
+      all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+  }
+  // 多分类组合 (OR) 也必须严格——主卡+候选 category 必属于所选集合
+  const multi = pickSnack({ audiences: [], preferCategories: ["巧克力糖果", "饼干曲奇"] });
+  const multiAll = [multi.special, ...multi.alternatives];
+  check(
+    `v5 多分类(巧克力糖果+饼干曲奇)筛选: 主卡+候选 全部命中所选集合`,
+    multiAll.every((s: any) => s.category === "巧克力糖果" || s.category === "饼干曲奇"),
+    multiAll.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+  );
+
   const { FRUITS, fruitsForMonth } = await import("../client/src/data/fruits");
   // v2: 80+ 水果
   check(`水果条目 >= 80（实际 ${FRUITS.length}）`, FRUITS.length >= 80);

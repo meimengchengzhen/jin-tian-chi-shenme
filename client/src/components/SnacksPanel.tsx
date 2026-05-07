@@ -36,11 +36,24 @@ const AUDIENCE_OPTIONS: { id: SnackAudience; label: string; emoji: string }[] = 
   { id: "朋友聚会", label: "朋友聚会", emoji: "🍻" },
 ];
 
-const CATEGORY_OPTIONS: SnackCategory[] = [
+const CATEGORY_OPTIONS_ALL: SnackCategory[] = [
   "饮料", "无糖饮料", "薯片膨化", "饼干曲奇", "面包糕点",
   "巧克力糖果", "坚果", "酸奶乳品", "蛋白零食", "肉脯肉干",
   "果干蜜饯", "速食冲泡", "冰品冰淇淋",
 ];
+
+// v5: 只展示当前 SNACKS 池中真的有商品的分类。
+// 空分类（normalize 后被搬空，例如「果干蜜饯」）不出现在 chip 列，避免点了之后
+// 走 fallback 到全量池、和「严格筛选」语义不一致。
+const SNACK_CATEGORY_COUNTS: Record<SnackCategory, number> = (() => {
+  const m = {} as Record<SnackCategory, number>;
+  for (const c of CATEGORY_OPTIONS_ALL) m[c] = 0;
+  for (const s of SNACKS) m[s.category] = (m[s.category] ?? 0) + 1;
+  return m;
+})();
+const CATEGORY_OPTIONS: SnackCategory[] = CATEGORY_OPTIONS_ALL.filter(
+  (c) => SNACK_CATEGORY_COUNTS[c] > 0,
+);
 
 function SnackVisual({ snack }: { snack: Snack }) {
   const grad: [string, string] = (() => {
