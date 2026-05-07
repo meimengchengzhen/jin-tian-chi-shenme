@@ -75,28 +75,32 @@
 
 > 想直接动手试？点 **[在线预览](https://meimengchengzhen.github.io/jin-tian-chi-shenme/)** 比看图更快。
 
-桌面端（1440 × 900）：
+桌面端（1280 × 900，全部为最新真实截图，由 Playwright 在生产构建上自动生成）：
 
-![桌面端 - 推荐结果](docs/screenshots/desktop.png)
+| 模块 | 截图 |
+| --- | --- |
+| 今日推荐 — 一桌家常菜随机搭好 | ![今日推荐](docs/screenshots/home.png) |
+| 一周菜单 — 7 天午+晚 + 预算买菜清单 | ![一周菜单](docs/screenshots/weekly.png) |
+| 懒人决定 — 一键替你决定吃·买·看·聊 | ![懒人决定](docs/screenshots/lazy.png) |
+| 外卖 — 600+ 品牌按预算·人数·时段筛选 | ![外卖](docs/screenshots/takeout.png) |
+| 零食 — 300+ SKU 分类严格隔离 | ![零食](docs/screenshots/snacks.png) |
+| 水果 — 应季 + 人群推荐 | ![水果](docs/screenshots/fruit.png) |
+| 健康饮食 — 低糖低盐 / 高蛋白 / 高纤 | ![健康饮食](docs/screenshots/health.png) |
+| 菜谱搜索 — 「为什么匹配」可解释高亮 | ![菜谱搜索](docs/screenshots/search.png) |
+| 饭桌陪伴 — 吃饭看 / 聊 / 听 | ![饭桌陪伴](docs/screenshots/companion.png) |
+| 饭桌热榜 — 6 平台多源 fallback + 敏感屏蔽 | ![饭桌热榜](docs/screenshots/hotboard.png) |
 
 移动端（390 × 844）：
 
 <p>
-  <img src="docs/screenshots/mobile.png" alt="移动端 - 推荐结果" width="360" />
+  <img src="docs/screenshots/mobile-home.png" alt="移动端 - 今日推荐" width="320" />
+  &nbsp;
+  <img src="docs/screenshots/mobile-lazy.png" alt="移动端 - 懒人决定" width="320" />
 </p>
 
-补充截图占位（欢迎贡献，截图请放到 `docs/screenshots/` 并按以下文件名命名，README 会自动展示）：
+> 顶部模块选项栏不再 sticky / fixed：两排大按钮位于普通文档流中，向下滚动会自然离开视口，不再遮挡内容（桌面端、手机端一致）。
 
-| 路径 | 内容 |
-| --- | --- |
-| `docs/screenshots/weekly.png` | 一周菜单 + 预算买菜清单 |
-| `docs/screenshots/lazy.png` | 懒人决定主流程 + 决定海报 |
-| `docs/screenshots/takeout.png` | 外卖品牌推荐 + 凑券提示 |
-| `docs/screenshots/snacks.png` | 零食分类与营养标签 |
-| `docs/screenshots/hotboard.png` | 饭桌热榜 + 敏感话题屏蔽 |
-| `docs/screenshots/companion.png` | 饭桌陪伴：看 / 聊 / 听 |
-
-> 截图使用 Playwright 在 `dist/public` 生产构建上自动生成，详见 [本地运行 / 部署](#本地运行--部署)。
+> 截图脚本：[`script/screenshot.mjs`](./script/screenshot.mjs)。先 `npm run build && NODE_ENV=production node dist/index.cjs`，再 `node script/screenshot.mjs` 即可全量再生。
 
 ---
 
@@ -201,9 +205,18 @@ npm run gen:recipes      # 写入 client/src/data/recipes.generated.ts
 
 仓库 `.github/workflows/deploy-pages.yml` 已配置：每次 push 到 `main` 自动 build + 发布；fork 后在仓库 `Settings → Pages → Source: GitHub Actions` 启用即可。
 
-#### 截图（可选）
+#### 截图（再生）
 
-`npm run build` 后启动生产模式（`NODE_ENV=production node dist/index.cjs`），用 Playwright 访问 `http://localhost:5000` 截图保存到 `docs/screenshots/`。CI 自动化截图见路线图。
+仓库自带 [`script/screenshot.mjs`](./script/screenshot.mjs)，使用 Playwright 在生产构建上自动跑遍 10 个主 Tab + 2 张移动端：
+
+```bash
+npm run build
+NODE_ENV=production node dist/index.cjs &     # 启动生产服务，端口 5000
+npx playwright install --with-deps chromium    # 首次需安装浏览器
+node script/screenshot.mjs                     # 写入 docs/screenshots/*.png
+```
+
+脚本会预先在 `localStorage` 写入 `chishenme.onboarded.v1=1` 跳过新手引导，桌面 1280 × 900、手机 390 × 844 / DSR 2。CI 自动化截图见路线图。
 
 #### 云端同步 Beta（可选 · Supabase）
 

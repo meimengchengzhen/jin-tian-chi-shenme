@@ -86,10 +86,10 @@ interface Props {
   onChange: (id: MainTabId) => void;
 }
 
-/** 顶部 Tab 导航条（v8 两排大按钮版）：
+/** 顶部 Tab 导航条（普通文档流版）：
  *  - sm+（≥640px）：两排网格，第一排 6 列，第二排 5 列；按钮高 h-12，字号 14.5。
  *  - 移动端（<640px）：两排网格 grid-cols-3，按钮 h-12 全部可见，无需横滑。
- *  - 不再做横向拖动 / 滚轮转横滚 — 默认即可全部看到。
+ *  - 不再 sticky / fixed：向下滚动会自然离开视口，避免遮挡内容。
  */
 export function MainTabsNav({ active, onChange }: Props) {
   useEffect(() => {
@@ -121,7 +121,7 @@ export function MainTabsNav({ active, onChange }: Props) {
     <nav
       aria-label="主导航"
       data-testid="main-tabs"
-      className="sticky top-[58px] z-20 -mx-4 mt-1 border-y border-border/50 bg-background/92 backdrop-blur-md sm:-mx-6 sm:top-[62px]"
+      className="relative z-10 -mx-4 mt-1 border-y border-border/50 bg-background sm:-mx-6"
     >
       <div className="mx-auto px-2 py-2.5 sm:px-3" data-testid="main-tabs-grid">
         <TabRow tabs={row1} active={active} onClick={handleClick} cols={row1.length} />
