@@ -2,9 +2,10 @@
 // 不引入额外重依赖（如 html2canvas）；用户可右键/截图。提供风格切换和文案一键复制。
 
 import { useMemo, useState } from "react";
-import { Copy, Check, Image as ImgIcon, Wallet, Flame, MapPin, Sparkles } from "lucide-react";
+import { Copy, Check, Image as ImgIcon, Wallet, Flame, MapPin, Sparkles, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
 
 export type PosterStyleId = "fresh" | "cream" | "mint" | "midnight" | "vibrant" | "minimal";
 
@@ -132,13 +133,13 @@ export function DecisionPoster({ payload }: Props) {
           </div>
 
           <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            <PosterRow label="今天做菜" value={payload.recipe} accent={style.accent} subtle={style.subtle} />
-            <PosterRow label="点外卖" value={payload.takeout} accent={style.accent} subtle={style.subtle} />
-            <PosterRow label="零食" value={payload.snack} accent={style.accent} subtle={style.subtle} />
-            <PosterRow label="水果" value={payload.fruit} accent={style.accent} subtle={style.subtle} />
-            <PosterRow label="饮料" value={payload.drink} accent={style.accent} subtle={style.subtle} />
-            <PosterRow label="吃饭看什么" value={payload.watch} accent={style.accent} subtle={style.subtle} />
-            <PosterRow label="今天聊什么" value={payload.topic} accent={style.accent} subtle={style.subtle} />
+            <PosterRow label="今天做菜" value={payload.recipe} accent={style.accent} subtle={style.subtle} emoji="🍳" link={payload.recipe ? { label: "做法", href: stableSearchUrl("百度", `${payload.recipe} 家常做法`) } : undefined} />
+            <PosterRow label="点外卖" value={payload.takeout} accent={style.accent} subtle={style.subtle} emoji="🛵" link={payload.takeout ? { label: "美团", href: stableSearchUrl("美团", payload.takeout) } : undefined} />
+            <PosterRow label="零食" value={payload.snack} accent={style.accent} subtle={style.subtle} emoji="🍪" link={payload.snack ? { label: "美团闪购", href: stableSearchUrl("美团闪购", payload.snack) } : undefined} />
+            <PosterRow label="水果" value={payload.fruit} accent={style.accent} subtle={style.subtle} emoji="🍇" link={payload.fruit ? { label: "京东到家", href: stableSearchUrl("京东", payload.fruit) } : undefined} />
+            <PosterRow label="饮料" value={payload.drink} accent={style.accent} subtle={style.subtle} emoji="🥤" link={payload.drink ? { label: "搜搜", href: stableSearchUrl("百度", payload.drink) } : undefined} />
+            <PosterRow label="吃饭看什么" value={payload.watch} accent={style.accent} subtle={style.subtle} emoji="🎬" link={payload.watch ? { label: "看哪", href: stableSearchUrl("百度", payload.watch + " 在线观看") } : undefined} />
+            <PosterRow label="今天聊什么" value={payload.topic} accent={style.accent} subtle={style.subtle} emoji="💬" />
           </div>
 
           {(payload.price !== undefined || payload.calories !== undefined) && (
@@ -200,19 +201,44 @@ function PosterRow({
   value,
   accent,
   subtle,
+  emoji,
+  link,
 }: {
   label: string;
   value?: string;
   accent: string;
   subtle: string;
+  emoji?: string;
+  link?: { label: string; href: string };
 }) {
   if (!value) return null;
   return (
-    <div className="rounded-xl border bg-white/40 px-3 py-2 text-[13px] backdrop-blur-sm" style={{ borderColor: accent + "33" }}>
-      <p className="text-[10.5px] uppercase tracking-wider" style={{ color: subtle }}>
-        {label}
-      </p>
-      <p className="mt-0.5 font-medium leading-snug">{value}</p>
+    <div className="flex items-start gap-2 rounded-xl border bg-white/40 px-3 py-2 text-[13px] backdrop-blur-sm" style={{ borderColor: accent + "33" }}>
+      <FoodImage
+        query={value}
+        name={value}
+        emoji={emoji}
+        gradient={[accent + "ff", accent + "88"]}
+        className="h-12 w-12 flex-shrink-0"
+      />
+      <div className="min-w-0 flex-1">
+        <p className="text-[10.5px] uppercase tracking-wider" style={{ color: subtle }}>
+          {label}
+        </p>
+        <p className="mt-0.5 truncate font-medium leading-snug">{value}</p>
+        {link && (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-0.5 inline-flex items-center gap-0.5 text-[10.5px] underline-offset-2 hover:underline"
+            style={{ color: accent }}
+          >
+            <ExternalLink className="h-2.5 w-2.5" />
+            {link.label}
+          </a>
+        )}
+      </div>
     </div>
   );
 }

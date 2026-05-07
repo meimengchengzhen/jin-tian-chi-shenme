@@ -34,6 +34,8 @@ import { DecisionPoster } from "@/components/DecisionPoster";
 import { WeeklyPlanPanel } from "@/components/WeeklyPlanPanel";
 import { addSelected } from "@/lib/selectedToday";
 import { buildLazyItems, totalsOfLazyItems } from "@/lib/lazyEstimates";
+import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
+import { moodQuote, poemFor, tenderParagraph } from "@/lib/lazyCopy";
 
 type Mood = "开心" | "压力大" | "疲惫" | "沮丧" | "想奖励自己" | "平淡";
 type Weather = "晴" | "雨" | "冷" | "热" | "舒适" | "未知";
@@ -56,15 +58,6 @@ const WEATHERS: { id: Weather; label: string; emoji: string }[] = [
   { id: "未知", label: "懒得选", emoji: "❓" },
 ];
 
-const QUOTES_BY_MOOD: Record<Mood, string[]> = {
-  开心: ["今天的好心情值得一顿小奖励 🌷", "保持这份开心，吃点甜的更甜"],
-  压力大: ["先吃口热的，事情慢慢来 🍵", "今天对自己温柔一点，别赶"],
-  疲惫: ["来一份不用动脑的吃食，钻进沙发里 🛋️", "明天再说，今晚先吃饱睡好"],
-  沮丧: ["有些日子就是难，先把今晚搞定 🌙", "吃完这顿，世界明天会亮一点"],
-  想奖励自己: ["你值得一份硬菜 🍖", "今天是给自己 buff 的日子"],
-  平淡: ["平淡是日常，按这个吃就行 🍚", "省心首选，按这套来"],
-};
-
 interface LazyResult {
   recipe: { name: string; cuisine: string; reason: string } | null;
   takeoutBrand: { id: string; name: string; emoji: string; intro: string; budgetMin: number; budgetMax: number };
@@ -84,6 +77,12 @@ interface LazyResult {
   overBudget: boolean;
   /** 海报与浮窗共享的 SelectedItem-like estimate 列表 */
   items: ReturnType<typeof buildLazyItems>;
+  /** 短诗 / 古句 — 按心情挑 */
+  poem: { text: string; from?: string };
+  /** 一段温柔小话 */
+  tender: string;
+  /** 外卖品牌 gradient（用于图卡 fallback） */
+  takeoutGradient?: [string, string];
 }
 
 export function LazyDecisionPanel() {
@@ -179,9 +178,11 @@ export function LazyDecisionPanel() {
       return "瑞幸生椰拿铁";
     })();
 
-    // 8. 一句鼓励语
-    const quotePool = QUOTES_BY_MOOD[mood];
-    const quote = quotePool[Math.floor(Math.random() * quotePool.length)];
+    // 8. 一句鼓励语 / 短诗 / 一段温柔小话
+    const seed = Date.now() + Math.floor(Math.random() * 1000);
+    const quote = moodQuote(mood, seed);
+    const poem = poemFor(mood, seed >> 3);
+    const tender = tenderParagraph(seed >> 5);
 
     const summary = `${recipe?.name ?? "家常一道菜"} + 外卖去 ${takeout.special.name} + 零食 ${snack.name} + 水果 ${fruit.name} + 喝点 ${drink}`;
 
@@ -233,6 +234,9 @@ export function LazyDecisionPanel() {
       caloriesEst,
       overBudget,
       items: lazyItems,
+      poem,
+      tender,
+      takeoutGradient: takeout.special.gradient,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mood, weather, people, budget, tastes, interest, nonce]);
@@ -460,40 +464,99 @@ export function LazyDecisionPanel() {
           </Button>
         </div>
 
-        <div className="mt-4 grid gap-2 sm:grid-cols-2">
+        {/* 短诗 / 古句 — 给整组结果加一点意境 */}
+        <figure className="mt-4 rounded-xl border border-primary/30 bg-primary/5 px-3 py-2.5" data-testid="lazy-poem">
+          <blockquote className="font-display text-[14px] italic leading-relaxed text-primary/90">
+            「{result.poem.text}」
+          </blockquote>
+          {result.poem.from && (
+            <figcaption className="mt-0.5 text-right text-[11px] text-muted-foreground">— {result.poem.from}</figcaption>
+          )}
+        </figure>
+
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {result.recipe && (
-            <Tile icon={<ChefHat className="h-4 w-4" />} label="今天做什么菜" testId="lazy-tile-recipe">
+            <ImageTile
+              icon={<ChefHat className="h-4 w-4" />}
+              label="今天做什么菜"
+              testId="lazy-tile-recipe"
+              query={result.recipe.name}
+              name={result.recipe.name}
+              emoji="🍳"
+              gradient={["#e08434", "#7c4015"]}
+              link={{
+                label: "做法搜索",
+                href: stableSearchUrl("百度", `${result.recipe.name} 家常做法`),
+              }}
+            >
               <span className="font-medium">{result.recipe.name}</span>
               <span className="ml-1 text-[11.5px] text-muted-foreground">· {result.recipe.cuisine}</span>
               <p className="mt-0.5 text-[11.5px] text-muted-foreground">{result.recipe.reason}</p>
-            </Tile>
+            </ImageTile>
           )}
-          <Tile icon={<Bike className="h-4 w-4" />} label="点外卖去" testId="lazy-tile-takeout">
-            <span aria-hidden className="mr-1">{result.takeoutBrand.emoji}</span>
+          <ImageTile
+            icon={<Bike className="h-4 w-4" />}
+            label="点外卖去"
+            testId="lazy-tile-takeout"
+            query={`${result.takeoutBrand.name} food`}
+            name={result.takeoutBrand.name}
+            emoji={result.takeoutBrand.emoji}
+            gradient={result.takeoutGradient}
+            link={{
+              label: "美团稳定搜索",
+              href: stableSearchUrl("美团", result.takeoutBrand.name),
+            }}
+          >
             <span className="font-medium">{result.takeoutBrand.name}</span>
             <p className="mt-0.5 text-[11.5px] text-muted-foreground">{result.takeoutBrand.intro}</p>
-          </Tile>
-          <Tile icon={<Cookie className="h-4 w-4" />} label="零食吃" testId="lazy-tile-snack">
-            <span aria-hidden className="mr-1">{result.snack.emoji}</span>
+          </ImageTile>
+          <ImageTile
+            icon={<Cookie className="h-4 w-4" />}
+            label="零食吃"
+            testId="lazy-tile-snack"
+            query={result.snack.name}
+            name={result.snack.name}
+            emoji={result.snack.emoji}
+            gradient={["#fbb273", "#c8552a"]}
+            link={{
+              label: "美团闪购搜",
+              href: snackSearchLinks(result.snack.name)[0].href,
+            }}
+          >
             <span className="font-medium">{result.snack.name}</span>
             <p className="mt-0.5 text-[11.5px] text-muted-foreground">{result.snack.reason}</p>
-            <a
-              href={snackSearchLinks(result.snack.name)[0].href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
-            >
-              <ExternalLink className="h-3 w-3" /> 美团闪购搜
-            </a>
-          </Tile>
-          <Tile icon={<Apple className="h-4 w-4" />} label="水果买" testId="lazy-tile-fruit">
-            <span aria-hidden className="mr-1">{result.fruit.emoji}</span>
+          </ImageTile>
+          <ImageTile
+            icon={<Apple className="h-4 w-4" />}
+            label="水果买"
+            testId="lazy-tile-fruit"
+            query={result.fruit.name}
+            name={result.fruit.name}
+            emoji={result.fruit.emoji}
+            gradient={["#ffce66", "#c87a1f"]}
+            link={{
+              label: "京东到家",
+              href: stableSearchUrl("京东", result.fruit.name),
+            }}
+          >
             <span className="font-medium">{result.fruit.name}</span>
             <p className="mt-0.5 text-[11.5px] text-muted-foreground">{result.fruit.reason}</p>
-          </Tile>
-          <Tile icon={<Sparkles className="h-4 w-4" />} label="喝什么" testId="lazy-tile-drink">
+          </ImageTile>
+          <ImageTile
+            icon={<Sparkles className="h-4 w-4" />}
+            label="喝什么"
+            testId="lazy-tile-drink"
+            query={result.drink}
+            name={result.drink}
+            emoji="🥤"
+            gradient={["#3a7c5e", "#143725"]}
+            link={{
+              label: "百度搜",
+              href: stableSearchUrl("百度", result.drink),
+            }}
+          >
             <span className="font-medium">{result.drink}</span>
-          </Tile>
+          </ImageTile>
           {result.watch && (
             <Tile icon={<Tv className="h-4 w-4" />} label="吃饭看什么" testId="lazy-tile-watch">
               <span className="font-medium">{result.watch.title}</span>
@@ -501,6 +564,14 @@ export function LazyDecisionPanel() {
                 {result.watch.type}
               </Badge>
               <p className="mt-0.5 text-[11.5px] text-muted-foreground">{result.watch.reason}</p>
+              <a
+                href={stableSearchUrl("百度", result.watch.title + " 在线观看")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+              >
+                <ExternalLink className="h-3 w-3" /> 搜一下哪里看
+              </a>
             </Tile>
           )}
           {result.topic && (
@@ -510,7 +581,12 @@ export function LazyDecisionPanel() {
           )}
         </div>
 
-        <p className="mt-4 text-[11px] text-muted-foreground">
+        {/* 一段温柔小话 — 不是任务清单，是给自己的小提醒 */}
+        <p className="mt-4 rounded-xl bg-background/60 px-3 py-2 text-[12px] leading-relaxed text-foreground/75" data-testid="lazy-tender">
+          {result.tender}
+        </p>
+
+        <p className="mt-3 text-[11px] text-muted-foreground">
           所有推荐基于内置数据 deterministic + 轻量随机生成 · 不上传数据 · 选了不喜欢就再点一次
         </p>
 
@@ -591,6 +667,57 @@ function Tile({
         {label}
       </p>
       <div className="text-[13px] text-foreground/85">{children}</div>
+    </div>
+  );
+}
+
+function ImageTile({
+  icon,
+  label,
+  testId,
+  query,
+  name,
+  emoji,
+  gradient,
+  link,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  testId?: string;
+  query: string;
+  name: string;
+  emoji?: string;
+  gradient?: [string, string];
+  link?: { label: string; href: string };
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex gap-2 rounded-xl border border-border/60 bg-background/70 p-3" data-testid={testId}>
+      <FoodImage
+        query={query}
+        name={name}
+        emoji={emoji}
+        gradient={gradient}
+        className="h-16 w-16 flex-shrink-0 sm:h-[68px] sm:w-[68px]"
+      />
+      <div className="min-w-0 flex-1">
+        <p className="mb-0.5 inline-flex items-center gap-1 text-[10.5px] uppercase tracking-wider text-muted-foreground">
+          <span className="text-primary">{icon}</span>
+          {label}
+        </p>
+        <div className="text-[13px] text-foreground/85">{children}</div>
+        {link && (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+          >
+            <ExternalLink className="h-3 w-3" /> {link.label}
+          </a>
+        )}
+      </div>
     </div>
   );
 }

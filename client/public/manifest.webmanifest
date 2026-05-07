@@ -1,0 +1,20 @@
+{
+  "name": "今天吃什么 · 家常菜随机器",
+  "short_name": "今天吃什么",
+  "description": "不知道今天做什么菜？告诉我们人数、时间和口味，我们帮你随机组合一桌家常菜，并自动生成买菜清单。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF6EC",
+  "theme_color": "#FBF6EC",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
