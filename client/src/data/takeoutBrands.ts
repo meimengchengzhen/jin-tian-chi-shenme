@@ -35,6 +35,10 @@ export interface TakeoutPickInput {
   tastes: TakeoutTaste[];
   slot?: "breakfast" | "lunch" | "dinner" | "midnight";
   lowCalorie?: boolean;
+  /** v4: 用户在 chip / 搜索框点名置顶的真实品牌 id（必须出现在主推荐池）。 */
+  pinnedBrandId?: string;
+  /** v4: 关键词模糊搜索（按 name / picks 匹配）。 */
+  searchQuery?: string;
 }
 
 export interface TakeoutPickResult {
@@ -42,6 +46,60 @@ export interface TakeoutPickResult {
   alternatives: TakeoutBrand[];
   decisionLine: string;
   perPerson: number;
+  /** v4: 命中 pinned 但预算不匹配时的友好提示（不隐藏品牌）。 */
+  budgetWarn?: string;
+}
+
+/** v4: 「热门真实品牌」chips —— 用户点名要求一定要可发现的连锁。
+ *  数据顺序 = chip 显示顺序；name 必须能在 TAKEOUT_BRANDS 中按 includes 命中。 */
+export const HOT_TAKEOUT_BRANDS: { label: string; matchName: string }[] = [
+  { label: "肯德基", matchName: "肯德基" },
+  { label: "麦当劳", matchName: "麦当劳" },
+  { label: "达美乐", matchName: "达美乐" },
+  { label: "牛约堡", matchName: "牛约堡" },
+  { label: "正新鸡排", matchName: "正新鸡排" },
+  { label: "德克士", matchName: "德克士" },
+  { label: "华莱士", matchName: "华莱士" },
+  { label: "塔斯汀", matchName: "塔斯汀" },
+  { label: "必胜客", matchName: "必胜客" },
+  { label: "老乡鸡", matchName: "老乡鸡" },
+  { label: "乡村基", matchName: "乡村基" },
+  { label: "大米先生", matchName: "大米先生" },
+  { label: "茶百道", matchName: "茶百道" },
+  { label: "霸王茶姬", matchName: "霸王茶姬" },
+  { label: "瑞幸", matchName: "瑞幸" },
+];
+
+/** v4: 按精确名命中或前缀命中找到一个真实品牌（用于 chip 点击 / search 提交）。 */
+export function findBrandByQuery(q: string): TakeoutBrand | undefined {
+  const trimmed = (q || "").trim();
+  if (!trimmed) return undefined;
+  const exact = TAKEOUT_BRANDS.find((b) => b.name === trimmed);
+  if (exact) return exact;
+  const startsWith = TAKEOUT_BRANDS.find((b) => b.name.startsWith(trimmed));
+  if (startsWith) return startsWith;
+  const contains = TAKEOUT_BRANDS.find(
+    (b) => b.name.includes(trimmed) || (b.picks || []).some((p) => p.name.includes(trimmed)),
+  );
+  return contains;
+}
+
+/** v4: 用 query 过滤出全部命中的品牌列表（最多 8 条）。 */
+export function searchBrands(q: string, limit = 8): TakeoutBrand[] {
+  const trimmed = (q || "").trim();
+  if (!trimmed) return [];
+  const hits: TakeoutBrand[] = [];
+  for (const b of TAKEOUT_BRANDS) {
+    if (
+      b.name.includes(trimmed) ||
+      (b.picks || []).some((p) => p.name.includes(trimmed)) ||
+      b.intro.includes(trimmed)
+    ) {
+      hits.push(b);
+      if (hits.length >= limit) break;
+    }
+  }
+  return hits;
 }
 
 const SLOT_BIAS: Record<NonNullable<TakeoutPickInput["slot"]>, TakeoutCategory[]> = {
@@ -76,11 +134,51 @@ export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
     return { brand: b, score };
   }).sort((a, b) => b.score - a.score);
 
-  const special = scored[0].brand;
-  const alternatives = scored.slice(1, 5).map((s) => s.brand);
+  // v4: pinnedBrandId 强制置顶 — 即便预算不符，也用品牌作为 special，并给出预算提示。
+  let special = scored[0].brand;
+  let alternatives = scored.slice(1, 5).map((s) => s.brand);
+  let budgetWarn: string | undefined;
+  if (input.pinnedBrandId) {
+    const pinned = TAKEOUT_BRANDS.find((b) => b.id === input.pinnedBrandId);
+    if (pinned) {
+      const inBudget = perPerson >= pinned.budgetMin && perPerson <= pinned.budgetMax;
+      if (!inBudget) {
+        if (perPerson < pinned.budgetMin) {
+          budgetWarn = `${pinned.name} 人均 ¥${pinned.budgetMin}-${pinned.budgetMax}，可能超出当前 ¥${perPerson} 预算 · 建议加预算或拼单`;
+        } else {
+          budgetWarn = `${pinned.name} 客单价低于当前预算 ¥${perPerson}，可能更适合多人共享或加菜`;
+        }
+      }
+      special = pinned;
+      // alternatives: 去重后从 scored 取 4 个
+      alternatives = scored.filter((s) => s.brand.id !== pinned.id).slice(0, 4).map((s) => s.brand);
+    }
+  } else if (input.searchQuery) {
+    const hits = searchBrands(input.searchQuery, 6);
+    if (hits.length > 0) {
+      special = hits[0];
+      const fillerScore = scored.filter((s) => s.brand.id !== hits[0].id).map((s) => s.brand);
+      const rest = [...hits.slice(1), ...fillerScore].slice(0, 4);
+      const seen = new Set<string>([special.id]);
+      alternatives = [];
+      for (const b of rest) {
+        if (seen.has(b.id)) continue;
+        seen.add(b.id);
+        alternatives.push(b);
+        if (alternatives.length >= 4) break;
+      }
+      const inBudget = perPerson >= special.budgetMin && perPerson <= special.budgetMax;
+      if (!inBudget) {
+        budgetWarn = perPerson < special.budgetMin
+          ? `${special.name} 人均 ¥${special.budgetMin}-${special.budgetMax}，可能超出当前 ¥${perPerson} 预算 · 建议加预算或拼单`
+          : `${special.name} 客单价低于当前预算 ¥${perPerson}，可能更适合多人共享或加菜`;
+      }
+    }
+  }
 
   const decisionLine = (() => {
     const parts: string[] = [];
+    if (input.pinnedBrandId || input.searchQuery) parts.push("已置顶你点名的品牌");
     if (input.lowCalorie) parts.push("减脂友好优先");
     if (input.tastes.length > 0) parts.push(`偏好「${input.tastes.join("·")}」`);
     if (input.slot === "breakfast") parts.push("早餐场景");
@@ -89,5 +187,5 @@ export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
     return `今天替你决定：${special.name} — ${parts.join(" / ")}`;
   })();
 
-  return { special, alternatives, decisionLine, perPerson };
+  return { special, alternatives, decisionLine, perPerson, budgetWarn };
 }

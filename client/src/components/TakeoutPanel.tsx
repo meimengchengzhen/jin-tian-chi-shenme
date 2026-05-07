@@ -17,6 +17,8 @@ import {
   ShoppingBag,
   Flame,
   RefreshCw,
+  Search,
+  X,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +27,9 @@ import { BUDGETS, PLATFORMS, type BudgetId } from "@/data/takeout";
 import {
   pickTakeout,
   TAKEOUT_BRANDS,
+  HOT_TAKEOUT_BRANDS,
+  findBrandByQuery,
+  searchBrands,
   type TakeoutBrand,
   type TakeoutTaste,
 } from "@/data/takeoutBrands";
@@ -206,11 +211,28 @@ export function TakeoutPanel() {
     [budgetTier],
   );
 
+  // v4: 品牌搜索 + 热门 chip 置顶
+  const [pinnedBrandId, setPinnedBrandId] = useState<string | undefined>(undefined);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const searchHits = useMemo(() => searchBrands(searchQuery, 8), [searchQuery]);
+
   const result = useMemo(
-    () => pickTakeout({ city, budget, people, tastes, slot, lowCalorie }),
+    () => pickTakeout({ city, budget, people, tastes, slot, lowCalorie, pinnedBrandId, searchQuery: pinnedBrandId ? undefined : searchQuery }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [city, budget, people, tastes, slot, lowCalorie, nonce],
+    [city, budget, people, tastes, slot, lowCalorie, nonce, pinnedBrandId, searchQuery],
   );
+
+  function pinByLabel(label: string) {
+    const b = findBrandByQuery(label);
+    if (b) {
+      setPinnedBrandId(b.id);
+      setSearchQuery("");
+    }
+  }
+  function clearPin() {
+    setPinnedBrandId(undefined);
+    setSearchQuery("");
+  }
 
   return (
     <section className="space-y-4" data-testid="takeout-panel">
@@ -379,6 +401,97 @@ export function TakeoutPanel() {
             </Button>
           </div>
         </div>
+      </Card>
+
+      {/* v4: 品牌搜索 + 热门连锁 chips */}
+      <Card className="grain border-card-border/60 bg-card/70 p-4 sm:p-5" data-testid="takeout-brand-find">
+        <div className="mb-2 flex items-baseline justify-between gap-2">
+          <h3 className="font-display text-[1.05rem] tracking-tight">
+            <Search className="mb-0.5 mr-1 inline h-4 w-4 text-primary" />
+            搜真实品牌 / 热门连锁
+          </h3>
+          <span className="text-[11px] text-muted-foreground">点 chip 把品牌置顶为「替你决定」</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              value={searchQuery}
+              placeholder="搜：达美乐 / 牛约堡 / 正新鸡排 / 肯德基..."
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (pinnedBrandId) setPinnedBrandId(undefined);
+              }}
+              className="w-full rounded-full border border-border bg-background/60 py-1.5 pl-7 pr-8 text-[13px] focus:border-primary/50 focus:outline-none"
+              data-testid="takeout-brand-search"
+              aria-label="搜索外卖品牌"
+            />
+            {(searchQuery || pinnedBrandId) && (
+              <button
+                type="button"
+                onClick={clearPin}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-muted-foreground hover-elevate"
+                data-testid="takeout-brand-clear"
+                aria-label="清除搜索/置顶"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+        {searchQuery && searchHits.length > 0 && !pinnedBrandId && (
+          <div className="mt-2 flex flex-wrap gap-1.5" data-testid="takeout-brand-search-hits">
+            {searchHits.map((b) => (
+              <button
+                key={b.id}
+                type="button"
+                onClick={() => setPinnedBrandId(b.id)}
+                className="rounded-full border border-primary/30 bg-primary/5 px-2.5 py-1 text-[12px] text-primary hover-elevate active-elevate-2"
+                data-testid={`takeout-brand-hit-${b.id}`}
+              >
+                {b.name}
+              </button>
+            ))}
+          </div>
+        )}
+        {searchQuery && searchHits.length === 0 && !pinnedBrandId && (
+          <p className="mt-2 text-[12px] text-muted-foreground">
+            未在真实品牌池命中「{searchQuery}」 — 可改用下方热门 chip。
+          </p>
+        )}
+        <div className="mt-3">
+          <p className="mb-1 text-[11.5px] text-muted-foreground">热门真实品牌（点击置顶）</p>
+          <div className="flex flex-wrap gap-1.5" data-testid="takeout-hot-chips">
+            {HOT_TAKEOUT_BRANDS.map((h) => {
+              const target = findBrandByQuery(h.matchName);
+              const active = !!target && pinnedBrandId === target.id;
+              return (
+                <button
+                  key={h.label}
+                  type="button"
+                  onClick={() => pinByLabel(h.matchName)}
+                  className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[12px] transition-colors hover-elevate active-elevate-2 ${
+                    active
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card/60 text-foreground/85"
+                  }`}
+                  data-testid={`takeout-hot-${h.label}`}
+                  disabled={!target}
+                  title={target ? `置顶 ${target.name}` : "品牌池暂无该品牌"}
+                >
+                  {h.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        {result.budgetWarn && (
+          <p className="mt-2 inline-flex items-start gap-1 rounded-md bg-amber-50 px-2 py-1 text-[11.5px] text-amber-700" data-testid="takeout-budget-warn">
+            <AlertTriangle className="mt-0.5 h-3 w-3 flex-shrink-0" />
+            {result.budgetWarn}
+          </p>
+        )}
       </Card>
 
       {/* 替你决定 */}

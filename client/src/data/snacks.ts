@@ -8,7 +8,31 @@ import type { Snack, SnackAudience, SnackCategory } from "./snacks.types";
 
 export type { Snack, SnackAudience, SnackCategory } from "./snacks.types";
 
-export const SNACKS: Snack[] = REAL_SNACKS;
+/** v4 runtime normalize: 修正 import 脚本里 mapSnackCategory 的串类问题。
+ *  典型 bug: 「德芙丝滑牛奶巧克力」品类被错判为「酸奶乳品」（因 /牛奶/ 先于 /巧克力/ 命中）。
+ *  这里在运行时按 (name | brand) 关键字重判一次，避免重新生成 generated.ts。 */
+function normalizeSnackCategory(s: Snack): SnackCategory {
+  const text = `${s.name} ${s.brand ?? ""} ${(s.searchKeywords ?? []).join(" ")} ${s.reason ?? ""}`;
+  // 巧克力 / 糖果 类商品应当归到「巧克力糖果」（除非主体明确是冰淇淋 / 饼干 / 蛋白棒）
+  const isIce = /雪糕|冰淇淋|甜筒|脆皮/.test(text) || s.category === "冰品冰淇淋";
+  const isProteinBar = /蛋白棒|蛋白谷物棒|代餐棒/.test(text) || s.category === "蛋白零食";
+  const isBiscuit = /饼干|曲奇|威化饼|蛋糕派|蘑菇饼|百奇|Pocky|奥利奥|趣多多/.test(text);
+  const looksLikeChocolate = /巧克力|糖果|奶糖|软糖|硬糖|薄荷糖|口香糖|Hershey|Dove|Meiji|Lindt|Kisses|KitKat|Snickers|士力架|费列罗|大白兔|徐福记|阿尔卑斯|曼妥思|瑞士莲|怡浓|雅客/i.test(text);
+
+  if (isIce) return "冰品冰淇淋";
+  if (isProteinBar) return "蛋白零食";
+  if (isBiscuit) return "饼干曲奇";
+  if (looksLikeChocolate) return "巧克力糖果";
+  // 酸奶乳品：必须真的是奶 / 酸奶（排除「巧克力」误命中已在前面处理）
+  const looksLikeDairy = /酸奶|牛奶|纯牛奶|奶酪|奶昔|希腊酸奶|风味酸奶|奶粉|乳品|乳制品/.test(text);
+  if (looksLikeDairy) return "酸奶乳品";
+  return s.category;
+}
+
+export const SNACKS: Snack[] = REAL_SNACKS.map((s) => {
+  const fixed = normalizeSnackCategory(s);
+  return fixed === s.category ? s : { ...s, category: fixed };
+});
 
 export interface SnackPickInput {
   audiences: SnackAudience[];

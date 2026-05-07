@@ -523,6 +523,37 @@ console.log("== 外卖品牌库 ==");
     seen.add(pickTakeout({ city: "北京", budget: 30, people: 1, tastes: [], slot: "lunch" }).special.id);
   }
   check(`pickTakeout: 多次调用 special 至少 2 个不同候选`, seen.size >= 2, `seen=${seen.size}`);
+
+  // v4: 用户点名的 15 个真实品牌都必须可在主品牌池查到（按 name 包含关系即可）
+  const HOT_15 = ["肯德基", "麦当劳", "达美乐", "牛约堡", "正新鸡排", "德克士", "华莱士", "塔斯汀", "必胜客", "老乡鸡", "乡村基", "大米先生", "茶百道", "霸王茶姬", "瑞幸"];
+  for (const want of HOT_15) {
+    const found = TAKEOUT_BRANDS.find((b: any) => b.name.includes(want));
+    check(`v4 热门 chip「${want}」在主品牌池可命中`, !!found, found ? found.name : "未找到");
+  }
+
+  // v4: pickTakeout 支持 pinnedBrandId 强制置顶，即便预算不匹配
+  const dameile = TAKEOUT_BRANDS.find((b: any) => b.name === "达美乐");
+  if (dameile) {
+    const lowBudget = pickTakeout({ city: "北京", budget: 15, people: 1, tastes: [], pinnedBrandId: dameile.id });
+    check(`v4 pickTakeout(pinnedBrandId): special.name === 达美乐`, lowBudget.special.id === dameile.id);
+    check(`v4 pickTakeout(pinnedBrandId) 预算不符给出 budgetWarn`, !!lowBudget.budgetWarn, String(lowBudget.budgetWarn));
+  }
+
+  // v4: searchQuery 也能置顶
+  const sq = pickTakeout({ city: "北京", budget: 30, people: 1, tastes: [], searchQuery: "牛约堡" });
+  check(`v4 pickTakeout(searchQuery=牛约堡): special.name 包含 牛约堡`, sq.special.name.includes("牛约堡"));
+
+  // v4: TakeoutPanel UI 暴露 search input + hot chips testId
+  const fs2 = await import("node:fs");
+  const tpSrc = fs2.readFileSync("client/src/components/TakeoutPanel.tsx", "utf-8");
+  check(`TakeoutPanel 含品牌搜索输入框 (data-testid=takeout-brand-search)`, tpSrc.includes('data-testid="takeout-brand-search"'));
+  check(`TakeoutPanel 含热门连锁 chip 容器 (data-testid=takeout-hot-chips)`, tpSrc.includes('data-testid="takeout-hot-chips"'));
+  // chip 列表文案在 takeoutBrands.ts 的 HOT_TAKEOUT_BRANDS 常量中
+  const { HOT_TAKEOUT_BRANDS } = await import("../client/src/data/takeoutBrands");
+  const labels = (HOT_TAKEOUT_BRANDS as any[]).map((h) => h.label);
+  for (const want of HOT_15) {
+    check(`HOT_TAKEOUT_BRANDS 含「${want}」chip`, labels.includes(want), `labels=${labels.join(",")}`);
+  }
 }
 
 console.log("== 零食 / 水果数据 ==");
@@ -551,6 +582,28 @@ console.log("== 零食 / 水果数据 ==");
   const r = pickSnack({ audiences: ["减脂", "控糖"] });
   check(`pickSnack 减脂控糖: special 存在`, !!r.special);
   check(`pickSnack 减脂控糖: alternatives 至少 3 条`, r.alternatives.length >= 3);
+
+  // v4: 类别归属修正 — 巧克力糖果不能跑到酸奶乳品里
+  const dairy = SNACKS.filter((s: any) => s.category === "酸奶乳品");
+  const choc = SNACKS.filter((s: any) => s.category === "巧克力糖果");
+  const stray = dairy.filter((s: any) => /巧克力|德芙|明治|Hershey|Dove|Meiji|Kisses|KitKat|Snickers|士力架|费列罗|Lindt|瑞士莲|大白兔|徐福记|阿尔卑斯|曼妥思|奶糖|软糖|薄荷糖|口香糖/i.test(s.name + " " + (s.brand ?? "")));
+  check(
+    `v4 酸奶乳品筛选不再混入巧克力糖果（实际混入 ${stray.length} 条）`,
+    stray.length === 0,
+    stray.slice(0, 5).map((s: any) => s.name).join(" | "),
+  );
+  // 经典巧克力品牌应该都在「巧克力糖果」分类里
+  for (const k of ["德芙", "明治"]) {
+    const inChoc = choc.some((s: any) => s.name.includes(k) || (s.brand ?? "").includes(k));
+    const inDairy = dairy.some((s: any) => s.name.includes(k) || (s.brand ?? "").includes(k));
+    check(`v4 「${k}」在「巧克力糖果」筛选中可见`, inChoc, `inChoc=${inChoc} inDairy=${inDairy}`);
+    check(`v4 「${k}」不再出现在「酸奶乳品」筛选`, !inDairy);
+  }
+  // 真正的酸奶 / 牛奶应当还在乳品筛选
+  for (const k of ["安慕希", "纯甄", "莫斯利安"]) {
+    const stillDairy = dairy.some((s: any) => s.name.includes(k));
+    check(`v4 真乳品「${k}」仍在酸奶乳品筛选`, stillDairy);
+  }
 
   const { FRUITS, fruitsForMonth } = await import("../client/src/data/fruits");
   // v2: 80+ 水果

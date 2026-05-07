@@ -311,21 +311,23 @@ function snackEmojiFor(cat: string): string {
 
 function mapSnackCategory(cat: string): string {
   // 现有 SnackCategory 列表
+  // v4 修正：把「巧克力 / 蛋白棒 / 饼干 / 冰淇淋」这些更具体的判别放在「乳品」之前，
+  // 否则「巧克力糖果-牛奶巧克力」「冰淇淋雪糕-脆皮巧克力」会被先判为「酸奶乳品」。
   if (/碳酸|可乐|汽水|果汁|功能性|能量|乳酸/.test(cat)) return "饮料";
   if (/茶|水|零卡|无糖/.test(cat)) return "无糖饮料";
   if (/咖啡/.test(cat)) return "速食冲泡";
-  if (/牛奶|酸奶|乳品|奶酪/.test(cat)) return "酸奶乳品";
-  if (/薯片|膨化|爆米花/.test(cat)) return "薯片膨化";
+  if (/雪糕|冰淇淋|冰品/.test(cat)) return "冰品冰淇淋";
+  if (/蛋白棒|蛋白零食|代餐/.test(cat)) return "蛋白零食";
+  if (/巧克力/.test(cat)) return "巧克力糖果";
+  if (/糖果|软糖|硬糖|口香糖|奶糖|薄荷糖/.test(cat)) return "巧克力糖果";
   if (/饼干|曲奇/.test(cat)) return "饼干曲奇";
   if (/面包|糕点|蛋糕|月饼|蛋挞/.test(cat)) return "面包糕点";
-  if (/巧克力/.test(cat)) return "巧克力糖果";
-  if (/糖|软糖|硬糖|口香糖/.test(cat)) return "巧克力糖果";
+  if (/牛奶|酸奶|乳品|奶酪/.test(cat)) return "酸奶乳品";
+  if (/薯片|膨化|爆米花/.test(cat)) return "薯片膨化";
   if (/坚果/.test(cat)) return "坚果";
   if (/肉|脯|干|海味/.test(cat)) return "肉脯肉干";
   if (/果干|蜜饯/.test(cat)) return "果干蜜饯";
-  if (/雪糕|冰淇淋|冰品/.test(cat)) return "冰品冰淇淋";
   if (/方便|速食|泡面|自热|冲泡/.test(cat)) return "速食冲泡";
-  if (/蛋白棒|蛋白零食|代餐/.test(cat)) return "蛋白零食";
   return "速食冲泡";
 }
 
