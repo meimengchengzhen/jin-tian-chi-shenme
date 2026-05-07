@@ -8,24 +8,78 @@ import type { Snack, SnackAudience, SnackCategory } from "./snacks.types";
 
 export type { Snack, SnackAudience, SnackCategory } from "./snacks.types";
 
-/** v4 runtime normalize: 修正 import 脚本里 mapSnackCategory 的串类问题。
- *  典型 bug: 「德芙丝滑牛奶巧克力」品类被错判为「酸奶乳品」（因 /牛奶/ 先于 /巧克力/ 命中）。
- *  这里在运行时按 (name | brand) 关键字重判一次，避免重新生成 generated.ts。 */
+/** v6 runtime normalize: 修正 import 脚本里 mapSnackCategory 的串类问题。
+ *
+ *  历史 bug 链：
+ *  v4: 「德芙丝滑牛奶巧克力」被分到「酸奶乳品」（/牛奶/ 先于 /巧克力/ 命中）。
+ *  v5: 「徐福记核桃酥」「徐福记沙琪玛」被分到「巧克力糖果」
+ *      （regex 含「徐福记」品牌名，把品牌下的酥饼/沙琪玛拽进巧克力池）。
+ *  v6: 「酸奶乳品」混入纯牛奶（特仑苏/金典/认养一头牛/旺仔牛奶），
+ *      标签叫「酸奶乳品」但内容包含纯牛奶，UI 误导。
+ *      「巧克力糖果」混入糖果（曼妥思/大白兔/奶糖），名义是「巧克力」但内容含奶糖。
+ *
+ *  v6 解法：拆类目，并把判断顺序改成「具体型态优先」：
+ *    1) 冰品（雪糕/冰淇淋）
+ *    2) 蛋白棒
+ *    3) 烘焙糕点（核桃酥/沙琪玛/月饼/酥饼/吐司/面包/派/蛋糕/曲奇/饼干）
+ *       —— 这一步必须在「巧克力 / 糖果 / 乳品」之前，否则品牌字段会把烘焙误拉走。
+ *    4) 巧克力（必须含 "巧克力" 字样或国际巧克力品牌；纯品牌名不够）
+ *    5) 糖果（奶糖 / 软糖 / 硬糖 / 口香糖 / 薄荷糖 / 雅客 / 大白兔 / 曼妥思 / 阿尔卑斯 / 益达）
+ *    6) 酸奶（酸奶 / 发酵乳 / 优酸乳 / 优酪乳 / 安慕希 / 纯甄 / 莫斯利安 / 简爱 / 卡士 / 优倍 / 味可滋）
+ *    7) 牛奶乳饮（纯牛奶 / 舒化奶 / 特仑苏 / 金典 / 认养一头牛 / 娟姗 / AD钙 / 旺仔牛奶 / 营养快线）
+ *
+ *  这样：
+ *  - 选「巧克力」chip → 不会出现核桃酥 / 沙琪玛 / 奶糖 / 旺仔牛奶。
+ *  - 选「糖果」chip → 不会出现核桃酥（糕点）/ 巧克力 / 牛奶。
+ *  - 选「酸奶」chip → 不会出现纯牛奶；只是真酸奶。
+ *  - 选「牛奶乳饮」chip → 才是金典 / 特仑苏 / 旺仔。
+ *  - 选「饼干曲奇」chip → 包含核桃酥 / 沙琪玛 / 奥利奥 等所有酥饼饼干。
+ */
 function normalizeSnackCategory(s: Snack): SnackCategory {
   const text = `${s.name} ${s.brand ?? ""} ${(s.searchKeywords ?? []).join(" ")} ${s.reason ?? ""}`;
-  // 巧克力 / 糖果 类商品应当归到「巧克力糖果」（除非主体明确是冰淇淋 / 饼干 / 蛋白棒）
-  const isIce = /雪糕|冰淇淋|甜筒|脆皮/.test(text) || s.category === "冰品冰淇淋";
-  const isProteinBar = /蛋白棒|蛋白谷物棒|代餐棒/.test(text) || s.category === "蛋白零食";
-  const isBiscuit = /饼干|曲奇|威化饼|蛋糕派|蘑菇饼|百奇|Pocky|奥利奥|趣多多/.test(text);
-  const looksLikeChocolate = /巧克力|糖果|奶糖|软糖|硬糖|薄荷糖|口香糖|Hershey|Dove|Meiji|Lindt|Kisses|KitKat|Snickers|士力架|费列罗|大白兔|徐福记|阿尔卑斯|曼妥思|瑞士莲|怡浓|雅客/i.test(text);
 
-  if (isIce) return "冰品冰淇淋";
-  if (isProteinBar) return "蛋白零食";
+  // 1) 冰品
+  if (/雪糕|冰淇淋|甜筒|脆皮/.test(text) || s.category === "冰品冰淇淋") return "冰品冰淇淋";
+  // 2) 蛋白棒
+  if (/蛋白棒|蛋白谷物棒|代餐棒/.test(text) || s.category === "蛋白零食") return "蛋白零食";
+
+  // 3a) 面包糕点（含蛋糕 / 吐司 / 派 / 月饼）—— 注意：派含「巧克力派」「香蕉派」，仍属糕点
+  const isBreadCake = /面包|吐司|蛋糕|月饼|司康|可颂|麻薯|大福|蛋黄派|巧克力派|香蕉派|草莓派|奶油派|手撕面包|沙琪玛/.test(text);
+  if (isBreadCake) return "面包糕点";
+
+  // 3b) 饼干 / 曲奇 / 酥饼（核桃酥 / 花生酥 / 奥利奥 / 趣多多 / 威化饼 / 苏打饼 / 消化饼 / 米饼）
+  //    威化巧克力（KitKat / 雅客威化巧克力）是「巧克力」而非「饼干」—— 用 "威化巧克力" 显式排除。
+  const isBiscuit =
+    /饼干|曲奇|苏打饼|消化饼|米饼|仙贝|奥利奥|趣多多|核桃酥|花生酥|凤梨酥|蛋黄酥|百奇|Pocky/.test(text) ||
+    (/威化/.test(text) && !/威化巧克力|巧克力威化/.test(text));
   if (isBiscuit) return "饼干曲奇";
-  if (looksLikeChocolate) return "巧克力糖果";
-  // 酸奶乳品：必须真的是奶 / 酸奶（排除「巧克力」误命中已在前面处理）
-  const looksLikeDairy = /酸奶|牛奶|纯牛奶|奶酪|奶昔|希腊酸奶|风味酸奶|奶粉|乳品|乳制品/.test(text);
-  if (looksLikeDairy) return "酸奶乳品";
+
+  // 4) 巧克力 —— 必须明确含「巧克力 / chocolate / 巧」类关键词或国际巧克力品牌专属字样
+  //    「徐福记」「大白兔」这种 candy 品牌不能作为巧克力关键字。
+  const isChocolate =
+    /巧克力|chocolate|可可粉|cocoa/i.test(text) ||
+    /Hershey|Dove(?!\s*酱)|Meiji.*巧克力|Lindt|Kisses|KitKat|Snickers|士力架|费列罗|Ferrero|瑞士莲|怡浓|Enon|奇巧|Nestle.*KitKat/i.test(text);
+  if (isChocolate) return "巧克力";
+
+  // 5) 糖果 —— 奶糖 / 软糖 / 硬糖 / 口香糖 / 薄荷糖 / 棒棒糖；含曼妥思 / 大白兔 / 阿尔卑斯 / 益达 / 雅客
+  const isCandy =
+    /奶糖|软糖|硬糖|果糖(?!果糖醇)|水果糖|薄荷糖|口香糖|棒棒糖|阿尔卑斯|大白兔|曼妥思|Mentos|益达|Extra|雅客|White\s*Rabbit|徐福记奶糖|徐福记软糖/i.test(text);
+  if (isCandy) return "糖果";
+
+  // 6) 酸奶 —— 必须是发酵乳 / 含活性菌：酸奶 / 酸牛奶 / 优酸乳 / 优酪乳 / 希腊酸奶 / 安慕希 / 纯甄 / 莫斯利安 / 简爱 / 卡士 / 优倍 / 味可滋 / 风味发酵乳
+  const isYogurt =
+    /酸奶|酸牛奶|优酸乳|优酪乳|希腊酸奶|发酵乳|乳酸菌饮料|安慕希|纯甄|莫斯利安|简爱|卡士|优倍|味可滋/.test(text);
+  if (isYogurt) return "酸奶";
+
+  // 7) 牛奶乳饮 —— 纯牛奶 / 舒化奶 / 高端纯奶 / 调制乳 / 含奶饮料 / AD钙 / 营养快线
+  const isMilk =
+    /纯牛奶|牛奶|舒化奶|特仑苏|金典|认养一头牛|娟姗|AD钙|旺仔牛奶|营养快线|奶昔|奶酪|奶粉|乳品|乳制品|早餐奶|每日鲜语|真果粒|果粒牛奶/.test(text);
+  if (isMilk) return "牛奶乳饮";
+
+  // 8) 旧标签兜底映射：generated.ts 里残留的「巧克力糖果」「酸奶乳品」走默认改写。
+  if (s.category === "巧克力糖果") return "巧克力";
+  if (s.category === "酸奶乳品") return "牛奶乳饮";
+
   return s.category;
 }
 
@@ -73,12 +127,12 @@ export function pickSnack(input: SnackPickInput): SnackPickResult {
       if ((s.protein ?? 0) >= 8) score += 12;
     }
     if (input.audiences.includes("儿童")) {
-      if (s.category === "酸奶乳品" || s.category === "面包糕点" || s.category === "果干蜜饯") score += 8;
+      if (s.category === "酸奶" || s.category === "牛奶乳饮" || s.category === "面包糕点" || s.category === "果干蜜饯") score += 8;
       if (s.caution?.includes("控糖") || (s.sugar ?? 0) > 30) score -= 6;
     }
     if (input.audiences.includes("长辈")) {
       if ((s.sugar ?? 0) <= 8) score += 6;
-      if (s.category === "酸奶乳品" || s.category === "坚果") score += 8;
+      if (s.category === "酸奶" || s.category === "牛奶乳饮" || s.category === "坚果") score += 8;
     }
     // A 真实商品加权（regenerated.ts 全部为真实商品，但保留逻辑兼容）
     if (s.confidence === "A") score += 4;

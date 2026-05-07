@@ -583,89 +583,176 @@ console.log("== 零食 / 水果数据 ==");
   check(`pickSnack 减脂控糖: special 存在`, !!r.special);
   check(`pickSnack 减脂控糖: alternatives 至少 3 条`, r.alternatives.length >= 3);
 
-  // v4: 类别归属修正 — 巧克力糖果不能跑到酸奶乳品里
-  const dairy = SNACKS.filter((s: any) => s.category === "酸奶乳品");
-  const choc = SNACKS.filter((s: any) => s.category === "巧克力糖果");
-  const stray = dairy.filter((s: any) => /巧克力|德芙|明治|Hershey|Dove|Meiji|Kisses|KitKat|Snickers|士力架|费列罗|Lindt|瑞士莲|大白兔|徐福记|阿尔卑斯|曼妥思|奶糖|软糖|薄荷糖|口香糖/i.test(s.name + " " + (s.brand ?? "")));
+  // v6: 类目拆分 — 「巧克力糖果」拆为「巧克力」+「糖果」；「酸奶乳品」拆为「酸奶」+「牛奶乳饮」
+  // 旧的合并标签 normalize 之后必须为空（generated.ts 残留全部被拆走）
+  const legacyChocCandy = SNACKS.filter((s: any) => s.category === "巧克力糖果");
+  const legacyDairy = SNACKS.filter((s: any) => s.category === "酸奶乳品");
   check(
-    `v4 酸奶乳品筛选不再混入巧克力糖果（实际混入 ${stray.length} 条）`,
-    stray.length === 0,
-    stray.slice(0, 5).map((s: any) => s.name).join(" | "),
+    `v6 旧标签「巧克力糖果」normalize 后清零`,
+    legacyChocCandy.length === 0,
+    legacyChocCandy.slice(0, 5).map((s: any) => s.name).join(" | "),
   );
-  // 经典巧克力品牌应该都在「巧克力糖果」分类里
-  for (const k of ["德芙", "明治"]) {
-    const inChoc = choc.some((s: any) => s.name.includes(k) || (s.brand ?? "").includes(k));
-    const inDairy = dairy.some((s: any) => s.name.includes(k) || (s.brand ?? "").includes(k));
-    check(`v4 「${k}」在「巧克力糖果」筛选中可见`, inChoc, `inChoc=${inChoc} inDairy=${inDairy}`);
-    check(`v4 「${k}」不再出现在「酸奶乳品」筛选`, !inDairy);
-  }
-  // 真正的酸奶 / 牛奶应当还在乳品筛选
-  for (const k of ["安慕希", "纯甄", "莫斯利安"]) {
-    const stillDairy = dairy.some((s: any) => s.name.includes(k));
-    check(`v4 真乳品「${k}」仍在酸奶乳品筛选`, stillDairy);
-  }
+  check(
+    `v6 旧标签「酸奶乳品」normalize 后清零`,
+    legacyDairy.length === 0,
+    legacyDairy.slice(0, 5).map((s: any) => s.name).join(" | "),
+  );
 
-  // v5: pickSnack 在 preferCategories 下必须严格过滤 main + alternatives，
-  // 不再「选了巧克力糖果，主卡却显示伊利优酸乳」。
-  // 注意：DAIRY_KW 不能含「牛奶」二字 —— 巧克力名字里就有「牛奶巧克力」，会误伤。
-  // 用品牌 + 真实乳品代号定位真乳品。
-  const CHOC_KW = /巧克力|德芙|明治牛奶巧克力|Hershey|Dove|Meiji|Kisses|KitKat|Snickers|士力架|费列罗|Lindt|瑞士莲|大白兔|徐福记|阿尔卑斯|曼妥思|奶糖|软糖|薄荷糖|口香糖/i;
-  const DAIRY_KW = /优酸乳|安慕希|纯甄|莫斯利安|卡士|酸奶|希腊酸奶|风味酸奶|奶昔|奶酪|奶粉|乳品|乳制品|金典|特仑苏|每日鲜语|味全|光明优倍|新养道|早餐奶/;
+  const choc = SNACKS.filter((s: any) => s.category === "巧克力");
+  const candy = SNACKS.filter((s: any) => s.category === "糖果");
+  const yog = SNACKS.filter((s: any) => s.category === "酸奶");
+  const milk = SNACKS.filter((s: any) => s.category === "牛奶乳饮");
+  const biscuit = SNACKS.filter((s: any) => s.category === "饼干曲奇");
+  const breadCake = SNACKS.filter((s: any) => s.category === "面包糕点");
+
+  // 巧克力分类正确性
+  for (const k of ["德芙", "明治", "好时", "费列罗", "瑞士莲", "KitKat"]) {
+    const inChoc = choc.some((s: any) => (s.name + " " + (s.brand ?? "")).includes(k));
+    check(`v6 「${k}」在「巧克力」分类中可见`, inChoc);
+  }
+  // 巧克力分类不应含烘焙糕点 / 糖果 / 牛奶
+  const chocBadKW = /核桃酥|花生酥|沙琪玛|蛋黄派|月饼|吐司|面包|奶糖|软糖|薄荷糖|口香糖|曼妥思|大白兔|阿尔卑斯|益达|纯牛奶|金典|特仑苏|认养一头牛|旺仔牛奶/;
+  const chocStray = choc.filter((s: any) => chocBadKW.test(s.name + " " + (s.brand ?? "")));
+  check(
+    `v6 「巧克力」分类不含烘焙/糖果/牛奶（实际混入 ${chocStray.length} 条）`,
+    chocStray.length === 0,
+    chocStray.slice(0, 5).map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+  );
+
+  // 糖果分类正确性
+  for (const k of ["曼妥思", "大白兔", "阿尔卑斯", "奶糖"]) {
+    const inCandy = candy.some((s: any) => (s.name + " " + (s.brand ?? "")).includes(k));
+    check(`v6 「${k}」在「糖果」分类中可见`, inCandy);
+  }
+  // 糖果不得含烘焙
+  const candyBadKW = /核桃酥|花生酥|沙琪玛|月饼|吐司|面包|曲奇饼干|消化饼/;
+  const candyStray = candy.filter((s: any) => candyBadKW.test(s.name + " " + (s.brand ?? "")));
+  check(
+    `v6 「糖果」分类不含烘焙（实际混入 ${candyStray.length} 条）`,
+    candyStray.length === 0,
+    candyStray.slice(0, 5).map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+  );
+
+  // 酸奶分类正确性 —— 不能混入纯牛奶
+  for (const k of ["安慕希", "纯甄", "莫斯利安", "简爱", "卡士"]) {
+    const inYog = yog.some((s: any) => (s.name + " " + (s.brand ?? "")).includes(k));
+    check(`v6 「${k}」在「酸奶」分类中可见`, inYog);
+  }
+  const yogBadKW = /^(?!.*酸).*纯牛奶|金典|特仑苏|认养一头牛|旺仔牛奶|舒化奶|每日鲜语|早餐奶|AD钙/;
+  const yogStray = yog.filter((s: any) => yogBadKW.test(s.name));
+  check(
+    `v6 「酸奶」分类不含纯牛奶 / 牛奶饮品（实际混入 ${yogStray.length} 条）`,
+    yogStray.length === 0,
+    yogStray.slice(0, 5).map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+  );
+
+  // 牛奶乳饮分类正确性
+  for (const k of ["金典", "特仑苏", "认养一头牛", "旺仔牛奶"]) {
+    const inMilk = milk.some((s: any) => (s.name + " " + (s.brand ?? "")).includes(k));
+    check(`v6 「${k}」在「牛奶乳饮」分类中可见`, inMilk);
+  }
+  // 牛奶乳饮不得含「酸奶」字样的真酸奶（避免反向串类）
+  const milkBadKW = /酸奶|发酵乳|乳酸菌饮料/;
+  const milkStray = milk.filter((s: any) => milkBadKW.test(s.name));
+  check(
+    `v6 「牛奶乳饮」分类不含酸奶（实际混入 ${milkStray.length} 条）`,
+    milkStray.length === 0,
+    milkStray.slice(0, 5).map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+  );
+
+  // 饼干曲奇必含核桃酥
+  const biscuitHasNutCake = biscuit.some((s: any) => s.name.includes("核桃酥"));
+  check(`v6 「饼干曲奇」分类含核桃酥`, biscuitHasNutCake);
+  // 沙琪玛归到面包糕点
+  const breadHasShaqima = breadCake.some((s: any) => s.name.includes("沙琪玛"));
+  check(`v6 「面包糕点」分类含沙琪玛`, breadHasShaqima);
+
+  // pickSnack 在 preferCategories 下必须严格过滤 main + alternatives
+  const CHOC_BAD_KW = /核桃酥|花生酥|沙琪玛|奶糖|软糖|薄荷糖|口香糖|曼妥思|大白兔|阿尔卑斯|益达|纯牛奶|金典|特仑苏|认养一头牛|旺仔牛奶/;
   for (let i = 0; i < 40; i++) {
-    const r = pickSnack({ audiences: [], preferCategories: ["巧克力糖果"] });
+    const r = pickSnack({ audiences: [], preferCategories: ["巧克力"] });
     const all = [r.special, ...r.alternatives];
-    const allChoc = all.every((s: any) => s.category === "巧克力糖果");
+    const allChoc = all.every((s: any) => s.category === "巧克力");
     check(
-      `v5 巧克力糖果筛选(第${i + 1}次): 主卡+候选 category 全部 = 巧克力糖果`,
+      `v6 巧克力筛选(第${i + 1}次): 主卡+候选 category 全部 = 巧克力`,
       allChoc,
       all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
     );
-    const dairyHits = all.filter((s: any) => DAIRY_KW.test(s.name + " " + (s.brand ?? "")));
+    const badHits = all.filter((s: any) => CHOC_BAD_KW.test(s.name + " " + (s.brand ?? "")));
     check(
-      `v5 巧克力糖果筛选(第${i + 1}次): 主卡+候选 不含真乳品名`,
-      dairyHits.length === 0,
-      dairyHits.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+      `v6 巧克力筛选(第${i + 1}次): 主卡+候选 不含核桃酥/奶糖/牛奶`,
+      badHits.length === 0,
+      badHits.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
     );
-    if (!allChoc || dairyHits.length > 0) break;
+    if (!allChoc || badHits.length > 0) break;
   }
   for (let i = 0; i < 40; i++) {
-    const r = pickSnack({ audiences: [], preferCategories: ["酸奶乳品"] });
+    const r = pickSnack({ audiences: [], preferCategories: ["糖果"] });
     const all = [r.special, ...r.alternatives];
-    const allDairy = all.every((s: any) => s.category === "酸奶乳品");
+    const allCandy = all.every((s: any) => s.category === "糖果");
     check(
-      `v5 酸奶乳品筛选(第${i + 1}次): 主卡+候选 category 全部 = 酸奶乳品`,
-      allDairy,
+      `v6 糖果筛选(第${i + 1}次): 主卡+候选 category 全部 = 糖果`,
+      allCandy,
       all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
     );
-    const chocHits = all.filter((s: any) => CHOC_KW.test(s.name + " " + (s.brand ?? "")));
+    const candyBad = all.filter((s: any) => /核桃酥|花生酥|沙琪玛|巧克力(?!派)/.test(s.name));
     check(
-      `v5 酸奶乳品筛选(第${i + 1}次): 主卡+候选 不含巧克力关键字`,
-      chocHits.length === 0,
-      chocHits.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+      `v6 糖果筛选(第${i + 1}次): 主卡+候选 不含核桃酥 / 巧克力`,
+      candyBad.length === 0,
+      candyBad.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
     );
-    if (!allDairy || chocHits.length > 0) break;
+    if (!allCandy || candyBad.length > 0) break;
   }
+  for (let i = 0; i < 40; i++) {
+    const r = pickSnack({ audiences: [], preferCategories: ["酸奶"] });
+    const all = [r.special, ...r.alternatives];
+    const allYog = all.every((s: any) => s.category === "酸奶");
+    check(
+      `v6 酸奶筛选(第${i + 1}次): 主卡+候选 category 全部 = 酸奶`,
+      allYog,
+      all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    // chip 写「酸奶」不可出现纯牛奶 / 巧克力
+    const yogBad = all.filter((s: any) => /^(?!.*酸).*纯牛奶|金典|特仑苏|认养一头牛|旺仔牛奶|巧克力/.test(s.name));
+    check(
+      `v6 酸奶筛选(第${i + 1}次): 不含纯牛奶/巧克力`,
+      yogBad.length === 0,
+      yogBad.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    if (!allYog || yogBad.length > 0) break;
+  }
+  for (let i = 0; i < 40; i++) {
+    const r = pickSnack({ audiences: [], preferCategories: ["牛奶乳饮"] });
+    const all = [r.special, ...r.alternatives];
+    const allMilk = all.every((s: any) => s.category === "牛奶乳饮");
+    check(
+      `v6 牛奶乳饮筛选(第${i + 1}次): 主卡+候选 category 全部 = 牛奶乳饮`,
+      allMilk,
+      all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
+    );
+    if (!allMilk) break;
+  }
+
   // 也覆盖另外几个分类（仅检查池中有数据的分类，空池由 UI 隐藏）
-  // 通过 SNACKS 实际分布确定哪些分类可用
   const catCounts: Record<string, number> = {};
   for (const s of SNACKS as any[]) catCounts[s.category] = (catCounts[s.category] ?? 0) + 1;
-  for (const cat of ["饮料", "无糖饮料", "薯片膨化", "坚果", "蛋白零食", "肉脯肉干", "饼干曲奇", "冰品冰淇淋"] as const) {
+  for (const cat of ["饮料", "无糖饮料", "薯片膨化", "坚果", "蛋白零食", "肉脯肉干", "饼干曲奇", "面包糕点", "冰品冰淇淋"] as const) {
     if ((catCounts[cat] ?? 0) === 0) continue;
     const r = pickSnack({ audiences: [], preferCategories: [cat] });
     const all = [r.special, ...r.alternatives];
     const ok = all.every((s: any) => s.category === cat);
     check(
-      `v5 「${cat}」筛选: 主卡+候选 category 全部一致`,
+      `v6 「${cat}」筛选: 主卡+候选 category 全部一致`,
       ok,
       all.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
     );
   }
   // 多分类组合 (OR) 也必须严格——主卡+候选 category 必属于所选集合
-  const multi = pickSnack({ audiences: [], preferCategories: ["巧克力糖果", "饼干曲奇"] });
+  const multi = pickSnack({ audiences: [], preferCategories: ["巧克力", "饼干曲奇"] });
   const multiAll = [multi.special, ...multi.alternatives];
   check(
-    `v5 多分类(巧克力糖果+饼干曲奇)筛选: 主卡+候选 全部命中所选集合`,
-    multiAll.every((s: any) => s.category === "巧克力糖果" || s.category === "饼干曲奇"),
+    `v6 多分类(巧克力+饼干曲奇)筛选: 主卡+候选 全部命中所选集合`,
+    multiAll.every((s: any) => s.category === "巧克力" || s.category === "饼干曲奇"),
     multiAll.map((s: any) => `${s.name}[${s.category}]`).join(" | "),
   );
 
