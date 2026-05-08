@@ -1284,6 +1284,84 @@ export default function Home() {
           </div>
         </section>
 
+        {/* v10.1 两张人群入口大卡片 — 单人 / 家庭。
+            移动端单列展示，sm+ 双列；大字大按钮 + 渐变背景，一眼能看到。 */}
+        <section className="mt-7" data-testid="persona-entry-cards">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div
+              className="relative overflow-hidden rounded-3xl border border-rose-200/70 bg-gradient-to-br from-rose-50 via-orange-50 to-amber-50 p-5 sm:p-6"
+              data-testid="persona-card-solo"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gradient-to-br from-rose-200/60 to-amber-200/40 blur-2xl"
+              />
+              <div className="relative">
+                <div className="flex items-center gap-2 text-[11.5px] font-medium uppercase tracking-[0.18em] text-rose-700/80">
+                  <span aria-hidden className="text-base">🧍</span>
+                  一个人吃
+                </div>
+                <h3 className="mt-2 font-display text-[1.55rem] leading-tight tracking-tight text-foreground sm:text-[1.75rem]">
+                  一个人也要好好过
+                </h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/75 sm:text-[14px]">
+                  常点外卖、靠零食续命、刷剧不知道吃啥也不知道干啥？
+                  来，一键替你决定今晚怎么过。
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTab("lazy");
+                    if (typeof window !== "undefined") window.location.hash = "#/lazy";
+                  }}
+                  data-testid="button-persona-solo-cta"
+                  className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-rose-500 to-orange-500 px-5 py-3.5 text-[15.5px] font-semibold text-white shadow-md shadow-rose-500/25 transition-all hover-elevate active-elevate-2 sm:w-auto sm:text-[16px]"
+                >
+                  <Sparkles className="h-4 w-4" aria-hidden />
+                  一键安排今晚
+                  <ChevronRight className="h-4 w-4" aria-hidden />
+                </button>
+              </div>
+            </div>
+
+            <div
+              className="relative overflow-hidden rounded-3xl border border-emerald-200/70 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 p-5 sm:p-6"
+              data-testid="persona-card-family"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gradient-to-br from-emerald-200/60 to-cyan-200/40 blur-2xl"
+              />
+              <div className="relative">
+                <div className="flex items-center gap-2 text-[11.5px] font-medium uppercase tracking-[0.18em] text-emerald-700/85">
+                  <span aria-hidden className="text-base">👨‍👩‍👧</span>
+                  一家人吃
+                </div>
+                <h3 className="mt-2 font-display text-[1.55rem] leading-tight tracking-tight text-foreground sm:text-[1.75rem]">
+                  一家人今晚吃什么
+                </h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/75 sm:text-[14px]">
+                  家里要做饭，老人小孩口味不一样，预算有限，
+                  冰箱里有点存货还有昨天的剩菜——一键给你一桌方案。
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTab("family");
+                    if (typeof window !== "undefined") window.location.hash = "#/family";
+                  }}
+                  data-testid="button-persona-family-cta"
+                  className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-5 py-3.5 text-[15.5px] font-semibold text-white shadow-md shadow-emerald-500/25 transition-all hover-elevate active-elevate-2 sm:w-auto sm:text-[16px]"
+                >
+                  <Users className="h-4 w-4" aria-hidden />
+                  生成家庭饭方案
+                  <ChevronRight className="h-4 w-4" aria-hidden />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* 早 / 午 / 晚切换 — 主页显眼大按钮，移动端也能一眼看到。
             点击后 currentSlot 即刻切换，主题变色 + 推荐上下文随之更新。 */}
         <section className="mt-6">
