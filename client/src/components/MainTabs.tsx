@@ -17,6 +17,9 @@ import {
   Cookie,
   Apple,
   CalendarDays,
+  UsersRound,
+  Refrigerator,
+  Repeat,
 } from "lucide-react";
 
 export type MainTabId =
@@ -30,7 +33,10 @@ export type MainTabId =
   | "snacks"
   | "fruit"
   | "companion"
-  | "hotboard";
+  | "hotboard"
+  | "family"
+  | "fridge"
+  | "leftover";
 
 export interface MainTabDef {
   id: MainTabId;
@@ -41,18 +47,22 @@ export interface MainTabDef {
   group?: "core" | "lazy" | "extra";
 }
 
-// 11 个 Tab：两排网格布局，第一排核心入口，第二排扩展功能。
+// 14 个 Tab：两排网格布局，第一排核心入口，第二排扩展功能。
+// v10：新增「家庭/冰箱/剩菜」解决三大真实痛点。
 export const MAIN_TABS: MainTabDef[] = [
   // 第一排：核心入口（决定吃啥 / 一周菜单 / 外卖 / 零食 / 水果）
   { id: "home", label: "今日推荐", hint: "一桌", icon: Sparkles, group: "core" },
   { id: "weekly", label: "一周菜单", hint: "家庭+预算", icon: CalendarDays, group: "core" },
   { id: "lazy", label: "懒人决定", hint: "替你选", icon: Wand2, group: "lazy" },
-  { id: "takeout", label: "外卖", hint: "品牌·凑券", icon: Bike, group: "core" },
-  { id: "snacks", label: "零食", hint: "替你决定", icon: Cookie, group: "core" },
-  { id: "fruit", label: "水果", hint: "应季", icon: Apple, group: "core" },
-  // 第二排：扩展功能（健康 / 搜索 / 旅行 / 陪伴 / 热榜）
+  { id: "family", label: "家庭口味", hint: "全家兼容", icon: UsersRound, group: "core" },
+  { id: "fridge", label: "冰箱有啥", hint: "做能做的", icon: Refrigerator, group: "core" },
+  { id: "leftover", label: "剩菜变花样", hint: "不浪费", icon: Repeat, group: "core" },
+  // 第二排：扩展功能（健康 / 搜索 / 旅行 / 陪伴 / 热榜 / 外卖 / 零食 / 水果）
   { id: "health", label: "健康饮食", hint: "低糖低盐", icon: HeartPulse, group: "extra" },
   { id: "search", label: "菜谱搜索", hint: "按菜名", icon: Search, group: "extra" },
+  { id: "takeout", label: "外卖", hint: "品牌·凑券", icon: Bike, group: "extra" },
+  { id: "snacks", label: "零食", hint: "替你决定", icon: Cookie, group: "extra" },
+  { id: "fruit", label: "水果", hint: "应季", icon: Apple, group: "extra" },
   { id: "travel", label: "旅行美食", hint: "城市", icon: Plane, group: "extra" },
   { id: "companion", label: "饭桌陪伴", hint: "看听聊", icon: Coffee, group: "extra" },
   { id: "hotboard", label: "饭桌热榜", hint: "本月", icon: Flame, group: "extra" },

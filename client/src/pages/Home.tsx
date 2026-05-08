@@ -60,6 +60,9 @@ const SnacksPanel = lazy(() => import("@/components/SnacksPanel").then((m) => ({
 const FruitPanel = lazy(() => import("@/components/FruitPanel").then((m) => ({ default: m.FruitPanel })));
 const LazyDecisionPanel = lazy(() => import("@/components/LazyDecisionPanel").then((m) => ({ default: m.LazyDecisionPanel })));
 const WeeklyMenuPanel = lazy(() => import("@/components/WeeklyMenuPanel").then((m) => ({ default: m.WeeklyMenuPanel })));
+const FamilyPanel = lazy(() => import("@/components/FamilyPanel").then((m) => ({ default: m.FamilyPanel })));
+const FridgePanel = lazy(() => import("@/components/FridgePanel").then((m) => ({ default: m.FridgePanel })));
+const LeftoverPanel = lazy(() => import("@/components/LeftoverPanel").then((m) => ({ default: m.LeftoverPanel })));
 import { pushRecent, recentPoolSet, banInSession } from "@/lib/recentPool";
 import { healthFilterLabel, type HealthFilterId, type IngredientWishId } from "@/lib/recommend";
 import { Wordmark, Logo } from "@/components/Logo";
@@ -1158,6 +1161,9 @@ export default function Home() {
               {tab === "fruit" && <FruitPanel />}
               {tab === "lazy" && <LazyDecisionPanel />}
               {tab === "weekly" && <WeeklyMenuPanel />}
+              {tab === "family" && <FamilyPanel onPickRecipe={(r) => setDetailRecipe(r)} />}
+              {tab === "fridge" && <FridgePanel onPickRecipe={(r) => setDetailRecipe(r)} />}
+              {tab === "leftover" && <LeftoverPanel />}
               {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
               {tab === "hotboard" && <HotBoard />}
             </Suspense>
@@ -1311,6 +1317,39 @@ export default function Home() {
                 </button>
               );
             })}
+          </div>
+        </section>
+
+        {/* 解决真实问题：家庭口味 / 冰箱有啥 / 剩菜变花样 — v10 三大入口 */}
+        <section className="mt-7" data-testid="solve-real-problems">
+          <div className="mb-2 flex items-baseline justify-between gap-2">
+            <h2 className="font-display text-[1.05rem] tracking-tight">解决真实问题</h2>
+            <span className="text-[11px] text-muted-foreground">一家人 · 冰箱里 · 剩菜也能吃</span>
+          </div>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {[
+              { id: "family" as MainTabId, emoji: "👨‍👩‍👧", title: "家庭口味协调", hint: "一家人都能一起吃", tone: "from-rose-100 to-amber-100" },
+              { id: "fridge" as MainTabId, emoji: "🧊", title: "冰箱有啥", hint: "现有食材能做啥", tone: "from-emerald-100 to-cyan-100" },
+              { id: "leftover" as MainTabId, emoji: "♻️", title: "剩菜变花样", hint: "昨天剩菜不浪费", tone: "from-amber-100 to-orange-100" },
+            ].map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => {
+                  setTab(c.id);
+                  if (typeof window !== "undefined") window.location.hash = `#/${c.id}`;
+                }}
+                data-testid={`hero-shortcut-${c.id}`}
+                className={`flex items-center gap-3 rounded-2xl border bg-gradient-to-br ${c.tone} px-4 py-3 text-left transition-all hover-elevate active-elevate-2`}
+              >
+                <span aria-hidden className="text-3xl">{c.emoji}</span>
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="text-[14.5px] font-semibold text-foreground">{c.title}</span>
+                  <span className="text-[11.5px] text-foreground/70">{c.hint}</span>
+                </span>
+                <ChevronRight className="h-4 w-4 text-foreground/50" />
+              </button>
+            ))}
           </div>
         </section>
 

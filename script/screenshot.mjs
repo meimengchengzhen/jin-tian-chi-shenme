@@ -15,6 +15,9 @@ const targets = [
   { hash: "#/home", file: "home.png", label: "今日推荐" },
   { hash: "#/weekly", file: "weekly.png", label: "一周菜单" },
   { hash: "#/lazy", file: "lazy.png", label: "懒人决定" },
+  { hash: "#/family", file: "family.png", label: "家庭口味协调" },
+  { hash: "#/fridge", file: "fridge.png", label: "冰箱有啥" },
+  { hash: "#/leftover", file: "leftover.png", label: "剩菜变花样" },
   { hash: "#/takeout", file: "takeout.png", label: "外卖" },
   { hash: "#/snacks", file: "snacks.png", label: "零食" },
   { hash: "#/fruit", file: "fruit.png", label: "水果" },
@@ -26,12 +29,31 @@ const targets = [
 
 async function setup(page, opts = {}) {
   // Skip onboarding (modal blocks layout) by pre-seeding localStorage flags.
+  // v10: also seed family/fridge demo data so the new tabs are not empty in screenshots.
   await page.addInitScript((skipPersona) => {
     try {
       localStorage.setItem("chishenme.onboarded.v1", "1");
       if (skipPersona) {
         localStorage.setItem("chishenme.persona.setup.v1", "true");
       }
+      // Family demo
+      const family = [
+        { id: "fm_demo_self", name: "我", role: "self", emoji: "👤", dislikedIngredients: ["香菜"], allergicIngredients: [], healthGoals: ["low_fat"], active: true },
+        { id: "fm_demo_partner", name: "老王", role: "partner", emoji: "💑", dislikedIngredients: [], allergicIngredients: [], healthGoals: ["balanced"], active: true },
+        { id: "fm_demo_child", name: "小宝", role: "child", emoji: "🧒", dislikedIngredients: ["辣椒", "苦瓜"], allergicIngredients: ["花生"], healthGoals: ["balanced"], active: true },
+        { id: "fm_demo_elder", name: "奶奶", role: "elder", emoji: "👴", dislikedIngredients: ["辣椒"], allergicIngredients: [], healthGoals: ["low_salt", "soft_easy"], active: true },
+      ];
+      localStorage.setItem("fanda.family.members.v1", JSON.stringify(family));
+      // Fridge demo
+      const fridge = [
+        { id: "fr1", raw: "鸡蛋", normalized: "鸡蛋", quantity: "one", addedAt: Date.now() },
+        { id: "fr2", raw: "豆腐", normalized: "豆腐", quantity: "half", addedAt: Date.now() },
+        { id: "fr3", raw: "胡萝卜", normalized: "胡萝卜", quantity: "half", addedAt: Date.now() },
+        { id: "fr4", raw: "番茄", normalized: "番茄", quantity: "one", addedAt: Date.now() },
+        { id: "fr5", raw: "葱", normalized: "葱", quantity: "trace", addedAt: Date.now() },
+        { id: "fr6", raw: "米饭", normalized: "米饭", quantity: "one", addedAt: Date.now() },
+      ];
+      localStorage.setItem("fanda.fridge.items.v1", JSON.stringify(fridge));
     } catch {}
   }, opts.skipPersona ?? true);
 }
@@ -43,6 +65,13 @@ async function captureDesktop(browser, target) {
   await page.goto(`${BASE}/${target.hash}`, { waitUntil: "networkidle", timeout: 60_000 });
   // Give framer-motion / lazy chunks a moment.
   await page.waitForTimeout(1500);
+  // For the leftover tab: trigger a search so the screenshot has content.
+  if (target.hash === "#/leftover") {
+    try {
+      await page.locator('[data-testid="chip-leftover-红烧肉"]').click({ timeout: 3000 });
+      await page.waitForTimeout(800);
+    } catch {}
+  }
   // Make sure we're at the top.
   await page.evaluate(() => window.scrollTo(0, 0));
   const file = path.join(OUT, target.file);
