@@ -36,11 +36,12 @@ export type MainTabId =
   | "companion"
   | "hotboard"
   | "family"
+  | "family-tonight"
   | "fridge"
   | "leftover";
 
 // 隐藏 Tab：不出现在顶部导航条上，但 hash 路由可达（首页大卡片入口直接进入）。
-const HIDDEN_TAB_IDS: readonly MainTabId[] = ["solo"];
+const HIDDEN_TAB_IDS: readonly MainTabId[] = ["solo", "family-tonight"];
 
 export interface MainTabDef {
   id: MainTabId;

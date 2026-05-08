@@ -26,6 +26,7 @@ function AppRouter() {
       <Route path="/companion" component={Home} />
       <Route path="/hotboard" component={Home} />
       <Route path="/family" component={Home} />
+      <Route path="/family-tonight" component={Home} />
       <Route path="/fridge" component={Home} />
       <Route path="/leftover" component={Home} />
       <Route component={NotFound} />

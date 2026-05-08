@@ -60,6 +60,7 @@ const SnacksPanel = lazy(() => import("@/components/SnacksPanel").then((m) => ({
 const FruitPanel = lazy(() => import("@/components/FruitPanel").then((m) => ({ default: m.FruitPanel })));
 const LazyDecisionPanel = lazy(() => import("@/components/LazyDecisionPanel").then((m) => ({ default: m.LazyDecisionPanel })));
 const SoloTonightPanel = lazy(() => import("@/components/SoloTonightPanel").then((m) => ({ default: m.SoloTonightPanel })));
+const FamilyTonightPanel = lazy(() => import("@/components/FamilyTonightPanel").then((m) => ({ default: m.FamilyTonightPanel })));
 const WeeklyMenuPanel = lazy(() => import("@/components/WeeklyMenuPanel").then((m) => ({ default: m.WeeklyMenuPanel })));
 const FamilyPanel = lazy(() => import("@/components/FamilyPanel").then((m) => ({ default: m.FamilyPanel })));
 const FridgePanel = lazy(() => import("@/components/FridgePanel").then((m) => ({ default: m.FridgePanel })));
@@ -1162,6 +1163,7 @@ export default function Home() {
               {tab === "fruit" && <FruitPanel />}
               {tab === "lazy" && <LazyDecisionPanel />}
               {tab === "solo" && <SoloTonightPanel />}
+              {tab === "family-tonight" && <FamilyTonightPanel />}
               {tab === "weekly" && <WeeklyMenuPanel />}
               {tab === "family" && <FamilyPanel onPickRecipe={(r) => setDetailRecipe(r)} />}
               {tab === "fridge" && <FridgePanel onPickRecipe={(r) => setDetailRecipe(r)} />}
@@ -1349,8 +1351,8 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => {
-                    setTab("family");
-                    if (typeof window !== "undefined") window.location.hash = "#/family";
+                    setTab("family-tonight");
+                    if (typeof window !== "undefined") window.location.hash = "#/family-tonight";
                   }}
                   data-testid="button-persona-family-cta"
                   className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-5 py-3.5 text-[15.5px] font-semibold text-white shadow-md shadow-emerald-500/25 transition-all hover-elevate active-elevate-2 sm:w-auto sm:text-[16px]"
