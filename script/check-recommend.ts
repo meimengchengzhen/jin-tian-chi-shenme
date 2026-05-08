@@ -861,12 +861,16 @@ console.log("== v2: 主题系统 ==");
   check(`默认主题 = fresh（实际 ${def}）`, def === "fresh" || THEMES.some((t: any) => t.id === def));
 }
 
-console.log("== v8: 顶部 Tab 两排大按钮（不再依赖横向拖动）==");
+console.log("== v11: 顶部主导航收纳为 5 个一级入口（不再依赖横向拖动）==");
 {
   const fs = await import("node:fs");
   const src = fs.readFileSync("client/src/components/MainTabs.tsx", "utf-8");
-  check("MainTabs 含 weekly tab", src.includes('id: "weekly"'));
-  check("MainTabs 渲染两排（row1 / row2 + TabRow）", src.includes("TabRow") && src.includes("group !== \"extra\"") && src.includes("group === \"extra\""));
+  // 一级入口只剩 5 个分组；weekly 等旧模块作为二级入口仍可达，但不再出现在 PRIMARY_TABS。
+  check("MainTabs 定义 PRIMARY_TABS（5 个一级入口）", src.includes("PRIMARY_TABS"));
+  check(
+    "MainTabs 含 5 个核心一级入口（home/family/search/health/companion）",
+    ["home", "family", "search", "health", "companion"].every((id) => src.includes(`id: "${id}"`)),
+  );
   check(
     "MainTabs 按钮高度 h-12（更大）",
     src.includes("h-12"),

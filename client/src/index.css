@@ -839,15 +839,16 @@
   .animate-wiggle {
     animation: wiggle 360ms ease-in-out;
   }
-  /* v8 主导航两排大按钮：移动端 3 列固定换行，桌面 / 平板 ≥640px 自动按行内等分 */
+  /* v11 主导航：5 个一级入口，各端均按 --tab-cols 等分（移动端字号略小，仍可读） */
   .main-tabs-row {
     display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+    grid-template-columns: repeat(var(--tab-cols, 5), minmax(0, 1fr));
   }
   @media (min-width: 640px) {
     .main-tabs-row {
-      grid-template-columns: repeat(var(--tab-cols, 6), minmax(0, 1fr));
+      gap: 0.5rem;
+      grid-template-columns: repeat(var(--tab-cols, 5), minmax(0, 1fr));
     }
   }
 }

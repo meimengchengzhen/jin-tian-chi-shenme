@@ -414,6 +414,80 @@ function DishCard({
   );
 }
 
+// 二级入口：5 个一级分组下属的子模块。点击切换 tab + 同步 hash。
+const SUB_GROUPS: Record<string, { id: MainTabId; label: string; emoji: string }[]> = {
+  family: [
+    { id: "family", label: "家庭口味", emoji: "👨‍👩‍👧" },
+    { id: "family-tonight", label: "今晚饭", emoji: "🍲" },
+    { id: "fridge", label: "冰箱有啥", emoji: "🧊" },
+    { id: "leftover", label: "剩菜变花样", emoji: "♻️" },
+    { id: "weekly", label: "一周菜单", emoji: "🗓️" },
+  ],
+  search: [
+    { id: "search", label: "菜谱搜索", emoji: "🔍" },
+    { id: "takeout", label: "外卖", emoji: "🛵" },
+    { id: "snacks", label: "零食", emoji: "🍪" },
+    { id: "fruit", label: "水果", emoji: "🍎" },
+    { id: "travel", label: "旅行美食", emoji: "✈️" },
+  ],
+  health: [
+    { id: "health", label: "健康饮食", emoji: "🥗" },
+    { id: "weekly", label: "一周菜单", emoji: "🗓️" },
+  ],
+  companion: [
+    { id: "companion", label: "饭桌陪伴", emoji: "☕" },
+    { id: "hotboard", label: "饭桌热榜", emoji: "🔥" },
+  ],
+  decide: [
+    { id: "solo", label: "一个人", emoji: "🧍" },
+    { id: "family-tonight", label: "一家人", emoji: "👨‍👩‍👧" },
+    { id: "lazy", label: "懒人决定", emoji: "🪄" },
+  ],
+};
+
+function groupOf(id: MainTabId): keyof typeof SUB_GROUPS | null {
+  if (id === "family" || id === "family-tonight" || id === "fridge" || id === "leftover" || id === "weekly") return "family";
+  if (id === "search" || id === "takeout" || id === "snacks" || id === "fruit" || id === "travel") return "search";
+  if (id === "health") return "health";
+  if (id === "companion" || id === "hotboard") return "companion";
+  if (id === "solo" || id === "lazy") return "decide";
+  return null;
+}
+
+function SubNav({ active, onChange }: { active: MainTabId; onChange: (id: MainTabId) => void }) {
+  const g = groupOf(active);
+  if (!g) return null;
+  const items = SUB_GROUPS[g];
+  return (
+    <nav
+      aria-label="二级入口"
+      data-testid={`sub-nav-${g}`}
+      className="-mx-2 mb-4 flex gap-2 overflow-x-auto px-2 pb-1"
+    >
+      {items.map((it) => {
+        const isActive = it.id === active;
+        return (
+          <button
+            key={it.id}
+            type="button"
+            onClick={() => onChange(it.id)}
+            data-testid={`sub-nav-item-${it.id}`}
+            aria-current={isActive ? "page" : undefined}
+            className={`inline-flex h-10 flex-shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-medium transition-colors hover-elevate active-elevate-2 ${
+              isActive
+                ? "border-primary/60 bg-primary text-primary-foreground"
+                : "border-border/70 bg-card/70 text-foreground/85"
+            }`}
+          >
+            <span aria-hidden className="text-base">{it.emoji}</span>
+            {it.label}
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -1138,6 +1212,10 @@ export default function Home() {
 
         {tab !== "home" && (
           <div className="pt-6">
+            <SubNav active={tab} onChange={(id) => {
+              setTab(id);
+              if (typeof window !== "undefined") window.location.hash = `#/${id}`;
+            }} />
             <Suspense
               fallback={
                 <div className="py-10 text-center text-[13px] text-muted-foreground">
@@ -1430,6 +1508,46 @@ export default function Home() {
                   <span className="text-[11.5px] text-foreground/70">{c.hint}</span>
                 </span>
                 <ChevronRight className="h-4 w-4 text-foreground/50" />
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {/* 更多能力：把旧的二级模块作为卡片宫格收纳进来。
+            顶部一级导航只保留 5 个分组，其余功能都在这里发现。 */}
+        <section className="mt-7" data-testid="more-capabilities">
+          <div className="mb-2 flex items-baseline justify-between gap-2">
+            <h2 className="font-display text-[1.05rem] tracking-tight">更多能力</h2>
+            <span className="text-[11px] text-muted-foreground">按需发现 · 旧入口都在这里</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {([
+              { id: "weekly" as MainTabId, emoji: "🗓️", title: "一周菜单", hint: "家庭+预算" },
+              { id: "lazy" as MainTabId, emoji: "🪄", title: "懒人决定", hint: "替你选" },
+              { id: "takeout" as MainTabId, emoji: "🛵", title: "外卖", hint: "品牌·凑券" },
+              { id: "snacks" as MainTabId, emoji: "🍪", title: "零食", hint: "替你决定" },
+              { id: "fruit" as MainTabId, emoji: "🍎", title: "水果", hint: "应季" },
+              { id: "travel" as MainTabId, emoji: "✈️", title: "旅行美食", hint: "城市" },
+              { id: "hotboard" as MainTabId, emoji: "🔥", title: "饭桌热榜", hint: "本月" },
+              { id: "fridge" as MainTabId, emoji: "🧊", title: "冰箱有啥", hint: "现有食材" },
+              { id: "leftover" as MainTabId, emoji: "♻️", title: "剩菜变花样", hint: "不浪费" },
+              { id: "search" as MainTabId, emoji: "🔍", title: "菜谱搜索", hint: "按菜名" },
+            ] as { id: MainTabId; emoji: string; title: string; hint: string }[]).map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => {
+                  setTab(c.id);
+                  if (typeof window !== "undefined") window.location.hash = `#/${c.id}`;
+                }}
+                data-testid={`more-cap-${c.id}`}
+                className="flex items-center gap-2 rounded-xl border border-border/60 bg-card/70 px-3 py-2.5 text-left transition-all hover-elevate active-elevate-2"
+              >
+                <span aria-hidden className="text-2xl">{c.emoji}</span>
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate text-[13.5px] font-semibold text-foreground">{c.title}</span>
+                  <span className="truncate text-[11px] text-muted-foreground">{c.hint}</span>
+                </span>
               </button>
             ))}
           </div>
