@@ -13,6 +13,7 @@ import {
   Copy,
   ChefHat,
   ListChecks,
+  ShoppingCart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,7 @@ import {
 } from "@/lib/leftoverRemix";
 import { COMMON_LEFTOVER_PRESETS } from "@/data/leftoverRules";
 import { listFridge, subscribeFridge } from "@/lib/fridge";
+import { addShoppingItems } from "@/lib/shoppingList";
 
 const QTY_OPTIONS: LeftoverQuantity[] = ["small", "half", "most"];
 
@@ -71,6 +73,27 @@ export function LeftoverPanel() {
     } else {
       toast({ title: "缺少食材", description: txt });
     }
+  }
+
+  function addToShopping(remix: RemixWithFridgeInfo) {
+    if (remix.fridgeMissing.length === 0) {
+      toast({ title: "不缺东西", description: "冰箱里已经够了" });
+      return;
+    }
+    const r = addShoppingItems(
+      remix.fridgeMissing.map((m) => ({
+        name: m,
+        source: "leftover",
+        note: `${remix.title}`,
+      })),
+    );
+    const desc =
+      r.added > 0 && r.merged > 0
+        ? `新增 ${r.added} 项 · 合并 ${r.merged} 项`
+        : r.merged > 0
+          ? `合并 ${r.merged} 项到已有清单`
+          : `已加入 ${r.added} 项`;
+    toast({ title: "已加入购物清单 ✓", description: desc });
   }
 
   return (
@@ -163,7 +186,14 @@ export function LeftoverPanel() {
                 没找到方案。试试把剩菜名换成更通用的词，比如 红烧肉 / 剩米饭。
               </Card>
             ) : (
-              remixes.map((r) => <RemixCard key={r.id} remix={r} onCopy={() => copy(r)} />)
+              remixes.map((r) => (
+                <RemixCard
+                  key={r.id}
+                  remix={r}
+                  onCopy={() => copy(r)}
+                  onAddToShopping={() => addToShopping(r)}
+                />
+              ))
             )}
           </div>
         </section>
@@ -187,9 +217,10 @@ export function LeftoverPanel() {
 interface RemixCardProps {
   remix: RemixWithFridgeInfo;
   onCopy: () => void;
+  onAddToShopping: () => void;
 }
 
-function RemixCard({ remix, onCopy }: RemixCardProps) {
+function RemixCard({ remix, onCopy, onAddToShopping }: RemixCardProps) {
   const [open, setOpen] = useState(false);
   const diffLabel = remix.difficulty === "easy" ? "超简单" : remix.difficulty === "medium" ? "家常" : "有点费工";
   return (
@@ -257,7 +288,16 @@ function RemixCard({ remix, onCopy }: RemixCardProps) {
             </ol>
           </div>
           {remix.fridgeMissing.length > 0 && (
-            <div className="mt-3 flex justify-end">
+            <div className="mt-3 flex flex-wrap justify-end gap-1.5">
+              <button
+                type="button"
+                onClick={onAddToShopping}
+                className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary hover-elevate active-elevate-2"
+                data-testid={`btn-add-shopping-remix-${remix.id}`}
+              >
+                <ShoppingCart className="h-3 w-3" />
+                加入购物清单
+              </button>
               <button
                 type="button"
                 onClick={onCopy}
@@ -265,7 +305,7 @@ function RemixCard({ remix, onCopy }: RemixCardProps) {
                 data-testid={`btn-copy-remix-${remix.id}`}
               >
                 <Copy className="h-3 w-3" />
-                复制还差的清单
+                复制
               </button>
             </div>
           )}

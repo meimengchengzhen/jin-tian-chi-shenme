@@ -37,6 +37,8 @@ import {
   groupByBucket,
   missingToShoppingText,
 } from "@/lib/fridge";
+import { addShoppingItems } from "@/lib/shoppingList";
+import { ShoppingCart } from "lucide-react";
 import { RECIPES, type Recipe } from "@/data/recipes";
 import { listMembers, evaluateFamilyMatch } from "@/lib/familyMembers";
 import { loadReactions, subscribeReactions } from "@/lib/reactions";
@@ -126,6 +128,20 @@ export function FridgePanel({ onPickRecipe }: FridgePanelProps) {
     } else {
       toast({ title: "缺少食材", description: text });
     }
+  }
+
+  function addMissingToShopping(missing: string[], recipeName: string) {
+    if (missing.length === 0) return;
+    const r = addShoppingItems(
+      missing.map((m) => ({ name: m, source: "fridge", note: recipeName })),
+    );
+    const desc =
+      r.added > 0 && r.merged > 0
+        ? `新增 ${r.added} 项 · 合并 ${r.merged} 项`
+        : r.merged > 0
+          ? `合并 ${r.merged} 项到已有清单`
+          : `已加入 ${r.added} 项`;
+    toast({ title: "已加入购物清单 ✓", description: desc });
   }
 
   return (
@@ -258,6 +274,7 @@ export function FridgePanel({ onPickRecipe }: FridgePanelProps) {
               items={groups.now}
               onPick={(r) => onPickRecipe?.(r)}
               onCopy={copyMissing}
+              onAddToShopping={addMissingToShopping}
             />
           )}
           {groups.soon.length > 0 && (
@@ -268,6 +285,7 @@ export function FridgePanel({ onPickRecipe }: FridgePanelProps) {
               items={groups.soon}
               onPick={(r) => onPickRecipe?.(r)}
               onCopy={copyMissing}
+              onAddToShopping={addMissingToShopping}
             />
           )}
           {groups.later.length > 0 && (
@@ -278,6 +296,7 @@ export function FridgePanel({ onPickRecipe }: FridgePanelProps) {
               items={groups.later.slice(0, 8)}
               onPick={(r) => onPickRecipe?.(r)}
               onCopy={copyMissing}
+              onAddToShopping={addMissingToShopping}
               defaultCollapsed
             />
           )}
@@ -298,10 +317,11 @@ interface RecipeBucketProps {
   items: ReturnType<typeof rankByFridge>;
   onPick: (r: Recipe) => void;
   onCopy: (missing: string[], recipeName: string) => void;
+  onAddToShopping?: (missing: string[], recipeName: string) => void;
   defaultCollapsed?: boolean;
 }
 
-function RecipeBucket({ title, hint, tone, items, onPick, onCopy, defaultCollapsed }: RecipeBucketProps) {
+function RecipeBucket({ title, hint, tone, items, onPick, onCopy, onAddToShopping, defaultCollapsed }: RecipeBucketProps) {
   const [collapsed, setCollapsed] = useState(!!defaultCollapsed);
   const toneCard = tone === "green" ? "border-emerald-200" : tone === "amber" ? "border-amber-200" : "border-border";
   const toneText = tone === "green" ? "text-emerald-700" : tone === "amber" ? "text-amber-700" : "text-muted-foreground";
@@ -349,18 +369,34 @@ function RecipeBucket({ title, hint, tone, items, onPick, onCopy, defaultCollaps
                       <span key={m} className="rounded bg-amber-500/10 px-1.5 py-0.5 text-amber-700">{m}</span>
                     ))}
                   </div>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onCopy(it.match.missing, it.recipe.name);
-                    }}
-                    className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10.5px] hover-elevate active-elevate-2"
-                    data-testid={`btn-copy-missing-${it.recipe.id}`}
-                  >
-                    <Copy className="h-3 w-3" />
-                    复制清单
-                  </button>
+                  <div className="flex flex-shrink-0 gap-1">
+                    {onAddToShopping && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToShopping(it.match.missing, it.recipe.name);
+                        }}
+                        className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[10.5px] font-medium text-primary hover-elevate active-elevate-2"
+                        data-testid={`btn-add-shopping-${it.recipe.id}`}
+                      >
+                        <ShoppingCart className="h-3 w-3" />
+                        加入清单
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onCopy(it.match.missing, it.recipe.name);
+                      }}
+                      className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10.5px] hover-elevate active-elevate-2"
+                      data-testid={`btn-copy-missing-${it.recipe.id}`}
+                    >
+                      <Copy className="h-3 w-3" />
+                      复制
+                    </button>
+                  </div>
                 </div>
               )}
             </Card>

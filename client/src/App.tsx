@@ -30,6 +30,7 @@ function AppRouter() {
       <Route path="/tonight-plan" component={Home} />
       <Route path="/fridge" component={Home} />
       <Route path="/leftover" component={Home} />
+      <Route path="/shopping" component={Home} />
       <Route component={NotFound} />
     </Switch>
   );

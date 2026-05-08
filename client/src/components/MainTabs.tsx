@@ -31,7 +31,8 @@ export type MainTabId =
   | "family-tonight"
   | "fridge"
   | "leftover"
-  | "tonight-plan";
+  | "tonight-plan"
+  | "shopping";
 
 export interface MainTabDef {
   id: MainTabId;
@@ -78,6 +79,7 @@ const ALL_TAB_IDS: readonly MainTabId[] = [
   "fridge",
   "leftover",
   "tonight-plan",
+  "shopping",
 ];
 
 // 子路由 → 一级分组（用于顶部导航高亮）。
@@ -97,6 +99,7 @@ export function primaryGroupOf(id: MainTabId): MainTabId {
     case "fridge":
     case "leftover":
     case "weekly":
+    case "shopping":
       return "family";
     case "search":
     case "takeout":

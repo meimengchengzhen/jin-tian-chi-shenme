@@ -27,6 +27,7 @@ import {
   CalendarDays,
   Heart,
   Snowflake,
+  ShoppingCart,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,6 +57,7 @@ import {
 } from "@/lib/leftoverRemix";
 import { addSelected } from "@/lib/selectedToday";
 import { setTonightPlan, type TonightPlan } from "@/lib/tonightPlan";
+import { addShoppingItems } from "@/lib/shoppingList";
 import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
 import { loadReactions, subscribeReactions } from "@/lib/reactions";
 
@@ -371,10 +373,26 @@ export function FamilyTonightPanel() {
     }
     const plan = buildFamilyPlan();
     if (plan) setTonightPlan(plan);
+    // 「就按这个」时把缺料一并入购物清单，避免用户还要再点一次
+    if (result.fridgeMissing.length > 0) {
+      const note = [result.main.name, result.veggie.name, result.soupOrStaple.name]
+        .filter(Boolean)
+        .join(" · ");
+      addShoppingItems(
+        result.fridgeMissing.map((m) => ({
+          name: m,
+          source: "family-tonight",
+          note,
+        })),
+      );
+    }
     setConfirmed(true);
     toast({
       title: "今晚就这桌 ✓",
-      description: "已沉淀为「今晚最终方案」 · 也可以在右下角浮窗查看合计。",
+      description:
+        result.fridgeMissing.length > 0
+          ? `已沉淀为「今晚最终方案」 · 缺的 ${result.fridgeMissing.length} 项已加入购物清单`
+          : "已沉淀为「今晚最终方案」 · 也可以在右下角浮窗查看合计。",
     });
   }
 
@@ -586,6 +604,30 @@ export function FamilyTonightPanel() {
             missing={result.fridgeMissing}
             hasFridge={fridge.length > 0}
             onJump={() => nav("#/fridge")}
+            onAddToShopping={() => {
+              if (result.fridgeMissing.length === 0) {
+                toast({ title: "冰箱够了 ✓", description: "三道菜没有缺料" });
+                return;
+              }
+              const note = [result.main.name, result.veggie.name, result.soupOrStaple.name]
+                .filter(Boolean)
+                .join(" · ");
+              const r = addShoppingItems(
+                result.fridgeMissing.map((m) => ({
+                  name: m,
+                  source: "family-tonight",
+                  note,
+                })),
+              );
+              const desc =
+                r.added > 0 && r.merged > 0
+                  ? `新增 ${r.added} 项 · 合并 ${r.merged} 项`
+                  : r.merged > 0
+                    ? `合并 ${r.merged} 项到已有清单`
+                    : `已加入 ${r.added} 项`;
+              toast({ title: "已加入购物清单 ✓", description: desc });
+            }}
+            onViewShopping={() => nav("#/shopping")}
           />
 
           {/* 剩菜改造 */}
@@ -685,7 +727,7 @@ export function FamilyTonightPanel() {
           )}
 
           {/* 二级深挖入口 */}
-          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4" data-testid="family-deep-links">
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-5" data-testid="family-deep-links">
             <DeepLink
               testId="family-link-family"
               icon={<Users className="h-4 w-4" />}
@@ -713,6 +755,13 @@ export function FamilyTonightPanel() {
               label="一周菜单"
               hint="规划全周"
               onClick={() => nav("#/weekly")}
+            />
+            <DeepLink
+              testId="family-link-shopping"
+              icon={<ShoppingCart className="h-4 w-4" />}
+              label="购物清单"
+              hint="缺料汇总"
+              onClick={() => nav("#/shopping")}
             />
           </div>
         </Card>
@@ -962,11 +1011,15 @@ function FridgeNote({
   missing,
   hasFridge,
   onJump,
+  onAddToShopping,
+  onViewShopping,
 }: {
   matched: string[];
   missing: string[];
   hasFridge: boolean;
   onJump: () => void;
+  onAddToShopping?: () => void;
+  onViewShopping?: () => void;
 }) {
   return (
     <div
@@ -1005,6 +1058,31 @@ function FridgeNote({
               <p className="text-[11.5px] text-muted-foreground">
                 这三道菜没有可比对的核心食材。
               </p>
+            )}
+            {missing.length > 0 && (onAddToShopping || onViewShopping) && (
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {onAddToShopping && (
+                  <button
+                    type="button"
+                    onClick={onAddToShopping}
+                    className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary hover-elevate active-elevate-2"
+                    data-testid="family-fridge-add-shopping"
+                  >
+                    <ShoppingCart className="h-3 w-3" />
+                    一键加入购物清单
+                  </button>
+                )}
+                {onViewShopping && (
+                  <button
+                    type="button"
+                    onClick={onViewShopping}
+                    className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 text-[11px] hover-elevate active-elevate-2"
+                    data-testid="family-fridge-view-shopping"
+                  >
+                    查看清单
+                  </button>
+                )}
+              </div>
             )}
           </>
         )}

@@ -36,6 +36,7 @@ import {
   clearTonightPlan,
   type TonightPlan,
 } from "@/lib/tonightPlan";
+import { addShoppingItems } from "@/lib/shoppingList";
 
 interface DeepLinkDef {
   testId: string;
@@ -66,6 +67,13 @@ const SOLO_DEEP_LINKS: DeepLinkDef[] = [
     label: "再买点零食",
     hint: "便利店清单",
     hash: "#/snacks",
+  },
+  {
+    testId: "tonight-link-shopping",
+    icon: <ShoppingCart className="h-4 w-4" />,
+    label: "购物清单",
+    hint: "缺料汇总",
+    hash: "#/shopping",
   },
   {
     testId: "tonight-link-companion",
@@ -104,6 +112,13 @@ const FAMILY_DEEP_LINKS: DeepLinkDef[] = [
     label: "一周菜单",
     hint: "规划全周",
     hash: "#/weekly",
+  },
+  {
+    testId: "tonight-link-family-shopping",
+    icon: <ShoppingCart className="h-4 w-4" />,
+    label: "购物清单",
+    hint: "缺料汇总",
+    hash: "#/shopping",
   },
 ];
 
@@ -235,6 +250,7 @@ function PlanView({
   onClearFallback: () => void;
   onClear: () => void;
 }) {
+  const { toast } = useToast();
   const date = useMemo(() => {
     try {
       const d = new Date(plan.createdAt);
@@ -361,9 +377,47 @@ function PlanView({
                   </p>
                 )}
                 {plan.fridgeMissing && plan.fridgeMissing.length > 0 && (
-                  <p className="text-[11.5px] text-amber-700">
-                    还需买：{plan.fridgeMissing.join(" · ")}
-                  </p>
+                  <>
+                    <p className="text-[11.5px] text-amber-700">
+                      还需买：{plan.fridgeMissing.join(" · ")}
+                    </p>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const r = addShoppingItems(
+                            (plan.fridgeMissing ?? []).map((m) => ({
+                              name: m,
+                              source: "tonight-plan",
+                              note: plan.title,
+                            })),
+                          );
+                          const desc =
+                            r.added > 0 && r.merged > 0
+                              ? `新增 ${r.added} 项 · 合并 ${r.merged} 项`
+                              : r.merged > 0
+                                ? `合并 ${r.merged} 项到已有清单`
+                                : `已加入 ${r.added} 项`;
+                          toast({ title: "已加入购物清单 ✓", description: desc });
+                        }}
+                        className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary hover-elevate active-elevate-2"
+                        data-testid="tonight-plan-add-shopping"
+                      >
+                        <ShoppingCart className="h-3 w-3" />
+                        加入购物清单
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (typeof window !== "undefined") window.location.hash = "#/shopping";
+                        }}
+                        className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 text-[11px] hover-elevate active-elevate-2"
+                        data-testid="tonight-plan-view-shopping"
+                      >
+                        查看购物清单
+                      </button>
+                    </div>
+                  </>
                 )}
               </InfoRow>
             )}

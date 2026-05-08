@@ -66,6 +66,7 @@ const WeeklyMenuPanel = lazy(() => import("@/components/WeeklyMenuPanel").then((
 const FamilyPanel = lazy(() => import("@/components/FamilyPanel").then((m) => ({ default: m.FamilyPanel })));
 const FridgePanel = lazy(() => import("@/components/FridgePanel").then((m) => ({ default: m.FridgePanel })));
 const LeftoverPanel = lazy(() => import("@/components/LeftoverPanel").then((m) => ({ default: m.LeftoverPanel })));
+const ShoppingListPanel = lazy(() => import("@/components/ShoppingListPanel").then((m) => ({ default: m.ShoppingListPanel })));
 import { pushRecent, recentPoolSet, banInSession } from "@/lib/recentPool";
 import { healthFilterLabel, type HealthFilterId, type IngredientWishId } from "@/lib/recommend";
 import { Wordmark, Logo } from "@/components/Logo";
@@ -423,6 +424,7 @@ const SUB_GROUPS: Record<string, { id: MainTabId; label: string; emoji: string }
     { id: "fridge", label: "冰箱有啥", emoji: "🧊" },
     { id: "leftover", label: "剩菜变花样", emoji: "♻️" },
     { id: "weekly", label: "一周菜单", emoji: "🗓️" },
+    { id: "shopping", label: "购物清单", emoji: "🛒" },
   ],
   search: [
     { id: "search", label: "菜谱搜索", emoji: "🔍" },
@@ -448,7 +450,7 @@ const SUB_GROUPS: Record<string, { id: MainTabId; label: string; emoji: string }
 };
 
 function groupOf(id: MainTabId): keyof typeof SUB_GROUPS | null {
-  if (id === "family" || id === "family-tonight" || id === "fridge" || id === "leftover" || id === "weekly") return "family";
+  if (id === "family" || id === "family-tonight" || id === "fridge" || id === "leftover" || id === "weekly" || id === "shopping") return "family";
   if (id === "search" || id === "takeout" || id === "snacks" || id === "fruit" || id === "travel") return "search";
   if (id === "health") return "health";
   if (id === "companion" || id === "hotboard") return "companion";
@@ -1249,6 +1251,7 @@ export default function Home() {
               {tab === "family" && <FamilyPanel onPickRecipe={(r) => setDetailRecipe(r)} />}
               {tab === "fridge" && <FridgePanel onPickRecipe={(r) => setDetailRecipe(r)} />}
               {tab === "leftover" && <LeftoverPanel />}
+              {tab === "shopping" && <ShoppingListPanel />}
               {tab === "companion" && <CompanionPanel ctx={companionCtx} />}
               {tab === "hotboard" && <HotBoard />}
             </Suspense>
@@ -1534,6 +1537,7 @@ export default function Home() {
               { id: "hotboard" as MainTabId, emoji: "🔥", title: "饭桌热榜", hint: "本月" },
               { id: "fridge" as MainTabId, emoji: "🧊", title: "冰箱有啥", hint: "现有食材" },
               { id: "leftover" as MainTabId, emoji: "♻️", title: "剩菜变花样", hint: "不浪费" },
+              { id: "shopping" as MainTabId, emoji: "🛒", title: "购物清单", hint: "缺料汇总" },
               { id: "search" as MainTabId, emoji: "🔍", title: "菜谱搜索", hint: "按菜名" },
             ] as { id: MainTabId; emoji: string; title: string; hint: string }[]).map((c) => (
               <button

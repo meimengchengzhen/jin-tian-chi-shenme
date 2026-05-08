@@ -24,6 +24,7 @@ import {
   Heart,
   Baby,
   HandHeart,
+  ShoppingCart,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,19 @@ import {
   type ProteinKind,
 } from "@/lib/familyWeekly";
 import { ALL_RESTRICTIONS, type Restriction } from "@/data/recipes";
+import {
+  addShoppingItems,
+  type ShoppingCategory,
+  type ShoppingSource,
+} from "@/lib/shoppingList";
+
+// 把 weekly 的 ShoppingGroup.group 映射到统一购物清单的分类。
+const WEEKLY_GROUP_TO_CATEGORY: Record<string, ShoppingCategory> = {
+  肉蛋奶: "肉蛋奶",
+  蔬菜: "蔬菜",
+  主食豆制品: "主食豆制品",
+  调味杂项: "调味杂项",
+};
 
 const GOALS: { id: FamilyGoal; label: string; hint: string }[] = [
   { id: "均衡", label: "均衡", hint: "蔬菜蛋肉适当搭配" },
@@ -145,6 +159,37 @@ export function WeeklyMenuPanel() {
     } catch {
       toast({ title: "复制失败", description: "请手动选择文本复制", variant: "destructive" });
     }
+  }
+
+  function syncToShoppingList() {
+    const inputs: { name: string; source: ShoppingSource; category?: ShoppingCategory; amount?: string; note?: string }[] = [];
+    for (const g of plan.shopping) {
+      const category = WEEKLY_GROUP_TO_CATEGORY[g.group];
+      for (const it of g.items) {
+        inputs.push({
+          name: it.name,
+          source: "weekly",
+          category,
+          amount: it.qty,
+          note:
+            it.fromRecipes.length > 0
+              ? it.fromRecipes.slice(0, 2).join(" · ")
+              : undefined,
+        });
+      }
+    }
+    if (inputs.length === 0) {
+      toast({ title: "本周清单是空的" });
+      return;
+    }
+    const r = addShoppingItems(inputs);
+    const desc =
+      r.added > 0 && r.merged > 0
+        ? `新增 ${r.added} 项 · 合并 ${r.merged} 项`
+        : r.merged > 0
+          ? `合并 ${r.merged} 项到已有清单`
+          : `已加入 ${r.added} 项`;
+    toast({ title: "已同步到购物清单 ✓", description: desc });
   }
 
   const overBudget = plan.budgetDelta > 0;
@@ -302,6 +347,27 @@ export function WeeklyMenuPanel() {
           >
             {copied ? <Check className="mr-1 h-3.5 w-3.5" /> : <Copy className="mr-1 h-3.5 w-3.5" />}
             {copied ? "已复制" : "复制一周文案"}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={syncToShoppingList}
+            data-testid="weekly-sync-shopping"
+            className="rounded-full"
+          >
+            <ShoppingCart className="mr-1 h-3.5 w-3.5" />
+            同步到购物清单
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              if (typeof window !== "undefined") window.location.hash = "#/shopping";
+            }}
+            data-testid="weekly-view-shopping"
+            className="rounded-full"
+          >
+            查看购物清单
           </Button>
         </div>
       </Card>
