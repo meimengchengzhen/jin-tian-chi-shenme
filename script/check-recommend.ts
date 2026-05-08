@@ -543,6 +543,45 @@ console.log("== 外卖品牌库 ==");
   const sq = pickTakeout({ city: "北京", budget: 30, people: 1, tastes: [], searchQuery: "牛约堡" });
   check(`v4 pickTakeout(searchQuery=牛约堡): special.name 包含 牛约堡`, sq.special.name.includes("牛约堡"));
 
+  // v11: 「犒劳 / 高预算」模式连续刷新必须出现多家品牌（修复 lunch+健康轻食 时段一直 Wagas 的问题）。
+  // 这里用 seed 模拟用户 30 次连续点「再来一份」，要求至少看到 ≥ 6 家不同的主推。
+  const rewardSlots: Array<"lunch" | "dinner" | "midnight"> = ["lunch", "dinner", "midnight"];
+  for (const slot of rewardSlots) {
+    const seenSpecial = new Set<string>();
+    let lastId: string | null = null;
+    let consecutiveSame = 0;
+    let prev: string | null = null;
+    for (let s = 0; s < 30; s++) {
+      const r = pickTakeout({
+        budget: 80,
+        people: 1,
+        tastes: [],
+        slot,
+        lowCalorie: false,
+        seed: s * 9301 + 17,
+        recentBrandIds: lastId ? [lastId] : [],
+      });
+      seenSpecial.add(r.special.id);
+      if (prev !== null && r.special.id === prev) consecutiveSame++;
+      prev = r.special.id;
+      lastId = r.special.id;
+    }
+    check(
+      `v11 犒劳/${slot} 连续 30 次 special 至少 6 家不同（实际 ${seenSpecial.size}）`,
+      seenSpecial.size >= 6,
+      `seen=${seenSpecial.size}`,
+    );
+    check(
+      `v11 犒劳/${slot} 30 次中相邻两次同一家品牌 < 4 次（实际 ${consecutiveSame}）`,
+      consecutiveSame < 4,
+      `consecutiveSame=${consecutiveSame}`,
+    );
+  }
+  // 回归：seed 相同应给确定结果
+  const det1 = pickTakeout({ budget: 80, people: 1, tastes: [], slot: "lunch", seed: 42 });
+  const det2 = pickTakeout({ budget: 80, people: 1, tastes: [], slot: "lunch", seed: 42 });
+  check(`v11 同 seed 同筛选给同一 special（确定性）`, det1.special.id === det2.special.id);
+
   // v4: TakeoutPanel UI 暴露 search input + hot chips testId
   const fs2 = await import("node:fs");
   const tpSrc = fs2.readFileSync("client/src/components/TakeoutPanel.tsx", "utf-8");

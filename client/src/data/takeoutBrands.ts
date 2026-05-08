@@ -39,6 +39,10 @@ export interface TakeoutPickInput {
   pinnedBrandId?: string;
   /** v4: 关键词模糊搜索（按 name / picks 匹配）。 */
   searchQuery?: string;
+  /** v11: 调用方用 seed 驱动确定性轮换 — 同一筛选条件下每次 seed 变化都应换主推。 */
+  seed?: number;
+  /** v11: 最近几次刷出过的品牌 id；这些会被惩罚分以避免连续两次刷到同一家。 */
+  recentBrandIds?: string[];
 }
 
 export interface TakeoutPickResult {
@@ -185,6 +189,21 @@ function balanceAlternatives(
 export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
   const perPerson = Math.max(8, Math.round(input.budget / Math.max(1, input.people)));
   const slotCats = input.slot ? SLOT_BIAS[input.slot] : [];
+  const recent = new Set(input.recentBrandIds ?? []);
+  const hasSeed = typeof input.seed === "number";
+  // 确定性 seed → [0,1) 抖动；不同 brand id 哈希 + seed 让顺序整体重排。
+  function seedJitter(brandId: string, salt: number): number {
+    if (!hasSeed) return Math.random();
+    let h = 2166136261 ^ salt;
+    for (let i = 0; i < brandId.length; i++) {
+      h = Math.imul(h ^ brandId.charCodeAt(i), 16777619);
+    }
+    h ^= (input.seed ?? 0) * 2654435761;
+    h = Math.imul(h ^ (h >>> 15), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    h ^= h >>> 16;
+    return ((h >>> 0) % 100000) / 100000;
+  }
 
   // 主推荐池：仅 A+B 真实品牌；C 模板永不进入主推荐。
   const scored = TAKEOUT_BRANDS.map((b) => {
@@ -203,7 +222,10 @@ export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
     if (b.citySpread === "全国") score += 4;
     // A 层加权（高置信全国连锁优先）
     if (b.realTier === "A") score += 6;
-    score += Math.random() * 6;
+    // v11: seed 驱动的抖动 — 比之前的 Math.random()*6 更大，确保不同 seed 能撼动顶部。
+    score += seedJitter(b.id, 1) * 14;
+    // v11: 最近刷出过的品牌惩罚分（避免连续两次刷到同一家），刚刷过的扣最多。
+    if (recent.has(b.id)) score -= 22;
     return { brand: b, score };
   }).sort((a, b) => b.score - a.score);
 
@@ -223,6 +245,36 @@ export function pickTakeout(input: TakeoutPickInput): TakeoutPickResult {
       if (idx > 0) {
         scored.splice(idx, 1);
         scored.unshift(topMain);
+      }
+    }
+  }
+
+  // v11: 顶部多样性 — 当调用方传 seed 时，从分数最高的若干个候选里轮换 special，
+  // 避免「健康轻食 lunch + 高预算」这类筛选条件下分数差距大让单一品牌长期霸榜。
+  // 轮换池：在分数最高的 12 名内，剔除掉与 #1 相同 category 的并列候选不超过 3 个，
+  // 同时尊重正餐/饮品平衡（不允许在 !allowDrinkSpecial 下从饮品选）。
+  if (hasSeed && scored.length > 1) {
+    const TOP = Math.min(12, scored.length);
+    const pool: TakeoutBrand[] = [];
+    const catCount: Record<string, number> = {};
+    for (let i = 0; i < TOP; i++) {
+      const b = scored[i].brand;
+      if (!allowDrinkSpecial && isDrinkBrand(b)) continue;
+      const cat = b.category;
+      if ((catCount[cat] ?? 0) >= 3) continue;
+      pool.push(b);
+      catCount[cat] = (catCount[cat] ?? 0) + 1;
+    }
+    if (pool.length >= 2) {
+      // 用 seed 决定从前 min(pool.length, 8) 中挑哪一个；权重略偏向高分（前几个被选概率高）。
+      const k = Math.min(pool.length, 8);
+      const j = Math.floor(seedJitter("__rot__", 7) * k);
+      const chosen = pool[j] ?? pool[0];
+      // 把 chosen 提到 scored 顶部
+      const idx = scored.findIndex((s) => s.brand.id === chosen.id);
+      if (idx > 0) {
+        const [hit] = scored.splice(idx, 1);
+        scored.unshift(hit);
       }
     }
   }

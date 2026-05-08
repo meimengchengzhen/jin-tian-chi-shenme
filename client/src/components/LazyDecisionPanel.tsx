@@ -142,7 +142,19 @@ export function LazyDecisionPanel() {
               : ("midnight" as const),
       lowCalorie: tastes.includes("热量低"),
     };
-    const takeout = pickTakeout(takeoutInput);
+    // v11: 用 nonce 当 seed，让「再来一份」每次都换主推外卖；记录上一家品牌做惩罚分。
+    const lastLazyBrandId =
+      typeof window !== "undefined"
+        ? (window as any).__lazyLastTakeoutId__ ?? null
+        : null;
+    const takeout = pickTakeout({
+      ...takeoutInput,
+      seed: nonce * 4099 + 7,
+      recentBrandIds: lastLazyBrandId ? [lastLazyBrandId] : [],
+    });
+    if (typeof window !== "undefined") {
+      (window as any).__lazyLastTakeoutId__ = takeout.special.id;
+    }
 
     // 4. 零食：人群从 mood 推断
     const snackAud: SnackAudience[] = [];

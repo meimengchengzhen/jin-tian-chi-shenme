@@ -144,14 +144,24 @@ export function SoloTonightPanel() {
       if (h < 21) return "dinner" as const;
       return "midnight" as const;
     })();
-    // 加 seed 偏置：把 perPerson 微调以触发不同主推
+    // v11: 直接把 seed 交给 pickTakeout，让它做顶部 N 选轮换 + 抖动；
+    // 同时把上一轮的 special 当成「最近刷过」惩罚一下，避免连续两次同一家。
+    const lastBrandId =
+      typeof window !== "undefined"
+        ? (window as any).__soloLastTakeoutId__ ?? null
+        : null;
     const takeout = pickTakeout({
       budget: budgetMeta.cap + Math.floor(rng(3) * 6) - 3,
       people: 1,
       tastes,
       slot,
       lowCalorie: budget === "省钱",
+      seed: seed * 9301 + 17,
+      recentBrandIds: lastBrandId ? [lastBrandId] : [],
     });
+    if (typeof window !== "undefined") {
+      (window as any).__soloLastTakeoutId__ = takeout.special.id;
+    }
 
     // 3) 零食 ×2（不同 category）
     const snackAud: SnackAudience[] = ["学生党"];
