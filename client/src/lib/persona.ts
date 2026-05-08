@@ -28,8 +28,8 @@ export interface RoleDef {
 }
 
 export const ROLES: RoleDef[] = [
-  { id: "lazy",          label: "一键决定",     description: "选择困难，替我选就行", emoji: "🎲", preferredTab: "lazy" },
-  { id: "family-cook",   label: "家庭掌勺",     description: "几口人一周吃啥",       emoji: "🍱", preferredTab: "weekly", defaultScenario: "family-dinner" },
+  { id: "lazy",          label: "一个人选择困难", description: "替我决定今晚怎么过",   emoji: "🧍", preferredTab: "solo" },
+  { id: "family-cook",   label: "我负责一家人吃饭", description: "一桌饭老人小孩都能吃", emoji: "👨‍👩‍👧", preferredTab: "family-tonight", defaultScenario: "family-dinner" },
   { id: "fitness-cut",   label: "减脂控卡",     description: "热量蛋白盯紧一些",     emoji: "🥗", preferredTab: "health",  defaultScenario: "personal-cut" },
   { id: "health-watch",  label: "健康忌口",     description: "低盐低糖低嘌呤",       emoji: "🩺", preferredTab: "health" },
   { id: "takeout",       label: "外卖党",       description: "懒得动，凑个外卖",     emoji: "🛵", preferredTab: "takeout" },

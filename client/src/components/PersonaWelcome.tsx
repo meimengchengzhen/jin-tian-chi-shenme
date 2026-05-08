@@ -47,6 +47,22 @@ interface Props {
   onSave: (p: Persona, opts: { jumpRole: boolean }) => void;
 }
 
+// 醒目的「四条快速路线」— 显示在角色网格之上，让用户一眼能选到自己想走的路。
+// 这些 id 必须与 ROLES 里已存在的 id 对应（lazy / family-cook / fitness-cut）；
+// 「随便试试」不绑定 role，仅关闭弹窗（停在首页）。
+const QUICK_ROUTES: {
+  id: RoleId | "browse";
+  emoji: string;
+  title: string;
+  hint: string;
+  tone: string;
+}[] = [
+  { id: "lazy",        emoji: "🧍",   title: "一个人选择困难",   hint: "替我决定今晚怎么过 → 一键安排今晚",  tone: "from-rose-100 to-amber-100 border-rose-200" },
+  { id: "family-cook", emoji: "👨‍👩‍👧", title: "我负责一家人吃饭", hint: "老人小孩口味协调 → 家庭今晚饭",       tone: "from-emerald-100 to-cyan-100 border-emerald-200" },
+  { id: "fitness-cut", emoji: "🥗",   title: "减脂控卡 / 健康饮食", hint: "热量盯紧 → 健康饮食",                tone: "from-lime-100 to-emerald-100 border-lime-200" },
+  { id: "browse",      emoji: "🎲",   title: "先随便试试",       hint: "不指定路线 → 浏览首页 / 一键决定",     tone: "from-amber-100 to-orange-100 border-amber-200" },
+];
+
 export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
   const persistent = useMemo(() => isStoragePersistent(), []);
 
@@ -72,6 +88,16 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
   function pickRole(id: RoleId) {
     patch({ role: id });
     setStep(1);
+  }
+
+  // 快速路线：直接保存当前 persona（带上 role）并跳到对应入口。
+  // 「browse」表示「先随便试试」— 不绑定 role，仅关闭弹窗。
+  function pickQuickRoute(id: RoleId | "browse") {
+    if (id === "browse") {
+      onSave({ ...persona, role: undefined } as Persona, { jumpRole: false });
+      return;
+    }
+    onSave({ ...persona, role: id }, { jumpRole: true });
   }
 
   function toggleMood(id: MoodId) {
@@ -135,32 +161,69 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
         </div>
 
         {step === 0 && (
-          <div className="mt-3 space-y-3" data-testid="persona-step-roles">
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {ROLES.map((r) => {
-                const active = persona.role === r.id;
-                return (
+          <div className="mt-3 space-y-4" data-testid="persona-step-roles">
+            {/* 快速路线：4 张大卡片，点一下直接进入对应入口（不强制走完三步） */}
+            <div data-testid="persona-quick-routes">
+              <div className="mb-1.5 flex items-baseline justify-between gap-2">
+                <Label className="text-[12.5px] font-medium text-foreground/85">
+                  你想走哪条路？
+                </Label>
+                <span className="text-[11px] text-muted-foreground">
+                  点一下直接进入 · 也可以下面慢慢填
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {QUICK_ROUTES.map((q) => (
                   <button
-                    key={r.id}
+                    key={q.id}
                     type="button"
-                    onClick={() => pickRole(r.id)}
-                    data-testid={`persona-role-${r.id}`}
-                    className={`group flex h-full flex-col items-start gap-1 rounded-xl border px-3 py-2.5 text-left transition-all hover-elevate active-elevate-2 ${
-                      active
-                        ? "border-primary/60 bg-primary/10"
-                        : "border-border bg-card/60"
-                    }`}
+                    onClick={() => pickQuickRoute(q.id)}
+                    data-testid={`persona-quick-${q.id}`}
+                    className={`flex items-start gap-2.5 rounded-2xl border bg-gradient-to-br ${q.tone} px-3.5 py-3 text-left transition-all hover-elevate active-elevate-2`}
                   >
-                    <span className="text-xl" aria-hidden>{r.emoji}</span>
-                    <span className="font-display text-[14.5px] tracking-tight">{r.label}</span>
-                    <span className="text-[11px] text-muted-foreground">{r.description}</span>
+                    <span aria-hidden className="text-2xl">{q.emoji}</span>
+                    <span className="flex min-w-0 flex-1 flex-col">
+                      <span className="font-display text-[14.5px] font-semibold tracking-tight text-foreground">
+                        {q.title}
+                      </span>
+                      <span className="text-[11.5px] text-foreground/70">{q.hint}</span>
+                    </span>
+                    <ChevronRight className="mt-1 h-4 w-4 flex-shrink-0 text-foreground/50" />
                   </button>
-                );
-              })}
+                ))}
+              </div>
             </div>
-            <p className="text-[11.5px] text-muted-foreground">
-              选一个最贴近你今天来这儿的目的。完成后会推荐合适的入口。
-            </p>
+
+            <div>
+              <Label className="text-[12.5px] font-medium text-foreground/85">
+                或者细分一下，选一个最贴近的角色
+              </Label>
+              <div className="mt-1.5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {ROLES.map((r) => {
+                  const active = persona.role === r.id;
+                  return (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => pickRole(r.id)}
+                      data-testid={`persona-role-${r.id}`}
+                      className={`group flex h-full flex-col items-start gap-1 rounded-xl border px-3 py-2.5 text-left transition-all hover-elevate active-elevate-2 ${
+                        active
+                          ? "border-primary/60 bg-primary/10"
+                          : "border-border bg-card/60"
+                      }`}
+                    >
+                      <span className="text-xl" aria-hidden>{r.emoji}</span>
+                      <span className="font-display text-[14.5px] tracking-tight">{r.label}</span>
+                      <span className="text-[11px] text-muted-foreground">{r.description}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-1.5 text-[11.5px] text-muted-foreground">
+                选一个最贴近你今天来这儿的目的。完成后会推荐合适的入口。
+              </p>
+            </div>
           </div>
         )}
 

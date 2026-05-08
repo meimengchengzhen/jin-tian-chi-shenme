@@ -78,6 +78,39 @@ const ALL_TAB_IDS: readonly MainTabId[] = [
   "leftover",
 ];
 
+// 子路由 → 一级分组（用于顶部导航高亮）。
+// 注意：home / solo / lazy / family-tonight 都属于「一键决定」(home)；
+// 但 family-tonight 同时在 family 子导航里出现，作为「一家人今晚饭」入口。
+// 这里以 family-tonight 归到 family 分组（用户最常从家庭厨房子导航进入），
+// 避免点击「一家人今晚饭」后顶部一级仍高亮「一键决定」造成困惑。
+export function primaryGroupOf(id: MainTabId): MainTabId {
+  switch (id) {
+    case "home":
+    case "solo":
+    case "lazy":
+      return "home";
+    case "family":
+    case "family-tonight":
+    case "fridge":
+    case "leftover":
+    case "weekly":
+      return "family";
+    case "search":
+    case "takeout":
+    case "snacks":
+    case "fruit":
+    case "travel":
+      return "search";
+    case "health":
+      return "health";
+    case "companion":
+    case "hotboard":
+      return "companion";
+    default:
+      return "home";
+  }
+}
+
 const HASH_PREFIX = "#/";
 
 function hashToTab(hash: string): MainTabId | null {
@@ -134,8 +167,10 @@ export function MainTabsNav({ active, onChange }: Props) {
     }, 30);
   }
 
-  // 当前激活的一级分组：若 active 不属于一级，则回退到 home（仅用于高亮）。
-  const highlightId: MainTabId = PRIMARY_IDS.has(active) ? active : "home";
+  // 当前激活的一级分组：把任何子路由映射到它所属的一级分组（仅用于顶部高亮）。
+  const highlightId: MainTabId = PRIMARY_IDS.has(active)
+    ? active
+    : primaryGroupOf(active);
 
   return (
     <nav
