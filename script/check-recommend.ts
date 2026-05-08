@@ -1159,7 +1159,8 @@ console.log("== v7: 外卖品类平衡（清淡+酸辣+100元 不全咖啡）=="
 console.log("== v7: 懒人简餐模板池 ==");
 {
   const { LAZY_MEALS, pickLazyMeal } = await import("../client/src/data/lazyMeals");
-  check(`懒人简餐模板 >= 60（实际 ${LAZY_MEALS.length}）`, LAZY_MEALS.length >= 60);
+  // v12: 懒人简餐扩到 200+，覆盖 5/10/免开火/便利店/外卖平替/宿舍/减脂/夜宵/早餐/甜品 等场景
+  check(`v12 懒人简餐模板 >= 200（实际 ${LAZY_MEALS.length}）`, LAZY_MEALS.length >= 200);
   for (const m of LAZY_MEALS) {
     check(
       `模板「${m.name}」字段齐全 (equipment/steps/calories/price)`,
@@ -1410,6 +1411,127 @@ console.log("== v8: HotBoard 各平台内容差异化 ==");
   check(
     `HotBoard 刷新按钮 onClick 含 bumpSeed: true`,
     hbSrc.includes("bumpSeed: true"),
+  );
+}
+
+console.log("== v12: 剩菜变花样 规则池 ==");
+{
+  const { LEFTOVER_RULES, FALLBACK_REMIXES, COMMON_LEFTOVER_PRESETS } = await import(
+    "../client/src/data/leftoverRules"
+  );
+  // 剩菜规则数 + 总变形方案数 — 目标：方案 >= 80 条以体感更丰富
+  let totalRemixes = 0;
+  for (const r of LEFTOVER_RULES) totalRemixes += r.remixes.length;
+  check(
+    `剩菜规则 (rule 数) >= 35（实际 ${LEFTOVER_RULES.length}）`,
+    LEFTOVER_RULES.length >= 35,
+  );
+  check(
+    `剩菜变形方案总数 >= 80（实际 ${totalRemixes}）`,
+    totalRemixes >= 80,
+  );
+  check(
+    `兜底方案 (fallback) 至少 3 条以保证永不空白（实际 ${FALLBACK_REMIXES.length}）`,
+    FALLBACK_REMIXES.length >= 3,
+  );
+  check(
+    `常见剩菜快捷标签 >= 18（实际 ${COMMON_LEFTOVER_PRESETS.length}）`,
+    COMMON_LEFTOVER_PRESETS.length >= 18,
+  );
+  // 关键关键词必须有规则
+  const REQUIRED_LEFTOVER = ["米饭", "面条", "饺子", "鸡", "鱼", "豆腐", "土豆", "番茄炒蛋", "排骨", "牛肉", "茄子", "虾", "馒头", "火锅", "烤鸭", "烧烤", "粥"];
+  for (const k of REQUIRED_LEFTOVER) {
+    const hit = LEFTOVER_RULES.some((r: any) =>
+      r.keywords.some((kw: string) => kw.includes(k) || k.includes(kw)),
+    );
+    check(`剩菜规则覆盖关键词「${k}」`, hit);
+  }
+  // 每条 rule 至少有 1 个 remix
+  const empty = LEFTOVER_RULES.filter((r: any) => !r.remixes || r.remixes.length === 0);
+  check(`所有 rule 至少 1 个 remix`, empty.length === 0, empty.map((r: any) => r.keywords[0]).join(","));
+}
+
+console.log("== v12: 冰箱预设 / 食材别名池 ==");
+{
+  const { FRIDGE_PRESETS } = await import("../client/src/lib/fridge");
+  const { normalizeIngredient } = await import("../client/src/lib/ingredientAliases");
+  // 至少 5 个分组 + 总条目 >= 80
+  check(`冰箱预设分组 >= 5（实际 ${FRIDGE_PRESETS.length}）`, FRIDGE_PRESETS.length >= 5);
+  let total = 0;
+  for (const g of FRIDGE_PRESETS) total += g.items.length;
+  check(`冰箱预设条目总数 >= 80（实际 ${total}）`, total >= 80);
+  // 必须含 几个核心常用品类
+  const CORE_GROUPS = ["蛋白质", "蔬菜", "主食"];
+  for (const g of CORE_GROUPS) {
+    check(`冰箱预设含分组「${g}」`, FRIDGE_PRESETS.some((x: any) => x.group === g));
+  }
+  // 关键别名要能 normalize 到标准名
+  const ALIAS_CASES: [string, string][] = [
+    ["西红柿", "番茄"],
+    ["小番茄", "番茄"],
+    ["巴沙鱼", "鱼"],
+    ["三文鱼", "鱼"],
+    ["上海青", "青菜"],
+    ["油麦菜", "青菜"],
+    ["大白菜", "白菜"],
+    ["紫甘蓝", "白菜"],
+    ["金针菇", "蘑菇"],
+    ["杏鲍菇", "蘑菇"],
+    ["乌冬", "面条"],
+    ["意面", "面条"],
+    ["米线", "面条"],
+    ["凉皮", "面条"],
+    ["全麦面包", "面包"],
+    ["速冻饺子", "饺子"],
+    ["腊肉", "腊肠"],
+    ["午餐肉", "火腿"],
+    ["希腊酸奶", "酸奶"],
+    ["冻豆腐", "豆腐"],
+    ["千张", "豆腐"],
+    ["奶油草莓", "草莓"],
+    ["车厘子", "樱桃"],
+    ["奇异果", "猕猴桃"],
+  ];
+  for (const [from, to] of ALIAS_CASES) {
+    const got = normalizeIngredient(from);
+    check(`别名归一化「${from}」→「${to}」（实际「${got}」）`, got === to);
+  }
+}
+
+console.log("== v12: 今晚最终方案海报式 ==");
+{
+  const fs = await import("node:fs");
+  const src = fs.readFileSync("client/src/components/TonightPlanPanel.tsx", "utf-8");
+  // 至少含 mint / warm / night 3 套色系切换（在 PALETTES 中以 id 标记）
+  for (const t of ["mint", "warm", "night"]) {
+    check(
+      `TonightPlanPanel 含色系「${t}」`,
+      // 既支持显式写死 testid，也支持 id 字段定义 PALETTES[t]
+      src.includes(`tonight-plan-theme-${t}`) ||
+        new RegExp(`id:\\s*"${t}"`).test(src),
+    );
+  }
+  // 主题切换条 + 海报区 + 落款行 testid 都到位
+  check(
+    "TonightPlanPanel 含主题切换条 (tonight-plan-theme-bar)",
+    src.includes("tonight-plan-theme-bar"),
+  );
+  check(
+    "TonightPlanPanel 含海报包裹 (tonight-plan-poster)",
+    src.includes("tonight-plan-poster"),
+  );
+  check(
+    "TonightPlanPanel 含落款 (tonight-plan-footer)",
+    src.includes("tonight-plan-footer"),
+  );
+  // 必须仍保留 复制 / 再生成 / 继续完善 入口
+  for (const tid of ["tonight-plan-copy", "tonight-plan-regenerate", "tonight-plan-deep-links"]) {
+    check(`TonightPlanPanel 保留 ${tid}`, src.includes(tid));
+  }
+  // 单人/家庭 chip
+  check(
+    "TonightPlanPanel 含单人/家庭 chip (tonight-plan-kind)",
+    src.includes("tonight-plan-kind"),
   );
 }
 
