@@ -19,7 +19,7 @@
     "react",
     "vite"
   ],
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",

@@ -10,7 +10,7 @@
 [![Live · GitHub Pages](https://img.shields.io/badge/Live-GitHub%20Pages-2ea44f?logo=github)](https://meimengchengzhen.github.io/jin-tian-chi-shenme/)
 [![Stack](https://img.shields.io/badge/stack-React%20%2B%20Vite%20%2B%20Tailwind-1e7eef?logo=react)](#技术栈)
 [![PWA](https://img.shields.io/badge/PWA-installable-5a3fc4)](#技术栈)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-lightgrey.svg)](./LICENSE)
 
 [在线体验](https://meimengchengzhen.github.io/jin-tian-chi-shenme/) ·
 [功能总览](#功能总览) ·
@@ -370,8 +370,8 @@ jin-tian-chi-shenme/
 │   └── supabase.md             # 云端同步配置教程
 ├── recipes.schema.json         # 菜谱 JSON Schema
 ├── .github/workflows/deploy-pages.yml
-├── CONTRIBUTING.md             # 贡献指南
-├── LICENSE                     # MIT
+├── CONTRIBUTING.md             # 贡献说明（当前阶段不接受直接贡献）
+├── LICENSE                     # All Rights Reserved（保留所有权利，非开源许可证）
 ├── tailwind.config.ts
 ├── vite.config.ts
 └── package.json
@@ -430,18 +430,29 @@ jin-tian-chi-shenme/
 
 ## 贡献
 
-非常欢迎贡献，最受欢迎的是**菜谱**！
+**当前阶段不接受直接的代码 / 内容 / 数据 / 设计贡献。** 本项目是作者本人维护的个人作品，
+迭代节奏与口味取舍都由作者自己把控，未开放公开协作。
 
-- 加菜：见 [CONTRIBUTING.md](./CONTRIBUTING.md) 的「贡献菜谱」 + 用 [`recipes.schema.json`](./recipes.schema.json) 校验。
-- 加零食 / 外卖 / 城市 / 影视 / 话题：直接 PR 对应 `client/src/data/*.ts` 文件。
-- 提 Bug / 功能建议：开 [GitHub Issue](../../issues/new)。
-- PR 前请通过检查清单（见 [CONTRIBUTING.md](./CONTRIBUTING.md#四pr-检查清单)），保持中文内容规范，避免引入需要 API key 的服务。
+仍然欢迎以下方式参与：
 
-分支命名 / 提交信息 / PR 检查清单也都在 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+- **反馈 Bug 或体验建议**：开 [GitHub Issue](../../issues/new)，描述问题或想法即可。作者会自行评估是否纳入后续版本，**不保证回复或采纳**。
+- **合作 / 引用 / 转载 / 教学等需求**：请通过仓库主页公开的联系方式与作者联系，**获得书面同意后**再行动。
+- **直接提 PR**：未经事先沟通的 PR 不一定会被审阅或合并，也不会得到拒绝原因的解释 —— 请先开 Issue 对齐方向。
+
+详见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ## 许可证
 
-[MIT](./LICENSE) · 欢迎 fork / remix / 自带菜谱来交朋友。
+**本项目不是开源软件。** 源代码、菜谱与文案数据、设计稿、文档 —— 全部**保留所有权利**（All Rights Reserved），
+未授予复制、修改、分发、再授权、商用或制作衍生作品的权利。
+
+允许的有限行为：
+
+- 通过浏览器**访问已部署的网页**（[在线体验](https://meimengchengzhen.github.io/jin-tian-chi-shenme/)），正常使用其前端交互；
+- 在 GitHub 上**阅读本仓库主页**（README、源码、提交历史），用于代码评审、作品集展示、面试 / 评选等场景；
+- 评审 / 报道 / 教学场景下的**少量、合理引用**，并标注来源。
+
+完整条款（包括禁止用于 AI 训练、批量抓取、商业再分发等）以 [LICENSE](./LICENSE) 文件为准。如需更广泛的使用授权，请先联系作者。
 
 ---
 
