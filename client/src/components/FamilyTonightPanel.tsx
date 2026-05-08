@@ -55,6 +55,7 @@ import {
   type RemixWithFridgeInfo,
 } from "@/lib/leftoverRemix";
 import { addSelected } from "@/lib/selectedToday";
+import { setTonightPlan, type TonightPlan } from "@/lib/tonightPlan";
 import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
 import { loadReactions, subscribeReactions } from "@/lib/reactions";
 
@@ -277,6 +278,83 @@ export function FamilyTonightPanel() {
     setSeed((s) => s + 1);
   }
 
+  function buildFamilyPlan(): TonightPlan | null {
+    if (!result) return null;
+    const peopleN = PEOPLE_OPTIONS.find((p) => p.id === people)?.n ?? 4;
+    const lines: TonightPlan["lines"] = [];
+    lines.push({
+      label: "主菜",
+      text: result.main.name,
+      detail: `${result.main.cuisine} · 约 ${result.main.timeMinutes} 分钟 · ${result.main.difficulty}`,
+      link: {
+        label: "做法搜索",
+        href: stableSearchUrl("百度", `${result.main.name} 家常做法`),
+      },
+    });
+    lines.push({
+      label: "配菜",
+      text: result.veggie.name,
+      detail: `${result.veggie.cuisine} · 约 ${result.veggie.timeMinutes} 分钟 · ${result.veggie.difficulty}`,
+      link: {
+        label: "做法搜索",
+        href: stableSearchUrl("百度", `${result.veggie.name} 家常做法`),
+      },
+    });
+    lines.push({
+      label: result.soupOrStaple.course === "soup" ? "汤" : "主食",
+      text: result.soupOrStaple.name,
+      detail: `${result.soupOrStaple.cuisine} · 约 ${result.soupOrStaple.timeMinutes} 分钟 · ${result.soupOrStaple.difficulty}`,
+      link: {
+        label: "做法搜索",
+        href: stableSearchUrl(
+          "百度",
+          `${result.soupOrStaple.name} 家常做法`,
+        ),
+      },
+    });
+
+    const compatLevel: TonightPlan["familyCompat"] = (() => {
+      const levels = Object.values(result.matches).map((m) => m.level);
+      if (levels.includes("red")) return "red";
+      if (levels.includes("amber")) return "amber";
+      return "green";
+    })();
+
+    const compatLines: string[] = [];
+    if (activeMembers.length > 0) {
+      for (const r of [result.main, result.veggie, result.soupOrStaple]) {
+        const m = result.matches[r.id];
+        if (!m) continue;
+        const summary = summarizeConflicts(m);
+        if (summary === "全家都能吃") continue;
+        compatLines.push(`${r.name} · ${summary}`);
+      }
+    }
+
+    return {
+      kind: "family",
+      title: `今晚一桌：${result.main.name} · ${result.veggie.name} · ${result.soupOrStaple.name}`,
+      audience: `家庭 · ${peopleN} 人 · ${budget}档${lean ? ` · ${lean}` : ""}`,
+      createdAt: new Date().toISOString(),
+      tags: [`${peopleN} 人`, budget, ...(lean ? [lean] : [])],
+      lines,
+      budget: result.budgetEst,
+      familyCompat: activeMembers.length > 0 ? compatLevel : undefined,
+      familyCompatLines: compatLines,
+      fridgeMatched: result.fridgeMatched.length > 0 ? result.fridgeMatched : undefined,
+      fridgeMissing: result.fridgeMissing.length > 0 ? result.fridgeMissing : undefined,
+      remixHint:
+        result.remix && result.remixSource
+          ? `昨天的「${result.remixSource}」可以变成「${result.remix.title}」 · 加约 ${result.remix.extraMinutes} 分钟${
+              result.remix.fridgeMissing.length > 0
+                ? `，还要补：${result.remix.fridgeMissing.join("、")}`
+                : "，冰箱里就够了"
+            }`
+          : undefined,
+      tomorrowHint: `${result.tomorrow.title} · ${result.tomorrow.hint}`,
+    };
+  }
+
   function confirmThis() {
     if (!result) return;
     const peopleN = PEOPLE_OPTIONS.find((p) => p.id === people)?.n ?? 4;
@@ -291,11 +369,17 @@ export function FamilyTonightPanel() {
         note: `家庭饭 · ${peopleN} 人份`,
       });
     }
+    const plan = buildFamilyPlan();
+    if (plan) setTonightPlan(plan);
     setConfirmed(true);
     toast({
       title: "今晚就这桌 ✓",
-      description: "三道菜已加入「今日已选」；右下角浮窗能看到合计。",
+      description: "已沉淀为「今晚最终方案」 · 也可以在右下角浮窗查看合计。",
     });
+  }
+
+  function goPlan() {
+    if (typeof window !== "undefined") window.location.hash = "#/tonight-plan";
   }
 
   function nav(hash: string) {
@@ -578,13 +662,26 @@ export function FamilyTonightPanel() {
           </div>
 
           {confirmed && (
-            <p
-              className="mt-3 inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-[12px] text-emerald-700"
+            <div
+              className="mt-3 flex flex-wrap items-center gap-2"
               data-testid="family-confirm-feedback"
             >
-              <CheckCircle2 className="h-3.5 w-3.5" />
-              已确认 · 浮窗里能看到合计；想换还能再点「再来一组」。
-            </p>
+              <p className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-[12px] text-emerald-700">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                已沉淀为今晚最终方案
+              </p>
+              <Button
+                type="button"
+                variant="default"
+                size="sm"
+                className="h-8 gap-1.5 rounded-full px-3 text-[12px]"
+                onClick={goPlan}
+                data-testid="family-view-plan"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                查看最终方案
+              </Button>
+            </div>
           )}
 
           {/* 二级深挖入口 */}

@@ -38,6 +38,7 @@ import {
 } from "@/lib/companionRecommend";
 import { buildLazyItems, totalsOfLazyItems } from "@/lib/lazyEstimates";
 import { addSelected } from "@/lib/selectedToday";
+import { setTonightPlan, type TonightPlan } from "@/lib/tonightPlan";
 import { FoodImage, stableSearchUrl } from "@/components/FoodImage";
 import { useReactions } from "@/hooks/useReactions";
 import { moodQuote } from "@/lib/lazyCopy";
@@ -313,13 +314,94 @@ export function SoloTonightPanel() {
     setSeed((s) => s + 1);
   }
 
+  function buildPlan(): TonightPlan {
+    const lines: TonightPlan["lines"] = [];
+    if (result.recipe) {
+      lines.push({
+        label: "今晚做什么菜",
+        text: result.recipe.name,
+        detail: `${result.recipe.cuisine} · 约 ${result.recipe.timeMinutes} 分钟 · ${result.recipe.reason}`,
+        link: {
+          label: "做法搜索",
+          href: stableSearchUrl("百度", `${result.recipe.name} 家常做法`),
+        },
+      });
+    }
+    lines.push({
+      label: result.recipe ? "外卖备选" : "今晚点外卖",
+      text: result.takeoutBrand.name,
+      detail: `${result.takeoutBrand.intro} · 单人约 ¥${result.takeoutBrand.budgetMin}-${result.takeoutBrand.budgetMax}`,
+      link: { label: "美团搜", href: stableSearchUrl("美团", result.takeoutBrand.name) },
+    });
+    lines.push({
+      label: "零食 1",
+      text: result.snackA.name,
+      detail: result.snackA.reason,
+    });
+    lines.push({
+      label: "零食 2",
+      text: result.snackB.name,
+      detail: result.snackB.reason,
+    });
+    lines.push({
+      label: "水果",
+      text: result.fruit.name,
+      detail: result.fruit.reason,
+    });
+    lines.push({
+      label: "喝点啥",
+      text: result.drink,
+    });
+    if (result.watch) {
+      lines.push({
+        label: "一边吃一边看",
+        text: result.watch.title,
+        detail: `${result.watch.type} · ${result.watch.reason}`,
+        link: {
+          label: "搜哪里看",
+          href: stableSearchUrl("百度", `${result.watch.title} 在线观看`),
+        },
+      });
+    }
+    if (result.audio) {
+      lines.push({
+        label: "或者听点啥",
+        text: result.audio.title,
+        detail: `${result.audio.type} · ${result.audio.why}`,
+        link: {
+          label: "喜马拉雅搜",
+          href: `https://www.ximalaya.com/search/${encodeURIComponent(result.audio.title)}`,
+        },
+      });
+    }
+    const title = result.recipe
+      ? `今晚做${result.recipe.name} · 配${result.snackA.name} + ${result.fruit.name}`
+      : `今晚点${result.takeoutBrand.name} · 配${result.snackA.name} + ${result.fruit.name}`;
+    return {
+      kind: "solo",
+      title,
+      audience: `单人 · ${mood} · ${mode} · ${budget}档`,
+      createdAt: new Date().toISOString(),
+      tags: [mood, mode, budget],
+      lines,
+      quote: result.quote,
+      budget: result.priceEst,
+      calories: result.caloriesEst,
+    };
+  }
+
   function confirmThis() {
     for (const item of result.items) addSelected(item);
+    setTonightPlan(buildPlan());
     setConfirmed(true);
     toast({
       title: "今晚就这样了 ✓",
-      description: "已加入「今日已选」，刷新也不会丢；右下角浮窗能看到总价 / 热量。",
+      description: "已沉淀为「今晚最终方案」 · 右下角浮窗也能看到总价 / 热量。",
     });
+  }
+
+  function goPlan() {
+    if (typeof window !== "undefined") window.location.hash = "#/tonight-plan";
   }
 
   return (
@@ -662,13 +744,26 @@ export function SoloTonightPanel() {
         </div>
 
         {confirmed && (
-          <p
-            className="mt-3 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[12px] text-emerald-700"
+          <div
+            className="mt-3 flex flex-wrap items-center gap-2"
             data-testid="solo-confirm-feedback"
           >
-            <CheckCircle2 className="h-3.5 w-3.5" />
-            已确认 · 浮窗里能看到总价和热量；想换还能再点「再来一份」。
-          </p>
+            <p className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[12px] text-emerald-700">
+              <CheckCircle2 className="h-3.5 w-3.5" />
+              已沉淀为今晚最终方案
+            </p>
+            <Button
+              type="button"
+              variant="default"
+              size="sm"
+              className="h-8 gap-1.5 rounded-full px-3 text-[12px]"
+              onClick={goPlan}
+              data-testid="solo-view-plan"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              查看最终方案
+            </Button>
+          </div>
         )}
       </Card>
     </section>

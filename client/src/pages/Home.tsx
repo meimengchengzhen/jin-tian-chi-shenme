@@ -61,6 +61,7 @@ const FruitPanel = lazy(() => import("@/components/FruitPanel").then((m) => ({ d
 const LazyDecisionPanel = lazy(() => import("@/components/LazyDecisionPanel").then((m) => ({ default: m.LazyDecisionPanel })));
 const SoloTonightPanel = lazy(() => import("@/components/SoloTonightPanel").then((m) => ({ default: m.SoloTonightPanel })));
 const FamilyTonightPanel = lazy(() => import("@/components/FamilyTonightPanel").then((m) => ({ default: m.FamilyTonightPanel })));
+const TonightPlanPanel = lazy(() => import("@/components/TonightPlanPanel").then((m) => ({ default: m.TonightPlanPanel })));
 const WeeklyMenuPanel = lazy(() => import("@/components/WeeklyMenuPanel").then((m) => ({ default: m.WeeklyMenuPanel })));
 const FamilyPanel = lazy(() => import("@/components/FamilyPanel").then((m) => ({ default: m.FamilyPanel })));
 const FridgePanel = lazy(() => import("@/components/FridgePanel").then((m) => ({ default: m.FridgePanel })));
@@ -442,6 +443,7 @@ const SUB_GROUPS: Record<string, { id: MainTabId; label: string; emoji: string }
     { id: "solo", label: "一个人", emoji: "🧍" },
     { id: "family-tonight", label: "一家人", emoji: "👨‍👩‍👧" },
     { id: "lazy", label: "懒人决定", emoji: "🪄" },
+    { id: "tonight-plan", label: "今晚最终方案", emoji: "✨" },
   ],
 };
 
@@ -450,7 +452,7 @@ function groupOf(id: MainTabId): keyof typeof SUB_GROUPS | null {
   if (id === "search" || id === "takeout" || id === "snacks" || id === "fruit" || id === "travel") return "search";
   if (id === "health") return "health";
   if (id === "companion" || id === "hotboard") return "companion";
-  if (id === "solo" || id === "lazy") return "decide";
+  if (id === "solo" || id === "lazy" || id === "tonight-plan") return "decide";
   return null;
 }
 
@@ -1242,6 +1244,7 @@ export default function Home() {
               {tab === "lazy" && <LazyDecisionPanel />}
               {tab === "solo" && <SoloTonightPanel />}
               {tab === "family-tonight" && <FamilyTonightPanel />}
+              {tab === "tonight-plan" && <TonightPlanPanel />}
               {tab === "weekly" && <WeeklyMenuPanel />}
               {tab === "family" && <FamilyPanel onPickRecipe={(r) => setDetailRecipe(r)} />}
               {tab === "fridge" && <FridgePanel onPickRecipe={(r) => setDetailRecipe(r)} />}
