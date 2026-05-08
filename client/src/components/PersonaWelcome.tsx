@@ -69,11 +69,15 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
   // 三步：① 角色 ② 心情/健康 ③ 数值（可跳过）
   const [step, setStep] = useState(0);
   const [persona, setPersona] = useState<Persona>(() => initial ?? emptyPersona());
+  // 「先随便试试」是 UI 概念上的第 4 张快速卡，不对应任何 role；
+  // 用单独状态跟踪它的高亮，避免污染 persona.role。
+  const [browseSelected, setBrowseSelected] = useState(false);
 
   useEffect(() => {
     if (open) {
       setStep(0);
       setPersona(initial ?? emptyPersona());
+      setBrowseSelected(false);
     }
   }, [open, initial]);
 
@@ -87,17 +91,21 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
 
   function pickRole(id: RoleId) {
     patch({ role: id });
-    setStep(1);
+    setBrowseSelected(false);
+    // 不再自动跳到下一步——让用户继续在当前页确认其他个性化选项；
+    // 真正的跳转放到底部「开始探索」主按钮里。
   }
 
-  // 快速路线：直接保存当前 persona（带上 role）并跳到对应入口。
-  // 「browse」表示「先随便试试」— 不绑定 role，仅关闭弹窗。
+  // 快速路线：只记录选中状态（高亮 + 设置 role），不再立刻保存或跳转。
+  // 「browse」表示「先随便试试」— 不绑定任何 role，但仍允许继续填资料。
   function pickQuickRoute(id: RoleId | "browse") {
     if (id === "browse") {
-      onSave({ ...persona, role: undefined } as Persona, { jumpRole: false });
+      patch({ role: undefined });
+      setBrowseSelected(true);
       return;
     }
-    onSave({ ...persona, role: id }, { jumpRole: true });
+    patch({ role: id });
+    setBrowseSelected(false);
   }
 
   function toggleMood(id: MoodId) {
@@ -110,8 +118,34 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
 
   const plan = useMemo(() => estimatePersonaPlan(persona), [persona]);
 
-  function handleFinish(jump: boolean) {
-    onSave(persona, { jumpRole: jump });
+  // 主按钮文案：根据当前选中的路线/角色给出明确的 CTA。
+  const startCta = useMemo(() => {
+    if (persona.role) {
+      switch (persona.role) {
+        case "lazy":          return "开始探索单人方案";
+        case "family-cook":   return "开始生成家庭饭方案";
+        case "fitness-cut":   return "去健康饮食";
+        case "health-watch":  return "去健康饮食";
+        case "takeout":       return "开始挑外卖";
+        case "travel-foodie": return "开始本地寻味";
+        case "table-talk":    return "去找点饭桌话题";
+        default: {
+          const r = ROLES.find((x) => x.id === persona.role);
+          return r ? `开始探索：${r.label}` : "开始探索";
+        }
+      }
+    }
+    if (browseSelected) return "随便看看，先进首页";
+    return "开始探索";
+  }, [persona.role, browseSelected]);
+
+  // 用户是否已经选择了某条路线（含「随便试试」）。没选时主按钮置灰提示先选路线。
+  const hasRouteChoice = !!persona.role || browseSelected;
+
+  function handleStart() {
+    if (!hasRouteChoice) return;
+    // role 存在 → 跳到对应入口；browseSelected → 仅关闭弹窗、停在首页
+    onSave(persona, { jumpRole: !!persona.role });
   }
 
   return (
@@ -169,29 +203,46 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
                   你想走哪条路？
                 </Label>
                 <span className="text-[11px] text-muted-foreground">
-                  点一下直接进入 · 也可以下面慢慢填
+                  先选一条路线 · 下面继续填会更准
                 </span>
               </div>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {QUICK_ROUTES.map((q) => (
-                  <button
-                    key={q.id}
-                    type="button"
-                    onClick={() => pickQuickRoute(q.id)}
-                    data-testid={`persona-quick-${q.id}`}
-                    className={`flex items-start gap-2.5 rounded-2xl border bg-gradient-to-br ${q.tone} px-3.5 py-3 text-left transition-all hover-elevate active-elevate-2`}
-                  >
-                    <span aria-hidden className="text-2xl">{q.emoji}</span>
-                    <span className="flex min-w-0 flex-1 flex-col">
-                      <span className="font-display text-[14.5px] font-semibold tracking-tight text-foreground">
-                        {q.title}
+                {QUICK_ROUTES.map((q) => {
+                  const active =
+                    q.id === "browse" ? browseSelected : persona.role === q.id;
+                  return (
+                    <button
+                      key={q.id}
+                      type="button"
+                      onClick={() => pickQuickRoute(q.id)}
+                      data-testid={`persona-quick-${q.id}`}
+                      aria-pressed={active}
+                      className={`flex items-start gap-2.5 rounded-2xl border bg-gradient-to-br ${q.tone} px-3.5 py-3 text-left transition-all hover-elevate active-elevate-2 ${
+                        active
+                          ? "ring-2 ring-primary ring-offset-1 ring-offset-background border-primary/70"
+                          : ""
+                      }`}
+                    >
+                      <span aria-hidden className="text-2xl">{q.emoji}</span>
+                      <span className="flex min-w-0 flex-1 flex-col">
+                        <span className="font-display text-[14.5px] font-semibold tracking-tight text-foreground">
+                          {q.title}
+                        </span>
+                        <span className="text-[11.5px] text-foreground/70">{q.hint}</span>
                       </span>
-                      <span className="text-[11.5px] text-foreground/70">{q.hint}</span>
-                    </span>
-                    <ChevronRight className="mt-1 h-4 w-4 flex-shrink-0 text-foreground/50" />
-                  </button>
-                ))}
+                      <ChevronRight className="mt-1 h-4 w-4 flex-shrink-0 text-foreground/50" />
+                    </button>
+                  );
+                })}
               </div>
+              {hasRouteChoice && (
+                <p
+                  className="mt-2 text-[11.5px] text-primary"
+                  data-testid="persona-route-hint"
+                >
+                  路线已选好，可以下面继续补充信息，最后点「{startCta}」。
+                </p>
+              )}
             </div>
 
             <div>
@@ -221,7 +272,7 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
                 })}
               </div>
               <p className="mt-1.5 text-[11.5px] text-muted-foreground">
-                选一个最贴近你今天来这儿的目的。完成后会推荐合适的入口。
+                选一个最贴近你今天来这儿的目的。下一步可以继续选心情和健康关注，最后再点「开始探索」。
               </p>
             </div>
           </div>
@@ -458,8 +509,9 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
                 上一步
               </Button>
             )}
-            {step < 2 ? (
+            {step < 2 && (
               <Button
+                variant="outline"
                 onClick={() => setStep((s) => s + 1)}
                 data-testid="persona-next"
                 className="flex-1 sm:flex-initial"
@@ -467,28 +519,17 @@ export function PersonaWelcome({ open, initial, onClose, onSave }: Props) {
                 下一步
                 <ChevronRight className="ml-0.5 h-4 w-4" />
               </Button>
-            ) : (
-              <>
-                <Button
-                  variant="outline"
-                  onClick={() => handleFinish(false)}
-                  data-testid="persona-save"
-                  className="flex-1 sm:flex-initial"
-                >
-                  保存并继续浏览
-                </Button>
-                {persona.role && (
-                  <Button
-                    onClick={() => handleFinish(true)}
-                    data-testid="persona-save-jump"
-                    className="flex-1 sm:flex-initial"
-                  >
-                    去推荐入口
-                    <ChevronRight className="ml-0.5 h-4 w-4" />
-                  </Button>
-                )}
-              </>
             )}
+            <Button
+              onClick={handleStart}
+              disabled={!hasRouteChoice}
+              data-testid="persona-start"
+              className="flex-1 sm:flex-initial"
+              title={hasRouteChoice ? undefined : "请先在第 1 步选一条路线"}
+            >
+              {startCta}
+              <ChevronRight className="ml-0.5 h-4 w-4" />
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>
