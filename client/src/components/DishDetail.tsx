@@ -156,8 +156,8 @@ export function DishDetail({
                 "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%)",
             }}
           />
-          {/* 状态标签 + 真实/示意切换 + 收藏 */}
-          <div className="absolute right-3 top-3 flex items-center gap-2">
+          {/* 真实/示意切换：左上角，避让 Dialog 自带的右上角关闭 X 按钮 */}
+          <div className="absolute left-3 top-3 z-10 flex items-center gap-2">
             {onToggleRealImages ? (
               <button
                 type="button"
@@ -177,20 +177,21 @@ export function DishDetail({
                 {realImagesEnabled ? "图库 · 示意图" : "本地示意图"}
               </span>
             )}
-            <button
-              type="button"
-              onClick={onToggleFav}
-              data-testid={`button-fav-detail-${recipe.id}`}
-              aria-label={fav ? "取消收藏" : "收藏这道菜"}
-              className={`inline-flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors ${
-                fav
-                  ? "bg-rose-500/90 text-white"
-                  : "bg-white/30 text-white hover:bg-white/45"
-              }`}
-            >
-              <Heart className={`h-4 w-4 ${fav ? "fill-current" : ""}`} />
-            </button>
           </div>
+          {/* 收藏按钮：图片右上角下方一行，避让右上角的关闭 X 按钮，移动端也确保不重叠 */}
+          <button
+            type="button"
+            onClick={onToggleFav}
+            data-testid={`button-fav-detail-${recipe.id}`}
+            aria-label={fav ? "取消收藏" : "收藏这道菜"}
+            className={`absolute right-3 top-14 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full shadow-md backdrop-blur-sm transition-colors ${
+              fav
+                ? "bg-rose-500/90 text-white"
+                : "bg-white/40 text-white hover:bg-white/55"
+            }`}
+          >
+            <Heart className={`h-4 w-4 ${fav ? "fill-current" : ""}`} />
+          </button>
           <div className="absolute inset-x-0 bottom-0 px-6 pb-4 pt-5 text-white sm:px-7">
             <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85">
               <span>{recipe.cuisine}</span>

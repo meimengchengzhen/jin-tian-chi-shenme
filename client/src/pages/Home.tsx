@@ -28,7 +28,7 @@ import {
   Repeat,
 } from "lucide-react";
 import { DishDetail } from "@/components/DishDetail";
-import { ProfileDialog } from "@/components/ProfileDialog";
+import { ProfileDialog, type ProfileTab } from "@/components/ProfileDialog";
 import { Onboarding } from "@/components/Onboarding";
 import { PersonaWelcome } from "@/components/PersonaWelcome";
 import {
@@ -97,6 +97,7 @@ import {
   getActiveProfile,
   computePlan,
   SLOT_LABELS,
+  syncPersonaToProfile,
   type Profile,
   type MealSlot,
 } from "@/lib/profile";
@@ -306,7 +307,8 @@ function DishCard({
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-1">
+        {/* 收藏（爱心）单独成块，与右侧操作按钮保持一段间距，避免移动端误触 */}
+        <div className="flex items-center gap-2">
           <Button
             type="button"
             size="icon"
@@ -314,38 +316,44 @@ function DishCard({
             onClick={onToggleFavorite}
             data-testid={`button-fav-${recipe.id}`}
             aria-label={favorite ? "取消收藏" : "收藏这道菜"}
-            className="h-8 w-8"
+            className={`h-9 w-9 rounded-full border ${
+              favorite
+                ? "border-rose-300/70 bg-rose-50/70"
+                : "border-border/60 bg-card/40"
+            }`}
           >
             <Heart
               className={`h-4 w-4 ${favorite ? "fill-rose-500 text-rose-500" : ""}`}
             />
           </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="ghost"
-            onClick={onToggleLock}
-            data-testid={`button-lock-${recipe.id}`}
-            aria-label={locked ? "解锁这道菜" : "锁定这道菜"}
-            className="h-8 w-8"
-          >
-            {locked ? (
-              <Lock className="h-4 w-4 text-primary" />
-            ) : (
-              <LockOpen className="h-4 w-4" />
-            )}
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="ghost"
-            onClick={onSwap}
-            data-testid={`button-swap-${recipe.id}`}
-            aria-label="只换这一道"
-            className="h-8 w-8"
-          >
-            <RefreshCw className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-1 rounded-full border border-border/60 bg-card/40 p-0.5">
+            <Button
+              type="button"
+              size="icon"
+              variant="ghost"
+              onClick={onToggleLock}
+              data-testid={`button-lock-${recipe.id}`}
+              aria-label={locked ? "解锁这道菜" : "锁定这道菜"}
+              className="h-7 w-7"
+            >
+              {locked ? (
+                <Lock className="h-4 w-4 text-primary" />
+              ) : (
+                <LockOpen className="h-4 w-4" />
+              )}
+            </Button>
+            <Button
+              type="button"
+              size="icon"
+              variant="ghost"
+              onClick={onSwap}
+              data-testid={`button-swap-${recipe.id}`}
+              aria-label="只换这一道"
+              className="h-7 w-7"
+            >
+              <RefreshCw className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -633,6 +641,7 @@ export default function Home() {
   const [profile, setProfile] = useState<Profile | null>(() => getActiveProfile());
   const [env, setEnv] = useState<EnvContext>(() => loadEnv());
   const [profileOpen, setProfileOpen] = useState(false);
+  const [profileTab, setProfileTab] = useState<ProfileTab>("persona");
   const [cloudOpen, setCloudOpen] = useState(false);
   const cloudConfigured = isCloudConfigured();
 
@@ -986,18 +995,19 @@ export default function Home() {
             </span>
             <button
               type="button"
-              onClick={() => setProfileOpen(true)}
+              onClick={() => { setProfileTab("account"); setProfileOpen(true); }}
               data-testid="button-open-profile"
+              title="打开统一个人档案"
               className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-foreground/85 hover-elevate active-elevate-2"
             >
               <UserCircle2 className="h-3.5 w-3.5 text-primary" />
-              {profile ? <span className="max-w-[7em] truncate">{profile.nickname}</span> : "登录 / 档案"}
+              {profile ? <span className="max-w-[7em] truncate">{profile.nickname}</span> : "我的档案"}
             </button>
             <button
               type="button"
-              onClick={() => setPersonaOpen(true)}
+              onClick={() => { setProfileTab("persona"); setProfileOpen(true); }}
               data-testid="button-open-persona"
-              title="再来一次个性化设置（仅本地保存）"
+              title="打开统一个人档案 · 个性化（与首次弹窗同一份数据）"
               className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-foreground/85 hover-elevate active-elevate-2"
             >
               <Sparkles className="h-3.5 w-3.5 text-primary" />
@@ -1343,7 +1353,7 @@ export default function Home() {
             !(profile?.planEnabled && profile.body) && (
               <button
                 type="button"
-                onClick={() => setProfileOpen(true)}
+                onClick={() => { setProfileTab("plan"); setProfileOpen(true); }}
                 data-testid="banner-enable-plan"
                 className="mt-2 inline-flex w-full items-start gap-2 rounded-lg border border-primary/40 bg-primary/5 px-3 py-2 text-left text-[12px] hover-elevate active-elevate-2 sm:w-auto"
               >
@@ -1413,7 +1423,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px]">
               <button
                 type="button"
-                onClick={() => setProfileOpen(true)}
+                onClick={() => { setProfileTab("account"); setProfileOpen(true); }}
                 data-testid="chip-profile-summary"
                 className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-primary hover-elevate active-elevate-2"
               >
@@ -1422,7 +1432,7 @@ export default function Home() {
               </button>
               <button
                 type="button"
-                onClick={() => setProfileOpen(true)}
+                onClick={() => { setProfileTab("env"); setProfileOpen(true); }}
                 data-testid="chip-env-summary"
                 className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-foreground/80 hover-elevate active-elevate-2"
               >
@@ -1799,7 +1809,7 @@ export default function Home() {
                   <Button
                     type="button"
                     size="sm"
-                    onClick={() => setProfileOpen(true)}
+                    onClick={() => { setProfileTab("plan"); setProfileOpen(true); }}
                     data-testid="button-open-profile-from-calorie-hint"
                     className="h-8 rounded-full text-[12px]"
                   >
@@ -2117,6 +2127,8 @@ export default function Home() {
         onChange={refreshProfile}
         env={env}
         onEnvChange={applyEnv}
+        defaultTab={profileTab}
+        onPersonaChange={(p) => setPersona(p)}
       />
 
       <Onboarding
@@ -2146,6 +2158,11 @@ export default function Home() {
           markPersonaSetupShown();
           setPersonaOpen(false);
 
+          // 统一档案：首次完成弹窗时，如果还没有 Profile，则自动创建一个
+          // （从 persona 推导 body：身高/体重/性别/年龄段），让「我的档案」里直接看到这份数据。
+          syncPersonaToProfile(next);
+          refreshProfile();
+
           // 若选了 role，做相应跳转 + 场景预设
           if (p.role) {
             const role = ROLES.find((r) => r.id === p.role);
@@ -2163,7 +2180,7 @@ export default function Home() {
           }
           toast({
             title: "个性化已保存（仅本地）",
-            description: "你可以在「档案」对话框里重新打开个性化设置。",
+            description: "之后点「我的档案」或「个性化」都会打开同一份数据。",
           });
         }}
       />

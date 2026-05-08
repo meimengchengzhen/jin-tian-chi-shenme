@@ -189,3 +189,47 @@ export function deleteProfile(id: string): void {
     setActiveProfileId(next[0]?.id ?? null);
   }
 }
+
+/**
+ * 把 Persona（首次弹窗 / 个性化 Tab 的数据）合并到 active Profile.body。
+ * 用途：让首次弹窗保存后，「我的档案」里也能看到对应的身高/体重/性别等。
+ * 没有 active profile 时会自动创建一个昵称为 "我" 的本地档案。
+ */
+export function syncPersonaToProfile(persona: {
+  sex?: "male" | "female" | "skip";
+  ageBand?: "18-25" | "26-35" | "36-45" | "46-55" | "56+";
+  heightCm?: number;
+  weightKg?: number;
+}): Profile | null {
+  const hasAnyBodyField =
+    persona.heightCm != null ||
+    persona.weightKg != null ||
+    persona.sex != null ||
+    persona.ageBand != null;
+  if (!hasAnyBodyField) {
+    // 没有身体相关字段，无需同步
+    return getActiveProfile();
+  }
+
+  const ageMid = {
+    "18-25": 22, "26-35": 30, "36-45": 40, "46-55": 50, "56+": 60,
+  } as const;
+
+  let active = getActiveProfile();
+  if (!active) {
+    active = createProfile("我");
+  }
+  const personaSex: Sex | undefined =
+    persona.sex === "male" ? "male" : persona.sex === "female" ? "female" : undefined;
+  const mergedBody: BodyInfo = {
+    sex: personaSex ?? active.body?.sex ?? "female",
+    age: persona.ageBand ? ageMid[persona.ageBand] : active.body?.age ?? 28,
+    heightCm: persona.heightCm ?? active.body?.heightCm ?? 165,
+    weightKg: persona.weightKg ?? active.body?.weightKg ?? 60,
+    activity: active.body?.activity ?? "light",
+    goal: active.body?.goal ?? "maintain",
+  };
+  const updated: Profile = { ...active, body: mergedBody };
+  saveProfile(updated);
+  return updated;
+}

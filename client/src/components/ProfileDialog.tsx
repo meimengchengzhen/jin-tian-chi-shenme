@@ -1,5 +1,10 @@
-// 「我的档案」对话框：登录/切换 + 口味偏好 + 饮食计划 + 环境上下文。
-// 三段式 Tabs，全部数据保存在浏览器本地（safe storage）。
+// 「我的档案」对话框（统一个人档案）：
+//  - 「个性化」（persona：角色 / 心情 / 健康关注 / 基础数值），与首次弹窗 PersonaWelcome 共用同一份本地数据
+//  - 账户（多档案 + 昵称）
+//  - 喜好（口味 / 菜系 / 忌口）
+//  - 饮食计划（身高体重活动量目标 + BMR/TDEE）
+//  - 环境（地区 / 天气 / 季节 / 日期类型）
+// 全部数据保存在浏览器本地（safe storage）。
 
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -43,8 +48,24 @@ import {
   listProfiles,
   saveProfile,
   setActiveProfileId,
+  syncPersonaToProfile,
 } from "@/lib/profile";
 import { isStoragePersistent } from "@/lib/storage";
+import {
+  ROLES,
+  MOODS,
+  HEALTH_FOCUS,
+  emptyPersona,
+  loadPersona,
+  savePersona,
+  estimatePersonaPlan,
+  type Persona,
+  type RoleId,
+  type MoodId,
+  type HealthFocusId,
+  type AgeBand,
+  type Sex as PersonaSex,
+} from "@/lib/persona";
 import {
   ALL_SEASONS,
   ALL_WEATHERS,
@@ -87,7 +108,20 @@ interface ProfileDialogProps {
   onChange: () => void;
   env: EnvContext;
   onEnvChange: (e: EnvContext) => void;
+  /** 默认打开的 Tab（外部可用 "persona" 直接进入个性化） */
+  defaultTab?: ProfileTab;
+  /** 用户在 Persona Tab 保存后通知上层（让推荐重算） */
+  onPersonaChange?: (p: Persona) => void;
 }
+
+export type ProfileTab = "persona" | "account" | "flavor" | "plan" | "env";
+
+const AGE_BANDS: AgeBand[] = ["18-25", "26-35", "36-45", "46-55", "56+"];
+const PERSONA_SEX_OPTIONS: { id: PersonaSex; label: string }[] = [
+  { id: "female", label: "女" },
+  { id: "male",   label: "男" },
+  { id: "skip",   label: "不填" },
+];
 
 function Chip({
   active,
@@ -116,12 +150,21 @@ function Chip({
   );
 }
 
-export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: ProfileDialogProps) {
+export function ProfileDialog({
+  open,
+  onClose,
+  onChange,
+  env,
+  onEnvChange,
+  defaultTab = "persona",
+  onPersonaChange,
+}: ProfileDialogProps) {
   const { toast } = useToast();
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [active, setActive] = useState<Profile | null>(null);
   const [nickname, setNickname] = useState("");
-  const [tab, setTab] = useState<string>("account");
+  const [tab, setTab] = useState<ProfileTab>(defaultTab);
+  const [persona, setPersona] = useState<Persona>(() => loadPersona() ?? emptyPersona());
   const persistent = useMemo(() => isStoragePersistent(), []);
 
   // 本地编辑态（避免每次 keystroke 都写 storage）
@@ -155,7 +198,9 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
       setSlot("dinner");
     }
     setEnvDraft(env);
-  }, [open, env]);
+    setPersona(loadPersona() ?? emptyPersona());
+    setTab(defaultTab);
+  }, [open, env, defaultTab]);
 
   function refreshProfiles() {
     setProfiles(listProfiles());
@@ -225,6 +270,32 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
     onEnvChange(envDraft);
     toast({ title: "已应用环境设置" });
   }
+
+  function patchPersona(p: Partial<Persona>) {
+    setPersona((cur) => ({ ...cur, ...p }));
+  }
+
+  function togglePersonaArr<T extends string>(list: T[], v: T): T[] {
+    return list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
+  }
+
+  // 保存 Persona Tab：写入 persona 存储，并把可对应的字段同步到 active profile
+  // （身高/体重/性别/年龄段 → body；忌口经由 personaHealthFilters 在推荐侧软规则生效）。
+  function savePersonaTab() {
+    const next: Persona = { ...persona, updatedAt: Date.now() };
+    savePersona(next);
+    setPersona(next);
+    const synced = syncPersonaToProfile(next);
+    if (synced) {
+      setActive(synced);
+      setBody(synced.body);
+      refreshProfiles();
+    }
+    onPersonaChange?.(next);
+    toast({ title: "已保存个性化设置（仅本地）" });
+  }
+
+  const personaPlan = useMemo(() => estimatePersonaPlan(persona), [persona]);
 
   const plan = body && planEnabled ? computePlan(body, slot) : null;
 
@@ -298,7 +369,7 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
             <UserCircle2 className="h-5 w-5 text-primary" /> 我的档案
           </DialogTitle>
           <DialogDescription>
-            档案、口味、饮食计划与环境设置都保存在<span className="font-medium text-foreground"> 你的浏览器本地</span>，不上传任何服务器；切换浏览器/设备后需要重新设置。
+            个性化、档案、口味、饮食计划与环境设置都保存在<span className="font-medium text-foreground"> 你的浏览器本地</span>，不上传任何服务器；首次进入弹窗与这里编辑的是<span className="font-medium text-foreground">同一份数据</span>。
           </DialogDescription>
         </DialogHeader>
 
@@ -309,9 +380,12 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
           </div>
         )}
 
-        <Tabs value={tab} onValueChange={setTab} className="mt-1">
-          {/* 小屏 2x2，避免「饮食计划」被截断；≥sm 恢复一行 4 列 */}
-          <TabsList className="grid h-auto w-full grid-cols-2 gap-1 sm:grid-cols-4">
+        <Tabs value={tab} onValueChange={(v) => setTab(v as ProfileTab)} className="mt-1">
+          {/* 小屏 2 列 / 中屏 3 列 / 桌面 5 列 */}
+          <TabsList className="grid h-auto w-full grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-5">
+            <TabsTrigger value="persona" data-testid="tab-persona">
+              <Sparkles className="mr-1 h-3.5 w-3.5" /> 个性化
+            </TabsTrigger>
             <TabsTrigger value="account" data-testid="tab-account">
               <UserCircle2 className="mr-1 h-3.5 w-3.5" /> 档案
             </TabsTrigger>
@@ -325,6 +399,246 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
               <Cloud className="mr-1 h-3.5 w-3.5" /> 环境
             </TabsTrigger>
           </TabsList>
+
+          {/* === 个性化 === */}
+          <TabsContent value="persona" className="mt-4 space-y-4" data-testid="tab-content-persona">
+            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-[12px] text-emerald-800 dark:text-emerald-200">
+              <Sparkles className="mr-1 inline h-3.5 w-3.5" />
+              你在「首次个性化弹窗」选择的内容会保存到这里；之后点「个性化」或在档案对话框打开「个性化」Tab 都是同一份数据，可继续修改。
+            </div>
+
+            {/* 角色 */}
+            <div>
+              <Label className="text-[13px] font-medium">你是谁 / 主要使用目的</Label>
+              <p className="mt-0.5 text-[11.5px] text-muted-foreground">单选；用于推荐入口跳转和场景预设</p>
+              <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {ROLES.map((r) => {
+                  const active = persona.role === r.id;
+                  return (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => patchPersona({ role: r.id })}
+                      data-testid={`persona-role-${r.id}`}
+                      className={`group flex h-full flex-col items-start gap-1 rounded-xl border px-3 py-2 text-left transition-all hover-elevate active-elevate-2 ${
+                        active ? "border-primary/60 bg-primary/10" : "border-border bg-card/60"
+                      }`}
+                    >
+                      <span className="text-lg" aria-hidden>{r.emoji}</span>
+                      <span className="font-display text-[13.5px] tracking-tight">{r.label}</span>
+                      <span className="text-[11px] text-muted-foreground">{r.description}</span>
+                    </button>
+                  );
+                })}
+                {persona.role && (
+                  <button
+                    type="button"
+                    onClick={() => patchPersona({ role: undefined })}
+                    data-testid="persona-role-clear"
+                    className="rounded-xl border border-dashed border-border/60 px-3 py-2 text-[12px] text-muted-foreground hover-elevate active-elevate-2"
+                  >
+                    清除选择
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* 心情 */}
+            <div>
+              <Label className="text-[13px] font-medium">现在心情 / 节奏（多选）</Label>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {MOODS.map((m) => {
+                  const active = persona.moods.includes(m.id);
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => patchPersona({ moods: togglePersonaArr<MoodId>(persona.moods, m.id) })}
+                      data-testid={`persona-mood-${m.id}`}
+                      className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[12.5px] transition-colors ${
+                        active ? "border-primary/60 bg-primary text-primary-foreground" : "border-border bg-card/60 text-foreground/85"
+                      }`}
+                    >
+                      <span aria-hidden>{m.emoji}</span>
+                      <span>{m.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 健康关注 */}
+            <div>
+              <Label className="text-[13px] font-medium">健康关注（多选；软偏好，不构成医疗建议）</Label>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {HEALTH_FOCUS.map((h) => {
+                  const active = persona.healthFocus.includes(h.id);
+                  return (
+                    <button
+                      key={h.id}
+                      type="button"
+                      onClick={() => patchPersona({ healthFocus: togglePersonaArr<HealthFocusId>(persona.healthFocus, h.id) })}
+                      data-testid={`persona-health-${h.id}`}
+                      title={h.hint || undefined}
+                      className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[12.5px] transition-colors ${
+                        active ? "border-primary/60 bg-primary text-primary-foreground" : "border-border bg-card/60 text-foreground/85"
+                      }`}
+                    >
+                      <span aria-hidden>{h.emoji}</span>
+                      <span>{h.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 基础数值 */}
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              <div className="col-span-2 sm:col-span-1">
+                <Label className="text-[11.5px] text-muted-foreground">性别</Label>
+                <div className="mt-1 inline-flex w-full overflow-hidden rounded-md border border-border">
+                  {PERSONA_SEX_OPTIONS.map((s) => {
+                    const active = persona.sex === s.id;
+                    return (
+                      <button
+                        key={s.id}
+                        type="button"
+                        onClick={() => patchPersona({ sex: s.id })}
+                        className={`flex-1 px-2 py-1.5 text-[12.5px] transition-colors ${
+                          active ? "bg-primary text-primary-foreground" : "bg-card/60 text-foreground/80"
+                        }`}
+                        data-testid={`persona-sex-${s.id}`}
+                      >
+                        {s.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">年龄段</Label>
+                <select
+                  className="mt-1 w-full rounded-md border border-border bg-card/60 px-2 py-1.5 text-[12.5px]"
+                  value={persona.ageBand ?? ""}
+                  onChange={(e) => patchPersona({ ageBand: (e.target.value || undefined) as AgeBand })}
+                  data-testid="persona-age"
+                >
+                  <option value="">不填</option>
+                  {AGE_BANDS.map((b) => (
+                    <option key={b} value={b}>{b}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">人数</Label>
+                <Input
+                  type="number"
+                  min={1}
+                  max={12}
+                  inputMode="numeric"
+                  value={persona.servings ?? ""}
+                  placeholder="如 2"
+                  onChange={(e) => patchPersona({ servings: e.target.value ? Math.max(1, Math.min(12, +e.target.value)) : undefined })}
+                  data-testid="persona-servings"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">身高 cm</Label>
+                <Input
+                  type="number"
+                  min={120}
+                  max={220}
+                  inputMode="numeric"
+                  value={persona.heightCm ?? ""}
+                  placeholder="如 170"
+                  onChange={(e) => patchPersona({ heightCm: e.target.value ? +e.target.value : undefined })}
+                  data-testid="persona-height"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">体重 kg</Label>
+                <Input
+                  type="number"
+                  min={30}
+                  max={200}
+                  inputMode="numeric"
+                  value={persona.weightKg ?? ""}
+                  placeholder="如 60"
+                  onChange={(e) => patchPersona({ weightKg: e.target.value ? +e.target.value : undefined })}
+                  data-testid="persona-weight"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">目标体重 kg</Label>
+                <Input
+                  type="number"
+                  min={30}
+                  max={200}
+                  inputMode="numeric"
+                  value={persona.targetWeightKg ?? ""}
+                  placeholder="可选"
+                  onChange={(e) => patchPersona({ targetWeightKg: e.target.value ? +e.target.value : undefined })}
+                  data-testid="persona-target"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">省份</Label>
+                <Input
+                  value={persona.province ?? ""}
+                  placeholder="如 广东"
+                  onChange={(e) => patchPersona({ province: e.target.value || undefined })}
+                  data-testid="persona-province"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">城市</Label>
+                <Input
+                  value={persona.city ?? ""}
+                  placeholder="如 广州"
+                  onChange={(e) => patchPersona({ city: e.target.value || undefined })}
+                  data-testid="persona-city"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+              <div>
+                <Label className="text-[11.5px] text-muted-foreground">单餐预算 ¥</Label>
+                <Input
+                  type="number"
+                  min={5}
+                  max={500}
+                  inputMode="numeric"
+                  value={persona.budgetPerMeal ?? ""}
+                  placeholder="如 30"
+                  onChange={(e) => patchPersona({ budgetPerMeal: e.target.value ? +e.target.value : undefined })}
+                  data-testid="persona-budget"
+                  className="mt-1 h-8 text-[12.5px]"
+                />
+              </div>
+            </div>
+
+            {(personaPlan.bmi || personaPlan.dailyKcal) && (
+              <div
+                className="rounded-md border border-amber-300/40 bg-amber-50 px-3 py-2 text-[12px] text-amber-900 dark:bg-amber-900/20 dark:text-amber-200"
+                data-testid="persona-plan-estimate"
+              >
+                <span className="block font-medium">仅供参考的粗略估算</span>
+                <span className="mt-0.5 inline-flex flex-wrap gap-x-3 gap-y-1 num">
+                  {personaPlan.bmi && <span>BMI {personaPlan.bmi}</span>}
+                  {personaPlan.bmr && <span>BMR ≈ {personaPlan.bmr} kcal</span>}
+                  {personaPlan.tdeeRough && <span>每日活动 ≈ {personaPlan.tdeeRough} kcal</span>}
+                  {personaPlan.dailyKcal && <span>建议摄入 ≈ {personaPlan.dailyKcal} kcal</span>}
+                </span>
+                <span className="mt-1 block text-[11px]">
+                  公式：Mifflin-St Jeor + 轻度活动系数；不是医学/营养诊断。
+                </span>
+              </div>
+            )}
+          </TabsContent>
 
           {/* === 账户 === */}
           <TabsContent value="account" className="mt-4 space-y-4">
@@ -878,7 +1192,15 @@ export function ProfileDialog({ open, onClose, onChange, env, onEnvChange }: Pro
             关闭
           </Button>
           <div className="flex gap-2">
-            {tab === "env" ? (
+            {tab === "persona" ? (
+              <Button
+                onClick={savePersonaTab}
+                data-testid="button-save-persona"
+                className="w-full sm:w-auto"
+              >
+                <Save className="mr-1 h-4 w-4" /> 保存个性化
+              </Button>
+            ) : tab === "env" ? (
               <Button onClick={() => { saveEnv(); }} data-testid="button-save-env" className="w-full sm:w-auto">
                 <Save className="mr-1 h-4 w-4" /> 应用环境
               </Button>
