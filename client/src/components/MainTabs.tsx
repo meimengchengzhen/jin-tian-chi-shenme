@@ -26,6 +26,7 @@ export type MainTabId =
   | "home"
   | "weekly"
   | "lazy"
+  | "solo"
   | "health"
   | "search"
   | "travel"
@@ -37,6 +38,9 @@ export type MainTabId =
   | "family"
   | "fridge"
   | "leftover";
+
+// 隐藏 Tab：不出现在顶部导航条上，但 hash 路由可达（首页大卡片入口直接进入）。
+const HIDDEN_TAB_IDS: readonly MainTabId[] = ["solo"];
 
 export interface MainTabDef {
   id: MainTabId;
@@ -74,7 +78,9 @@ function hashToTab(hash: string): MainTabId | null {
   if (hash === "" || hash === "#" || hash === "#/") return "home";
   if (!hash.startsWith(HASH_PREFIX)) return null;
   const id = hash.slice(HASH_PREFIX.length);
-  return MAIN_TABS.some((t) => t.id === id) ? (id as MainTabId) : null;
+  if (MAIN_TABS.some((t) => t.id === id)) return id as MainTabId;
+  if (HIDDEN_TAB_IDS.includes(id as MainTabId)) return id as MainTabId;
+  return null;
 }
 
 export function loadTabFromHash(): MainTabId {

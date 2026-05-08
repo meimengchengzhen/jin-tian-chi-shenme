@@ -16,6 +16,7 @@ function AppRouter() {
       <Route path="/home" component={Home} />
       <Route path="/weekly" component={Home} />
       <Route path="/lazy" component={Home} />
+      <Route path="/solo" component={Home} />
       <Route path="/health" component={Home} />
       <Route path="/search" component={Home} />
       <Route path="/travel" component={Home} />
