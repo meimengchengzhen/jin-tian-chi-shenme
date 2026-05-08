@@ -1200,7 +1200,7 @@ export default function Home() {
             <a
               href="https://github.com/meimengchengzhen/jin-tian-chi-shenme"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs text-muted-foreground hover-elevate active-elevate-2 sm:inline-flex"
               data-testid="link-github"
             >

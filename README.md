@@ -294,7 +294,10 @@ npm run build        # 静态站点：dist/public/
 ```bash
 npm run check            # tsc 类型检查
 npm run check:recommend  # 推荐算法 + 忌口 + 数据库规模冒烟测试
+npm run check:links      # 外链稳健性：所有外卖 / 零食 / 水果 / 旅行入口必须命中稳定搜索 host 白名单
 ```
+
+> **链接稳健性约定**：所有跳转入口都走稳定搜索 URL（百度站内搜索 / 京东 / 淘宝 / 抖音 / 小红书 / Bilibili 搜索），不走商家直链（美团 H5、大众点评 m 站等已知 error_page）。所有外链统一 `target="_blank" rel="noopener noreferrer"`。图片层全部走 `useDishPhoto + onError fallback`：真实图加载失败立刻回落到渐变 + emoji + 首字占位，不会破图。
 
 重新生成扩展菜谱（基于模板组合）：
 

@@ -160,17 +160,16 @@ export function pickSnack(input: SnackPickInput): SnackPickResult {
 }
 
 /** 美团闪购 / 京东到家 / 淘宝 / 百度兜底搜索入口。
- *  v2: 美团闪购的 H5 直链多次改版导致 error_page，故主入口改走「百度站内搜索 site:meituan.com」走稳。
- *  v3: 优先用 brand + 商品名拼接，命中率更高。
+ *  v4: 全部走稳定搜索入口（百度站内 / 平台搜索）。美团 H5 直达多次改版常 error_page，已彻底移除。
+ *  优先用 brand + 商品名拼接，命中率更高。
  */
 export function snackSearchLinks(name: string, extraKeywords?: string[]): { label: string; href: string; note?: string }[] {
   const q = encodeURIComponent(name);
   const expanded = encodeURIComponent([name, ...(extraKeywords || [])].join(" "));
   return [
-    { label: "美团闪购（稳定搜索入口）", href: `https://www.baidu.com/s?wd=${encodeURIComponent("美团闪购 " + name)}` },
-    { label: "京东到家搜", href: `https://search.jd.com/Search?keyword=${q}` },
+    { label: "美团闪购搜（百度站内）", href: `https://www.baidu.com/s?wd=${encodeURIComponent("美团闪购 " + name)}` },
+    { label: "京东搜", href: `https://search.jd.com/Search?keyword=${q}` },
     { label: "淘宝搜", href: `https://s.taobao.com/search?q=${q}` },
     { label: "百度搜", href: `https://www.baidu.com/s?wd=${expanded}` },
-    { label: "美团闪购 直达（可能不可用）", href: `https://i.meituan.com/awp/h5/search/result.html?q=${q}`, note: "美团 H5 入口多次改版，可能 error_page" },
   ];
 }
